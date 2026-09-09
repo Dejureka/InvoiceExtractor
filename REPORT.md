@@ -73,7 +73,10 @@ pytest -q
 
 ## GitHub
 
-見下方 commit／push 結果。若 push 成功：`Dejureka/InvoiceExtractor`（private）。
+- Commit: `175513c` on `main`
+- Remote: https://github.com/Dejureka/InvoiceExtractor
+- Pushed successfully (repo already existed; visibility set private if permitted).
+
 
 ## Auditor note
 
