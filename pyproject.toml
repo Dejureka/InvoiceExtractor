@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "invoice-extractor"
+version = "0.1.0"
+description = "Portable invoice PDF → JSON extractor (rules + hard checker)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "pdf-layout-text>=0.1.0",
+  "pdfminer.six>=20221105",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+invoice-extract = "invoice_extractor.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+invoice_extractor = ["../data/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

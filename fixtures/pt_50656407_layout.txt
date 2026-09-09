@@ -1,0 +1,278 @@
+       Invoice
+                                                                                                                                                                                                                                             Robert Bosch Power Tools GmbH
+
+                                                                                                                                                                                                                                             70538 Stuttgart
+       Ship-To                                                                                 Sold-To                                                                                               Page                1/     7
+
+       Company                                                                                 Robert Bosch Taiwan Co., Ltd.
+       Robert Bosch Taiwan Co., Ltd (RBTW)                                                     Dahua St. Luzhu Dist. No.432
+       No.432, Dahua St. Luzhu Dist.                                                           338013 TAOYUAN CITY                                                                                   Invoice Date                                   08.07.2026
+       338013 TAOYUAN CITY                                                                     TAIWAN
+       TAIWAN
+                                                                                                                                                                                                     Transport No.                                     468053
+
+
+       Consignee                                                                               Your contact person at Bosch:                                                                         Customer No.                                   227026
+                                                                                               Tools: Customer Service East
+       Robert Bosch Taiwan Co., Ltd.                                                           E-Mail: DE-WOR-MIT1-CUSTOMERSERVICE-EAST@FIEGE.COM
+       Dahua St. Luzhu Dist. No.432                                                            Telephone: +49 6242 502 558 - Fax:+49 6242 502 511                                                    Account No.                                    227026
+       338013 TAOYUAN CITY                                                                     Service: Kerstin Denecke
+                                                                                               E-Mail: KERSTIN.DENECKE@DE.BOSCH.COM
+       TAIWAN
+                                                                                               Telephone: +49 5553 202-248 - Fax: +49 5553 202-322
+                                                                                                                                                                                                     Dispatch type                                  Sea
+                                                                                               Accessories: Tingting Jin
+                                                                                               E-Mail:
+                                                                                               Telephone: - Fax:
+                                                                                                                                                                                                     Invoice No.                                    50656407
+
+                                                                                                                                                                                                     VAT-ident. no.                  DE811128452
+
+
+       Your VAT-Ident. / Tax no.                                                                                                                                                                     Departure country                              Malaysia
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                            08.07.2026 - 04:08:00
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                      468053                          Customer No.                    227026                            Page                 2/     7
+
+                                                              Invoice No.                     50656407                           Account No.                     227026                            Invoice Date                                 08.07.2026
+
+      Delivery no.                Gross             Mat.Net              Material no.                     Material description                        Material description                        Qty. Unit                   Price          Total amount     Pref.
+      Packing no.                 Weight/kg                                                               Origin/Tarif Code                            Bosch order no.                            Ref. no./Date               USD            USD
+      Delivery Date                                                      Cust. goods no.                  Cust. goods descrip.                         Cust. order no.                            ext. Text Extranet
+
+      22405910/                         84.500             64.500        1.600.A01.2FZ                    Carrying Case L-BOXX                        Carrying Case                                             40 pcs               14.33        573.20
+      1019720196                                                                                          PL 4202129900                               112716938 / 10
+      08.07.2026                                                                                                                                      4534374847
+
+      22405910/                         35.000             15.000        0.601.076.800                    Inclinometer                                Bosch Blue Inclinometer G                                  8 pcs             125.41        1,003.28     X
+      1019720229                                                                                          CN 9031809000                               112753483 / 10
+      08.07.2026                                                                                                                                      4534413780
+
+      22405910/                       194.000              16.300        0.601.2C2.080                    Belt Sander GBS 18V-                        Belt Sander                                                5 pcs             113.31         566.55      X
+      1019720285                                                                                          CN 8467290000                               112731670 / 10
+      08.07.2026                                                                                                                                      4534390099
+
+                                                           14.100        0.601.6B8.080                    GKM 18V-50 (solo)                           Circular saw                                               5 pcs             124.74         623.70      X
+                                                                                                          CN 8467220000                               112717489 / 10
+                                                                                                                                                      4534375338
+
+                                                           24.984        0.601.065.320                    Laser Level GLL 12-2                        Laser Level                                               36 pcs               34.57       1,244.52     X
+                                                                                                          CN 9015300000                               112736560 / 10
+                                                                                                                                                      4534396149
+
+                                                           62.880        0.601.9M6.0K0                    Cordless Angle Grind                                                                                  24 pcs             118.99        2,855.76     X
+                                                                                                          CN 8467290000                               112742235 / 10
+                                                                                                                                                      4534402860
+
+                                                           15.820        0.601.9L4.180                    Universal Angle Poli                                                                                  10 pcs               85.00        850.00      X
+                                                                                                          CN 8467290000                               112747640 / 10
+                                                                                                                                                      4534408169
+
+                                                           15.930        0.601.9K6.0L0                    Cordless Drill Drive                                                                                   9 pcs               77.80        700.20      X
+                                                                                                          MY 8467290000                               112736555 / 10
+                                                                                                                                                      4534396146
+
+
+
+
+                                                                                                          Sub total                                                                                                                              8,417.21
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          08.07.2026 - 04:08:00
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                      468053                          Customer No.                    227026                            Page                 3/     7
+
+                                                              Invoice No.                     50656407                           Account No.                     227026                            Invoice Date                                 08.07.2026
+
+      Delivery no.                Gross             Mat.Net              Material no.                     Material description                        Material description                        Qty. Unit                   Price          Total amount     Pref.
+      Packing no.                 Weight/kg                                                               Origin/Tarif Code                            Bosch order no.                            Ref. no./Date               USD            USD
+      Delivery Date                                                      Cust. goods no.                  Cust. goods descrip.                         Cust. order no.                            ext. Text Extranet
+
+                                                           10.500        1.600.A02.BW0                    Dust Extraction GDE                         Dust Extraction                                            6 pcs               35.02        210.12      X
+                                                                                                          CN 8508110000                               112742235 / 20
+                                                                                                                                                      4534402860
+
+      22405910/                         92.430             72.430        0.601.9C6.3K0                    VACUUM CLEANER GAS 1                        Battery Vacuum Cleaner                                    12 pcs               77.06        924.72      X
+      1019721328                                                                                          CN 8508110000                               112731670 / 20
+      08.07.2026                                                                                                                                      4534390099
+
+      22405910/                         31.600               1.700       1.600.A01.2FZ                    Carrying Case L-BOXX                        Carrying Case                                              1 pcs               14.33         14.33
+      1019721334                                                                                          PL 4202129900                               112716938 / 10
+      08.07.2026                                                                                                                                      4534374847
+
+                                                           26.250        1.600.A02.BW0                    Dust Extraction GDE                         Dust Extraction                                           15 pcs               35.02        525.30      X
+                                                                                                          CN 8508110000                               112742235 / 20
+                                                                                                                                                      4534402860
+
+
+                                                                                                          Net invoiced value of goods                                                                                                          10,091.68          *
+                                                                                                          Net value 2                                                                                                                          10,091.68
+                                                                                                          Output Tax                                   10,091.68                                                                                    0.00
+                                                                                                          Total                                                                                                                                10,091.68          **
+                                                                                                          FCA Port Klang
+                                                                                                          Discountable amount                                                                                                                  10,091.68
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          08.07.2026 - 04:08:00
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                      468053                          Customer No.                    227026                            Page                 4/     7
+
+                                                              Invoice No.                     50656407                           Account No.                     227026                            Invoice Date                                 08.07.2026
+
+      Terms of payment          Up to 06.09.2026 without deduction
+      Deutsche Bank AG Stuttgart,
+      IBAN: DE49600700700111233300
+      BIC: DEUTDESSXXX
+
+
+      Address of payee:
+      ROBERT BOSCH POWER TOOLS GMBH
+      GS/OBC138-EMEA1
+      POSTFACH 30 02 20
+      70442 STUTTGART
+      DEUTSCHLAND/GERMANY
+
+
+
+      Robert Bosch Power Tools GmbH
+
+
+
+
+      Country of origin
+      CN = China
+      MY = Malaysia
+      PL = Poland
+
+
+      Tarif Code                                              Net Weight                         Value
+      4202129900                                               66.200 KG                   587.53 USD
+      8467220000                                               14.100 KG                   623.70 USD
+      8467290000                                              110.930 KG                 4,972.51 USD
+      8508110000                                              109.180 KG                 1,660.14 USD
+      9015300000                                               24.984 KG                 1,244.52 USD
+      9031809000                                               15.000 KG                 1,003.28 USD
+      total                                                   340.394 KG                10,091.68 USD
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          08.07.2026 - 04:08:00
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                      468053                          Customer No.                    227026                            Page                 5/     7
+
+                                                              Invoice No.                     50656407                           Account No.                     227026                            Invoice Date                                 08.07.2026
+
+
+      total:                                                 Net Weight:                    340.394 KG
+                                                           Gross Weight:                    437.530 KG
+                                                                  Value:                10,091.68 USD
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          08.07.2026 - 04:08:00
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                      468053                          Customer No.                    227026                            Page                 6/     7
+
+                                                              Invoice No.                     50656407                           Account No.                     227026                            Invoice Date                                 08.07.2026
+
+
+      Packing details
+
+      Packing no.                                                                                                                                            Weight Net             Weight Gross                         Dimensions             Value of goods
+
+
+      Shipping unit 1019720196 with Subpackage:
+      22405910/                1 P.13 Folding Box with Euro Pallet                                                                                             64.500 kg                 84.500 kg            1,200/ 800/1070 MM                  573.20 USD
+      1019720196
+
+      Shipping unit 1019720229 with Subpackage:
+      22405910/                1 P.13 Folding Box with Euro Pallet                                                                                             15.000 kg                 35.000 kg            1,200/ 800/1070 MM                 1,003.28 USD
+      1019720229
+
+      Shipping unit 1019720285 with Subpackage:
+      22405910/                1 P.13 Folding Box with Euro Pallet                                                                                           160.514 kg                194.000 kg             1,200/ 800/1070 MM                 7,050.85 USD
+      1019720285
+
+      Shipping unit 1019721328 with Subpackage:
+      22405910/                1 P.13 Folding Box with Euro Pallet                                                                                             72.430 kg                 92.430 kg            1,200/ 800/1070 MM                  924.72 USD
+      1019721328
+
+      Shipping unit 1019721334 with Subpackage:
+      22405910/                1 CARTON -XL                                                                                                                    27.950 kg                 31.600 kg               800/ 600/ 600 MM                 539.63 USD
+      1019721334
+
+      total                                                                                                                                          ______________            ______________
+                                                                                                                                                          340.394 kg                437.530 kg
+      P.13 Folding Box with Euro Pallet                                                                           :    4
+      CARTON -XL                                                                                                  :    1
+
+
+      total                                                                                                           : 5
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          08.07.2026 - 04:08:00
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                      468053                          Customer No.                    227026                            Page                 7/     7
+
+                                                              Invoice No.                     50656407                           Account No.                     227026                            Invoice Date                                 08.07.2026
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          08.07.2026 - 04:08:00
+

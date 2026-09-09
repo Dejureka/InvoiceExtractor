@@ -1,0 +1,972 @@
+                                                      Ladeliste
+                                                      Nummer / Belegdatum / Druckdatum
+                                                      3000214469 / 04.12.2025 / 12:49:33
+                                                      Versandstelle
+                                                      1001 Versandstelle Rottenburg
+
+
+
+
+                                                                        3000214469
+
+_____________________________________________________________________________________________________
+Route     Lieferung                          AnzPks      Liefertermin            Gesamtgewicht
+          Warenempfänger
+          PLZ         Ort
+_____________________________________________________________________________________________________
+TW0200 82297029                             4    08.12.2025                             3.455,800 KG
+       BOSCH HOME COMFORT TAIWAN CO.
+                TAOYUAN                          Typ                                  Serialnummer
+       4007254237    Palette CS85 Sirex, 5 Kufen
+                                                 CSW8573-90Y-35P                      1009101980
+       4007254239    Palette CS85 Sirex, 5 Kufen
+                                                 CSW8573-90Y-35P                      1009101981
+       4007254358    Palette CS85 Sirex, 5 Kufen
+                                                 CSW8573-90Y-35P                      1009101982
+       4007254986    Palette CS85 Sirex, 5 Kufen
+                                                 CSW8573-90Y-35P                      1009101983
+TW0200 82297030                             1    09.12.2025                              852,600 KG
+       BOSCH HOME COMFORT TAIWAN CO.
+                TAOYUAN                          Typ                                  Serialnummer
+       4007254889    Palette CS85 Sirex, 5 Kufen
+                                                 CSW8573-90Y-35P                      1009101984
+TW0200 82297031                             1    11.12.2025                              869,200 KG
+       BOSCH HOME COMFORT TAIWAN CO.
+                TAOYUAN                          Typ                                  Serialnummer
+       4007255814    Palette CS85 Sirex, 5 Kufen
+                                                 CSW8573-90Y-35P                      1009102041
+TW0200 82297032                             1    12.12.2025                              874,800 KG
+       BOSCH HOME COMFORT TAIWAN CO.
+                TAOYUAN                          Typ                                  Serialnummer
+       4007255810    Palette CS85 Sirex, 5 Kufen
+                                                 CSW8573-90Y-20P                      1009102042
+_____________________________________________________________________________________________________
+Gesamtgewicht                                     7                                     6.052,400 KG
+
+Zusammenfassung Abmessungen
+                                                    Nummer / Belegdatum / Druckdatum    Seite
+                                                    3000214469 / 04.12.2025 /           2
+                                                    12:49:33
+
+_____________________________________________________________________________________________________
+Route     Lieferung                          AnzPks      Liefertermin            Gesamtgewicht
+          Warenempfänger
+          PLZ         Ort
+_____________________________________________________________________________________________________
+               2            X 193.000 X 83.000 X 92.000 CM
+               1            X 194.000 X 83.000 X 94.000 CM
+               2            X 194.000 X 83.000 X 92.000 CM
+               1            X 193.000 X 83.000 X 93.000 CM
+               1            X 194.000 X 83.000 X 93.000 CM
+                                                                    BITZER Kühlmaschinenbau GmbH
+                                                                    Peter-Schaufler-Platz 1
+                                                                    71065 Sindelfingen // Germany
+                                                                    Tel +49 70 31 932-0
+                                                                    bitzer@bitzer.de // www.bitzer.de
+ BITZER Kühlmaschinenbau GmbH
+ Peter-Schaufler-Platz 1 · 71065 Sindelfingen, Germany
+
+
+ BOSCH HOME COMFORT TAIWAN CO. LTD.
+ 63 NANKING EAST ROAD SEC. 3                                        Commercial Invoice
+ TAIPEI
+ TAIWAN                                                             Number / Doc. date / Print date
+                                                                    200167553 / 04.12.2025 / 04.12.2025
+                                                                    Customer number
+                                                                    103151
+
+
+
+
+ Ship-to address (708822)                                           Payer (103151)
+ BOSCH HOME COMFORT TAIWAN CO. LTD.                                 BOSCH HOME COMFORT TAIWAN CO. LTD.
+ NEI TSUO VILLAGE                                                   63 NANKING EAST ROAD SEC. 3
+ 29 NEISH ROAD, LU CHU HSIANG                                       TAIPEI
+ TAOYUAN                                                            TAIWAN
+ TAIWAN
+
+
+
+_______________________________________________________________________
+
+Please always quote one of the BITZER reference numbers when paying
+
+V.A.T. NO BITZER DE812161588
+We deliver according to the following conditions:                                                                   Currency EUR
+Terms of payment:                 90 days net
+Gross weight                   6.052,400 KG
+Net weight                     5.835,295 KG
+
+
+
+_______________________________________________________________________
+Item          Material                                   Quantity   Unit                          Price/Unit                   Value
+              Description                                                                                                       EUR
+_______________________________________________________________________
+
+Order:    11432878 / Item 000010    17.11.2025  Reference: P10058414    17.11.2025
+Delivery: 82297029 / Item 000010    04.12.2025  Terms: FOB HAMBURG SEAPORT Free on board
+000001 100023902                               2 PC          5.291,63 EUR / 1 PC   10.583,26
+          CSW8573-90Y-35P
+          CSW8573-90Y-35P
+          Your material no.: 3HA51126D
+
+
+ Geschäftsführer/Managing Directors:                                               Sitz der Gesellschaft/Registered Office: Sindelfingen
+ Christian Wehrle                                                                  Amtsgericht/Local Court Stuttgart, HRB 240845
+ Rainer Große-Kracht                                                               USt.-Id. Nr./VAT Id. No. DE 8121 61588
+ Martin Büchsel                                                                    Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+ Frank Hartmann                                                                    SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+ Erik Bucher
+ Kai Schuppler
+BOSCH HOME COMFORT TAIWAN CO. LTD.                            Doc. no. / Date                                  Page
+63 NANKING EAST ROAD SEC. 3                                   200167553 / 04.12.2025                           2
+TAIPEI
+
+
+_______________________________________________________________________
+Item           Material                            Quantity     Unit                         Price/Unit                   Value
+               Description                                                                                                 EUR
+_______________________________________________________________________
+               Label language                                      English
+               Type Description-Single Type                        CSW8573-90Y-35P
+               Oil                                                 BSE 170 L
+               Capacity regulator/Vi-regulato                      4x CR SC 230V-50/60Hz
+               Special design                                      without
+               Kind of discharge gas prot.                         PTC 120°C
+               Discharge connection                                Valve D76L-3 1/8"-DN80
+               Suction connection                                  brazed bush D108L-4 1/4"
+               Paint                                               Bitzer-green
+               Crankcase heater                                    230V-300W UL
+               Oil level control                                   1 x OLC-D1-S, 230V min
+               Control- and protection module                      SE-E4 110/240V 50/60Hz (UL)
+               Damper                                              for SC with fixing materials
+               Motor voltage                                       380V-PW-3-60Hz
+               electrical terminal box                             Plastic box
+               Opto-electronic Oil Level Control
+               OLC-D1-S, 230 V-1-50/60 Hz
+               Vibration Dampers
+               Suction Line Bushing D108L-4 1/4
+               Discharge Shut-off Valve
+               D76L-3 1/8" (DN80)
+               Heating Device for Terminal Box
+               230 V / 30 W
+               Country of origin: DE Germany          HS-Code: 84143081
+
+Order:    11432878 / Item 000020    17.11.2025  Reference: P10058414    17.11.2025
+Delivery: 82297029 / Item 000020    04.12.2025  Terms: FOB HAMBURG SEAPORT Free on board
+000002 100023902                               2 PC          5.291,63 EUR / 1 PC   10.583,26
+          CSW8573-90Y-35P
+          CSW8573-90Y-35P
+          Your material no.: 3HA51126D
+
+               Label language                                      English
+               Type Description-Single Type                        CSW8573-90Y-35P
+               Oil                                                 BSE 170 L
+               Capacity regulator/Vi-regulato                      4x CR SC 230V-50/60Hz
+               Special design                                      without
+               Kind of discharge gas prot.                         PTC 120°C
+               Discharge connection                                Valve D76L-3 1/8"-DN80
+               Suction connection                                  brazed bush D108L-4 1/4"
+               Paint                                               Bitzer-green
+Geschäftsführer/Managing Directors:                                         Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                            Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                         USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                              Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                              SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+BOSCH HOME COMFORT TAIWAN CO. LTD.                            Doc. no. / Date                                  Page
+63 NANKING EAST ROAD SEC. 3                                   200167553 / 04.12.2025                           3
+TAIPEI
+
+
+_______________________________________________________________________
+Item           Material                            Quantity     Unit                         Price/Unit                   Value
+               Description                                                                                                 EUR
+_______________________________________________________________________
+               Crankcase heater                                    230V-300W UL
+               Oil level control                                   1 x OLC-D1-S, 230V min
+               Control- and protection module                      SE-E4 110/240V 50/60Hz (UL)
+               Damper                                              for SC with fixing materials
+               Motor voltage                                       380V-PW-3-60Hz
+               electrical terminal box                             Plastic box
+               Opto-electronic Oil Level Control
+               OLC-D1-S, 230 V-1-50/60 Hz
+               Vibration Dampers
+               Suction Line Bushing D108L-4 1/4
+               Discharge Shut-off Valve
+               D76L-3 1/8" (DN80)
+               Heating Device for Terminal Box
+               230 V / 30 W
+               Country of origin: DE Germany          HS-Code: 84143081
+
+Order:    11433230 / Item 000010    18.11.2025  Reference: P10056760    18.11.2025
+Delivery: 82297030 / Item 000010    04.12.2025  Terms: FOB HAMBURG SEAPORT Free on board
+000003 100023902                               1 PC          5.291,63 EUR / 1 PC    5.291,63
+          CSW8573-90Y-35P
+          CSW8573-90Y-35P
+          Your material no.: 3HA51126D
+
+               Label language                                      English
+               Type Description-Single Type                        CSW8573-90Y-35P
+               Oil                                                 BSE 170 L
+               Capacity regulator/Vi-regulato                      4x CR SC 230V-50/60Hz
+               Special design                                      without
+               Kind of discharge gas prot.                         PTC 120°C
+               Discharge connection                                Valve D76L-3 1/8"-DN80
+               Suction connection                                  brazed bush D108L-4 1/4"
+               Paint                                               Bitzer-green
+               Crankcase heater                                    230V-300W UL
+               Oil level control                                   1 x OLC-D1-S, 230V min
+               Control- and protection module                      SE-E4 110/240V 50/60Hz (UL)
+               Damper                                              for SC with fixing materials
+               Motor voltage                                       380V-PW-3-60Hz
+               electrical terminal box                             Plastic box
+               Opto-electronic Oil Level Control
+               OLC-D1-S, 230 V-1-50/60 Hz
+               Vibration Dampers
+Geschäftsführer/Managing Directors:                                         Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                            Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                         USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                              Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                              SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+BOSCH HOME COMFORT TAIWAN CO. LTD.                            Doc. no. / Date                                  Page
+63 NANKING EAST ROAD SEC. 3                                   200167553 / 04.12.2025                           4
+TAIPEI
+
+
+_______________________________________________________________________
+Item           Material                            Quantity     Unit                         Price/Unit                   Value
+               Description                                                                                                 EUR
+_______________________________________________________________________
+               Suction Line Bushing D108L-4 1/4
+               Discharge Shut-off Valve
+               D76L-3 1/8" (DN80)
+               Heating Device for Terminal Box
+               230 V / 30 W
+               Country of origin: DE Germany          HS-Code: 84143081
+
+Order:    11433458 / Item 000030    19.11.2025  Reference: P10057061    19.11.2025
+Delivery: 82297031 / Item 000010    04.12.2025  Terms: FOB HAMBURG SEAPORT Free on board
+000004 100023902                               1 PC          5.291,63 EUR / 1 PC    5.291,63
+          CSW8573-90Y-35P
+          CSW8573-90Y-35P
+          Your material no.: 3HA51126D
+
+               Label language                                      English
+               Type Description-Single Type                        CSW8573-90Y-35P
+               Oil                                                 BSE 170 L
+               Capacity regulator/Vi-regulato                      4x CR SC 230V-50/60Hz
+               Special design                                      without
+               Kind of discharge gas prot.                         PTC 120°C
+               Discharge connection                                Valve D76L-3 1/8"-DN80
+               Suction connection                                  brazed bush D108L-4 1/4"
+               Paint                                               Bitzer-green
+               Crankcase heater                                    230V-300W UL
+               Oil level control                                   1 x OLC-D1-S, 230V min
+               Control- and protection module                      SE-E4 110/240V 50/60Hz (UL)
+               Damper                                              for SC with fixing materials
+               Motor voltage                                       380V-PW-3-60Hz
+               electrical terminal box                             Plastic box
+               Opto-electronic Oil Level Control
+               OLC-D1-S, 230 V-1-50/60 Hz
+               Vibration Dampers
+               Suction Line Bushing D108L-4 1/4
+               Discharge Shut-off Valve
+               D76L-3 1/8" (DN80)
+               Heating Device for Terminal Box
+               230 V / 30 W
+               Country of origin: DE Germany          HS-Code: 84143081
+
+Order:    11434006 / Item 000010           21.11.2025         Reference: P10057137 21.11.2025
+Delivery: 82297032 / Item 000010           04.12.2025         Terms: FOB HAMBURG SEAPORT Free on board
+Geschäftsführer/Managing Directors:                                         Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                            Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                         USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                              Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                              SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+BOSCH HOME COMFORT TAIWAN CO. LTD.                            Doc. no. / Date                                  Page
+63 NANKING EAST ROAD SEC. 3                                   200167553 / 04.12.2025                           5
+TAIPEI
+
+
+_______________________________________________________________________
+Item           Material                            Quantity     Unit                         Price/Unit                   Value
+               Description                                                                                                 EUR
+_______________________________________________________________________
+000005         100023902                                 1      PC              5.291,63 EUR / 1 PC                   5.291,63
+               CSW8573-90Y-20P
+               CSW8573-90Y-20P
+               Your material no.: 3HA51126C
+
+               Label language                                        English
+               Type Description-Single Type                          CSW8573-90Y-20P
+               Oil                                                   BSE 170 L
+               Capacity regulator/Vi-regulato                        4x CR SC 230V-50/60Hz
+               Special design                                        without
+               Kind of discharge gas prot.                           PTC 120°C
+               Discharge connection                                  Valve D76L-3 1/8"-DN80
+               Suction connection                                    brazed bush D108L-4 1/4"
+               Paint                                                 Bitzer-green
+               Crankcase heater                                      230V-300W UL
+               Oil level control                                     1 x OLC-D1-S, 230V min
+               Control- and protection module                        SE-E4 110/240V 50/60Hz (UL)
+               Damper                                                for SC with fixing materials
+               Motor voltage                                         240V-PW-3-60Hz
+               Motor voltage                                         200V-PW-3-50Hz
+               electrical terminal box                               Plastic box
+               Opto-electronic Oil Level Control
+               OLC-D1-S, 230 V-1-50/60 Hz
+               Vibration Dampers
+               Suction Line Bushing D108L-4 1/4
+               Discharge Shut-off Valve
+               D76L-3 1/8" (DN80)
+               Heating Device for Terminal Box
+               230 V / 30 W
+               Country of origin: DE Germany
+                                HS-Code: 84143081
+_______________________________________________________________________
+Final amount                                                                                                        37.041,41
+Performance date corresponds to invoice date.
+
+This shipment is tax-free. (export delivery)
+
+We hereby certify that the goods mentioned in this delivery note are made with the best material and with first
+class workmanship and comply in all respect with quality and quantity ordered.
+
+
+
+Geschäftsführer/Managing Directors:                                         Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                            Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                         USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                              Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                              SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+BOSCH HOME COMFORT TAIWAN CO. LTD.                       Doc. no. / Date                                  Page
+63 NANKING EAST ROAD SEC. 3                              200167553 / 04.12.2025                           6
+TAIPEI
+
+
+Sales, deliveries and other services having a cross-border dimension are exclusively based on our General Terms
+and Conditions of Sale, Delivery and Service - International (General Terms and Conditions of Sale -
+International, hereinafter referred to as "GTCS-I"), which the Ordering Party acknowledges and accepts by
+placing the order or by accepting the delivery or service. These GTCS-I are an integral part of all contracts that
+we are concluding with the Ordering Party with respect to deliveries of goods and/or the provision of services
+offered by us. These GTCS-I shall also apply to any future business transactions with the Ordering Party, even if
+they are not explicitly agreed upon again. The application of any deviating or additional terms and conditions of
+the Ordering Party or any third party is excluded even if they are not explicitly rejected by us.
+
+Our GTCS-I can be found on our website at:
+https://www.bitzer.de/gtcs_international
+In the event of difficulties in viewing or opening our GTCS-I, we are happy to send them to you on request in
+PDF format by e-mail.
+
+We deliver under INCOTERMS 2010
+
+
+Best regards
+
+BITZER Kühlmaschinenbau GmbH
+
+
+
+
+Geschäftsführer/Managing Directors:                                    Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                       Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                    USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                         Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                         SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+                                                           BITZER Kühlmaschinenbau GmbH
+                                                           Peter-Schaufler-Platz 1
+                                                           71065 Sindelfingen // Germany
+                                                           Tel +49 70 31 932-0
+                                                           bitzer@bitzer.de // www.bitzer.de
+   BITZER Kühlmaschinenbau GmbH
+   Peter-Schaufler-Platz 1 · 71065 Sindelfingen, Germany
+
+
+   BOSCH HOME COMFORT TAIWAN CO. LTD.
+   NEI TSUO VILLAGE                                        Delivery note
+   29 NEISH ROAD, LU CHU HSIANG
+   TAOYUAN                                                 number / Doc. date / Print date
+   TAIWAN                                                  82297029 / 04.12.2025 / 04.12.2025
+                                                           Customer number
+                                                           708822
+
+
+
+
+                                                                                    0082297029
+  We deliver according to the following conditions:
+  Terms of delivery        Free on board HAMBURG SEAPORT
+  Mode of transport        Sea
+  No. of packages          00004
+  Gross weight                   3.455,800 KG
+  Net weight                     3.331,740 KG
+
+
+
+
+  _______________________________________________________________________
+  Item.          Material                                   Quantity
+                 Description                                  Net weight
+  _______________________________________________________________________
+
+  Order:         11432878 / Item 000010 (17.11.2025)       Reference: P10058414
+  000010         100023902                                          2 PC
+                 CSW8573-90Y-35P                                                                          1.668,870 KG
+                 CSW8573-90Y-35P
+                 Your material no.: 3HA51126D
+
+                 Handling Unit No.: 4007254237                  Serial No.: 1009101980
+                 Handling Unit No.: 4007254239                  Serial No.: 1009101981
+                 Label language                                 English
+                 Type Description-Single Type                   CSW8573-90Y-35P
+                 Oil                                            BSE 170 L
+                 Capacity regulator/Vi-regulato                 4x CR SC 230V-50/60Hz
+                 Special design                                 without
+                 Kind of discharge gas prot.                    PTC 120°C
+                 Discharge connection                           Valve D76L-3 1/8"-DN80
+Geschäftsführer/Managing Directors:                                    Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                       Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                    USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                         Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                         SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+    BOSCH HOME COMFORT TAIWAN CO. LTD.                  Doc. no. / Date                                   Page
+    29 NEISH ROAD, LU CHU HSIANG                        82297029 / 04.12.2025                             2
+    TAOYUAN
+
+
+   _______________________________________________________________________
+   Item.          Material                                Quantity
+                  Description                                  Net weight
+   _______________________________________________________________________
+                  Suction connection                         brazed bush D108L-4 1/4"
+                  Paint                                      Bitzer-green
+                  Crankcase heater                           230V-300W UL
+                  Oil level control                          1 x OLC-D1-S, 230V min
+                  Control- and protection module             SE-E4 110/240V 50/60Hz (UL)
+                  Damper                                     for SC with fixing materials
+                  Motor voltage                              380V-PW-3-60Hz
+                  electrical terminal box                    Plastic box
+                  Opto-electronic Oil Level Control
+                  OLC-D1-S, 230 V-1-50/60 Hz
+                  Vibration Dampers
+                  Suction Line Bushing D108L-4 1/4
+                  Discharge Shut-off Valve
+                  D76L-3 1/8" (DN80)
+                  Heating Device for Terminal Box
+                  230 V / 30 W
+
+   Order:         11432878 / Item 000020 (17.11.2025)   Reference: P10058414
+   000020         100023902                                      2 PC
+                  CSW8573-90Y-35P                                                                      1.662,870 KG
+                  CSW8573-90Y-35P
+                  Your material no.: 3HA51126D
+
+                  Handling Unit No.: 4007254358              Serial No.: 1009101982
+                  Handling Unit No.: 4007254986              Serial No.: 1009101983
+                  Label language                             English
+                  Type Description-Single Type               CSW8573-90Y-35P
+                  Oil                                        BSE 170 L
+                  Capacity regulator/Vi-regulato             4x CR SC 230V-50/60Hz
+                  Special design                             without
+                  Kind of discharge gas prot.                PTC 120°C
+                  Discharge connection                       Valve D76L-3 1/8"-DN80
+                  Suction connection                         brazed bush D108L-4 1/4"
+                  Paint                                      Bitzer-green
+                  Crankcase heater                           230V-300W UL
+                  Oil level control                          1 x OLC-D1-S, 230V min
+                  Control- and protection module             SE-E4 110/240V 50/60Hz (UL)
+                  Damper                                     for SC with fixing materials
+                  Motor voltage                              380V-PW-3-60Hz
+                  electrical terminal box                    Plastic box
+                  Opto-electronic Oil Level Control
+                  OLC-D1-S, 230 V-1-50/60 Hz
+                  Vibration Dampers
+Geschäftsführer/Managing Directors:                                Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                   Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                     Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                     SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+    BOSCH HOME COMFORT TAIWAN CO. LTD.                        Doc. no. / Date                                   Page
+    29 NEISH ROAD, LU CHU HSIANG                              82297029 / 04.12.2025                             3
+    TAOYUAN
+
+
+   _______________________________________________________________________
+   Item.          Material                                      Quantity
+                  Description                                  Net weight
+   _______________________________________________________________________
+                  Suction Line Bushing D108L-4 1/4
+                  Discharge Shut-off Valve
+                  D76L-3 1/8" (DN80)
+                  Heating Device for Terminal Box
+                  230 V / 30 W
+
+
+   Packing Information:
+
+   Item   Packing Type dimension              Handling Unit   Gross weight
+   _______________________________________________________________________
+           1      pallet              193,0 x   83,0 x   92,0 CM          4007254237                            864,100      KG
+           1      pallet              193,0 x   83,0 x   92,0 CM          4007254239                            866,800      KG
+           1      pallet              194,0 x   83,0 x   94,0 CM          4007254358                            855,100      KG
+           1      pallet              194,0 x   83,0 x   92,0 CM          4007254986                            869,800      KG
+
+   We hereby certify that the goods mentioned in this delivery note are made with the best material and with first
+   class workmanship and comply in all respect with quality and quantity ordered.
+
+   Sales, deliveries and other services having a cross-border dimension are exclusively based on our General
+   Terms and Conditions of Sale, Delivery and Service - International (General Terms and Conditions of Sale -
+   International, hereinafter referred to as "GTCS-I"), which the Ordering Party acknowledges and accepts by
+   placing the order or by accepting the delivery or service. These GTCS-I are an integral part of all contracts that
+   we are concluding with the Ordering Party with respect to deliveries of goods and/or the provision of services
+   offered by us. These GTCS-I shall also apply to any future business transactions with the Ordering Party, even
+   if they are not explicitly agreed upon again. The application of any deviating or additional terms and conditions
+   of the Ordering Party or any third party is excluded even if they are not explicitly rejected by us.
+
+   Our GTCS-I can be found on our website at:
+   https://www.bitzer.de/gtcs_international
+   In the event of difficulties in viewing or opening our GTCS-I, we are happy to send them to you on request in
+   PDF format by e-mail.
+
+   We deliver under INCOTERMS 2010
+
+
+   Best regards
+
+   BITZER Kühlmaschinenbau GmbH
+
+
+
+
+Geschäftsführer/Managing Directors:                                      Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                         Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                      USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                           Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                           SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+                                                           BITZER Kühlmaschinenbau GmbH
+                                                           Peter-Schaufler-Platz 1
+                                                           71065 Sindelfingen // Germany
+                                                           Tel +49 70 31 932-0
+                                                           bitzer@bitzer.de // www.bitzer.de
+   BITZER Kühlmaschinenbau GmbH
+   Peter-Schaufler-Platz 1 · 71065 Sindelfingen, Germany
+
+
+   BOSCH HOME COMFORT TAIWAN CO. LTD.
+   NEI TSUO VILLAGE                                        Delivery note
+   29 NEISH ROAD, LU CHU HSIANG
+   TAOYUAN                                                 number / Doc. date / Print date
+   TAIWAN                                                  82297030 / 04.12.2025 / 04.12.2025
+                                                           Customer number
+                                                           708822
+
+
+
+
+                                                                                    0082297030
+  We deliver according to the following conditions:
+  Terms of delivery        Free on board HAMBURG SEAPORT
+  Mode of transport        Sea
+  No. of packages          00001
+  Gross weight                     852,600 KG
+  Net weight                       821,585 KG
+
+
+
+
+  _______________________________________________________________________
+  Item.          Material                                   Quantity
+                 Description                                  Net weight
+  _______________________________________________________________________
+
+  Order:         11433230 / Item 000010 (18.11.2025)       Reference: P10056760
+  000010         100023902                                          1 PC
+                 CSW8573-90Y-35P                                                                             821,585 KG
+                 CSW8573-90Y-35P
+                 Your material no.: 3HA51126D
+
+                 Handling Unit No.: 4007254889                  Serial No.: 1009101984
+                 Label language                                 English
+                 Type Description-Single Type                   CSW8573-90Y-35P
+                 Oil                                            BSE 170 L
+                 Capacity regulator/Vi-regulato                 4x CR SC 230V-50/60Hz
+                 Special design                                 without
+                 Kind of discharge gas prot.                    PTC 120°C
+                 Discharge connection                           Valve D76L-3 1/8"-DN80
+                 Suction connection                             brazed bush D108L-4 1/4"
+Geschäftsführer/Managing Directors:                                    Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                       Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                    USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                         Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                         SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+    BOSCH HOME COMFORT TAIWAN CO. LTD.                       Doc. no. / Date                                   Page
+    29 NEISH ROAD, LU CHU HSIANG                             82297030 / 04.12.2025                             2
+    TAOYUAN
+
+
+   _______________________________________________________________________
+   Item.          Material                                     Quantity
+                  Description                                  Net weight
+   _______________________________________________________________________
+                  Paint                                           Bitzer-green
+                  Crankcase heater                                230V-300W UL
+                  Oil level control                               1 x OLC-D1-S, 230V min
+                  Control- and protection module                  SE-E4 110/240V 50/60Hz (UL)
+                  Damper                                          for SC with fixing materials
+                  Motor voltage                                   380V-PW-3-60Hz
+                  electrical terminal box                         Plastic box
+                  Opto-electronic Oil Level Control
+                  OLC-D1-S, 230 V-1-50/60 Hz
+                  Vibration Dampers
+                  Suction Line Bushing D108L-4 1/4
+                  Discharge Shut-off Valve
+                  D76L-3 1/8" (DN80)
+                  Heating Device for Terminal Box
+                  230 V / 30 W
+
+
+   Packing Information:
+
+   Item   Packing Type dimension              Handling Unit   Gross weight
+   _______________________________________________________________________
+           1      pallet              194,0 x 83,0 x 92,0 CM             4007254889                            852,600 KG
+
+   We hereby certify that the goods mentioned in this delivery note are made with the best material and with first
+   class workmanship and comply in all respect with quality and quantity ordered.
+
+   Sales, deliveries and other services having a cross-border dimension are exclusively based on our General
+   Terms and Conditions of Sale, Delivery and Service - International (General Terms and Conditions of Sale -
+   International, hereinafter referred to as "GTCS-I"), which the Ordering Party acknowledges and accepts by
+   placing the order or by accepting the delivery or service. These GTCS-I are an integral part of all contracts that
+   we are concluding with the Ordering Party with respect to deliveries of goods and/or the provision of services
+   offered by us. These GTCS-I shall also apply to any future business transactions with the Ordering Party, even
+   if they are not explicitly agreed upon again. The application of any deviating or additional terms and conditions
+   of the Ordering Party or any third party is excluded even if they are not explicitly rejected by us.
+
+   Our GTCS-I can be found on our website at:
+   https://www.bitzer.de/gtcs_international
+   In the event of difficulties in viewing or opening our GTCS-I, we are happy to send them to you on request in
+   PDF format by e-mail.
+
+   We deliver under INCOTERMS 2010
+
+
+Geschäftsführer/Managing Directors:                                     Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                        Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                     USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                          Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                          SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+    BOSCH HOME COMFORT TAIWAN CO. LTD.   Doc. no. / Date                                   Page
+    29 NEISH ROAD, LU CHU HSIANG         82297030 / 04.12.2025                             3
+    TAOYUAN
+
+
+   Best regards
+
+   BITZER Kühlmaschinenbau GmbH
+
+
+
+
+Geschäftsführer/Managing Directors:                 Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                    Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                 USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                      Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                      SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+                                                           BITZER Kühlmaschinenbau GmbH
+                                                           Peter-Schaufler-Platz 1
+                                                           71065 Sindelfingen // Germany
+                                                           Tel +49 70 31 932-0
+                                                           bitzer@bitzer.de // www.bitzer.de
+   BITZER Kühlmaschinenbau GmbH
+   Peter-Schaufler-Platz 1 · 71065 Sindelfingen, Germany
+
+
+   BOSCH HOME COMFORT TAIWAN CO. LTD.
+   NEI TSUO VILLAGE                                        Delivery note
+   29 NEISH ROAD, LU CHU HSIANG
+   TAOYUAN                                                 number / Doc. date / Print date
+   TAIWAN                                                  82297031 / 04.12.2025 / 04.12.2025
+                                                           Customer number
+                                                           708822
+
+
+
+
+                                                                                    0082297031
+  We deliver according to the following conditions:
+  Terms of delivery        Free on board HAMBURG SEAPORT
+  Mode of transport        Sea
+  No. of packages          00001
+  Gross weight                     869,200 KG
+  Net weight                       838,185 KG
+
+
+
+
+  _______________________________________________________________________
+  Item.          Material                                   Quantity
+                 Description                                  Net weight
+  _______________________________________________________________________
+
+  Order:         11433458 / Item 000030 (19.11.2025)       Reference: P10057061
+  000010         100023902                                          1 PC
+                 CSW8573-90Y-35P                                                                             838,185 KG
+                 CSW8573-90Y-35P
+                 Your material no.: 3HA51126D
+
+                 Handling Unit No.: 4007255814                  Serial No.: 1009102041
+                 Label language                                 English
+                 Type Description-Single Type                   CSW8573-90Y-35P
+                 Oil                                            BSE 170 L
+                 Capacity regulator/Vi-regulato                 4x CR SC 230V-50/60Hz
+                 Special design                                 without
+                 Kind of discharge gas prot.                    PTC 120°C
+                 Discharge connection                           Valve D76L-3 1/8"-DN80
+                 Suction connection                             brazed bush D108L-4 1/4"
+Geschäftsführer/Managing Directors:                                    Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                       Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                    USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                         Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                         SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+    BOSCH HOME COMFORT TAIWAN CO. LTD.                       Doc. no. / Date                                   Page
+    29 NEISH ROAD, LU CHU HSIANG                             82297031 / 04.12.2025                             2
+    TAOYUAN
+
+
+   _______________________________________________________________________
+   Item.          Material                                     Quantity
+                  Description                                  Net weight
+   _______________________________________________________________________
+                  Paint                                           Bitzer-green
+                  Crankcase heater                                230V-300W UL
+                  Oil level control                               1 x OLC-D1-S, 230V min
+                  Control- and protection module                  SE-E4 110/240V 50/60Hz (UL)
+                  Damper                                          for SC with fixing materials
+                  Motor voltage                                   380V-PW-3-60Hz
+                  electrical terminal box                         Plastic box
+                  Opto-electronic Oil Level Control
+                  OLC-D1-S, 230 V-1-50/60 Hz
+                  Vibration Dampers
+                  Suction Line Bushing D108L-4 1/4
+                  Discharge Shut-off Valve
+                  D76L-3 1/8" (DN80)
+                  Heating Device for Terminal Box
+                  230 V / 30 W
+
+
+   Packing Information:
+
+   Item   Packing Type dimension              Handling Unit   Gross weight
+   _______________________________________________________________________
+           1      pallet              193,0 x 83,0 x 93,0 CM             4007255814                            869,200 KG
+
+   We hereby certify that the goods mentioned in this delivery note are made with the best material and with first
+   class workmanship and comply in all respect with quality and quantity ordered.
+
+   Sales, deliveries and other services having a cross-border dimension are exclusively based on our General
+   Terms and Conditions of Sale, Delivery and Service - International (General Terms and Conditions of Sale -
+   International, hereinafter referred to as "GTCS-I"), which the Ordering Party acknowledges and accepts by
+   placing the order or by accepting the delivery or service. These GTCS-I are an integral part of all contracts that
+   we are concluding with the Ordering Party with respect to deliveries of goods and/or the provision of services
+   offered by us. These GTCS-I shall also apply to any future business transactions with the Ordering Party, even
+   if they are not explicitly agreed upon again. The application of any deviating or additional terms and conditions
+   of the Ordering Party or any third party is excluded even if they are not explicitly rejected by us.
+
+   Our GTCS-I can be found on our website at:
+   https://www.bitzer.de/gtcs_international
+   In the event of difficulties in viewing or opening our GTCS-I, we are happy to send them to you on request in
+   PDF format by e-mail.
+
+   We deliver under INCOTERMS 2010
+
+
+Geschäftsführer/Managing Directors:                                     Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                        Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                     USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                          Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                          SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+    BOSCH HOME COMFORT TAIWAN CO. LTD.   Doc. no. / Date                                   Page
+    29 NEISH ROAD, LU CHU HSIANG         82297031 / 04.12.2025                             3
+    TAOYUAN
+
+
+   Best regards
+
+   BITZER Kühlmaschinenbau GmbH
+
+
+
+
+Geschäftsführer/Managing Directors:                 Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                    Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                 USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                      Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                      SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+                                                           BITZER Kühlmaschinenbau GmbH
+                                                           Peter-Schaufler-Platz 1
+                                                           71065 Sindelfingen // Germany
+                                                           Tel +49 70 31 932-0
+                                                           bitzer@bitzer.de // www.bitzer.de
+   BITZER Kühlmaschinenbau GmbH
+   Peter-Schaufler-Platz 1 · 71065 Sindelfingen, Germany
+
+
+   BOSCH HOME COMFORT TAIWAN CO. LTD.
+   NEI TSUO VILLAGE                                        Delivery note
+   29 NEISH ROAD, LU CHU HSIANG
+   TAOYUAN                                                 number / Doc. date / Print date
+   TAIWAN                                                  82297032 / 04.12.2025 / 04.12.2025
+                                                           Customer number
+                                                           708822
+
+
+
+
+                                                                                    0082297032
+  We deliver according to the following conditions:
+  Terms of delivery        Free on board HAMBURG SEAPORT
+  Mode of transport        Sea
+  No. of packages          00001
+  Gross weight                     874,800 KG
+  Net weight                       843,785 KG
+
+
+
+
+  _______________________________________________________________________
+  Item.          Material                                   Quantity
+                 Description                                  Net weight
+  _______________________________________________________________________
+
+  Order:         11434006 / Item 000010 (21.11.2025)       Reference: P10057137
+  000010         100023902                                          1 PC
+                 CSW8573-90Y-20P                                                                             843,785 KG
+                 CSW8573-90Y-20P
+                 Your material no.: 3HA51126C
+
+                 Handling Unit No.: 4007255810                  Serial No.: 1009102042
+                 Label language                                 English
+                 Type Description-Single Type                   CSW8573-90Y-20P
+                 Oil                                            BSE 170 L
+                 Capacity regulator/Vi-regulato                 4x CR SC 230V-50/60Hz
+                 Special design                                 without
+                 Kind of discharge gas prot.                    PTC 120°C
+                 Discharge connection                           Valve D76L-3 1/8"-DN80
+                 Suction connection                             brazed bush D108L-4 1/4"
+Geschäftsführer/Managing Directors:                                    Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                       Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                    USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                         Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                         SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+    BOSCH HOME COMFORT TAIWAN CO. LTD.                       Doc. no. / Date                                   Page
+    29 NEISH ROAD, LU CHU HSIANG                             82297032 / 04.12.2025                             2
+    TAOYUAN
+
+
+   _______________________________________________________________________
+   Item.          Material                                     Quantity
+                  Description                                  Net weight
+   _______________________________________________________________________
+                  Paint                                           Bitzer-green
+                  Crankcase heater                                230V-300W UL
+                  Oil level control                               1 x OLC-D1-S, 230V min
+                  Control- and protection module                  SE-E4 110/240V 50/60Hz (UL)
+                  Damper                                          for SC with fixing materials
+                  Motor voltage                                   240V-PW-3-60Hz
+                  Motor voltage                                   200V-PW-3-50Hz
+                  electrical terminal box                         Plastic box
+                  Opto-electronic Oil Level Control
+                  OLC-D1-S, 230 V-1-50/60 Hz
+                  Vibration Dampers
+                  Suction Line Bushing D108L-4 1/4
+                  Discharge Shut-off Valve
+                  D76L-3 1/8" (DN80)
+                  Heating Device for Terminal Box
+                  230 V / 30 W
+
+
+   Packing Information:
+
+   Item   Packing Type dimension              Handling Unit   Gross weight
+   _______________________________________________________________________
+           1      pallet              194,0 x 83,0 x 93,0 CM             4007255810                            874,800 KG
+
+   We hereby certify that the goods mentioned in this delivery note are made with the best material and with first
+   class workmanship and comply in all respect with quality and quantity ordered.
+
+   Sales, deliveries and other services having a cross-border dimension are exclusively based on our General
+   Terms and Conditions of Sale, Delivery and Service - International (General Terms and Conditions of Sale -
+   International, hereinafter referred to as "GTCS-I"), which the Ordering Party acknowledges and accepts by
+   placing the order or by accepting the delivery or service. These GTCS-I are an integral part of all contracts that
+   we are concluding with the Ordering Party with respect to deliveries of goods and/or the provision of services
+   offered by us. These GTCS-I shall also apply to any future business transactions with the Ordering Party, even
+   if they are not explicitly agreed upon again. The application of any deviating or additional terms and conditions
+   of the Ordering Party or any third party is excluded even if they are not explicitly rejected by us.
+
+   Our GTCS-I can be found on our website at:
+   https://www.bitzer.de/gtcs_international
+   In the event of difficulties in viewing or opening our GTCS-I, we are happy to send them to you on request in
+   PDF format by e-mail.
+
+   We deliver under INCOTERMS 2010
+
+Geschäftsführer/Managing Directors:                                     Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                                        Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                                     USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                                          Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                                          SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+    BOSCH HOME COMFORT TAIWAN CO. LTD.   Doc. no. / Date                                   Page
+    29 NEISH ROAD, LU CHU HSIANG         82297032 / 04.12.2025                             3
+    TAOYUAN
+
+
+
+   Best regards
+
+   BITZER Kühlmaschinenbau GmbH
+
+
+
+
+Geschäftsführer/Managing Directors:                 Sitz der Gesellschaft/Registered Office: Sindelfingen
+Christian Wehrle                                    Amtsgericht/Local Court Stuttgart, HRB 240845
+Rainer Große-Kracht                                 USt.-Id. Nr./VAT Id. No. DE 8121 61588
+Martin Büchsel                                      Deutsche Bank AG, Stuttgart (BLZ 600 700 70) 051 438 000
+Frank Hartmann                                      SWIFT DEUTDESSXXX IBAN DE08 6007 0070 0051 4380 00
+Erik Bucher
+Kai Schuppler
+
