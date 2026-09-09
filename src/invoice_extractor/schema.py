@@ -21,6 +21,8 @@ class Header:
     amount: Optional[float] = None
     currency: Optional[str] = None
     vendor: Optional[str] = None
+    origin: Optional[str] = None  # document-level country of origin
+    hs_code: Optional[str] = None  # document-level HS when uniform
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -124,3 +126,43 @@ def de_date_to_iso(d: str) -> str:
         return (d or "").strip()
     dd, mm, yyyy = m.groups()
     return f"{yyyy}-{mm}-{dd}"
+
+
+_MONTHS = {
+    "jan": 1, "january": 1,
+    "feb": 2, "february": 2,
+    "mar": 3, "march": 3,
+    "apr": 4, "april": 4,
+    "may": 5,
+    "jun": 6, "june": 6,
+    "jul": 7, "july": 7,
+    "aug": 8, "august": 8,
+    "sep": 9, "sept": 9, "september": 9,
+    "oct": 10, "october": 10,
+    "nov": 11, "november": 11,
+    "dec": 12, "december": 12,
+}
+
+
+def en_date_to_iso(d: str) -> str | None:
+    """``JAN. 26, 2026`` / ``February 25, 2026`` / ``2025年9月26日`` → ISO."""
+    import re
+
+    s = (d or "").strip()
+    if not s:
+        return None
+    m = re.match(
+        r"([A-Za-z]+)\.?\s+(\d{1,2}),?\s+(\d{4})$",
+        s,
+    )
+    if m:
+        mon = _MONTHS.get(m.group(1).lower())
+        if mon:
+            return f"{int(m.group(3)):04d}-{mon:02d}-{int(m.group(2)):02d}"
+    m = re.match(r"(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日", s)
+    if m:
+        return f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+    m = re.match(r"(\d{4})-(\d{2})-(\d{2})$", s)
+    if m:
+        return s
+    return de_date_to_iso(s) if re.match(r"\d{2}\.\d{2}\.\d{4}$", s) else None

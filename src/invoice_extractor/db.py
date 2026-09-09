@@ -177,7 +177,14 @@ def record_run(
 
 def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
     """Init DB and seed BITZER + PT Gloria formats."""
-    from invoice_extractor.formats import bitzer_v1, pt_gloria_v1
+    from invoice_extractor.formats import (
+        bitzer_v1,
+        hangji_v1,
+        highly_v1,
+        hitachi_gls_v1,
+        nidec_v1,
+        pt_gloria_v1,
+    )
 
     path = init_db(db_path)
     conn = connect(path)
@@ -208,6 +215,22 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
             rules_json=pt_gloria_v1.RULES_JSON,
             notes=pt_gloria_v1.NOTES,
         )
+        extras = [
+            ("Guangdong Hangji Metal Co., Ltd.", ["Hangji", "GDHJ", "恒基"], hangji_v1),
+            ("NIDEC TECHNO MOTOR CORPORATION", ["NIDEC", "JCH"], nidec_v1),
+            ("Hitachi Global Life Solutions, Inc.", ["Hitachi GLS", "MEH"], hitachi_gls_v1),
+            ("HIGHLY INTERNATIONAL (HONG KONG) LIMITED", ["HIGHLY", "海立"], highly_v1),
+        ]
+        for name, aliases, mod in extras:
+            vid = upsert_vendor(conn, name, aliases=aliases)
+            insert_format(
+                conn,
+                vid,
+                version=1,
+                match_hints=mod.MATCH_HINTS,
+                rules_json=mod.RULES_JSON,
+                notes=mod.NOTES,
+            )
         conn.commit()
     finally:
         conn.close()

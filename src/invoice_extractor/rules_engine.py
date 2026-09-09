@@ -6,7 +6,14 @@ import hashlib
 from pathlib import Path
 from typing import Any, Callable, Optional
 
-from invoice_extractor.formats import bitzer_v1, pt_gloria_v1
+from invoice_extractor.formats import (
+    bitzer_v1,
+    hangji_v1,
+    highly_v1,
+    hitachi_gls_v1,
+    nidec_v1,
+    pt_gloria_v1,
+)
 from invoice_extractor.schema import ExtractResult, Header, Meta
 
 Extractor = Callable[[str, str, str, bool], ExtractResult]
@@ -14,6 +21,10 @@ Extractor = Callable[[str, str, str, bool], ExtractResult]
 BUILTIN: list[tuple[str, Callable[[str, str], float], Extractor]] = [
     ("bitzer_v1", bitzer_v1.match_score, bitzer_v1.extract),
     ("pt_gloria_v1", pt_gloria_v1.match_score, pt_gloria_v1.extract),
+    ("hangji_v1", hangji_v1.match_score, hangji_v1.extract),
+    ("nidec_v1", nidec_v1.match_score, nidec_v1.extract),
+    ("hitachi_gls_v1", hitachi_gls_v1.match_score, hitachi_gls_v1.extract),
+    ("highly_v1", highly_v1.match_score, highly_v1.extract),
 ]
 
 

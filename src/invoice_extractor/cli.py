@@ -113,7 +113,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("pdf", nargs="?", help="Input PDF path")
     p.add_argument("--out", help="Output JSON path (default: <pdf>.extract.json)")
     p.add_argument("--gold", help="Gold JSON for offline compare via checker")
-    p.add_argument("--format", help="Force format_id (bitzer_v1|pt_gloria_v1)")
+    p.add_argument("--format", help="Force format_id (bitzer_v1|pt_gloria_v1|hangji_v1|nidec_v1|hitachi_gls_v1|highly_v1)")
     p.add_argument(
         "--record-run",
         dest="db",

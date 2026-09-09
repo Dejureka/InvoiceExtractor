@@ -6,10 +6,17 @@ from invoice_extractor.formats import bitzer_v1
 from invoice_extractor.rules_engine import extract_invoice
 
 FIXTURE_TXT = Path("/workspace/InvoiceExtractor/fixtures/bitzer_3000214469.txt")
-FIXTURE_PDF = Path(
-    "/home/box/Downloads/BHC_invoice_samples/"
-    "3000214469_TW_708822_BOSCH_HOME_COMFORT_TAIWAN_CO_LTD__Versanddokument.pdf"
-)
+FIXTURE_PDF_CANDIDATES = [
+    Path(
+        "/home/box/Downloads/BHC_invoice_samples/"
+        "3000214469_TW_708822_BOSCH_HOME_COMFORT_TAIWAN_CO_LTD__Versanddokument.pdf"
+    ),
+    Path(
+        "/home/box/Downloads/BHC_invoice_samples_mega/"
+        "3000214469_TW_708822_BOSCH_HOME_COMFORT_TAIWAN_CO_LTD__Versanddokument.pdf"
+    ),
+]
+FIXTURE_PDF = next((p for p in FIXTURE_PDF_CANDIDATES if p.is_file()), FIXTURE_PDF_CANDIDATES[0])
 
 EXPECTED_HEADER = {
     "invoice_no": "200167553",
@@ -36,6 +43,10 @@ def test_bitzer_header_from_txt():
             assert got == want, f"{k}: {got} != {want}"
     assert r.meta.format_id == "bitzer_v1"
     assert len(r.items) == 5
+    assert r.header.origin == "DE"
+    assert r.header.hs_code == "84143081"
+    assert all(it.origin == "DE" for it in r.items)
+    assert all(it.hs_code == "84143081" for it in r.items)
 
 
 @pytest.mark.skipif(not FIXTURE_PDF.is_file(), reason="PDF missing")

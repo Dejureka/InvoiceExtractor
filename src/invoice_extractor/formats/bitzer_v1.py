@@ -32,6 +32,8 @@ RULES_JSON = {
         "packages": r"Gesamtgewicht\s+(\d+)\s+([\d.,]+)\s*KG",
         "gross_weight": r"Gross weight\s+([\d.,]+)\s*KG",
         "terms": r"Terms:\s*([^\n]+)",
+        "origin": r"Country of origin:\s*([A-Z]{2})",
+        "hs_code": r"HS-Code:\s*(\d{6,10})",
     },
     "items": {
         "line": r"(\d{6})\s+(\d{9})\s+(\d+)\s+PC\s+([\d.,]+)\s+EUR\s*/\s*1\s*PC\s+([\d.,]+)",
@@ -185,6 +187,18 @@ def extract_from_text(
             )
         )
 
+    # Document-level origin / HS (same on each commercial line for this sample set)
+    m_orig = re.search(r"Country of origin:\s*([A-Z]{2})\b", ci)
+    origin = m_orig.group(1) if m_orig else None
+    m_hs = re.search(r"HS-Code:\s*(\d{6,10})", ci)
+    hs_code = m_hs.group(1) if m_hs else None
+    if origin or hs_code:
+        for it in items:
+            if origin and not it.origin:
+                it.origin = origin
+            if hs_code and not it.hs_code:
+                it.hs_code = hs_code
+
     header = Header(
         invoice_no=invoice_no,
         invoice_date=de_date_to_iso(inv_date_raw) if inv_date_raw else None,
@@ -196,6 +210,8 @@ def extract_from_text(
         amount=round(sum(r[4] for r in lines), 2) if lines else None,
         currency=currency,
         vendor="BITZER",
+        origin=origin,
+        hs_code=hs_code,
     )
     # stash doc_no in notes via meta
     meta = Meta(

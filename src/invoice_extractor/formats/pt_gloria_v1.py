@@ -48,7 +48,7 @@ RULES_JSON = {
     "items": {
         # material like 1.600.A01.2FZ or 0.601.076.800 then desc... qty pcs price amount
         "line": (
-            r"(\d\.\d{3}\.[A-Z0-9]{3}\.[A-Z0-9]{2,3})"
+            r"([A-Z0-9]\.\d{3}\.[A-Z0-9]{3}\.[A-Z0-9]{2,3})"
             r"\s+(.+?)\s+(\d[\d,]*)\s+pcs\s+([\d,.]+)\s+([\d,.]+)"
         ),
         "origin_hs": r"^\s*(?:[A-Z]{2}\s+)?([A-Z]{2})\s+(\d{6,10})\s+",
@@ -56,8 +56,9 @@ RULES_JSON = {
 }
 
 # Material no. pattern: digit.ddd.xxx.xxx (Bosch style)
+# Material may start with digit or letter (e.g. F.016.800.581)
 _MAT_LINE = re.compile(
-    r"(?P<mat>\d\.\d{3}\.[A-Za-z0-9]{3}\.[A-Za-z0-9]{2,3})"
+    r"(?P<mat>[A-Z0-9]\.\d{3}\.[A-Za-z0-9]{3}\.[A-Za-z0-9]{2,3})"
     r"\s+(?P<rest>.+?)\s+"
     r"(?P<qty>\d{1,3}(?:,\d{3})*)\s+pcs\s+"
     r"(?P<price>\d[\d,]*\.\d{2})\s+"
@@ -194,22 +195,21 @@ def _total_pkg(text: str) -> float | None:
 
 
 def _parse_items(text: str, invoice_no: str | None, currency: str | None) -> list[Item]:
+    """Parse material lines.
+
+    Do **not** globally dedupe identical lines: large PT invoices legitimately
+    repeat the same part/qty/price/amount on separate deliveries (e.g. 50656831
+    where raw match sum == Net invoiced value).
+    """
     items: list[Item] = []
-    # Deduplicate exact repeated line strings only (page chrome), keep same
-    # part_no/qty/amount when they are distinct deliveries.
-    seen_lines: set[str] = set()
     lines = text.splitlines()
     for i, line in enumerate(lines):
         m = _MAT_LINE.search(line)
         if not m:
             continue
         # skip packing-list style lines that also contain material patterns rarely
-        if "Folding Box" in line or "CARTON" in line and "pcs" not in line.lower():
+        if "Folding Box" in line or ("CARTON" in line and "pcs" not in line.lower()):
             continue
-        norm = " ".join(line.split())
-        if norm in seen_lines:
-            continue
-        seen_lines.add(norm)
         mat = m.group("mat")
         qty = us_float(m.group("qty"))
         price = us_float(m.group("price"))

@@ -1,0 +1,60 @@
+name: Build portable Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'vendor/**'
+      - 'data/**'
+      - 'run_cli.py'
+      - 'InvoiceExtractor.spec'
+      - 'pyproject.toml'
+      - '.github/workflows/build-portable-windows.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install pyinstaller
+      - name: Build
+        run: pyinstaller --noconfirm InvoiceExtractor.spec
+      - name: Stage zip
+        shell: pwsh
+        run: |
+          $out = "portable/InvoiceExtractor"
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+          Copy-Item -Recurse -Force "dist/InvoiceExtractor/*" $out
+          New-Item -ItemType Directory -Force -Path "$out/data" | Out-Null
+          if (Test-Path "data/invoice_formats.db") { Copy-Item "data/invoice_formats.db" "$out/data/" }
+          @"
+          InvoiceExtractor 免安裝包
+          1. 解壓後整個資料夾拷走
+          2. 雙擊 InvoiceExtractor.exe 或在 cmd：InvoiceExtractor.exe 某.pdf --out out.json
+          3. 需要 poppler 的 pdftotext 時，請把 poppler 的 bin 加到 PATH（否則走 pdfminer fallback）
+          "@ | Set-Content -Encoding UTF8 "$out/使用說明.txt"
+          Compress-Archive -Path $out -DestinationPath InvoiceExtractor_Portable_Win64.zip -Force
+      - uses: actions/upload-artifact@v4
+        with:
+          name: InvoiceExtractor_Portable_Win64
+          path: InvoiceExtractor_Portable_Win64.zip
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: portable-latest
+          name: Portable Windows build
+          files: InvoiceExtractor_Portable_Win64.zip
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
