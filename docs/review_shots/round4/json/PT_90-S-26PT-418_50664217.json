@@ -1,0 +1,177 @@
+{
+  "header": {
+    "invoice_no": "50664217",
+    "invoice_date": "2026-08-26",
+    "total_pkg": null,
+    "gross_weight_kg": 1664.9,
+    "incoterm": "FCA Penang",
+    "item_line_count": 11,
+    "total_quantity": 957.0,
+    "amount": 41674.97,
+    "currency": "USD",
+    "vendor": "Robert Bosch Power Tools GmbH",
+    "origin": null,
+    "hs_code": null
+  },
+  "items": [
+    {
+      "invoice_no": "50664217",
+      "part_no": "0.601.9L6.0C0",
+      "description": "Impact Wrench GDR 18 Impact Wrench",
+      "qty": 22.0,
+      "unit": "pcs",
+      "unit_price": 76.7,
+      "amount": 1687.4,
+      "origin": "MY",
+      "hs_code": "8467290000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50664217",
+      "part_no": "0.601.9J9.180",
+      "description": "Cordless Screw Drive",
+      "qty": 103.0,
+      "unit": "pcs",
+      "unit_price": 46.19,
+      "amount": 4757.57,
+      "origin": "MY",
+      "hs_code": "8467290000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50664217",
+      "part_no": "0.601.9G8.0C1",
+      "description": "Cordless Drill Drive",
+      "qty": 88.0,
+      "unit": "pcs",
+      "unit_price": 45.0,
+      "amount": 3960.0,
+      "origin": "MY",
+      "hs_code": "8467290000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50664217",
+      "part_no": "0.601.9S0.1C0",
+      "description": "Cordl Perc Screwdr G Cordl Perc Screwdr",
+      "qty": 60.0,
+      "unit": "pcs",
+      "unit_price": 63.9,
+      "amount": 3834.0,
+      "origin": "MY",
+      "hs_code": "8467290000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50664217",
+      "part_no": "0.601.9L6.0C0",
+      "description": "Impact Wrench GDR 18 Impact Wrench",
+      "qty": 22.0,
+      "unit": "pcs",
+      "unit_price": 76.7,
+      "amount": 1687.4,
+      "origin": "MY",
+      "hs_code": "8467290000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50664217",
+      "part_no": "0.601.9E0.0C1",
+      "description": "GDR 12V-EC (2.0Ah x Impact Wrench",
+      "qty": 60.0,
+      "unit": "pcs",
+      "unit_price": 87.77,
+      "amount": 5266.2,
+      "origin": "MY",
+      "hs_code": "84672920",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50664217",
+      "part_no": "0.601.9G8.0C1",
+      "description": "Cordless Drill Drive",
+      "qty": 88.0,
+      "unit": "pcs",
+      "unit_price": 45.0,
+      "amount": 3960.0,
+      "origin": "MY",
+      "hs_code": "8467290000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50664217",
+      "part_no": "0.601.9H2.281",
+      "description": "Cordless Screw Drive",
+      "qty": 216.0,
+      "unit": "pcs",
+      "unit_price": 20.99,
+      "amount": 4533.84,
+      "origin": "MY",
+      "hs_code": "8467290000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50664217",
+      "part_no": "0.601.9H2.282",
+      "description": "Cordless Screw Drive",
+      "qty": 216.0,
+      "unit": "pcs",
+      "unit_price": 23.31,
+      "amount": 5034.96,
+      "origin": "MY",
+      "hs_code": "8467290000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50664217",
+      "part_no": "0.601.9L6.0C0",
+      "description": "Impact Wrench GDR 18 Impact Wrench",
+      "qty": 22.0,
+      "unit": "pcs",
+      "unit_price": 76.7,
+      "amount": 1687.4,
+      "origin": "MY",
+      "hs_code": "8467290000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50664217",
+      "part_no": "0.601.9E0.0C1",
+      "description": "GDR 12V-EC (2.0Ah x Impact Wrench",
+      "qty": 60.0,
+      "unit": "pcs",
+      "unit_price": 87.77,
+      "amount": 5266.2,
+      "origin": "MY",
+      "hs_code": "84672920",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/PTsamples/90-S-26PT-418_50664217.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_gloria_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": null,
+    "labeled_amount_label": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 11,
+        "got": 11
+      },
+      "total_quantity": {
+        "want": 957.0,
+        "got": 957.0
+      },
+      "amount": {
+        "want": 41674.97,
+        "got": 41674.97
+      }
+    }
+  }
+}

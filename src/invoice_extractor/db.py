@@ -178,10 +178,13 @@ def record_run(
 def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
     """Init DB and seed BITZER + PT Gloria formats."""
     from invoice_extractor.formats import (
+        bhc_my_hub_v1,
         bitzer_v1,
         hangji_v1,
         highly_v1,
         hitachi_gls_v1,
+        ma_no_period_v1,
+        ma_with_period_v1,
         nidec_v1,
         pt_gloria_v1,
     )
@@ -220,6 +223,21 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
             ("NIDEC TECHNO MOTOR CORPORATION", ["NIDEC", "JCH"], nidec_v1),
             ("Hitachi Global Life Solutions, Inc.", ["Hitachi GLS", "MEH"], hitachi_gls_v1),
             ("HIGHLY INTERNATIONAL (HONG KONG) LIMITED", ["HIGHLY", "海立"], highly_v1),
+            (
+                "Robert Bosch GmbH (MA NoPeriod)",
+                ["MA", "Mobility Aftermarket", "RBTW", "Bosch MA"],
+                ma_no_period_v1,
+            ),
+            (
+                "Robert Bosch GmbH (MA WithPeriod)",
+                ["MA WithPeriod", "MA Declaration withPeriod"],
+                ma_with_period_v1,
+            ),
+            (
+                "Bosch Home Comfort Supply (M) Sdn. Bhd.",
+                ["BHC MY-HUB", "Home Comfort Supply", "Johnson Controls Air Conditioning Supply"],
+                bhc_my_hub_v1,
+            ),
         ]
         for name, aliases, mod in extras:
             vid = upsert_vendor(conn, name, aliases=aliases)

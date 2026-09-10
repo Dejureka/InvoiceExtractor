@@ -87,8 +87,11 @@
 | `hangji_v1` | Hangji／`GDHJ-…` |
 | `hitachi_gls_v1` | Hitachi GLS／`MEH…` |
 | `highly_v1` | HIGHLY／海立、`INV#` |
+| `ma_no_period_v1` | `Robert BOSCH GmbH`、`Document No.`、`Goods Value`、13-char 無點 PN；VBA `MA_PDFextract_NoPeriod`／`MA_Declaration_noPeriod` |
+| `ma_with_period_v1` | 同上但 PN 有點（`0.445…`）；VBA `MA_PDFextractWithPeriod`／`MA_Declaration_withPeriod`；資料夾 90-C*／90-M* |
+| `bhc_my_hub_v1` | `Bosch Home Comfort Supply`、`TOTALS:`、`PART NO`；packing／GW soft-missing OK |
 
-**MA**：xlsm 內有多個 `MA_PDFextract*`／`MA_Declaration*` 變體；**尚未**進本工具規則庫。新增時一次只做一個變體＋樣本。
+**MA**：WithPeriod／NoPeriod 已進規則庫（Round4）。其他變體（USA／Wiper／Sebang）尚未做。
 
 ---
 
@@ -107,3 +110,4 @@
 | 日期 | 說明 |
 |------|------|
 | 2026-09-10 | 初版：與使用者復盤後定稿；澄清種子與 v1／v2 選法 |
+| 2026-09-10 | Round4：種子 `ma_no_period_v1`／`ma_with_period_v1`／`bhc_my_hub_v1` |

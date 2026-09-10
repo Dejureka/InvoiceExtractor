@@ -1,0 +1,148 @@
+{
+  "header": {
+    "invoice_no": "9027451705",
+    "invoice_date": "2026-08-17",
+    "total_pkg": null,
+    "gross_weight_kg": null,
+    "incoterm": "CIF Taipei",
+    "item_line_count": 8,
+    "total_quantity": 24501.0,
+    "amount": 579919.92,
+    "currency": "USD",
+    "vendor": "Bosch Home Comfort Supply (M) Sdn. Bhd.",
+    "origin": null,
+    "hs_code": null
+  },
+  "items": [
+    {
+      "invoice_no": "9027451705",
+      "part_no": "CC0009213B",
+      "description": "C-DEN-ZU (GKG71TWD) (1AH12726B_CONTROL BOX)",
+      "qty": 120.0,
+      "unit": "PCS",
+      "unit_price": 51.29,
+      "amount": 6154.8,
+      "origin": "Thailand",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027451705",
+      "part_no": "CC0009213B",
+      "description": "C-DEN-ZU (GKG71TWD) (1AH12726B_CONTROL BOX)",
+      "qty": 432.0,
+      "unit": "PCS",
+      "unit_price": 51.29,
+      "amount": 22157.28,
+      "origin": "Thailand",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027451705",
+      "part_no": "CC0009213B",
+      "description": "C-DEN-ZU (GKG71TWD) (1AH12726B_CONTROL BOX)",
+      "qty": 864.0,
+      "unit": "PCS",
+      "unit_price": 51.29,
+      "amount": 44314.56,
+      "origin": "Thailand",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027451705",
+      "part_no": "CC0009213B",
+      "description": "C-DEN-ZU (GKG71TWD) (1AH12726B_CONTROL BOX)",
+      "qty": 24.0,
+      "unit": "PCS",
+      "unit_price": 51.29,
+      "amount": 1230.96,
+      "origin": "Thailand",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027451705",
+      "part_no": "CC0011199A",
+      "description": "#PCB-ASSY-ODU(GKL40TWC) (1FA14189A_PCB ASSEMBLY)",
+      "qty": 5120.0,
+      "unit": "PCS",
+      "unit_price": 40.51,
+      "amount": 207411.2,
+      "origin": "Thailand",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027451705",
+      "part_no": "2FA38011B",
+      "description": "#PCB-ASSY-IDU (2FA38011B)",
+      "qty": 17329.0,
+      "unit": "PCS",
+      "unit_price": 15.52,
+      "amount": 268946.08,
+      "origin": null,
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027451705",
+      "part_no": "CC0011505C",
+      "description": "#C-DEN-ASSY(GKM3TWC2) (1AH13345A_CONTROL BOX)",
+      "qty": 504.0,
+      "unit": "PCS",
+      "unit_price": 57.43,
+      "amount": 28944.72,
+      "origin": "Thailand",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027451705",
+      "part_no": "17F24000A",
+      "description": "PI005 17F24000A 17F24000A",
+      "qty": 108.0,
+      "unit": "PCS",
+      "unit_price": 7.04,
+      "amount": 760.32,
+      "origin": null,
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHCsamples/TA2608B2-3253, TA2608B3254, TA2608B2-3255, TA2608B2-3256_INV_9027451705.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "bhc_my_hub_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "soft-missing packing/GW OK for this format",
+    "labeled_amount": 579919.92,
+    "labeled_amount_label": "TOTALS",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 8,
+        "got": 8
+      },
+      "total_quantity": {
+        "want": 24501.0,
+        "got": 24501.0
+      },
+      "amount": {
+        "want": 579919.92,
+        "got": 579919.92
+      },
+      "labeled_amount": {
+        "label": "TOTALS",
+        "want": 579919.92,
+        "header_amount": 579919.92,
+        "sum_items": 579919.92,
+        "item_count": 8
+      }
+    }
+  }
+}

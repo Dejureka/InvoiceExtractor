@@ -1,3 +1,11 @@
+# InvoiceExtractor — REPORT
+
+**Latest:** Round4 (2026-09-10 PT) — PT mega 20 + MA With/NoPeriod + BHC MY-HUB → **48/48 hard_check pass**.  
+New formats: `ma_with_period_v1`, `ma_no_period_v1`, `bhc_my_hub_v1`.  
+Audit pack: `docs/review_shots/round4/` + `reports/round4_pt_ma_bhc.md`. Auditor id `87eb5fb7-863d-4404-8489-9b16d6c8ef69`.
+
+---
+
 # InvoiceExtractor v1 — Overnight REPORT
 
 **Date:** 2026-09-10 (PT / Asia/Taipei)  

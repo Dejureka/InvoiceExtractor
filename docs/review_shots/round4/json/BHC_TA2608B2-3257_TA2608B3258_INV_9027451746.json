@@ -1,0 +1,112 @@
+{
+  "header": {
+    "invoice_no": "9027451746",
+    "invoice_date": "2026-08-17",
+    "total_pkg": null,
+    "gross_weight_kg": null,
+    "incoterm": "CIF Taipei",
+    "item_line_count": 5,
+    "total_quantity": 4447.0,
+    "amount": 134950.29,
+    "currency": "USD",
+    "vendor": "Bosch Home Comfort Supply (M) Sdn. Bhd.",
+    "origin": null,
+    "hs_code": null
+  },
+  "items": [
+    {
+      "invoice_no": "9027451746",
+      "part_no": "CC0011199B",
+      "description": "#PCB-ASSY-ODU(GKL71TWC) (1FA14189B_PCB ASSEMBLY)",
+      "qty": 25.0,
+      "unit": "PCS",
+      "unit_price": 42.21,
+      "amount": 1055.25,
+      "origin": "Thailand",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027451746",
+      "part_no": "2AH34859B",
+      "description": "#ELECTRICAL ASSEMBLY (2AH34859B)",
+      "qty": 2970.0,
+      "unit": "PCS",
+      "unit_price": 27.12,
+      "amount": 80546.4,
+      "origin": null,
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027451746",
+      "part_no": "2AH34859B",
+      "description": "#ELECTRICAL ASSEMBLY (2AH34859B)",
+      "qty": 92.0,
+      "unit": "PCS",
+      "unit_price": 27.12,
+      "amount": 2495.04,
+      "origin": null,
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027451746",
+      "part_no": "2AH38280B",
+      "description": "#ELECTRICAL ASSEMBLY (2AH38280B)",
+      "qty": 640.0,
+      "unit": "PCS",
+      "unit_price": 14.85,
+      "amount": 9504.0,
+      "origin": null,
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027451746",
+      "part_no": "CC0011505C",
+      "description": "#C-DEN-ASSY(GKM3TWC2) (1AH13345A_CONTROL BOX)",
+      "qty": 720.0,
+      "unit": "PCS",
+      "unit_price": 57.43,
+      "amount": 41349.6,
+      "origin": "Thailand",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHCsamples/TA2608B2-3257, TA2608B3258_INV_9027451746.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "bhc_my_hub_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "soft-missing packing/GW OK for this format",
+    "labeled_amount": 134950.29,
+    "labeled_amount_label": "TOTALS",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 5,
+        "got": 5
+      },
+      "total_quantity": {
+        "want": 4447.0,
+        "got": 4447.0
+      },
+      "amount": {
+        "want": 134950.29,
+        "got": 134950.29
+      },
+      "labeled_amount": {
+        "label": "TOTALS",
+        "want": 134950.29,
+        "header_amount": 134950.29,
+        "sum_items": 134950.29,
+        "item_count": 5
+      }
+    }
+  }
+}

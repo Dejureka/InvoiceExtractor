@@ -1,0 +1,57 @@
+{
+  "header": {
+    "invoice_no": "50666223",
+    "invoice_date": "2026-09-08",
+    "total_pkg": null,
+    "gross_weight_kg": 14.5,
+    "incoterm": "FCA Shanghai, packaging incl",
+    "item_line_count": 1,
+    "total_quantity": 200.0,
+    "amount": 134.0,
+    "currency": "USD",
+    "vendor": "Robert Bosch Power Tools GmbH",
+    "origin": null,
+    "hs_code": null
+  },
+  "items": [
+    {
+      "invoice_no": "50666223",
+      "part_no": "2.608.603.699",
+      "description": "Flap Disc",
+      "qty": 200.0,
+      "unit": "pcs",
+      "unit_price": 0.67,
+      "amount": 134.0,
+      "origin": "CN",
+      "hs_code": "68053000",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/PTsamples/40-D-26PT-416_50666223.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_gloria_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": null,
+    "labeled_amount_label": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 200.0,
+        "got": 200.0
+      },
+      "amount": {
+        "want": 134.0,
+        "got": 134.0
+      }
+    }
+  }
+}
