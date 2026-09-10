@@ -42,7 +42,7 @@ jobs:
           @"
           InvoiceExtractor 免安裝包
           1. 解壓後整個資料夾拷走
-          2. 雙擊 InvoiceExtractor.exe 或在 cmd：InvoiceExtractor.exe 某.pdf --out out.json
+          2. 雙擊 InvoiceExtractor.exe 或在 cmd：InvoiceExtractor.exe 某.pdf（預設出 .xlsx）；要 JSON 用 --out out.json
           3. 需要 poppler 的 pdftotext 時，請把 poppler 的 bin 加到 PATH（否則走 pdfminer fallback）
           "@ | Set-Content -Encoding UTF8 "$out/使用說明.txt"
           Compress-Archive -Path $out -DestinationPath InvoiceExtractor_Portable_Win64.zip -Force

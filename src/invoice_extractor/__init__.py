@@ -1,3 +1,3 @@
-"""InvoiceExtractor — portable PDF invoice → JSON (rules + hard checker)."""
+"""InvoiceExtractor — portable PDF invoice → Excel/JSON (rules + hard checker)."""
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"

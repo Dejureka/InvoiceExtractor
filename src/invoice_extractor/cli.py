@@ -10,6 +10,7 @@ from pathlib import Path
 from invoice_extractor import __version__
 from invoice_extractor.checker import hard_check
 from invoice_extractor.db import connect, record_run, seed_builtin_formats
+from invoice_extractor.export import default_out_path, write_extract
 from invoice_extractor.gold_stub import (
     load_gold,
     offline_compare,
@@ -21,7 +22,7 @@ from invoice_extractor.rules_engine import extract_invoice, file_sha256
 def _out_path_for(pdf: Path, out: str | None) -> Path:
     if out:
         return Path(out)
-    return pdf.with_suffix(pdf.suffix + ".extract.json") if pdf.suffix else pdf.with_suffix(".extract.json")
+    return default_out_path(pdf)
 
 
 def cmd_init_db(args: argparse.Namespace) -> int:
@@ -51,18 +52,15 @@ def cmd_extract(args: argparse.Namespace) -> int:
         data["meta"]["gold_compare"] = cmp
         print(json.dumps(cmp, ensure_ascii=False, indent=2))
         if args.out:
-            Path(args.out).write_text(
-                json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
-            )
+            write_extract(data, Path(args.out))
         return 0 if cmp["verdict"] == "pass" and not cmp.get("diffs") else 1
 
     out = _out_path_for(pdf, args.out)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"Wrote {out}")
+    written = write_extract(data, out)
+    print(f"Wrote {written}")
 
     if data["meta"].get("needs_gold") or hard["verdict"] == "needs_gold":
-        stub = out.with_suffix(".needs_gold.json")
+        stub = written.with_suffix(".needs_gold.json")
         write_needs_gold_placeholder(stub, data)
         print(f"Gold stub: {stub}")
 
@@ -98,7 +96,7 @@ def cmd_extract(args: argparse.Namespace) -> int:
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="invoice_extractor",
-        description="Extract invoice header/items JSON from PDF (rules engine v1)",
+        description="Extract invoice header/items to Excel (.xlsx) or JSON from PDF (rules engine v1)",
     )
     p.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     p.add_argument("--init-db", action="store_true", help="Create/seed SQLite format DB")
@@ -111,7 +109,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Path to invoice_formats.db",
     )
     p.add_argument("pdf", nargs="?", help="Input PDF path")
-    p.add_argument("--out", help="Output JSON path (default: <pdf>.extract.json)")
+    p.add_argument(
+        "--out",
+        help="Output path (default: <pdf_stem>.extract.xlsx). "
+        "Use .json for JSON; .xlsx/.xls for Excel.",
+    )
     p.add_argument("--gold", help="Gold JSON for offline compare via checker")
     p.add_argument("--format", help="Force format_id (bitzer_v1|pt_gloria_v1|hangji_v1|nidec_v1|hitachi_gls_v1|highly_v1)")
     p.add_argument(

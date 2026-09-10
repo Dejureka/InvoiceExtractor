@@ -3,6 +3,8 @@ from PyInstaller.utils.hooks import collect_submodules
 
 hidden = collect_submodules('invoice_extractor') + collect_submodules('pdf_layout_text')
 hidden += ['pdfminer', 'pdfminer.high_level']
+# Excel export
+hidden += collect_submodules('openpyxl') + collect_submodules('et_xmlfile')
 
 a = Analysis(
     ['run_cli.py'],
