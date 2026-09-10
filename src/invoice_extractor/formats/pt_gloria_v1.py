@@ -42,7 +42,8 @@ RULES_JSON = {
         "amount": r"Net\s+invoiced\s+value\s+of\s+goods\s+([\d,]+\.\d{2})",
         "incoterm": r"\b(FCA|FOB|CIF|CIP|EXW|DDP|DAP|CFR)\b\s+([^\n*]+)",
         "currency_value": r"Value:\s+[\d,.]+\s+(\w+)",
-        "gross_weight_total": r"^\s*total\s+([\d.]+)\s*KG\s+([\d,.]+)\s+\w+",
+        "gross_weight_labeled": r"Gross\s+Weight:?\s+([\d,]+\.?\d*)\s*KG",
+        "gross_weight_packing_footer": r"^\s*([\d,]+\.?\d*)\s*kg\s+([\d,]+\.?\d*)\s*kg\s*$",
         "pkg_summary": r"^.{0,20}(.+?)\s+:\s+(\d+)\s*$",
     },
     "items": {
@@ -157,25 +158,32 @@ def _incoterm(text: str) -> str | None:
 
 
 def _gross_weight(text: str) -> float | None:
-    # tariff summary: total     340.394 KG    10,091.68  USD
+    """Header G.W. must be **Weight Gross**, never tariff/Net Weight total.
+
+    PT packing pages expose gross as:
+      - ``Gross Weight: 437.530 KG`` (summary block)
+      - packing-details footer ``340.394 kg … 437.530 kg`` (Net then Gross)
+    The tariff block ``total 340.394 KG … USD`` is **Net Weight** — do not use it.
+    """
+    # 1) Explicit labeled Gross Weight (preferred)
     m = re.search(
-        r"^\s*total\s+([\d.]+)\s*KG\s+([\d,.]+)\s+\w+",
+        r"Gross\s+Weight:?\s*([\d,]+\.?\d*)\s*KG",
+        text,
+        re.IGNORECASE,
+    )
+    if m:
+        return us_float(m.group(1))
+
+    # 2) Packing-details total row: Weight Net … Weight Gross (second kg)
+    m = re.search(
+        r"^\s*([\d,]+\.?\d*)\s*kg\s+([\d,]+\.?\d*)\s*kg\s*$",
         text,
         re.MULTILINE | re.IGNORECASE,
     )
     if m:
-        return float(m.group(1))
-    m = re.search(r"Gross\s+Weight\S*\s+([\d.]+)\s*KG", text, re.I)
-    if m:
-        return float(m.group(1))
-    # packing footer totals line: 340.394 kg                437.530 kg
-    m = re.search(
-        r"^\s*([\d.]+)\s*kg\s+([\d.]+)\s*kg\s*$",
-        text,
-        re.MULTILINE | re.I,
-    )
-    if m:
-        return float(m.group(2))  # gross is usually second
+        return us_float(m.group(2))
+
+    # 3) Do NOT match tariff ``total … KG … USD`` (that is Net Weight).
     return None
 
 
