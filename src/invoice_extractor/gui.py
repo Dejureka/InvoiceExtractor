@@ -37,6 +37,7 @@ def _extract_one(pdf: Path, out: Path | None) -> dict[str, Any]:
     from invoice_extractor.checker import hard_check
     from invoice_extractor.export import default_out_path, write_extract
     from invoice_extractor.rules_engine import extract_invoice
+    from invoice_extractor.text_layer import backend_warning
 
     result = extract_invoice(pdf)
     data = result.to_dict()
@@ -47,19 +48,26 @@ def _extract_one(pdf: Path, out: Path | None) -> dict[str, Any]:
     elif hard["verdict"] == "conflict":
         data["meta"]["confidence"] = "conflict"
     data["meta"]["checker_issues"] = hard.get("issues")
+    data["meta"]["checker_details"] = hard.get("details")
+    warn = backend_warning(data["meta"].get("text_backend"))
+    if warn:
+        data["meta"]["text_backend_warning"] = warn
 
     dest = out if out else default_out_path(pdf)
     written = write_extract(data, dest)
     header = data.get("header") or {}
+    meta = data.get("meta") or {}
     return {
         "ok": True,
         "written": str(written),
         "invoice_no": header.get("invoice_no"),
         "amount": header.get("amount"),
         "item_count": len(data.get("items") or []),
-        "format_id": (data.get("meta") or {}).get("format_id"),
+        "format_id": meta.get("format_id"),
         "checker_verdict": hard["verdict"],
         "issues": hard.get("issues") or [],
+        "text_backend": meta.get("text_backend"),
+        "text_backend_warning": meta.get("text_backend_warning"),
     }
 
 
@@ -161,6 +169,19 @@ def run_gui() -> None:
 
             dnd_note = "enabled" if has_dnd else "not installed (Browse still works)"
             self._log(f"Drag-drop: {dnd_note}")
+            try:
+                from pdf_layout_text.convert import find_pdftotext
+                from invoice_extractor.text_layer import backend_warning
+
+                if find_pdftotext():
+                    self._log("Text engine: pdftotext (poppler) available")
+                else:
+                    self._log(
+                        "WARNING: "
+                        + (backend_warning("pymupdf/pdfminer fallback") or "")
+                    )
+            except Exception as exc:
+                self._log(f"(text engine probe skipped: {exc})")
 
         def _log(self, msg: str) -> None:
             self.summary.insert("end", msg + "\n")
@@ -229,15 +250,18 @@ def run_gui() -> None:
                     summary = _extract_one(pdf, out)
                     def ok() -> None:
                         self._show_summary(summary)
-                        messagebox.showinfo(
-                            "Done",
+                        msg = (
                             f"Wrote:\n{summary['written']}\n\n"
                             f"invoice_no={summary['invoice_no']}\n"
                             f"amount={summary['amount']}\n"
                             f"items={summary['item_count']}\n"
                             f"format={summary['format_id']}\n"
-                            f"verdict={summary['checker_verdict']}",
+                            f"verdict={summary['checker_verdict']}\n"
+                            f"backend={summary.get('text_backend')}"
                         )
+                        if summary.get("text_backend_warning"):
+                            msg += "\n\nWARNING:\n" + summary["text_backend_warning"]
+                        messagebox.showinfo("Done", msg)
                     self.root.after(0, ok)
                 except Exception:
                     err = traceback.format_exc()
@@ -261,7 +285,10 @@ def run_gui() -> None:
                 f"item_count: {s['item_count']}",
                 f"format_id: {s['format_id']}",
                 f"checker_verdict: {s['checker_verdict']}",
+                f"text_backend: {s.get('text_backend')}",
             ]
+            if s.get("text_backend_warning"):
+                lines.append("WARNING: " + s["text_backend_warning"])
             issues = s.get("issues") or []
             if issues:
                 lines.append("issues:")

@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 
+from invoice_extractor.checker import hard_check
 from invoice_extractor.formats import bitzer_v1
 from invoice_extractor.rules_engine import extract_invoice
 
@@ -47,6 +48,10 @@ def test_bitzer_header_from_txt():
     assert r.header.hs_code == "84143081"
     assert all(it.origin == "DE" for it in r.items)
     assert all(it.hs_code == "84143081" for it in r.items)
+    assert r.meta.labeled_amount == pytest.approx(37041.41)
+    assert r.meta.labeled_amount_label == "Final amount"
+    data = r.to_dict()
+    assert hard_check(data)["verdict"] == "pass"
 
 
 @pytest.mark.skipif(not FIXTURE_PDF.is_file(), reason="PDF missing")
@@ -55,3 +60,32 @@ def test_bitzer_from_pdf():
     assert r.header.invoice_no == "200167553"
     assert r.header.amount == pytest.approx(37041.41)
     assert r.meta.format_id == "bitzer_v1"
+    assert len(r.items) == 5
+
+
+@pytest.mark.skipif(not FIXTURE_PDF.is_file(), reason="PDF missing")
+def test_bitzer_without_pdftotext_pdfminer():
+    """Simulate Windows portable without poppler: pdfminer backend must still get 5 lines."""
+    from pdf_layout_text.convert import _via_pdfminer
+
+    text = _via_pdfminer(FIXTURE_PDF)
+    r = bitzer_v1.extract_from_text(text, source_file=str(FIXTURE_PDF), text_backend="pdfminer.six LAParams")
+    assert r.header.invoice_no == "200167553"
+    assert len(r.items) == 5
+    assert r.header.amount == pytest.approx(37041.41)
+    assert r.meta.labeled_amount == pytest.approx(37041.41)
+    assert hard_check(r.to_dict())["verdict"] == "pass"
+
+
+@pytest.mark.skipif(not FIXTURE_PDF.is_file(), reason="PDF missing")
+def test_bitzer_without_pdftotext_pymupdf():
+    pytest.importorskip("pymupdf")
+    from pdf_layout_text.convert import _via_pymupdf
+
+    text = _via_pymupdf(FIXTURE_PDF)
+    r = bitzer_v1.extract_from_text(text, source_file=str(FIXTURE_PDF), text_backend="pymupdf get_text(text)")
+    assert r.header.invoice_no == "200167553"
+    assert len(r.items) == 5
+    assert r.header.amount == pytest.approx(37041.41)
+    assert r.meta.labeled_amount == pytest.approx(37041.41)
+    assert hard_check(r.to_dict())["verdict"] == "pass"

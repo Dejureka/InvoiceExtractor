@@ -54,6 +54,9 @@ class Meta:
     needs_ocr: bool = False
     needs_gold: bool = False
     notes: Optional[str] = None
+    # Document-labeled total (e.g. BITZER "Final amount") for non-circular checks
+    labeled_amount: Optional[float] = None
+    labeled_amount_label: Optional[str] = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

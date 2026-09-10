@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "invoice-extractor"
-version = "0.1.4"
+version = "0.1.5"
 description = "Portable invoice PDF → Excel/JSON extractor (rules + hard checker)"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
   "pdfminer.six>=20221105",
   "openpyxl>=3.1.0",
+  "pymupdf>=1.24.0",
 ]
 
 [project.optional-dependencies]

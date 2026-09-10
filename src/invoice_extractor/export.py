@@ -1,4 +1,9 @@
-"""Write extract results to Excel (.xlsx) or JSON."""
+"""Write extract results to Excel (.xlsx) or JSON.
+
+Default Excel layout mirrors PDFextract.xlsm-style columns (Summary + Lines),
+not the internal snake_case engineering schema. JSON keeps the full internal
+schema for Auditor / automation.
+"""
 
 from __future__ import annotations
 
@@ -6,34 +11,37 @@ import json
 from pathlib import Path
 from typing import Any
 
-# Preferred column order for header sheet (extras appended after).
-_HEADER_COLS = [
-    "invoice_no",
-    "invoice_date",
-    "vendor",
-    "amount",
-    "currency",
-    "total_quantity",
-    "item_line_count",
-    "total_pkg",
-    "gross_weight_kg",
-    "incoterm",
-    "origin",
-    "hs_code",
+# PDFextract-style Summary sheet (one row per invoice extract for now).
+SUMMARY_SHEET = "Summary"
+SUMMARY_COLS = [
+    "Invoice No.",
+    "Packages",
+    "Package Mode",
+    "G.W. (kgs)-Air DIM. (CBM)-Sea",
+    "Incoterms",
+    "Invoice Value",
+    "LINE",
+    "QTY",
+    "Invoice Currency",
 ]
 
-_ITEM_COLS = [
-    "invoice_no",
-    "part_no",
-    "description",
-    "qty",
-    "unit",
-    "unit_price",
-    "amount",
-    "currency",
-    "origin",
-    "hs_code",
+# PDFextract-style detail / declaration lines.
+LINES_SHEET = "Lines"
+LINES_COLS = [
+    "PN",
+    "Des",
+    "Qty",
+    "Unt",
+    "Amt",
+    "UoM",
+    "Co",
+    "HS code",
+    "N.W.",
+    "InvoiceNumber",
+    "Currency",
 ]
+
+META_SHEET = "meta"
 
 _META_KEYS = [
     "source_file",
@@ -44,6 +52,10 @@ _META_KEYS = [
     "needs_gold",
     "needs_ocr",
     "notes",
+    "labeled_amount",
+    "labeled_amount_label",
+    "checker_issues",
+    "checker_details",
 ]
 
 
@@ -64,39 +76,71 @@ def _cell(v: Any) -> Any:
     return v
 
 
+def _summary_row(header: dict[str, Any]) -> list[Any]:
+    """Map internal header → PDFextract Summary columns."""
+    pkg_mode = header.get("package_mode")
+    if pkg_mode is None:
+        pkg_mode = header.get("Package Mode")
+    return [
+        header.get("invoice_no"),
+        header.get("total_pkg"),
+        pkg_mode,  # blank when format does not provide it
+        header.get("gross_weight_kg"),
+        header.get("incoterm"),
+        header.get("amount"),
+        header.get("item_line_count"),
+        header.get("total_quantity"),
+        header.get("currency"),
+    ]
+
+
+def _lines_row(item: dict[str, Any], header: dict[str, Any]) -> list[Any]:
+    """Map internal item → PDFextract Lines columns."""
+    inv = item.get("invoice_no") or header.get("invoice_no")
+    cur = item.get("currency") or header.get("currency")
+    nw = item.get("net_weight")
+    if nw is None:
+        nw = item.get("net_weight_kg")
+    return [
+        item.get("part_no"),
+        item.get("description"),
+        item.get("qty"),
+        item.get("unit_price"),
+        item.get("amount"),
+        item.get("unit"),
+        item.get("origin"),
+        item.get("hs_code"),
+        nw,
+        inv,
+        cur,
+    ]
+
+
 def write_xlsx(data: dict[str, Any], path: Path) -> None:
-    """Write workbook with sheets ``header``, ``items``, ``meta``."""
+    """Write workbook with sheets ``Summary``, ``Lines``, ``meta``.
+
+    Column names match PDFextract.xlsm (PT / PT_Declaration style).
+    Multiple invoice rows can be appended later; currently one extract → one
+    Summary row + N Lines rows.
+    """
     from openpyxl import Workbook
 
     wb = Workbook()
-
-    # --- header: one-row table ---
-    ws_h = wb.active
-    ws_h.title = "header"
     header = dict(data.get("header") or {})
-    cols = list(_HEADER_COLS) + [k for k in header if k not in _HEADER_COLS]
-    ws_h.append(cols)
-    ws_h.append([_cell(header.get(c)) for c in cols])
-
-    # --- items ---
-    ws_i = wb.create_sheet("items")
     items = list(data.get("items") or [])
-    extra: list[str] = []
-    seen = set(_ITEM_COLS)
-    for it in items:
-        for k in it or {}:
-            if k not in seen:
-                extra.append(k)
-                seen.add(k)
-    item_keys = list(_ITEM_COLS) + extra
-    ws_i.append(item_keys)
-    for it in items:
-        row = it or {}
-        ws_i.append([_cell(row.get(c)) for c in item_keys])
-
-    # --- meta ---
-    ws_m = wb.create_sheet("meta")
     meta = dict(data.get("meta") or {})
+
+    ws_s = wb.active
+    ws_s.title = SUMMARY_SHEET
+    ws_s.append(list(SUMMARY_COLS))
+    ws_s.append([_cell(v) for v in _summary_row(header)])
+
+    ws_l = wb.create_sheet(LINES_SHEET)
+    ws_l.append(list(LINES_COLS))
+    for it in items:
+        ws_l.append([_cell(v) for v in _lines_row(it or {}, header)])
+
+    ws_m = wb.create_sheet(META_SHEET)
     meta_keys = [k for k in _META_KEYS if k in meta] + [
         k for k in meta if k not in _META_KEYS
     ]

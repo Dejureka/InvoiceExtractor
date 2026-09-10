@@ -46,6 +46,13 @@ def cmd_extract(args: argparse.Namespace) -> int:
     elif hard["verdict"] == "conflict":
         data["meta"]["confidence"] = "conflict"
     data["meta"]["checker_issues"] = hard.get("issues")
+    data["meta"]["checker_details"] = hard.get("details")
+    from invoice_extractor.text_layer import backend_warning
+
+    warn = backend_warning(data["meta"].get("text_backend"))
+    if warn:
+        data["meta"]["text_backend_warning"] = warn
+        print(f"WARNING: {warn}", file=sys.stderr)
 
     if args.gold:
         cmp = offline_compare(data, args.gold)
@@ -88,7 +95,7 @@ def cmd_extract(args: argparse.Namespace) -> int:
     print(
         f"format={data['meta'].get('format_id')} invoice_no={h.get('invoice_no')} "
         f"amount={h.get('amount')} items={len(data.get('items') or [])} "
-        f"verdict={hard['verdict']}"
+        f"verdict={hard['verdict']} backend={data['meta'].get('text_backend')}"
     )
     return 0
 

@@ -1,4 +1,9 @@
-"""Hard checks only (local, required)."""
+"""Hard checks only (local, required).
+
+When a document-labeled total is present (meta.labeled_amount / Final amount),
+compare *both* header.amount and sum(items) against that labeled total so
+incomplete extracts cannot pass by setting header.amount = sum(items).
+"""
 
 from __future__ import annotations
 
@@ -15,6 +20,26 @@ def _f(x: Any) -> Optional[float]:
         return float(x)
     except (TypeError, ValueError):
         return None
+
+
+def _labeled_total(extract: dict[str, Any]) -> tuple[Optional[float], Optional[str]]:
+    """Return (amount, label) from meta / header if a document total was captured."""
+    meta = extract.get("meta") or {}
+    header = extract.get("header") or {}
+    for key, label_key in (
+        ("labeled_amount", "labeled_amount_label"),
+        ("final_amount", None),
+        ("invoice_total_labeled", None),
+    ):
+        val = _f(meta.get(key))
+        if val is None:
+            val = _f(header.get(key))
+        if val is not None:
+            label = None
+            if label_key:
+                label = meta.get(label_key) or header.get(label_key)
+            return val, label or key
+    return None, None
 
 
 def hard_check(extract: dict[str, Any]) -> dict[str, Any]:
@@ -38,14 +63,12 @@ def hard_check(extract: dict[str, Any]) -> dict[str, Any]:
     if not header.get("invoice_no"):
         issues.append("missing header.invoice_no")
 
-    # len(items) == item_line_count
     ilc = header.get("item_line_count")
     if ilc is not None and items:
         details["item_line_count"] = {"want": ilc, "got": len(items)}
         if int(ilc) != len(items):
             issues.append(f"item_line_count {ilc} != len(items) {len(items)}")
 
-    # sum qty
     tq = _f(header.get("total_quantity"))
     if tq is not None and items:
         sq = sum(_f(it.get("qty")) or 0.0 for it in items)
@@ -53,22 +76,42 @@ def hard_check(extract: dict[str, Any]) -> dict[str, Any]:
         if abs(sq - tq) > QTY_TOL:
             issues.append(f"sum(item.qty) {sq} != total_quantity {tq}")
 
-    # sum amount
+    sa = sum(_f(it.get("amount")) or 0.0 for it in items) if items else None
     ha = _f(header.get("amount"))
-    if ha is not None and items:
-        sa = sum(_f(it.get("amount")) or 0.0 for it in items)
+
+    if ha is not None and sa is not None:
         details["amount"] = {"want": ha, "got": round(sa, 4)}
         if abs(sa - ha) > AMOUNT_TOL:
             issues.append(f"sum(item.amount) {sa} != header.amount {ha}")
 
-    # currency consistency
+    labeled, label_name = _labeled_total(extract)
+    if labeled is not None:
+        details["labeled_amount"] = {
+            "label": label_name,
+            "want": labeled,
+            "header_amount": ha,
+            "sum_items": round(sa, 4) if sa is not None else None,
+            "item_count": len(items),
+        }
+        if ha is None or abs(ha - labeled) > AMOUNT_TOL:
+            issues.append(
+                f"header.amount {ha} != labeled {label_name} {labeled}"
+            )
+        if sa is None or abs(sa - labeled) > AMOUNT_TOL:
+            issues.append(
+                f"sum(item.amount) {sa} != labeled {label_name} {labeled}"
+            )
+
     hc = header.get("currency")
     if hc and items:
-        bad = [i for i, it in enumerate(items) if it.get("currency") and it.get("currency") != hc]
+        bad = [
+            i
+            for i, it in enumerate(items)
+            if it.get("currency") and it.get("currency") != hc
+        ]
         if bad:
             issues.append(f"item currency mismatch vs header at indices {bad[:10]}")
 
-    # unit_price * qty ≈ amount
     line_bad = []
     for i, it in enumerate(items):
         up, q, am = _f(it.get("unit_price")), _f(it.get("qty")), _f(it.get("amount"))

@@ -1,4 +1,4 @@
-"""Excel / JSON export + CLI default extension."""
+"""Excel / JSON export + CLI default extension (PDFextract-style columns)."""
 
 from __future__ import annotations
 
@@ -8,7 +8,15 @@ from pathlib import Path
 from openpyxl import load_workbook
 
 from invoice_extractor.cli import _out_path_for, build_parser
-from invoice_extractor.export import default_out_path, write_extract, write_xlsx
+from invoice_extractor.export import (
+    LINES_COLS,
+    LINES_SHEET,
+    SUMMARY_COLS,
+    SUMMARY_SHEET,
+    default_out_path,
+    write_extract,
+    write_xlsx,
+)
 
 
 SAMPLE = {
@@ -78,30 +86,42 @@ def test_cli_help_mentions_xlsx():
     assert ".extract.xlsx" in help_txt or "xlsx" in help_txt.lower()
 
 
-def test_write_xlsx_sheets(tmp_path: Path):
+def test_write_xlsx_pdfextract_columns(tmp_path: Path):
     path = tmp_path / "out.xlsx"
     write_xlsx(SAMPLE, path)
     assert path.is_file()
     wb = load_workbook(path)
-    assert wb.sheetnames == ["header", "items", "meta"]
+    assert wb.sheetnames == [SUMMARY_SHEET, LINES_SHEET, "meta"]
 
-    ws_h = wb["header"]
+    ws_h = wb[SUMMARY_SHEET]
     headers = [c.value for c in ws_h[1]]
-    assert "invoice_no" in headers
-    assert "amount" in headers
-    assert "vendor" in headers
+    assert headers == list(SUMMARY_COLS)
+    assert "Invoice No." in headers
+    assert "Invoice Value" in headers
+    assert "Invoice Currency" in headers
     row = {headers[i]: ws_h[2][i].value for i in range(len(headers))}
-    assert row["invoice_no"] == "INV-1"
-    assert row["amount"] == 12.5
-    assert row["currency"] == "USD"
+    assert row["Invoice No."] == "INV-1"
+    assert row["Invoice Value"] == 12.5
+    assert row["Invoice Currency"] == "USD"
+    assert row["Packages"] == 1.0
+    assert row["LINE"] == 2
+    assert row["QTY"] == 3.0
 
-    ws_i = wb["items"]
+    ws_i = wb[LINES_SHEET]
     item_headers = [c.value for c in ws_i[1]]
-    assert "part_no" in item_headers
+    assert item_headers == list(LINES_COLS)
+    assert "PN" in item_headers
+    assert "InvoiceNumber" in item_headers
     assert ws_i.max_row == 3  # header + 2 items
-    part_idx = item_headers.index("part_no")
-    assert ws_i[2][part_idx].value == "A1"
-    assert ws_i[3][part_idx].value == "B2"
+    pn_idx = item_headers.index("PN")
+    assert ws_i[2][pn_idx].value == "A1"
+    assert ws_i[3][pn_idx].value == "B2"
+    des_idx = item_headers.index("Des")
+    assert ws_i[2][des_idx].value == "Widget"
+    unt_idx = item_headers.index("Unt")
+    assert ws_i[2][unt_idx].value == 5.0  # unit_price
+    uom_idx = item_headers.index("UoM")
+    assert ws_i[2][uom_idx].value == "pcs"
 
     ws_m = wb["meta"]
     meta = {ws_m[r][0].value: ws_m[r][1].value for r in range(2, ws_m.max_row + 1)}
@@ -115,14 +135,16 @@ def test_write_extract_routes_by_extension(tmp_path: Path):
     assert xlsx.suffix == ".xlsx"
     assert xlsx.is_file()
     wb = load_workbook(xlsx)
-    assert "header" in wb.sheetnames
+    assert SUMMARY_SHEET in wb.sheetnames
 
     jpath = write_extract(SAMPLE, tmp_path / "b.json")
     assert jpath.suffix == ".json"
     data = json.loads(jpath.read_text(encoding="utf-8"))
     assert data["header"]["invoice_no"] == "INV-1"
+    # JSON keeps internal schema
+    assert "invoice_no" in data["header"]
+    assert "part_no" in data["items"][0]
 
-    # default non-json → xlsx (normalize .xls)
     xls = write_extract(SAMPLE, tmp_path / "c.xls")
     assert xls.suffix == ".xlsx"
     assert xls.is_file()

@@ -1,6 +1,7 @@
 """BITZER / BHC Versanddokument + Commercial Invoice (v1).
 
 Adapted from BHC_HeaderExtract; trained on 3000214469 layout text.
+Works with pdftotext -layout AND multiline pdfminer/pymupdf fallbacks.
 """
 
 from __future__ import annotations
@@ -34,12 +35,14 @@ RULES_JSON = {
         "terms": r"Terms:\s*([^\n]+)",
         "origin": r"Country of origin:\s*([A-Z]{2})",
         "hs_code": r"HS-Code:\s*(\d{6,10})",
+        "final_amount": r"Final amount\s+([\d.,]+)",
     },
     "items": {
         "line": r"(\d{6})\s+(\d{9})\s+(\d+)\s+PC\s+([\d.,]+)\s+EUR\s*/\s*1\s*PC\s+([\d.,]+)",
     },
 }
 
+# Single-line (pdftotext -layout) patterns
 _LINE_RE = re.compile(
     r"(\d{6})\s+(\d{9})\s+(\d+)\s+PC\s+([\d.,]+)\s+EUR\s*/\s*1\s*PC\s+([\d.,]+)",
     re.MULTILINE,
@@ -54,13 +57,30 @@ _DESC_RE = re.compile(
     re.MULTILINE,
 )
 
+# Multiline (pdfminer / pymupdf) block starts: commercial lines 000001…
+_ITEM_START_RE = re.compile(r"^[ \t]*(0000\d{2})\b", re.MULTILINE)
+_MATERIAL_RE = re.compile(r"\b(\d{9})\b")
+_PRICE_RE = re.compile(r"([\d.,]+)\s*EUR\s*/\s*1\s*PC")
+_DESC_BLOCK_RE = re.compile(r"^[ \t]*((?:CSW|CSE|GSD|OSKA)\S+)", re.MULTILINE)
+_EU_MONEY_RE = re.compile(r"([\d]{1,3}(?:\.\d{3})*,\d{2}|\d+,\d{2})")
+
+AMOUNT_TOL = 0.05
+
 
 def _commercial_invoice_chunk(text: str) -> str:
+    """Slice commercial-invoice region.
+
+    Includes a lead-in before the ``Commercial Invoice`` heading so pymupdf
+    reading-order (item block before heading on the same page) still works.
+    Ends at terms/boilerplate, *after* Final amount when present.
+    """
     idx = text.find("Commercial Invoice")
     if idx < 0:
         return text
+    start = max(0, idx - 3000)
+    # Prefer not to start mid-Ladeliste serial dump: snap forward to a blank line
+    # near idx if the lead-in is huge.
     end_markers = (
-        "Performance date corresponds to invoice date",
         "Sales, deliveries and other services",
         "General Terms and Conditions of Sale",
     )
@@ -69,10 +89,84 @@ def _commercial_invoice_chunk(text: str) -> str:
         pos = text.find(marker, idx)
         if 0 <= pos < end:
             end = pos
-    return text[idx:end]
+    return text[start:end]
+
+
+def _prefer_contiguous(rows: list[tuple[str, str, int, float, float, str | None]]):
+    """Keep contiguous commercial lines 000001, 000002, … when present."""
+    if not rows:
+        return rows
+    sorted_rows = sorted(rows, key=lambda r: r[0])
+    kept: list[tuple[str, str, int, float, float, str | None]] = []
+    expect = 1
+    for row in sorted_rows:
+        n = int(row[0])
+        if n == expect:
+            kept.append(row)
+            expect += 1
+        elif kept:
+            break
+    return kept if kept else sorted_rows
+
+
+def _qty_before_price(block: str, price_start: int) -> int | None:
+    """Parse quantity from text *before* the unit-price line (avoid `/ 1 PC`)."""
+    head = block[:price_start]
+    # pdfminer often inserts a blank line between qty and PC
+    m = re.search(r"^[ \t]*(\d+)[ \t]*\n+[ \t]*PC\b", head, re.MULTILINE)
+    if m:
+        return int(m.group(1))
+    m = re.search(r"(\d+)[ \t]+PC\b", head)
+    if m:
+        return int(m.group(1))
+    return None
+
+
+def _parse_multiline_items(
+    ci: str,
+) -> list[tuple[str, str, int, float, float, str | None]]:
+    starts = list(_ITEM_START_RE.finditer(ci))
+    found: list[tuple[str, str, int, float, float, str | None]] = []
+    seen: set[str] = set()
+    for i, m in enumerate(starts):
+        item_no = m.group(1)
+        if item_no in seen:
+            continue
+        end = (
+            starts[i + 1].start()
+            if i + 1 < len(starts)
+            else min(len(ci), m.start() + 1200)
+        )
+        block = ci[m.start() : end]
+        price_m = _PRICE_RE.search(block)
+        if not price_m:
+            # Ladeliste / delivery rows lack unit price — skip
+            continue
+        mat_m = _MATERIAL_RE.search(block)
+        qty = _qty_before_price(block, price_m.start())
+        if not mat_m or qty is None:
+            continue
+        price = eu_float(price_m.group(1))
+        after = block[price_m.end() : price_m.end() + 120]
+        val_m = _EU_MONEY_RE.search(after) or re.search(r"([\d.,]+)", after)
+        value = eu_float(val_m.group(1)) if val_m else round(qty * price, 2)
+        desc_m = _DESC_BLOCK_RE.search(block)
+        seen.add(item_no)
+        found.append(
+            (
+                item_no,
+                mat_m.group(1),
+                qty,
+                price,
+                value,
+                desc_m.group(1) if desc_m else None,
+            )
+        )
+    return _prefer_contiguous(found)
 
 
 def _parse_line_items(ci: str) -> list[tuple[str, str, int, float, float, str | None]]:
+    """Extract priced commercial-invoice lines (not Ladeliste package/serial rows)."""
     found: list[tuple[str, str, str, str, str]] = []
     for m in _LINE_RE.finditer(ci):
         found.append(m.groups())
@@ -92,6 +186,8 @@ def _parse_line_items(ci: str) -> list[tuple[str, str, int, float, float, str | 
     for item, material, qty, price, value in found:
         if item in seen:
             continue
+        # Skip delivery-note style item nos (000010, 000020…) when they sneak in
+        # without being part of the commercial 000001… sequence — handled below.
         seen.add(item)
         uniq.append(
             (
@@ -103,8 +199,36 @@ def _parse_line_items(ci: str) -> list[tuple[str, str, int, float, float, str | 
                 desc_map.get(item),
             )
         )
-    uniq.sort(key=lambda r: r[0])
+    uniq = _prefer_contiguous(uniq)
+
+    # If single-line patterns missed most rows (pdfminer/pymupdf), use multiline.
+    multi = _parse_multiline_items(ci)
+    if len(multi) > len(uniq):
+        return multi
+    if not uniq and multi:
+        return multi
     return uniq
+
+
+def _parse_final_amount(text: str) -> float | None:
+    """Parse labeled ``Final amount`` (European ``37.041,41``), possibly multiline."""
+    m = re.search(r"Final amount[ \t]+([\d.,]+)", text)
+    if m:
+        try:
+            return eu_float(m.group(1))
+        except ValueError:
+            pass
+    m = re.search(r"Final amount\b", text)
+    if not m:
+        return None
+    window = text[m.end() : m.end() + 400]
+    cands = _EU_MONEY_RE.findall(window)
+    if not cands:
+        return None
+    try:
+        return eu_float(cands[0])
+    except ValueError:
+        return None
 
 
 def match_score(text: str, filename: str = "") -> float:
@@ -163,6 +287,15 @@ def extract_from_text(
         m_gw = re.search(r"Gross weight\s+([\d.,]+)\s*KG", ci)
         if m_gw:
             gross_weight_kg = eu_float(m_gw.group(1))
+        else:
+            # pdfminer often splits "Gross weight" / number / "KG"
+            m_gw2 = re.search(
+                r"Gross weight\s*([\d.,]+)\s*KG|Gross weight[\s\S]{0,40}?([\d.,]+)[\s\S]{0,10}?KG",
+                ci,
+                re.I,
+            )
+            if m_gw2:
+                gross_weight_kg = eu_float(m_gw2.group(1) or m_gw2.group(2))
 
     m_terms = re.search(r"Terms:\s*([^\n]+)", ci)
     if m_terms:
@@ -199,6 +332,25 @@ def extract_from_text(
             if hs_code and not it.hs_code:
                 it.hs_code = hs_code
 
+    line_sum = round(sum(r[4] for r in lines), 2) if lines else None
+    final_amount = _parse_final_amount(ci) or _parse_final_amount(text)
+
+    notes_parts: list[str] = []
+    if doc_no:
+        notes_parts.append(f"doc_no={doc_no}")
+
+    amount = final_amount if final_amount is not None else line_sum
+    amount_mismatch = False
+    if (
+        final_amount is not None
+        and line_sum is not None
+        and abs(line_sum - final_amount) > AMOUNT_TOL
+    ):
+        amount_mismatch = True
+        notes_parts.append(
+            f"line_sum={line_sum} disagrees with Final amount={final_amount}"
+        )
+
     header = Header(
         invoice_no=invoice_no,
         invoice_date=de_date_to_iso(inv_date_raw) if inv_date_raw else None,
@@ -207,20 +359,21 @@ def extract_from_text(
         incoterm=trade_terms,
         item_line_count=len(items) if items else None,
         total_quantity=float(sum(r[2] for r in lines)) if lines else None,
-        amount=round(sum(r[4] for r in lines), 2) if lines else None,
+        amount=amount,
         currency=currency,
         vendor="BITZER",
         origin=origin,
         hs_code=hs_code,
     )
-    # stash doc_no in notes via meta
     meta = Meta(
         source_file=source_file,
         text_backend=text_backend,
         format_id="bitzer_v1",
-        confidence="rules",
+        confidence="conflict" if amount_mismatch else "rules",
         needs_ocr=needs_ocr,
-        notes=f"doc_no={doc_no}" if doc_no else None,
+        notes="; ".join(notes_parts) if notes_parts else None,
+        labeled_amount=final_amount,
+        labeled_amount_label="Final amount" if final_amount is not None else None,
     )
     if needs_ocr or not invoice_no:
         meta.confidence = "needs_gold"

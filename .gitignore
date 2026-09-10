@@ -15,3 +15,8 @@ out/
 *.json.bak
 .DS_Store
 out/
+
+# local poppler downloads (CI stages into portable zip)
+vendor/poppler/
+vendor/poppler_dl/
+poppler.zip

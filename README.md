@@ -10,10 +10,11 @@
 
 從 [Releases / portable-latest](https://github.com/Dejureka/InvoiceExtractor/releases/tag/portable-latest) 下載 `InvoiceExtractor_Portable_Win64.zip`，解壓後：
 
-1. **整個資料夾**複製到電腦或隨身碟
+1. **整個資料夾**複製到電腦或隨身碟（含 `poppler/bin`，勿只拷 exe）
 2. **雙擊 `InvoiceExtractor.exe`** → 開啟圖形介面（不會只閃一下 console）
 3. 拖放或「Browse」選擇 PDF → 可選輸出路徑（預設 `<pdf_stem>.extract.xlsx`）→ 按 **Extract**
-4. 摘要顯示：invoice_no、amount、item count、format_id、checker_verdict
+4. 摘要顯示：invoice_no、amount、item count、format_id、checker_verdict、text_backend
+5. 本包**已內建 poppler**；若摘要出現 text backend 警告，請確認 `poppler/bin/pdftotext.exe` 仍在同一資料夾
 
 命令列（仍可用）：
 
@@ -73,7 +74,19 @@ python -m invoice_extractor path.pdf --format bitzer_v1 --out out.xlsx
 python -m invoice_extractor path.pdf --format pt_gloria_v1 --out out.xlsx
 ```
 
-Excel 工作簿含三個工作表：`header`（單列欄位）、`items`（明細列）、`meta`（format_id / checker_verdict 等）。輸出 schema 見 `DESIGN.md`（header / items / meta）。金額會轉成小數（歐式 `6.052,400` → 6052.4）。
+Excel 工作簿採 **PDFextract.xlsm 風格欄位**（內部 JSON schema 不變，給 Auditor 用）：
+
+| 工作表 | 說明 |
+|--------|------|
+| **`Summary`** | 發票彙總一列：Invoice No. / Packages / Package Mode / G.W. (kgs)-Air DIM. (CBM)-Sea / Incoterms / Invoice Value / LINE / QTY / Invoice Currency |
+| **`Lines`** | 明細：PN / Des / Qty / Unt / Amt / UoM / Co / HS code / N.W. / InvoiceNumber / Currency |
+| **`meta`** | format_id / checker_verdict / labeled_amount / text_backend 等 |
+
+`--out *.json` 仍寫完整內部 schema（header / items / meta）。金額會轉成小數（歐式 `6.052,400` → 6052.4）。
+
+### 文字層（可攜包已內建 poppler）
+
+優先用 **poppler `pdftotext -layout`**（可攜包內 `poppler/bin/pdftotext.exe`，不必另裝）。若找不到，才退到 pymupdf / pdfminer；GUI 與 `meta.text_backend_warning` 會明確警告，不會默默降級而不告知。BITZER 規則已能在無 pdftotext 時從 Final amount + 多行明細抽出 5 列／37041.41，但 PT 等格式仍以 pdftotext 佈局為準。
 
 ## 內建格式
 
