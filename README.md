@@ -1,3 +1,7 @@
+## 審核 SOP
+
+規則抽出後必經人工／Auditor：見 [`docs/sop/AUDIT_REVIEW.md`](docs/sop/AUDIT_REVIEW.md)。
+
 # InvoiceExtractor
 
 本地可攜的發票 PDF → JSON 抽取器（規則庫 + 硬校驗）。公司電腦拷資料夾就能跑；沒網路也能用已學會的 format。
