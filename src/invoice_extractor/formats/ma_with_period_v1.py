@@ -38,6 +38,7 @@ RULES_JSON = {
     "header": {
         "invoice_no": r"Document\s+No\.:?\s+(\d{8,12})",
         "amount": r"Goods\s+[Vv]alue\s+([\d,.]+)",
+        "currency": r"(?:Amount\s+)?(?:in\s+)?(TWD|USD|EUR|CNY)\b",
         "incoterm": r"Incoterms:\s*\n\s*([^\n]+)",
     },
     "items": {
@@ -104,11 +105,28 @@ def _goods_value(text: str) -> float | None:
 
 
 def _currency(text: str) -> str | None:
-    m = re.search(r"Amount\s+in\s+(TWD|USD|EUR|CNY)", text, re.I)
-    if m:
-        return m.group(1).upper()
-    m = re.search(r"Discount in\s+(TWD|USD|EUR)", text, re.I)
-    return m.group(1).upper() if m else None
+    """Parse currency from Amount-in-XXX style labels.
+
+    WithPeriod invoices split the visual label across two header rows, e.g.::
+
+        ... Price per unit        Amount
+        ... Weight          Discount          in TWD
+
+    so a strict ``Amount in TWD`` match fails. Also accept ``Amount TWD``
+    on declaration pages and ``Discount … in TWD``.
+    """
+    patterns = (
+        r"Amount\s+in\s+(TWD|USD|EUR|CNY|GBP)",
+        r"Amount\s+(TWD|USD|EUR|CNY|GBP)\b",
+        r"Discount\s+in\s+(TWD|USD|EUR|CNY|GBP)",
+        r"\bAmount\b[\s\S]{0,120}?\bin\s+(TWD|USD|EUR|CNY|GBP)\b",
+        r"\bin\s+(TWD|USD|EUR|CNY|GBP)\b",
+    )
+    for pat in patterns:
+        m = re.search(pat, text, re.I)
+        if m:
+            return m.group(1).upper()
+    return None
 
 
 def _incoterm(text: str) -> str | None:
