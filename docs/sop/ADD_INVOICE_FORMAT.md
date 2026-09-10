@@ -65,7 +65,7 @@
 ### 8. 跑樣本驗收
 
 - 看 Excel：`Summary` 一列／`Lines` 明細；對人眼與文字層。
-- 需要時產出 JSON 給 Auditor（見 AuditSOP）；**硬校驗 pass ≠ 最終收件**，人／Auditor 點頭才算。
+- 依 **AuditSOP**：產出 JSON **與 invoice 頁面圖** 給 Auditor（圖文對照）；**硬校驗 pass ≠ 最終收件**，人／Auditor 點頭才算。
 
 ### 9. 寫進文件
 

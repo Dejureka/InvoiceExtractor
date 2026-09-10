@@ -67,6 +67,8 @@ python -m invoice_extractor ./invoices_dir
 | 某廠商完全抽不到 | 可能尚未有規則（例如多數 **MA** 變體）；走 FormatSOP 開新 format |
 | 要給 Auditor | 另存／輸出 `.json`（或依現行參數），見 AuditSOP |
 
+**審核**：要給 Auditor 時依 **AuditSOP**——Tools 需附 JSON＋invoice 圖，不只 txt／JSON。
+
 **原則**：只貼失敗／異常的畫面與對應列，成功的不必整包貼。
 
 ---
