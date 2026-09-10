@@ -1,6 +1,10 @@
-## 審核 SOP
+## SOP（溝通用名稱）
 
-規則抽出後必經人工／Auditor：見 [`docs/sop/AUDIT_REVIEW.md`](docs/sop/AUDIT_REVIEW.md)。
+| 名稱 | 檔案 | 用途 |
+|------|------|------|
+| **FormatSOP** | [`docs/sop/ADD_INVOICE_FORMAT.md`](docs/sop/ADD_INVOICE_FORMAT.md) | 怎麼新增一種發票規則 |
+| **RunSOP** | [`docs/sop/USER_RUN.md`](docs/sop/USER_RUN.md) | 怎麼操作工具（多檔／範本／輸出） |
+| **AuditSOP** | [`docs/sop/AUDIT_REVIEW.md`](docs/sop/AUDIT_REVIEW.md) | 抽出後人工／Auditor 審核 |
 
 # InvoiceExtractor
 
