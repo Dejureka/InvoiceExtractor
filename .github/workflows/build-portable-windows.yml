@@ -8,8 +8,10 @@ on:
       - 'src/**'
       - 'vendor/**'
       - 'data/**'
+      - 'run_gui.py'
       - 'run_cli.py'
       - 'InvoiceExtractor.spec'
+      - 'requirements.txt'
       - 'pyproject.toml'
       - '.github/workflows/build-portable-windows.yml'
 
@@ -27,7 +29,7 @@ jobs:
       - name: Install
         run: |
           python -m pip install --upgrade pip
-          pip install -e .
+          pip install -e ".[gui]"
           pip install pyinstaller
       - name: Build
         run: pyinstaller --noconfirm InvoiceExtractor.spec
@@ -40,10 +42,17 @@ jobs:
           New-Item -ItemType Directory -Force -Path "$out/data" | Out-Null
           if (Test-Path "data/invoice_formats.db") { Copy-Item "data/invoice_formats.db" "$out/data/" }
           @"
-          InvoiceExtractor 免安裝包
-          1. 解壓後整個資料夾拷走
-          2. 雙擊 InvoiceExtractor.exe 或在 cmd：InvoiceExtractor.exe 某.pdf（預設出 .xlsx）；要 JSON 用 --out out.json
-          3. 需要 poppler 的 pdftotext 時，請把 poppler 的 bin 加到 PATH（否則走 pdfminer fallback）
+          InvoiceExtractor 免安裝包（GUI）
+          =================================
+          1. 解壓後整個資料夾拷走（不要只拷 exe）
+          2. 雙擊 InvoiceExtractor.exe → 開啟圖形介面
+          3. 拖放或瀏覽選擇 PDF，按 Extract → 旁輸出 .extract.xlsx
+          4. 命令列仍可用：InvoiceExtractor.exe path.pdf [--out out.xlsx]
+
+          注意：
+          - 這不是安裝程式；不解壓到 Program Files 也沒關係
+          - 需要 poppler 的 pdftotext 時，請把 poppler bin 加到 PATH（否則走 pdfminer fallback）
+          - 公司防毒若阻擋未簽章 exe，請走內部白名單流程
           "@ | Set-Content -Encoding UTF8 "$out/使用說明.txt"
           Compress-Archive -Path $out -DestinationPath InvoiceExtractor_Portable_Win64.zip -Force
       - uses: actions/upload-artifact@v4
@@ -54,6 +63,11 @@ jobs:
         with:
           tag_name: portable-latest
           name: Portable Windows build
+          body: |
+            免安裝可攜包（Windows 64-bit）。
+            下載 ZIP → 解壓 → 整個資料夾拷走 → 雙擊 `InvoiceExtractor.exe` 開 GUI。
+            拖放／瀏覽 PDF → Extract → 輸出 `<pdf>.extract.xlsx`。
+            命令列：`InvoiceExtractor.exe path.pdf`（預設 Excel；`--out out.json` 可改 JSON）。
           files: InvoiceExtractor_Portable_Win64.zip
           make_latest: true
         env:

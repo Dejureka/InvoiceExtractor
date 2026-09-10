@@ -6,12 +6,33 @@
 
 本地可攜的發票 PDF → **Excel (.xlsx)** 抽取器（規則庫 + 硬校驗）。公司電腦拷資料夾就能跑；沒網路也能用已學會的 format。預設輸出 Excel；需要 JSON 時把 `--out` 設成 `.json` 即可（Auditor／自動化仍可用）。
 
-## 裝起來
+## Windows 免安裝包（推薦）
+
+從 [Releases / portable-latest](https://github.com/Dejureka/InvoiceExtractor/releases/tag/portable-latest) 下載 `InvoiceExtractor_Portable_Win64.zip`，解壓後：
+
+1. **整個資料夾**複製到電腦或隨身碟
+2. **雙擊 `InvoiceExtractor.exe`** → 開啟圖形介面（不會只閃一下 console）
+3. 拖放或「Browse」選擇 PDF → 可選輸出路徑（預設 `<pdf_stem>.extract.xlsx`）→ 按 **Extract**
+4. 摘要顯示：invoice_no、amount、item count、format_id、checker_verdict
+
+命令列（仍可用）：
+
+```bat
+InvoiceExtractor.exe path.pdf
+InvoiceExtractor.exe path.pdf --out out.xlsx
+InvoiceExtractor.exe path.pdf --out out.json
+```
+
+手動觸發打包：GitHub → Actions → **Build portable Windows** → Run workflow。
+
+---
+
+## 開發者：從原始碼執行
 
 ```bash
 # 依賴 layout 文字層
 pip install -e /workspace/PDF_LayoutText
-pip install -e /workspace/InvoiceExtractor
+pip install -e ".[gui]"
 # 或
 pip install -r requirements.txt
 ```
@@ -22,7 +43,17 @@ pip install -r requirements.txt
 python -m invoice_extractor --init-db
 ```
 
-## 用法
+### GUI
+
+```bash
+python -m invoice_extractor
+# 或
+python -m invoice_extractor --gui
+# 或
+python run_gui.py
+```
+
+### CLI
 
 ```bash
 # 抽一張 → 預設旁輸出 Excel（<pdf_stem>.extract.xlsx）
@@ -52,16 +83,6 @@ Excel 工作簿含三個工作表：`header`（單列欄位）、`items`（明�
 | `pt_gloria_v1` | Robert Bosch Power Tools GmbH（PT/Gloria） | 用 `pdftotext -layout` 真輸出訓練 |
 
 未命中或文字層空 → `meta.needs_gold` / `needs_ocr`，並寫 placeholder 給人補金標。
-
-## Windows 免安裝包
-
-從 [Releases / portable-latest](https://github.com/Dejureka/InvoiceExtractor/releases/tag/portable-latest) 下載 `InvoiceExtractor_Portable_Win64.zip`，解壓後：
-
-```bat
-InvoiceExtractor.exe path.pdf
-InvoiceExtractor.exe path.pdf --out out.xlsx
-InvoiceExtractor.exe path.pdf --out out.json
-```
 
 ## 測試
 

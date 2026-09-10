@@ -5,9 +5,11 @@ hidden = collect_submodules('invoice_extractor') + collect_submodules('pdf_layou
 hidden += ['pdfminer', 'pdfminer.high_level']
 # Excel export
 hidden += collect_submodules('openpyxl') + collect_submodules('et_xmlfile')
+# Optional drag-drop (best-effort; Browse works without it)
+hidden += ['tkinterdnd2']
 
 a = Analysis(
-    ['run_cli.py'],
+    ['run_gui.py'],
     pathex=['src', 'vendor'],
     binaries=[],
     datas=[('data', 'data')],
@@ -22,6 +24,8 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz, a.scripts, [], exclude_binaries=True,
     name='InvoiceExtractor', debug=False, bootloader_ignore_signals=False,
-    strip=False, upx=True, console=True,
+    strip=False, upx=True,
+    # windowed: double-click opens GUI without console flash; CLI args still work
+    console=False,
 )
 coll = COLLECT(exe, a.binaries, a.zipfiles, a.datas, strip=False, upx=True, upx_exclude=[], name='InvoiceExtractor')

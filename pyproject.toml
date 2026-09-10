@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "invoice-extractor"
-version = "0.1.3"
+version = "0.1.4"
 description = "Portable invoice PDF → Excel/JSON extractor (rules + hard checker)"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -14,6 +14,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+gui = ["tkinterdnd2>=0.3"]
 dev = ["pytest>=7"]
 
 [project.scripts]

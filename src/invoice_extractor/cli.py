@@ -122,17 +122,33 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Record run into SQLite",
     )
+    p.add_argument(
+        "--gui",
+        action="store_true",
+        help="Launch GUI (also default when no args)",
+    )
     return p
 
 
 def main(argv: list[str] | None = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
+    # No args or explicit --gui → GUI (double-click / empty invocation)
+    if not argv or argv == ["--gui"] or argv == ["gui"]:
+        from invoice_extractor.gui import run_gui
+
+        run_gui()
+        return 0
     parser = build_parser()
     args = parser.parse_args(argv)
+    if getattr(args, "gui", False):
+        from invoice_extractor.gui import run_gui
+
+        run_gui()
+        return 0
     if args.init_db:
         return cmd_init_db(args)
     if not args.pdf:
-        parser.error("pdf path required (or use --init-db)")
+        parser.error("pdf path required (or use --init-db / --gui)")
     return cmd_extract(args)
 
 
