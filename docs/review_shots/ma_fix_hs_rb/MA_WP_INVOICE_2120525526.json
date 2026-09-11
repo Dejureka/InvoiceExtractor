@@ -1,0 +1,102 @@
+{
+  "header": {
+    "invoice_no": "2120525526",
+    "invoice_date": "2026-07-14",
+    "total_pkg": 12.0,
+    "gross_weight_kg": 5163.84,
+    "incoterm": "FCA Karlsruhe",
+    "item_line_count": 6,
+    "total_quantity": 3548.0,
+    "amount": 624749.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null
+  },
+  "items": [
+    {
+      "invoice_no": "2120525526",
+      "part_no": "1.680.109.139.000",
+      "description": "Sealing disk",
+      "qty": 120.0,
+      "unit": "EA",
+      "unit_price": 31.0,
+      "amount": 3720.0,
+      "origin": "Germany",
+      "hs_code": "73269098",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120525526",
+      "part_no": "1.684.463.519.000",
+      "description": "Adapter Line",
+      "qty": 1.0,
+      "unit": "EA",
+      "unit_price": 1819.0,
+      "amount": 1819.0,
+      "origin": "Germany",
+      "hs_code": "85444290",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120525526",
+      "part_no": "1.688.130.882.000",
+      "description": "Calibration Set",
+      "qty": 1.0,
+      "unit": "EA",
+      "unit_price": 7570.0,
+      "amount": 7570.0,
+      "origin": "Germany",
+      "hs_code": "90319000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120525526",
+      "part_no": "1.987.479.202.GEH",
+      "description": "Brake Fluid",
+      "qty": 1800.0,
+      "unit": "EA",
+      "unit_price": 178.0,
+      "amount": 320400.0,
+      "origin": "Germany",
+      "hs_code": "38190000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120525526",
+      "part_no": "1.987.479.207.GEH",
+      "description": "Brake Fluid",
+      "qty": 906.0,
+      "unit": "EA",
+      "unit_price": 180.0,
+      "amount": 163080.0,
+      "origin": "Germany",
+      "hs_code": "38190000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120525526",
+      "part_no": "1.987.479.202.GEH",
+      "description": "Brake Fluid",
+      "qty": 720.0,
+      "unit": "EA",
+      "unit_price": 178.0,
+      "amount": 128160.0,
+      "origin": "Germany",
+      "hs_code": "38190000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA_debug part/INVOICE 2120525526.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_with_period_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 624749.0,
+    "labeled_amount_label": "Goods value",
+    "checker_verdict": "pass"
+  }
+}

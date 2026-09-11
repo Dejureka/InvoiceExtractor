@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor.formats.ma_common import find_hs_after_item, parse_rb_packages
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -56,9 +57,6 @@ _LINE = re.compile(
     r"(?P<price>[\d,]+(?:\.\d+)?)\s*\*?\s+(?P<amt>[\d,]+(?:\.\d+)?)\s*$",
     re.MULTILINE,
 )
-
-_HS = re.compile(r"HS\s*CODE\s+(\d{6,12})", re.I)
-
 
 def match_score(text: str, filename: str = "") -> float:
     score = 0.0
@@ -172,17 +170,11 @@ def _parse_items(
         price = us_float(m.group("price"))
         amt = us_float(m.group("amt"))
         desc = re.sub(r"\s{2,}", " ", m.group("desc")).strip()
-        hs = None
         origin = None
         idx = pn.split(".")[-1] if "." in pn else pn[-3:]
         if idx in coo_map:
             origin = coo_map[idx]
-        for j in range(i + 1, min(i + 8, len(lines))):
-            hm = _HS.search(lines[j])
-            if hm and hs is None:
-                hs = hm.group(1)
-            if re.match(r"^\d{5}\s+[A-Z0-9]\.", lines[j]):
-                break
+        hs = find_hs_after_item(lines, i)
         items.append(
             Item(
                 invoice_no=invoice_no,
@@ -214,11 +206,12 @@ def extract_from_text(
     incoterm = _incoterm(text)
     items = _parse_items(text, invoice_no, currency)
     total_qty = sum(it.qty or 0.0 for it in items) if items else None
+    pkg, gw = parse_rb_packages(text)
     header = Header(
         invoice_no=invoice_no,
         invoice_date=invoice_date,
-        total_pkg=None,
-        gross_weight_kg=None,
+        total_pkg=pkg,
+        gross_weight_kg=gw,
         incoterm=incoterm,
         item_line_count=len(items) if items else None,
         total_quantity=float(total_qty) if total_qty is not None else None,

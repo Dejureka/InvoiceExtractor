@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor.formats.ma_common import find_hs_after_item, parse_rb_packages
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -56,9 +57,6 @@ _LINE = re.compile(
     r"(?P<price>[\d,]+\.\d{2})\s*\*\s+(?P<amt>[\d,]+(?:\.\d{2})?)\s*$",
     re.MULTILINE,
 )
-
-_HS = re.compile(r"HS\s*CODE\s+(\d{6,12})", re.I)
-_WEIGHT = re.compile(r"Weight\s+([\d,.]+)\s*KG", re.I)
 
 
 def match_score(text: str, filename: str = "") -> float:
@@ -122,30 +120,6 @@ def _incoterm(text: str) -> str | None:
     return m.group(1).strip() if m else None
 
 
-def _gross_weight(text: str) -> float | None:
-    """Prefer packing-summary Gross totals near end (Carton/Pallet rows)."""
-    # Final summary style: "37 Carton Generic ... Gross 1247.980 KG"
-    rows = re.findall(
-        r"(?:Carton|Pallet|Package)[^\n]{0,80}?Gross\s+([\d,.]+)\s*KG",
-        text,
-        re.I,
-    )
-    if rows:
-        # use last contiguous block of such rows (summary page)
-        return round(sum(us_float(x) for x in rows[-12:]), 3)
-    return None
-
-
-def _total_pkg(text: str) -> float | None:
-    rows = re.findall(
-        r"^\s*(\d+)\s+(?:Carton|Pallet)\b",
-        text,
-        re.M | re.I,
-    )
-    if rows:
-        return float(sum(int(x) for x in rows[-12:]))
-    return None
-
 
 def _parse_coo_index(text: str) -> dict[str, str]:
     """Map 3-char index → country name from 'Country Of Origin Index' block."""
@@ -179,17 +153,11 @@ def _parse_items(
         price = us_float(m.group("price"))
         amt = us_float(m.group("amt"))
         desc = re.sub(r"\s{2,}", " ", m.group("desc")).strip()
-        hs = None
         origin = None
         idx = pn[-3:] if len(pn) >= 3 else ""
         if idx in coo_map:
             origin = coo_map[idx]
-        for j in range(i + 1, min(i + 8, len(lines))):
-            hm = _HS.search(lines[j])
-            if hm and hs is None:
-                hs = hm.group(1)
-            if re.match(r"^\s*\d{5,6}\s+[A-Z0-9]{13}\b", lines[j]):
-                break
+        hs = find_hs_after_item(lines, i)
         items.append(
             Item(
                 invoice_no=invoice_no,
@@ -219,8 +187,7 @@ def extract_from_text(
     amount = _goods_value(text)
     currency = _currency(text)
     incoterm = _incoterm(text)
-    gw = _gross_weight(text)
-    pkg = _total_pkg(text)
+    pkg, gw = parse_rb_packages(text)
     items = _parse_items(text, invoice_no, currency)
     total_qty = sum(it.qty or 0.0 for it in items) if items else None
     header = Header(

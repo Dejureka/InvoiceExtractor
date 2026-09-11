@@ -1,0 +1,14 @@
+MA HS + RB packages/GW 修復請審（AuditSOP）。
+
+重點：
+1) 2120525526 Lines：PN 1.987.479.202.GEH / Brake Fluid / Qty 1800 → HS 須為 38190000（先前空白）
+2) Summary Packages / G.W. = 該 PDF 內 unique RB 數量 × 各 RB 的 Gross KG 加總（同 RB 同重只算一次）
+
+材料：
+- 摘要：docs/review_shots/ma_fix_hs_rb/auditor_batch_summary.md
+- JSON：docs/review_shots/ma_fix_hs_rb/*.json 與 out/ma_fix_hs_rb/json/
+- 圖：docs/review_shots/ma_fix_hs_rb/*-hs.png / *-rb.png（含 INVOICE_2120525526_p02-hs、p03–p05-rb）
+
+Batch：27 MA 全 hard_check pass、HS complete 27/27。
+
+請回每張 pass/conflict/needs_gold；缺 HS 圖或 Packages/GW 與 RB×Gross 不符勿判 pass。
