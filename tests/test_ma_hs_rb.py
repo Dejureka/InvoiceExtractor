@@ -34,6 +34,34 @@ RB 200317619     Corrugated carton            326/226/170MM        Gross        
     assert gw == 1082.76
 
 
+
+
+def test_parse_rb_two_segment_concat():
+    """NoPeriod: second digit group on next line joins the unique key."""
+    text = """
+RB 40670214025430 Pallet                                          120/80/100/CM                                    Gross 350 KG
+   2787
+RB 40670214025430 Pallet                                          120/80/100/CM                                    Gross 94.200 KG
+   4477
+RB 40670214025622 Carton Generic                         C        80/60/60/CM                                      Gross 36.300 KG
+   6531
+RB 40670214025622 Carton Generic                         C        80/60/60/CM                                      Gross 36.300 KG
+   6531
+"""
+    pkg, gw = parse_rb_packages(text)
+    assert pkg == 3.0
+    assert gw == 480.5
+
+
+def test_parse_rb_same_line_two_segment():
+    text = """
+RB 40670214025622 6531 Carton Generic    Gross 36.300 KG
+RB 200317606     Packing Set 1200X800X1000    Gross       541.000    KG
+"""
+    pkg, gw = parse_rb_packages(text)
+    assert pkg == 2.0
+    assert gw == 577.3
+
 def test_line_regex_geh():
     line = "00040 1.987.479.202.GEH    Brake Fluid                                   1,800 EA               178 *            320,400"
     m = wp._LINE.match(line)
