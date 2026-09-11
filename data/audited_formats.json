@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "updated": "2026-09-11",
+  "notes": "Formats that passed AuditSOP (Round3–Round4b). GUI mapping_status uses this registry.",
+  "formats": {
+    "bitzer_v1": {
+      "audited": true,
+      "date": "2026-09-10",
+      "note": "Round2/3 BITZER + BHC classic; hard_check pass"
+    },
+    "pt_gloria_v1": {
+      "audited": true,
+      "date": "2026-09-10",
+      "note": "Round1 + Round4 PT mega (20/20 pass)"
+    },
+    "hangji_v1": {
+      "audited": true,
+      "date": "2026-09-10",
+      "note": "Round3 GDHJ hangji"
+    },
+    "nidec_v1": {
+      "audited": true,
+      "date": "2026-09-10",
+      "note": "Round3 NIDEC / JCH-TW"
+    },
+    "hitachi_gls_v1": {
+      "audited": true,
+      "date": "2026-09-10",
+      "note": "Round3 Hitachi GLS / MEH"
+    },
+    "highly_v1": {
+      "audited": true,
+      "date": "2026-09-10",
+      "note": "Round3 HIGHLY"
+    },
+    "ma_with_period_v1": {
+      "audited": true,
+      "date": "2026-09-11",
+      "note": "Round4 + Round4b currency TWD fix"
+    },
+    "ma_no_period_v1": {
+      "audited": true,
+      "date": "2026-09-10",
+      "note": "Round4 MA NoPeriod (21/21 pass)"
+    },
+    "bhc_my_hub_v1": {
+      "audited": true,
+      "date": "2026-09-10",
+      "note": "Round4 BHC MY-HUB Supply Malaysia"
+    }
+  }
+}

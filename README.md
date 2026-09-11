@@ -12,8 +12,6 @@
 
 **多檔合併**：可一次選多份 PDF（或資料夾），寫入**同一個** Excel（`Summary` 每張發票一列自己的合計；`Lines` 全部明細以 InvoiceNumber 關聯；`meta` 每檔一列）。固定格式範本：`data/templates/InvoiceExtract_Template.xlsx`（每次執行會載入、清掉舊資料列、再寫入新結果）。多檔預設輸出檔名：`InvoiceExtract_Result.xlsx`。
 
-> **Portable Windows zip / `portable-latest` 重建暫時延後**（本版先推 `main` 原始碼）。請用下方開發者方式或既有舊版可攜包。
-
 ## Windows 免安裝包（推薦）
 
 從 [Releases / portable-latest](https://github.com/Dejureka/InvoiceExtractor/releases/tag/portable-latest) 下載 `InvoiceExtractor_Portable_Win64.zip`，解壓後：
@@ -21,7 +19,7 @@
 1. **整個資料夾**複製到電腦或隨身碟（含 `poppler/bin`，勿只拷 exe）
 2. **雙擊 `InvoiceExtractor.exe`** → 開啟圖形介面（不會只閃一下 console）
 3. 拖放或「Browse」選擇 **一個或多個** PDF（也可「Add folder」）→ 可選輸出路徑（多檔預設 `InvoiceExtract_Result.xlsx`）→ 按 **Extract**
-4. 摘要顯示：每張 invoice_no、amount、item count、format_id、checker_verdict；失敗檔會另外列出
+4. 摘要顯示：`invoice_no | format_id | mapping status | hard pass/fail`（`audit ok`／`已知未審`／`全新／需規則`／`hard fail`）；批次統計在底列；失敗檔另列
 5. 本包**已內建 poppler**；若摘要出現 text backend 警告，請確認 `poppler/bin/pdftotext.exe` 仍在同一資料夾
 
 命令列（仍可用）：
@@ -33,7 +31,7 @@ InvoiceExtractor.exe C:\invoices_folder
 InvoiceExtractor.exe path.pdf --out out.json
 ```
 
-手動觸發打包：GitHub → Actions → **Build portable Windows** → Run workflow。（**目前請勿依賴最新 portable；多檔／範本變更以 `main` 原始碼為準。**）
+手動觸發打包：GitHub → Actions → **Build portable Windows** → Run workflow（push `main` 相關路徑亦會自動重建 `portable-latest`）。
 
 ---
 

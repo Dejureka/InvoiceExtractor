@@ -71,10 +71,26 @@ python -m invoice_extractor ./invoices_dir
 
 **原則**：只貼失敗／異常的畫面與對應列，成功的不必整包貼。
 
+### GUI 格式對應狀態（mapping status）
+
+Extract 後 Summary／底列會顯示每張發票的對應狀態（另附 `format_id`、硬校驗）：
+
+| 標籤 | 意義 |
+|------|------|
+| `audit ok` | 命中已通過 AuditSOP 的 format（見 `data/audited_formats.json`） |
+| `已知未審` | 有 format_id，但尚未列入審核通過表 |
+| `全新／需規則` | 未命中／needs_gold／空文字層 |
+| `hard fail` | 硬校驗 conflict |
+
+範例列：`50666223 | pt_gloria_v1 | audit ok | hard pass`  
+批次結尾會統計各標籤筆數。
+
+
 ---
 
 ## 修訂紀錄
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-11 | GUI 顯示 format mapping status（audit ok／已知未審／全新／需規則／hard fail） |
 | 2026-09-10 | 初版：多檔、固定範本、溝通名稱 RunSOP |

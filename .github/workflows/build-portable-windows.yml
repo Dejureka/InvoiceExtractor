@@ -56,6 +56,8 @@ jobs:
           Copy-Item -Recurse -Force "dist/InvoiceExtractor/*" $out
           New-Item -ItemType Directory -Force -Path "$out/data" | Out-Null
           if (Test-Path "data/invoice_formats.db") { Copy-Item "data/invoice_formats.db" "$out/data/" }
+          if (Test-Path "data/audited_formats.json") { Copy-Item "data/audited_formats.json" "$out/data/" }
+          if (Test-Path "data/templates") { Copy-Item -Recurse -Force "data/templates" "$out/data/" }
           # Ensure poppler sits next to exe even if PyInstaller binary path differs
           if (-not (Test-Path "$out/poppler/bin/pdftotext.exe")) {
             if (Test-Path "vendor/poppler/bin/pdftotext.exe") {

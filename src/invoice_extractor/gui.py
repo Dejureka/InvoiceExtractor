@@ -84,6 +84,9 @@ def _extract_many(pdfs: list[Path], out: Path | None) -> dict[str, Any]:
             successes.append(data)
             header = data.get("header") or {}
             meta = data.get("meta") or {}
+            from invoice_extractor.mapping_status import mapping_status
+
+            map_label = mapping_status(meta, hard["verdict"])
             summaries.append(
                 {
                     "ok": True,
@@ -93,6 +96,7 @@ def _extract_many(pdfs: list[Path], out: Path | None) -> dict[str, Any]:
                     "item_count": len(data.get("items") or []),
                     "format_id": meta.get("format_id"),
                     "checker_verdict": hard["verdict"],
+                    "mapping_status": map_label,
                     "issues": hard.get("issues") or [],
                     "text_backend": meta.get("text_backend"),
                     "text_backend_warning": meta.get("text_backend_warning"),
@@ -106,7 +110,16 @@ def _extract_many(pdfs: list[Path], out: Path | None) -> dict[str, Any]:
                     "meta": {"source_file": str(pdf)},
                 }
             )
-            summaries.append({"ok": False, "source": str(pdf), "error": str(exc)})
+            summaries.append(
+                {
+                    "ok": False,
+                    "source": str(pdf),
+                    "error": str(exc),
+                    "mapping_status": "全新／需規則",
+                    "format_id": None,
+                    "checker_verdict": None,
+                }
+            )
 
     if not successes:
         return {
@@ -170,7 +183,7 @@ def run_gui() -> None:
             else:
                 root = tk.Tk()
             root.title("InvoiceExtractor")
-            root.geometry("720x580")
+            root.geometry("760x620")
             root.minsize(520, 440)
             return root
 
@@ -246,6 +259,14 @@ def run_gui() -> None:
             self.summary = scrolledtext.ScrolledText(frm_sum, height=12, wrap="word")
             self.summary.pack(fill="both", expand=True, padx=4, pady=4)
 
+            self.status_var = tk.StringVar(
+                value="Ready — mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
+            )
+            status = ttk.Label(
+                self.root, textvariable=self.status_var, relief="sunken", anchor="w"
+            )
+            status.pack(fill="x", side="bottom", padx=4, pady=2)
+
             dnd_note = "enabled" if has_dnd else "not installed (Browse still works)"
             self._log(f"Drag-drop: {dnd_note}")
             try:
@@ -294,6 +315,10 @@ def run_gui() -> None:
             self.out_var.set("")
             self.listbox.delete(0, "end")
             self.summary.delete("1.0", "end")
+            if hasattr(self, "status_var"):
+                self.status_var.set(
+                    "Ready — mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
+                )
             dnd_note = "enabled" if has_dnd else "not installed (Browse still works)"
             self._log(f"Drag-drop: {dnd_note}")
 
@@ -408,23 +433,55 @@ def run_gui() -> None:
             threading.Thread(target=work, daemon=True).start()
 
         def _show_batch(self, result: dict[str, Any]) -> None:
+            from invoice_extractor.mapping_status import (
+                count_mapping_statuses,
+                format_status_line,
+            )
+
             lines = [
                 f"Wrote: {result.get('written')}",
                 f"successes: {result.get('successes')}",
                 f"failures: {len(result.get('failures') or [])}",
+                "—",
             ]
+            map_labels: list[str] = []
             for s in result.get("summaries") or []:
                 if s.get("ok"):
+                    mlab = s.get("mapping_status") or "—"
+                    map_labels.append(mlab)
                     lines.append(
-                        f"  OK {s.get('source')}: invoice_no={s.get('invoice_no')} "
-                        f"amount={s.get('amount')} items={s.get('item_count')} "
-                        f"format={s.get('format_id')} verdict={s.get('checker_verdict')}"
+                        format_status_line(
+                            invoice_no=s.get("invoice_no"),
+                            format_id=s.get("format_id"),
+                            mapping=mlab,
+                            checker_verdict=s.get("checker_verdict"),
+                        )
                     )
+                    detail = (
+                        f"    file={Path(s.get('source') or '').name} "
+                        f"amount={s.get('amount')} items={s.get('item_count')}"
+                    )
+                    lines.append(detail)
                     if s.get("text_backend_warning"):
                         lines.append("    WARNING: " + s["text_backend_warning"])
                 else:
-                    lines.append(f"  FAIL {s.get('source')}: {s.get('error')}")
+                    mlab = s.get("mapping_status") or "全新／需規則"
+                    map_labels.append(mlab)
+                    lines.append(
+                        f"— | — | {mlab} | FAIL {Path(s.get('source') or '').name}: "
+                        f"{s.get('error')}"
+                    )
+            counts = count_mapping_statuses(map_labels)
+            footer_parts = [f"{k}={v}" for k, v in counts.items() if v]
+            footer = "Batch mapping: " + (", ".join(footer_parts) if footer_parts else "none")
+            lines.append("—")
+            lines.append(footer)
             self._log("\n".join(lines))
+            if hasattr(self, "status_var"):
+                self.status_var.set(
+                    f"Last run — OK {result.get('successes', 0)} / "
+                    f"fail {len(result.get('failures') or [])} | {footer}"
+                )
 
         def run(self) -> None:
             self.root.mainloop()
