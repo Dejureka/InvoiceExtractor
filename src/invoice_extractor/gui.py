@@ -66,7 +66,6 @@ def _extract_one(pdf: Path) -> dict[str, Any]:
 def _extract_many(pdfs: list[Path], out: Path | None) -> dict[str, Any]:
     """Extract multiple PDFs into one Excel (or JSON); surface partial failures."""
     from invoice_extractor.export import (
-        default_out_path,
         default_result_path,
         is_json_out,
         write_extract,
@@ -132,7 +131,7 @@ def _extract_many(pdfs: list[Path], out: Path | None) -> dict[str, Any]:
         }
 
     if out is None:
-        dest = default_result_path() if len(pdfs) > 1 else default_out_path(pdfs[0])
+        dest = default_result_path()
     else:
         dest = out
 
@@ -233,7 +232,7 @@ def run_gui() -> None:
 
             frm_out = ttk.LabelFrame(
                 self.root,
-                text=f"Output (optional; default: {DEFAULT_RESULT_NAME} / <pdf>.extract.xlsx)",
+                text=f"Output (optional; default: {DEFAULT_RESULT_NAME} at tool root)",
             )
             frm_out.pack(fill="x", **pad)
             self.out_var = tk.StringVar()

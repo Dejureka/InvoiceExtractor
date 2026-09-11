@@ -70,21 +70,43 @@ DEFAULT_RESULT_NAME = "InvoiceExtract_Result.xlsx"
 TEMPLATE_REL = Path("data") / "templates" / "InvoiceExtract_Template.xlsx"
 
 
-def default_out_path(pdf: Path) -> Path:
-    """``invoice.pdf`` → ``invoice.extract.xlsx`` (legacy single-file name)."""
-    return pdf.with_name(f"{pdf.stem}.extract.xlsx")
+def tool_root() -> Path:
+    """Writable outermost tool root (never PyInstaller ``_MEIPASS``).
 
-
-def default_result_path(cwd: Path | None = None) -> Path:
-    """Default batch/single Excel path: ``InvoiceExtract_Result.xlsx`` in cwd."""
-    base = cwd if cwd is not None else Path.cwd()
-    # Beside frozen exe when running as portable package
+    - Frozen: directory containing ``InvoiceExtractor.exe`` (``sys.executable`` parent).
+    - Dev / ``python -m``: directory that holds ``data/templates/InvoiceExtract_Template.xlsx``
+      (repo/package outer root), else project root next to ``pyproject.toml`` / ``data/``,
+      else ``Path.cwd()``.
+    """
     if getattr(sys, "frozen", False):
         try:
-            base = Path(sys.executable).resolve().parent
+            return Path(sys.executable).resolve().parent
         except Exception:
-            pass
-    return base / DEFAULT_RESULT_NAME
+            return Path.cwd()
+
+    here = Path(__file__).resolve()
+    candidates = [
+        here.parents[2],  # repo root: src/invoice_extractor/export.py
+        here.parents[1],  # package root (some installs)
+        Path.cwd(),
+    ]
+    for base in candidates:
+        if (base / TEMPLATE_REL).is_file():
+            return base
+    for base in candidates:
+        if (base / "pyproject.toml").is_file() or (base / "data").is_dir():
+            return base
+    return Path.cwd()
+
+
+def default_result_path(root: Path | None = None) -> Path:
+    """Always ``InvoiceExtract_Result.xlsx`` at the tool outermost root.
+
+    Same file every run (callers clear/rewrite via template). Explicit ``--out`` /
+    Browse override this. Pass ``root`` only in tests to pin the base directory.
+    """
+    base = root if root is not None else tool_root()
+    return Path(base) / DEFAULT_RESULT_NAME
 
 
 def is_json_out(path: Path) -> bool:

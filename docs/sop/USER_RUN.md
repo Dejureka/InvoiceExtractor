@@ -20,8 +20,9 @@
 固定欄位來自內建範本：`data/templates/InvoiceExtract_Template.xlsx`。  
 每次執行會**清掉上次資料列**再寫入（表頭與格式保留）。
 
-多檔預設檔名：`InvoiceExtract_Result.xlsx`。  
-單檔若未指定輸出，也可能是 `<檔名>.extract.xlsx`（視版本／參數）。
+預設輸出（單檔／多檔相同）：工具最外層根目錄的 **`InvoiceExtract_Result.xlsx`**  
+（portable：與 `InvoiceExtractor.exe` 同層；開發：專案／範本根）。每次執行清舊資料列再寫入。  
+Browse／`--out` 可改路徑；**不再**預設在 PDF 旁產生 `<檔名>.extract.xlsx`。
 
 ---
 
@@ -30,7 +31,7 @@
 1. 下載並解壓 `InvoiceExtractor_Portable_Win64.zip`（**整個資料夾**保留，含 `poppler/bin`）。
 2. 雙擊 `InvoiceExtractor.exe` → 應出現視窗（不該只閃黑窗）。
 3. **Browse** 多選 PDF，或 **Add folder**，或拖檔／拖資料夾進視窗。
-4. 輸出路徑可改；多檔預設 `InvoiceExtract_Result.xlsx`。
+4. 輸出路徑可改；預設為工具根目錄的 `InvoiceExtract_Result.xlsx`（同檔覆寫）。
 5. 按 **Extract**。成功看 Summary／Lines；失敗檔會在介面列出。
 
 命令列（可選）：
@@ -92,5 +93,6 @@ Extract 後 Summary／底列會顯示每張發票的對應狀態（另附 `forma
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-11 | 預設一律寫工具根 `InvoiceExtract_Result.xlsx`（移除旁 PDF 的 `.extract.xlsx`） |
 | 2026-09-11 | GUI 顯示 format mapping status（audit ok／已知未審／全新／需規則／hard fail） |
 | 2026-09-10 | 初版：多檔、固定範本、溝通名稱 RunSOP |

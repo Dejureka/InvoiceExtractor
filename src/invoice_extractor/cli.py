@@ -11,7 +11,6 @@ from invoice_extractor import __version__
 from invoice_extractor.checker import hard_check
 from invoice_extractor.db import connect, record_run, seed_builtin_formats
 from invoice_extractor.export import (
-    default_out_path,
     default_result_path,
     is_json_out,
     write_extract,
@@ -64,15 +63,12 @@ def _out_path_for(pdf: Path, out: str | None, *, multi: bool = False) -> Path:
     """Resolve output path.
 
     - Explicit ``--out`` wins.
-    - Multi (or no legacy single name): ``InvoiceExtract_Result.xlsx`` in cwd.
-    - Single with no ``--out``: still ``<stem>.extract.xlsx`` for JSON-less Excel
-      when caller asks legacy; batch entry uses ``default_result_path``.
+    - Otherwise always ``InvoiceExtract_Result.xlsx`` at the tool outermost root
+      (single or multi). ``pdf`` / ``multi`` kept for call-site compatibility.
     """
     if out:
         return Path(out)
-    if multi:
-        return default_result_path()
-    return default_out_path(pdf)
+    return default_result_path()
 
 
 def _prepare_extract(pdf: Path, format_id: str | None) -> dict:
@@ -181,13 +177,9 @@ def cmd_extract(args: argparse.Namespace) -> int:
         print(f"All {len(failures)} file(s) failed; no workbook written.", file=sys.stderr)
         return 1
 
-    # Output path: multi → result xlsx; single → legacy .extract.xlsx unless --out
+    # Default Excel: always InvoiceExtract_Result.xlsx at tool root (unless --out)
     if args.out:
         out = Path(args.out)
-    elif multi or len(pdfs) >= 1:
-        # Prefer shared Result.xlsx for any run that can hold multiple rows;
-        # single-file without --out keeps legacy per-pdf name for compatibility.
-        out = default_result_path() if multi else default_out_path(pdfs[0])
     else:
         out = default_result_path()
 
@@ -242,9 +234,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--out",
         help=(
-            "Output path (default single: <pdf_stem>.extract.xlsx; "
-            f"default multi: {default_result_path().name}). "
-            "Use .json for JSON; .xlsx for Excel (template-based)."
+            f"Output path (default: {default_result_path().name} at tool root; "
+            "same file every run). Use .json for JSON; .xlsx for Excel (template-based)."
         ),
     )
     p.add_argument("--gold", help="Gold JSON for offline compare via checker (single PDF)")

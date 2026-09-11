@@ -17,9 +17,10 @@ from invoice_extractor.export import (
     META_SHEET,
     SUMMARY_COLS,
     SUMMARY_SHEET,
+    TEMPLATE_REL,
     bundled_template_path,
-    default_out_path,
     default_result_path,
+    tool_root,
     write_extract,
     write_xlsx,
     write_xlsx_many,
@@ -118,19 +119,32 @@ SAMPLE2 = {
 }
 
 
-def test_default_out_path_xlsx():
-    assert default_out_path(Path("folder/inv.pdf")) == Path("folder/inv.extract.xlsx")
-    assert _out_path_for(Path("a/b.pdf"), None) == Path("a/b.extract.xlsx")
+def test_default_result_path_tool_root():
+    """Default Excel is InvoiceExtract_Result.xlsx at tool root — not beside PDF."""
+    root = tool_root()
+    assert (root / TEMPLATE_REL).is_file() or (root / "data").exists() or (root / "pyproject.toml").is_file()
+    dest = default_result_path()
+    assert dest == root / DEFAULT_RESULT_NAME
+    assert dest.name == DEFAULT_RESULT_NAME
+    # Must not be stem.extract.xlsx beside a PDF
+    assert not dest.name.endswith(".extract.xlsx")
+    assert dest.parent == root
+
+    # Explicit override / pin for tests
+    assert default_result_path(Path("/tmp")) == Path("/tmp") / DEFAULT_RESULT_NAME
+    assert _out_path_for(Path("a/b.pdf"), None) == default_result_path()
+    assert _out_path_for(Path("a/b.pdf"), None).name == DEFAULT_RESULT_NAME
+    assert _out_path_for(Path("folder/inv.pdf"), None) != Path("folder/inv.extract.xlsx")
     assert _out_path_for(Path("a/b.pdf"), "out.json") == Path("out.json")
     assert _out_path_for(Path("a/b.pdf"), "out.xlsx") == Path("out.xlsx")
-    assert _out_path_for(Path("a/b.pdf"), None, multi=True).name == DEFAULT_RESULT_NAME
-    assert default_result_path(Path("/tmp")).name == DEFAULT_RESULT_NAME
+    assert _out_path_for(Path("a/b.pdf"), None, multi=True) == default_result_path()
 
 
 def test_cli_help_mentions_xlsx():
     help_txt = build_parser().format_help()
-    assert ".extract.xlsx" in help_txt or "xlsx" in help_txt.lower()
+    assert DEFAULT_RESULT_NAME in help_txt or "xlsx" in help_txt.lower()
     assert "directories" in help_txt.lower() or "PDF" in help_txt
+    assert "<pdf_stem>.extract.xlsx" not in help_txt
 
 
 def test_bundled_template_exists():

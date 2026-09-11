@@ -73,8 +73,8 @@ jobs:
           =================================
           1. 解壓後整個資料夾拷走（不要只拷 exe）
           2. 雙擊 InvoiceExtractor.exe → 開啟圖形介面
-          3. 拖放或瀏覽選擇 PDF，按 Extract → 旁輸出 .extract.xlsx
-             （工作表 Summary / Lines / meta；欄位同 PDFextract 風格）
+          3. 拖放或瀏覽選擇 PDF，按 Extract → 寫入本資料夾 InvoiceExtract_Result.xlsx
+             （每次清舊資料列再寫；工作表 Summary / Lines / meta）
           4. 命令列仍可用：InvoiceExtractor.exe path.pdf [--out out.xlsx]
           5. 本包已內建 poppler pdftotext.exe（poppler\\bin），不必另裝。
              若 GUI 顯示 text backend 警告，請確認 poppler\\bin 仍在同一資料夾。
@@ -95,8 +95,8 @@ jobs:
           body: |
             免安裝可攜包（Windows 64-bit），**內建 poppler pdftotext**。
             下載 ZIP → 解壓 → 整個資料夾拷走 → 雙擊 `InvoiceExtractor.exe` 開 GUI。
-            拖放／瀏覽 PDF → Extract → 輸出 `<pdf>.extract.xlsx`（Summary / Lines）。
-            命令列：`InvoiceExtractor.exe path.pdf`（預設 Excel；`--out out.json` 可改 JSON）。
+            拖放／瀏覽 PDF → Extract → 寫入 exe 旁 `InvoiceExtract_Result.xlsx`（Summary / Lines；同檔覆寫）。
+            命令列：`InvoiceExtractor.exe path.pdf`（預設 Excel；`--out` 可改路徑／`.json`）。
           files: InvoiceExtractor_Portable_Win64.zip
           make_latest: true
         env:
