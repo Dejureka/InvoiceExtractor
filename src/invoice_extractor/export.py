@@ -61,6 +61,11 @@ _META_KEYS = [
     "labeled_amount_label",
     "checker_issues",
     "checker_details",
+    "source",
+    "inv_file",
+    "pkl_file",
+    "pkl_used",
+    "pair_status",
 ]
 
 # Columnar meta headers (template / multi-file).
@@ -202,11 +207,15 @@ def _ensure_sheet_headers(ws, title: str, cols: list[str]) -> None:
         for i, name in enumerate(cols, 1):
             ws.cell(1, i, name)
         return
-    # If first cell doesn't look like our header, rewrite header row
-    first = ws.cell(1, 1).value
-    if first != cols[0]:
+    # Rewrite header when schema drifts (e.g. new meta pairing columns)
+    existing = [c.value for c in ws[1][: len(cols)]]
+    if existing != list(cols):
+        # Clear leftover legacy header cells beyond new width
+        old_max = ws.max_column or 0
         for i, name in enumerate(cols, 1):
             ws.cell(1, i, name)
+        for i in range(len(cols) + 1, old_max + 1):
+            ws.cell(1, i, None)
 
 
 def _load_workbook_for_write(template: Path | None = None):

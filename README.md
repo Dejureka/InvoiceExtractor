@@ -61,7 +61,7 @@ python -m invoice_extractor --gui
 python run_gui.py
 ```
 
-Browse 可多選 PDF；Add folder 可加入整個資料夾；拖放多個 PDF／資料夾亦可。輸出預設為工具根目錄（exe 旁／專案根）的 `InvoiceExtract_Result.xlsx`（同檔覆寫）。
+Browse 可多選 PDF；Add folder 可加入整個資料夾；拖放多個 PDF／資料夾亦可。輸出預設為工具根目錄（exe 旁／專案根）的 `InvoiceExtract_Result.xlsx`（同檔覆寫）。 選檔後 GUI 顯示 **INV＋PKL 配對表**（BHC `_INV_`／`_PKL_` 分檔為主；MA 合訂本一次抽完）；Extract 前可改配／拆開／略過。詳見 RunSOP。
 
 ### CLI
 

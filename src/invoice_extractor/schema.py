@@ -57,6 +57,12 @@ class Meta:
     # Document-labeled total (e.g. BITZER "Final amount") for non-circular checks
     labeled_amount: Optional[float] = None
     labeled_amount_label: Optional[str] = None
+    # INV+PKL pairing (combined 合訂本 vs split files)
+    source: Optional[str] = None  # "combined" | "split"
+    inv_file: Optional[str] = None
+    pkl_file: Optional[str] = None
+    pkl_used: Optional[bool] = None
+    pair_status: Optional[str] = None  # INV+PKL / 僅 INV / …
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

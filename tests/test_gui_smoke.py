@@ -39,24 +39,26 @@ def test_cli_version_no_display():
 def test_cli_extract_with_args_no_gui(tmp_path: Path, monkeypatch):
     """With PDF args, CLI extract path runs (no window)."""
     from invoice_extractor import cli as cli_mod
+    import invoice_extractor.pairing as pairing_mod
 
     sample = {
         "header": {"invoice_no": "X", "amount": 1.0},
         "items": [{"part_no": "P", "qty": 1}],
-        "meta": {"format_id": "demo", "confidence": "rules", "source_file": "inv.pdf"},
+        "meta": {
+            "format_id": "demo",
+            "confidence": "rules",
+            "source_file": "inv.pdf",
+            "pair_status": "僅 INV",
+        },
+        "_hard": {"verdict": "pass", "issues": []},
     }
-
-    class FakeResult:
-        def to_dict(self):
-            return dict(sample)
 
     pdf = tmp_path / "inv.pdf"
     pdf.write_bytes(b"%PDF-1.4 fake")
     out = tmp_path / "out.xlsx"
 
-    monkeypatch.setattr(cli_mod, "extract_invoice", lambda *a, **k: FakeResult())
     monkeypatch.setattr(
-        cli_mod, "hard_check", lambda data: {"verdict": "pass", "issues": []}
+        pairing_mod, "extract_pair_row", lambda row, format_id=None: dict(sample)
     )
 
     code = cli_mod.main([str(pdf), "--out", str(out)])
@@ -66,36 +68,36 @@ def test_cli_extract_with_args_no_gui(tmp_path: Path, monkeypatch):
 
 def test_cli_multi_pdfs_one_workbook(tmp_path: Path, monkeypatch):
     from invoice_extractor import cli as cli_mod
+    import invoice_extractor.pairing as pairing_mod
     from openpyxl import load_workbook
     from invoice_extractor.export import SUMMARY_SHEET
 
-    def make_result(invoice_no: str):
-        class FakeResult:
-            def to_dict(self):
-                return {
-                    "header": {
-                        "invoice_no": invoice_no,
-                        "amount": 10.0,
-                        "currency": "USD",
-                        "item_line_count": 1,
-                        "total_quantity": 1.0,
-                    },
-                    "items": [
-                        {
-                            "invoice_no": invoice_no,
-                            "part_no": "P",
-                            "qty": 1,
-                            "amount": 10.0,
-                        }
-                    ],
-                    "meta": {
-                        "format_id": "demo",
-                        "confidence": "rules",
-                        "source_file": f"{invoice_no}.pdf",
-                    },
+    def fake_pair_row(row, format_id=None):
+        invoice_no = (row.inv_path or row.pkl_path).stem.upper()
+        return {
+            "header": {
+                "invoice_no": invoice_no,
+                "amount": 10.0,
+                "currency": "USD",
+                "item_line_count": 1,
+                "total_quantity": 1.0,
+            },
+            "items": [
+                {
+                    "invoice_no": invoice_no,
+                    "part_no": "P",
+                    "qty": 1,
+                    "amount": 10.0,
                 }
-
-        return FakeResult()
+            ],
+            "meta": {
+                "format_id": "demo",
+                "confidence": "rules",
+                "source_file": f"{invoice_no}.pdf",
+                "pair_status": "僅 INV",
+            },
+            "_hard": {"verdict": "pass", "issues": []},
+        }
 
     pdfs = []
     for name in ("a.pdf", "b.pdf"):
@@ -104,13 +106,7 @@ def test_cli_multi_pdfs_one_workbook(tmp_path: Path, monkeypatch):
         pdfs.append(p)
     out = tmp_path / "batch.xlsx"
 
-    def fake_extract(pdf, format_id=None):
-        return make_result(Path(pdf).stem.upper())
-
-    monkeypatch.setattr(cli_mod, "extract_invoice", fake_extract)
-    monkeypatch.setattr(
-        cli_mod, "hard_check", lambda data: {"verdict": "pass", "issues": []}
-    )
+    monkeypatch.setattr(pairing_mod, "extract_pair_row", fake_pair_row)
 
     code = cli_mod.main([str(pdfs[0]), str(pdfs[1]), "--out", str(out)])
     assert code == 0
@@ -121,6 +117,7 @@ def test_cli_multi_pdfs_one_workbook(tmp_path: Path, monkeypatch):
 
 def test_extract_many_partial_failure(tmp_path: Path, monkeypatch):
     from invoice_extractor import gui as gui_mod
+    import invoice_extractor.pairing as pairing_mod
     from openpyxl import load_workbook
     from invoice_extractor.export import META_SHEET, SUMMARY_SHEET
 
@@ -130,8 +127,9 @@ def test_extract_many_partial_failure(tmp_path: Path, monkeypatch):
     bad.write_bytes(b"%PDF")
     out = tmp_path / "partial.xlsx"
 
-    def fake_one(pdf: Path):
-        if pdf.name == "bad.pdf":
+    def fake_pair_row(row, format_id=None):
+        pdf = row.inv_path or row.pkl_path
+        if pdf and pdf.name == "bad.pdf":
             raise RuntimeError("parse failed")
         return {
             "header": {
@@ -142,11 +140,18 @@ def test_extract_many_partial_failure(tmp_path: Path, monkeypatch):
                 "total_quantity": 0,
             },
             "items": [],
-            "meta": {"source_file": str(pdf), "format_id": "demo", "confidence": "rules"},
+            "meta": {
+                "source_file": str(pdf),
+                "format_id": "demo",
+                "confidence": "rules",
+                "pair_status": "僅 INV",
+            },
             "_hard": {"verdict": "pass", "issues": []},
+            "_pair_status": "僅 INV",
         }
 
-    monkeypatch.setattr(gui_mod, "_extract_one", fake_one)
+    monkeypatch.setattr(pairing_mod, "extract_pair_row", fake_pair_row)
+    monkeypatch.setattr(gui_mod, "extract_pair_row", fake_pair_row)
     result = gui_mod._extract_many([good, bad], out)
     assert result["successes"] == 1
     assert len(result["failures"]) == 1

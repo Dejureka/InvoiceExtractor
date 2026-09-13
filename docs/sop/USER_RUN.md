@@ -89,10 +89,26 @@ Extract 後 Summary／底列會顯示每張發票的對應狀態（另附 `forma
 
 ---
 
+
+### INV＋PKL 配對（BHC 分檔為主）
+
+實務上 **BHC**（Bosch Home Comfort / MY-HUB）常把發票與 packing list 拆成兩個 PDF（檔名常見 `_INV_`／`_PKL_`）。**MA** 多數仍是合訂本（同一 PDF 含發票＋RB packing），維持一次抽完。
+
+1. Browse／Add folder／拖曳一次選入 INV＋PKL（同資料夾最佳）。
+2. **Selected files** 下方出現配對表：`配對 | INV 檔名 | PKL 檔名 | 狀態`。
+3. 狀態：`INV+PKL`／`僅 INV`／`僅 PKL`／`未配對／需確認`。
+4. **Extract 前可改**：
+   - **改配 PKL…**：選一列 → 指定另一個 PKL PDF
+   - **拆開**：取消該列的 PKL，變成僅 INV（原 PKL 變獨立列，Extract 時略過寫入）
+   - **略過**：該列不抽出
+   - **重新自動配對**：依檔名重算
+5. Extract 後：一對一列 Summary；Lines 來自 INV；件數／GW 來自 PKL（有的話）。僅 PKL 不寫發票列。狀態欄例：`9027451705 | bhc_my_hub_v1 | INV+PKL | audit ok`。
+
 ## 修訂紀錄
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-13 | INV＋PKL 配對表（BHC 分檔為主；MA 合訂本不變）；Extract 前可改配／拆開／略過 |
 | 2026-09-11 | 預設一律寫工具根 `InvoiceExtract_Result.xlsx`（移除旁 PDF 的 `.extract.xlsx`） |
 | 2026-09-11 | GUI 顯示 format mapping status（audit ok／已知未審／全新／需規則／hard fail） |
 | 2026-09-10 | 初版：多檔、固定範本、溝通名稱 RunSOP |

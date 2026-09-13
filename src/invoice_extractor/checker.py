@@ -12,6 +12,16 @@ from typing import Any, Optional
 AMOUNT_TOL = 0.05
 QTY_TOL = 1e-6
 
+# Formats where every line item must have a non-empty HS code (hard fail if missing).
+# BHC MY-HUB often lacks HS on commercial invoice — not in this set.
+REQUIRE_LINE_HS_FORMATS = frozenset(
+    {
+        "ma_no_period_v1",
+        "ma_with_period_v1",
+        "pt_gloria_v1",
+    }
+)
+
 
 def _f(x: Any) -> Optional[float]:
     if x is None:
@@ -122,6 +132,20 @@ def hard_check(extract: dict[str, Any]) -> dict[str, Any]:
     if line_bad:
         issues.append(f"unit_price*qty != amount at indices {line_bad[:10]}")
         details["line_amount_mismatch"] = line_bad[:20]
+
+    fid = str(meta.get("format_id") or "").strip()
+    if fid in REQUIRE_LINE_HS_FORMATS and items:
+        missing_hs = [
+            i
+            for i, it in enumerate(items)
+            if not str(it.get("hs_code") or "").strip()
+        ]
+        details["missing_hs_indices"] = missing_hs[:50]
+        if missing_hs:
+            issues.append(
+                f"missing item.hs_code at indices {missing_hs[:10]} "
+                f"({len(missing_hs)}/{len(items)} lines; required for {fid})"
+            )
 
     if not header.get("invoice_no") and not items:
         verdict = "needs_gold"

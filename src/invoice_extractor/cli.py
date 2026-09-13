@@ -133,21 +133,47 @@ def cmd_extract(args: argparse.Namespace) -> int:
             write_extract(data, Path(args.out))
         return 0 if cmp["verdict"] == "pass" and not cmp.get("diffs") else 1
 
+    from invoice_extractor.pairing import (
+        STATUS_PKL_ONLY,
+        auto_pair,
+        extract_pair_row,
+    )
+
     successes: list[dict] = []
     failures: list[dict] = []
+    pairs = auto_pair(pdfs)
+    print(f"Paired {len(pairs)} unit(s) from {len(pdfs)} PDF(s)", file=sys.stderr)
 
-    for pdf in pdfs:
+    for row in pairs:
+        if row.skipped or row.status == STATUS_PKL_ONLY or (
+            row.pkl_path and not row.inv_path
+        ):
+            print(
+                f"SKIP {row.pair_id}: {row.status} "
+                f"inv={row.display_inv} pkl={row.display_pkl}",
+                file=sys.stderr,
+            )
+            continue
+        label = row.inv_path or row.pkl_path
         try:
-            data = _prepare_extract(pdf, args.format)
+            data = extract_pair_row(row, format_id=args.format)
+            if data is None:
+                print(f"SKIP {row.pair_id}: empty", file=sys.stderr)
+                continue
             hard = data.pop("_hard")
+            data.pop("_pair_status", None)
+            data.pop("_pair_id", None)
             warn = data["meta"].get("text_backend_warning")
             if warn:
-                print(f"WARNING: {pdf.name}: {warn}", file=sys.stderr)
+                print(f"WARNING: {Path(label).name}: {warn}", file=sys.stderr)
             successes.append(data)
             h = data.get("header") or {}
             print(
-                f"OK {pdf.name}: format={data['meta'].get('format_id')} "
+                f"OK {row.pair_id} {Path(label).name}: "
+                f"format={data['meta'].get('format_id')} "
+                f"pair={data['meta'].get('pair_status')} "
                 f"invoice_no={h.get('invoice_no')} amount={h.get('amount')} "
+                f"pkg={h.get('total_pkg')} gw={h.get('gross_weight_kg')} "
                 f"items={len(data.get('items') or [])} verdict={hard['verdict']} "
                 f"backend={data['meta'].get('text_backend')}"
             )
@@ -156,8 +182,8 @@ def cmd_extract(args: argparse.Namespace) -> int:
                     conn = connect(args.db_path)
                     record_run(
                         conn,
-                        source_hash=file_sha256(pdf),
-                        source_file=str(pdf),
+                        source_hash=file_sha256(Path(label)),
+                        source_file=str(label),
                         format_id=None,
                         rules_out=data,
                         verdict=hard["verdict"],
@@ -170,8 +196,14 @@ def cmd_extract(args: argparse.Namespace) -> int:
                 except Exception as e:
                     print(f"(run log skipped: {e})", file=sys.stderr)
         except Exception as e:
-            failures.append({"source_file": str(pdf), "error": str(e), "meta": {"source_file": str(pdf)}})
-            print(f"FAIL {pdf}: {e}", file=sys.stderr)
+            failures.append(
+                {
+                    "source_file": str(label),
+                    "error": str(e),
+                    "meta": {"source_file": str(label)},
+                }
+            )
+            print(f"FAIL {label}: {e}", file=sys.stderr)
 
     if not successes and failures:
         print(f"All {len(failures)} file(s) failed; no workbook written.", file=sys.stderr)

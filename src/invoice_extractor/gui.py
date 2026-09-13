@@ -1,4 +1,7 @@
-"""Simple tkinter GUI for InvoiceExtractor (drag-drop optional via tkinterdnd2)."""
+"""Simple tkinter GUI for InvoiceExtractor (drag-drop optional via tkinterdnd2).
+
+Adds INV+PKL pairing table under Selected files (BHC split-first; MA combined OK).
+"""
 
 from __future__ import annotations
 
@@ -6,6 +9,16 @@ import threading
 import traceback
 from pathlib import Path
 from typing import Any
+
+from invoice_extractor.pairing import (
+    STATUS_INV_ONLY,
+    STATUS_INV_PKL,
+    STATUS_PKL_ONLY,
+    STATUS_UNMATCHED,
+    PairRow,
+    auto_pair,
+    extract_pair_row,
+)
 
 
 def _parse_dnd_paths(raw: str) -> list[str]:
@@ -41,30 +54,22 @@ def _expand_pdf_inputs(paths: list[str]) -> list[Path]:
 
 
 def _extract_one(pdf: Path) -> dict[str, Any]:
-    """Run extract + hard check; return data dict (no write)."""
-    from invoice_extractor.checker import hard_check
-    from invoice_extractor.rules_engine import extract_invoice
-    from invoice_extractor.text_layer import backend_warning
-
-    result = extract_invoice(pdf)
-    data = result.to_dict()
-    hard = hard_check(data)
-    data["meta"]["checker_verdict"] = hard["verdict"]
-    if hard["verdict"] == "pass" and data["meta"].get("confidence") == "rules":
-        data["meta"]["confidence"] = "high"
-    elif hard["verdict"] == "conflict":
-        data["meta"]["confidence"] = "conflict"
-    data["meta"]["checker_issues"] = hard.get("issues")
-    data["meta"]["checker_details"] = hard.get("details")
-    warn = backend_warning(data["meta"].get("text_backend"))
-    if warn:
-        data["meta"]["text_backend_warning"] = warn
-    data["_hard"] = hard
+    """Run extract + hard check for a single PDF (combined / legacy path)."""
+    row = PairRow(pair_id="P1", inv_path=pdf, status=STATUS_INV_ONLY)
+    data = extract_pair_row(row)
+    if data is None:
+        raise RuntimeError(f"Skipped or empty extract: {pdf}")
     return data
 
 
 def _extract_many(pdfs: list[Path], out: Path | None) -> dict[str, Any]:
-    """Extract multiple PDFs into one Excel (or JSON); surface partial failures."""
+    """Legacy: treat each PDF as its own pair (no cross-file merge)."""
+    rows = auto_pair(pdfs)
+    return _extract_pairs(rows, out)
+
+
+def _extract_pairs(rows: list[PairRow], out: Path | None) -> dict[str, Any]:
+    """Extract pair rows into one Excel (or JSON); surface partial failures / skips."""
     from invoice_extractor.export import (
         default_result_path,
         is_json_out,
@@ -74,12 +79,71 @@ def _extract_many(pdfs: list[Path], out: Path | None) -> dict[str, Any]:
 
     successes: list[dict[str, Any]] = []
     failures: list[dict[str, Any]] = []
+    skipped: list[dict[str, Any]] = []
     summaries: list[dict[str, Any]] = []
 
-    for pdf in pdfs:
+    for row in rows:
+        if row.skipped:
+            skipped.append(
+                {
+                    "pair_id": row.pair_id,
+                    "inv": row.display_inv,
+                    "pkl": row.display_pkl,
+                    "reason": "skipped by user",
+                }
+            )
+            summaries.append(
+                {
+                    "ok": False,
+                    "skipped": True,
+                    "source": str(row.inv_path or row.pkl_path or ""),
+                    "pair_status": row.status,
+                    "error": "skipped",
+                    "mapping_status": "—",
+                    "format_id": None,
+                    "checker_verdict": None,
+                }
+            )
+            continue
+        if row.status == STATUS_PKL_ONLY or (row.pkl_path and not row.inv_path):
+            skipped.append(
+                {
+                    "pair_id": row.pair_id,
+                    "inv": row.display_inv,
+                    "pkl": row.display_pkl,
+                    "reason": "PKL-only (no invoice row)",
+                }
+            )
+            summaries.append(
+                {
+                    "ok": False,
+                    "skipped": True,
+                    "source": str(row.pkl_path or ""),
+                    "pair_status": STATUS_PKL_ONLY,
+                    "error": "僅 PKL — 不寫 Summary／Lines",
+                    "mapping_status": "—",
+                    "format_id": None,
+                    "checker_verdict": None,
+                }
+            )
+            continue
+
+        label = row.inv_path or row.pkl_path
         try:
-            data = _extract_one(pdf)
+            data = extract_pair_row(row)
+            if data is None:
+                skipped.append(
+                    {
+                        "pair_id": row.pair_id,
+                        "inv": row.display_inv,
+                        "pkl": row.display_pkl,
+                        "reason": "extract returned None",
+                    }
+                )
+                continue
             hard = data.pop("_hard")
+            pair_status = data.pop("_pair_status", None) or row.status
+            data.pop("_pair_id", None)
             successes.append(data)
             header = data.get("header") or {}
             meta = data.get("meta") or {}
@@ -89,13 +153,14 @@ def _extract_many(pdfs: list[Path], out: Path | None) -> dict[str, Any]:
             summaries.append(
                 {
                     "ok": True,
-                    "source": str(pdf),
+                    "source": str(label),
                     "invoice_no": header.get("invoice_no"),
                     "amount": header.get("amount"),
                     "item_count": len(data.get("items") or []),
                     "format_id": meta.get("format_id"),
                     "checker_verdict": hard["verdict"],
                     "mapping_status": map_label,
+                    "pair_status": pair_status or meta.get("pair_status"),
                     "issues": hard.get("issues") or [],
                     "text_backend": meta.get("text_backend"),
                     "text_backend_warning": meta.get("text_backend_warning"),
@@ -104,17 +169,18 @@ def _extract_many(pdfs: list[Path], out: Path | None) -> dict[str, Any]:
         except Exception as exc:
             failures.append(
                 {
-                    "source_file": str(pdf),
+                    "source_file": str(label),
                     "error": str(exc),
-                    "meta": {"source_file": str(pdf)},
+                    "meta": {"source_file": str(label)},
                 }
             )
             summaries.append(
                 {
                     "ok": False,
-                    "source": str(pdf),
+                    "source": str(label),
                     "error": str(exc),
                     "mapping_status": "全新／需規則",
+                    "pair_status": row.status,
                     "format_id": None,
                     "checker_verdict": None,
                 }
@@ -126,8 +192,9 @@ def _extract_many(pdfs: list[Path], out: Path | None) -> dict[str, Any]:
             "written": None,
             "successes": 0,
             "failures": failures,
+            "skipped": skipped,
             "summaries": summaries,
-            "error": "All files failed; nothing written.",
+            "error": "All files failed or skipped; nothing written.",
         }
 
     if out is None:
@@ -145,6 +212,7 @@ def _extract_many(pdfs: list[Path], out: Path | None) -> dict[str, Any]:
         "written": str(written),
         "successes": len(successes),
         "failures": failures,
+        "skipped": skipped,
         "summaries": summaries,
     }
 
@@ -174,6 +242,7 @@ def run_gui() -> None:
         def __init__(self) -> None:
             self._busy = False
             self._pdfs: list[Path] = []
+            self._pairs: list[PairRow] = []
             self._build()
 
         def _make_root(self):
@@ -182,8 +251,8 @@ def run_gui() -> None:
             else:
                 root = tk.Tk()
             root.title("InvoiceExtractor")
-            root.geometry("760x620")
-            root.minsize(520, 440)
+            root.geometry("820x720")
+            root.minsize(560, 520)
             return root
 
         def _build(self) -> None:
@@ -225,8 +294,46 @@ def run_gui() -> None:
 
             frm_list = ttk.LabelFrame(self.root, text="Selected files")
             frm_list.pack(fill="x", **pad)
-            self.listbox = tk.Listbox(frm_list, height=5, selectmode="extended")
+            self.listbox = tk.Listbox(frm_list, height=4, selectmode="extended")
             self.listbox.pack(fill="x", expand=True, padx=4, pady=4)
+
+            frm_pair = ttk.LabelFrame(
+                self.root,
+                text="配對 (INV+PKL) — Extract 前可改配／拆開／略過",
+            )
+            frm_pair.pack(fill="both", expand=False, **pad)
+            cols = ("pair", "inv", "pkl", "status")
+            self.pair_tree = ttk.Treeview(
+                frm_pair,
+                columns=cols,
+                show="headings",
+                height=5,
+                selectmode="browse",
+            )
+            self.pair_tree.heading("pair", text="配對")
+            self.pair_tree.heading("inv", text="INV 檔名")
+            self.pair_tree.heading("pkl", text="PKL 檔名")
+            self.pair_tree.heading("status", text="狀態")
+            self.pair_tree.column("pair", width=50, anchor="center")
+            self.pair_tree.column("inv", width=260)
+            self.pair_tree.column("pkl", width=260)
+            self.pair_tree.column("status", width=120, anchor="center")
+            self.pair_tree.pack(fill="x", padx=4, pady=4)
+
+            frm_pair_btns = ttk.Frame(frm_pair)
+            frm_pair_btns.pack(fill="x", padx=4, pady=(0, 4))
+            ttk.Button(
+                frm_pair_btns, text="改配 PKL…", command=self._rematch_pkl
+            ).pack(side="left", padx=2)
+            ttk.Button(frm_pair_btns, text="拆開", command=self._split_pair).pack(
+                side="left", padx=2
+            )
+            ttk.Button(frm_pair_btns, text="略過", command=self._skip_pair).pack(
+                side="left", padx=2
+            )
+            ttk.Button(
+                frm_pair_btns, text="重新自動配對", command=self._rebuild_pairs
+            ).pack(side="left", padx=2)
 
             from invoice_extractor.export import DEFAULT_RESULT_NAME
 
@@ -255,11 +362,11 @@ def run_gui() -> None:
 
             frm_sum = ttk.LabelFrame(self.root, text="Summary")
             frm_sum.pack(fill="both", expand=True, **pad)
-            self.summary = scrolledtext.ScrolledText(frm_sum, height=12, wrap="word")
+            self.summary = scrolledtext.ScrolledText(frm_sum, height=10, wrap="word")
             self.summary.pack(fill="both", expand=True, padx=4, pady=4)
 
             self.status_var = tk.StringVar(
-                value="Ready — mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
+                value="Ready — pairing: INV+PKL / 僅 INV / 僅 PKL / 未配對；mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
             )
             status = ttk.Label(
                 self.root, textvariable=self.status_var, relief="sunken", anchor="w"
@@ -268,6 +375,9 @@ def run_gui() -> None:
 
             dnd_note = "enabled" if has_dnd else "not installed (Browse still works)"
             self._log(f"Drag-drop: {dnd_note}")
+            self._log(
+                "INV+PKL: BHC 分檔為主（_INV_/_PKL_）；MA 合訂本仍一次抽完。Extract 前可改配。"
+            )
             try:
                 from pdf_layout_text.convert import find_pdftotext
                 from invoice_extractor.text_layer import backend_warning
@@ -296,6 +406,166 @@ def run_gui() -> None:
                 self.pdf_var.set(str(self._pdfs[0]))
             else:
                 self.pdf_var.set(f"{len(self._pdfs)} PDFs selected")
+            self._rebuild_pairs()
+
+        def _rebuild_pairs(self) -> None:
+            # Preserve manual overrides where possible by path keys
+            manual = {
+                (str(r.inv_path) if r.inv_path else "", str(r.pkl_path) if r.pkl_path else ""): r
+                for r in self._pairs
+                if r.manual or r.skipped
+            }
+            self._pairs = auto_pair(self._pdfs)
+            # Re-apply skip/manual rematches that still reference selected files
+            selected = {str(p.resolve()) if p.exists() else str(p) for p in self._pdfs}
+            for key, old in manual.items():
+                inv_s, pkl_s = key
+                if old.skipped:
+                    for r in self._pairs:
+                        if (str(r.inv_path or "") == inv_s) or (
+                            str(r.pkl_path or "") == pkl_s
+                        ):
+                            r.skipped = True
+                            r.manual = True
+                elif old.manual and old.inv_path and old.pkl_path:
+                    inv_ok = str(old.inv_path.resolve()) if old.inv_path.exists() else str(old.inv_path)
+                    pkl_ok = str(old.pkl_path.resolve()) if old.pkl_path.exists() else str(old.pkl_path)
+                    if inv_ok in selected and pkl_ok in selected:
+                        # force this pairing
+                        for r in self._pairs:
+                            if r.inv_path and str(r.inv_path.resolve()) == inv_ok:
+                                r.pkl_path = old.pkl_path
+                                r.manual = True
+                                r.recompute_status()
+                            elif r.pkl_path and str(r.pkl_path.resolve()) == pkl_ok:
+                                if not (r.inv_path and str(r.inv_path.resolve()) == inv_ok):
+                                    r.pkl_path = None
+                                    r.recompute_status()
+            self._sync_pair_tree()
+
+        def _sync_pair_tree(self) -> None:
+            for iid in self.pair_tree.get_children():
+                self.pair_tree.delete(iid)
+            for r in self._pairs:
+                status = r.status + (" [略過]" if r.skipped else "")
+                self.pair_tree.insert(
+                    "",
+                    "end",
+                    iid=r.pair_id,
+                    values=(r.pair_id, r.display_inv, r.display_pkl, status),
+                )
+
+        def _selected_pair(self) -> PairRow | None:
+            sel = self.pair_tree.selection()
+            if not sel:
+                return None
+            pid = sel[0]
+            for r in self._pairs:
+                if r.pair_id == pid:
+                    return r
+            return None
+
+        def _rematch_pkl(self) -> None:
+            row = self._selected_pair()
+            if not row:
+                messagebox.showinfo("改配 PKL", "請先在配對表選一列。")
+                return
+            if not row.inv_path:
+                messagebox.showwarning("改配 PKL", "此列沒有 INV，無法改配。")
+                return
+            inv_key = str(row.inv_path.resolve()) if row.inv_path.exists() else str(row.inv_path)
+            path = filedialog.askopenfilename(
+                title="選擇要配給此 INV 的 PKL PDF",
+                filetypes=[("PDF", "*.pdf *.PDF"), ("All", "*.*")],
+                initialdir=str(row.inv_path.parent) if row.inv_path else None,
+            )
+            if not path:
+                return
+            pkl = Path(path)
+            # Add to selection without wiping manual state via full rebuild
+            seen = {str(p.resolve()) if p.exists() else str(p) for p in self._pdfs}
+            key = str(pkl.resolve()) if pkl.exists() else str(pkl)
+            if key not in seen:
+                self._pdfs.append(pkl)
+                self.listbox.insert("end", str(pkl))
+                self.pdf_var.set(f"{len(self._pdfs)} PDFs selected")
+            # Detach this PKL from any other pair; bind to this INV
+            for r in self._pairs:
+                if r.inv_path and (
+                    (str(r.inv_path.resolve()) if r.inv_path.exists() else str(r.inv_path))
+                    == inv_key
+                ):
+                    r.pkl_path = pkl
+                    r.manual = True
+                    r.skipped = False
+                    r.recompute_status()
+                elif r.pkl_path and r.pkl_path.resolve() == pkl.resolve():
+                    if not (
+                        r.inv_path
+                        and (
+                            str(r.inv_path.resolve())
+                            if r.inv_path.exists()
+                            else str(r.inv_path)
+                        )
+                        == inv_key
+                    ):
+                        r.pkl_path = None
+                        r.recompute_status()
+            # Drop orphan PKL-only rows for this file
+            self._pairs = [
+                r
+                for r in self._pairs
+                if not (
+                    r.status == STATUS_PKL_ONLY
+                    and r.pkl_path
+                    and r.pkl_path.resolve() == pkl.resolve()
+                )
+            ]
+            self._sync_pair_tree()
+            self._log(f"改配: INV={Path(inv_key).name} → PKL={pkl.name}")
+
+        def _split_pair(self) -> None:
+            row = self._selected_pair()
+            if not row:
+                messagebox.showinfo("拆開", "請先在配對表選一列。")
+                return
+            if not row.pkl_path:
+                messagebox.showinfo("拆開", "此列沒有 PKL。")
+                return
+            pkl = row.pkl_path
+            row.pkl_path = None
+            row.manual = True
+            row.skipped = False
+            row.recompute_status()
+            # Add PKL-only row if not already present
+            exists = any(
+                r.pkl_path and r.pkl_path.resolve() == pkl.resolve() and not r.inv_path
+                for r in self._pairs
+            )
+            if not exists:
+                n = len(self._pairs) + 1
+                self._pairs.append(
+                    PairRow(
+                        pair_id=f"P{n}",
+                        pkl_path=pkl,
+                        status=STATUS_PKL_ONLY,
+                        manual=True,
+                    )
+                )
+            self._sync_pair_tree()
+            self._log(f"拆開: {row.pair_id} → 僅 INV；PKL={pkl.name} 獨立列")
+
+        def _skip_pair(self) -> None:
+            row = self._selected_pair()
+            if not row:
+                messagebox.showinfo("略過", "請先在配對表選一列。")
+                return
+            row.skipped = not row.skipped
+            row.manual = True
+            self._sync_pair_tree()
+            self._log(
+                f"{'略過' if row.skipped else '取消略過'}: {row.pair_id} {row.display_inv}"
+            )
 
         def _set_pdfs(self, paths: list[Path], *, append: bool = False) -> None:
             if not append:
@@ -310,13 +580,15 @@ def run_gui() -> None:
 
         def _clear(self) -> None:
             self._pdfs = []
+            self._pairs = []
             self.pdf_var.set("")
             self.out_var.set("")
             self.listbox.delete(0, "end")
+            self._sync_pair_tree()
             self.summary.delete("1.0", "end")
             if hasattr(self, "status_var"):
                 self.status_var.set(
-                    "Ready — mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
+                    "Ready — pairing: INV+PKL / 僅 INV / 僅 PKL / 未配對；mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
                 )
             dnd_note = "enabled" if has_dnd else "not installed (Browse still works)"
             self._log(f"Drag-drop: {dnd_note}")
@@ -386,22 +658,28 @@ def run_gui() -> None:
             out_s = self.out_var.get().strip().strip('"')
             out = Path(out_s) if out_s else None
 
+            if not self._pairs:
+                self._rebuild_pairs()
+            pairs = list(self._pairs)
+
             self._busy = True
             self.run_btn.configure(state="disabled")
-            self._log(f"Extracting {len(self._pdfs)} file(s) …")
-            pdfs = list(self._pdfs)
+            active = sum(1 for r in pairs if not r.skipped and r.status != STATUS_PKL_ONLY)
+            self._log(f"Extracting {active} pair(s) from {len(self._pdfs)} file(s) …")
 
             def work() -> None:
                 try:
-                    result = _extract_many(pdfs, out)
+                    result = _extract_pairs(pairs, out)
 
                     def ok() -> None:
                         self._show_batch(result)
                         fails = result.get("failures") or []
+                        skips = result.get("skipped") or []
                         msg = (
                             f"Wrote:\n{result.get('written')}\n\n"
                             f"OK: {result.get('successes', 0)}\n"
-                            f"Failed: {len(fails)}"
+                            f"Failed: {len(fails)}\n"
+                            f"Skipped: {len(skips)}"
                         )
                         if fails:
                             msg += "\n\nFailures:\n" + "\n".join(
@@ -441,6 +719,7 @@ def run_gui() -> None:
                 f"Wrote: {result.get('written')}",
                 f"successes: {result.get('successes')}",
                 f"failures: {len(result.get('failures') or [])}",
+                f"skipped: {len(result.get('skipped') or [])}",
                 "—",
             ]
             map_labels: list[str] = []
@@ -454,6 +733,7 @@ def run_gui() -> None:
                             format_id=s.get("format_id"),
                             mapping=mlab,
                             checker_verdict=s.get("checker_verdict"),
+                            pair_status=s.get("pair_status"),
                         )
                     )
                     detail = (
@@ -465,10 +745,13 @@ def run_gui() -> None:
                         lines.append("    WARNING: " + s["text_backend_warning"])
                 else:
                     mlab = s.get("mapping_status") or "全新／需規則"
-                    map_labels.append(mlab)
+                    if not s.get("skipped"):
+                        map_labels.append(mlab)
+                    pst = s.get("pair_status") or "—"
                     lines.append(
-                        f"— | — | {mlab} | FAIL {Path(s.get('source') or '').name}: "
-                        f"{s.get('error')}"
+                        f"— | — | {pst} | "
+                        f"{'SKIP' if s.get('skipped') else 'FAIL'} "
+                        f"{Path(s.get('source') or '').name}: {s.get('error')}"
                     )
             counts = count_mapping_statuses(map_labels)
             footer_parts = [f"{k}={v}" for k, v in counts.items() if v]
@@ -479,7 +762,8 @@ def run_gui() -> None:
             if hasattr(self, "status_var"):
                 self.status_var.set(
                     f"Last run — OK {result.get('successes', 0)} / "
-                    f"fail {len(result.get('failures') or [])} | {footer}"
+                    f"fail {len(result.get('failures') or [])} / "
+                    f"skip {len(result.get('skipped') or [])} | {footer}"
                 )
 
         def run(self) -> None:

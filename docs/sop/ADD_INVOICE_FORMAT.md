@@ -95,6 +95,11 @@
 
 ---
 
+
+## INV／PKL 分檔與 format_id
+
+合訂本（同一 PDF 含發票＋packing）與 **分檔**（常見於 **BHC**：`*_INV_*` + `*_PKL_*`）共用同一套 FormatSOP：主 `format_id` 仍由 **INV（或合訂本）** 的 `match_score` 決定，**不**另開 `*_pkl_v1` 當主類別。分檔時 PKL 只當**同家族補充來源**（件數／GW：MA 用 `parse_rb_packages`；BITZER／通用 packing 錨點亦可），合併成一筆 ExtractResult；`meta.source=combined|split`。MA 多數仍為合訂本，勿假設全部都要分檔。
+
 ## 完成定義（Definition of done）
 
 - [ ] 樣本抽出 Summary／Lines 正確（含 GW＝Gross、金額＝標籤總額）
@@ -110,4 +115,5 @@
 | 日期 | 說明 |
 |------|------|
 | 2026-09-10 | 初版：與使用者復盤後定稿；澄清種子與 v1／v2 選法 |
+| 2026-09-13 | 分檔 PKL 為同家族補充來源（BHC 為主）；主 format_id 看 INV／合訂本 |
 | 2026-09-10 | Round4：種子 `ma_no_period_v1`／`ma_with_period_v1`／`bhc_my_hub_v1` |

@@ -119,10 +119,13 @@ def format_status_line(
     format_id: Any = None,
     mapping: str,
     checker_verdict: str | None = None,
+    pair_status: Any = None,
 ) -> str:
-    """``50666223 | pt_gloria_v1 | audit ok | hard pass``."""
+    """``9027451705 | bhc_my_hub_v1 | INV+PKL | audit ok`` (or legacy 4-part with hard pass)."""
     inv = invoice_no if invoice_no not in (None, "") else "—"
     fid = format_id if format_id not in (None, "") else "—"
+    if pair_status not in (None, "", "—"):
+        return f"{inv} | {fid} | {pair_status} | {mapping}"
     return f"{inv} | {fid} | {mapping} | {checker_display(checker_verdict)}"
 
 
