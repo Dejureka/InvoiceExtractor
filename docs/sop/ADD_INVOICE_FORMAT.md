@@ -87,7 +87,7 @@
 | `hangji_v1` | Hangji／`GDHJ-…` |
 | `hitachi_gls_v1` | Hitachi GLS／`MEH…` |
 | `highly_v1` | HIGHLY／海立、`INV#` |
-| `ma_no_period_v1` | `Robert BOSCH GmbH`、`Document No.`、`Goods Value`、13-char 無點 PN；VBA `MA_PDFextract_NoPeriod`／`MA_Declaration_noPeriod` |
+| `ma_no_period_v1` | `Robert BOSCH GmbH`、`Document No.`、`Goods Value`、13-char 無點 PN；VBA `MA_PDFextract_NoPeriod`／`MA_Declaration_noPeriod`；產地＝`Right(PN,3)`→**Country Of Origin Index**（可跨頁／首頁僅標題；勿用 `Country Of Origin\\b` 當結尾以免吃到下一頁 Index；Unicode 國名如 Türkiye） |
 | `ma_with_period_v1` | 同上但 PN 有點（`0.445…`）；VBA `MA_PDFextractWithPeriod`／`MA_Declaration_withPeriod`；資料夾 90-C*／90-M* |
 | `bhc_my_hub_v1` | `Bosch Home Comfort Supply`、`TOTALS:`、`PART NO`；packing／GW soft-missing OK |
 
@@ -116,4 +116,5 @@
 |------|------|
 | 2026-09-10 | 初版：與使用者復盤後定稿；澄清種子與 v1／v2 選法 |
 | 2026-09-13 | 分檔 PKL 為同家族補充來源（BHC 為主）；主 format_id 看 INV／合訂本 |
+| 2026-09-13 | MA NP：硬化 `_parse_coo_index`（空 Index 頁＋跨頁＋Unicode Türkiye）；WP 不變 |
 | 2026-09-10 | Round4：種子 `ma_no_period_v1`／`ma_with_period_v1`／`bhc_my_hub_v1` |

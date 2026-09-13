@@ -32,7 +32,9 @@ MATCH_HINTS = {
 NOTES = (
     "MA Mobility Aftermarket system invoice; PN is 13-char without dots "
     "(e.g. 0445110594879). VBA: MA_PDFextract_NoPeriod + MA_Declaration_noPeriod. "
-    "Folder heuristic: not 90-C*/90-M*."
+    "Folder heuristic: not 90-C*/90-M*. "
+    "Origin = map[Right(PN,3)] from Country Of Origin Index (late pages, not packing). "
+    "Index may span pages / start with empty header-only page; Unicode names (Türkiye) OK."
 )
 
 RULES_JSON = {
@@ -121,20 +123,41 @@ def _incoterm(text: str) -> str | None:
 
 
 
+_COO_INDEX_HDR = re.compile(r"Country\s+Of\s+Origin\s+Index", re.I)
+# End of one Index page/block: summary "Country Of Origin" (not … Index), or footer.
+_COO_BLOCK_END = re.compile(
+    r"Country\s+Of\s+Origin(?!\s+Index)\b|Bank\s+account:",
+    re.I,
+)
+# Layout: "Germany 000" / "Viet Nam ESD" / "Türkiye 825" (Unicode country OK).
+_COO_ENTRY = re.compile(
+    r"^\s*(?P<country>\S+(?:\s+\S+)?)\s+(?P<idx>[A-Za-z0-9]{3})\s*$",
+    re.MULTILINE,
+)
+_COO_HAS_LETTER = re.compile(r"[^\W\d_]", re.UNICODE)
+
+
 def _parse_coo_index(text: str) -> dict[str, str]:
-    """Map 3-char index → country name from 'Country Of Origin Index' block."""
+    """Map 3-char index → country from all 'Country Of Origin Index' blocks.
+
+    NP invoices often put an empty Index header at the bottom of a page, then
+    rows on the next page; large invoices continue the table across pages.
+    Do not treat the next page's Index title as a block terminator
+    (``Country Of Origin\\b`` wrongly matches ``Country Of Origin Index``).
+    """
     out: dict[str, str] = {}
-    m = re.search(
-        r"Country\s+Of\s+Origin\s+Index([\s\S]{0,4000}?)Country\s+Of\s+Origin\b",
-        text,
-        re.I,
-    )
-    if not m:
-        return out
-    block = m.group(1)
-    # paste-shaped often: country\nIDX ; layout may be "Germany 000"
-    for cm in re.finditer(r"([A-Za-z][A-Za-z ./-]+?)\s+(\S{3})\s*$", block, re.M):
-        out[cm.group(2)] = cm.group(1).strip()
+    for m in _COO_INDEX_HDR.finditer(text):
+        rest = text[m.end() :]
+        end_m = _COO_BLOCK_END.search(rest)
+        block = rest[: end_m.start()] if end_m else rest[:5000]
+        for cm in _COO_ENTRY.finditer(block):
+            country = cm.group("country").strip()
+            idx = cm.group("idx")
+            if not _COO_HAS_LETTER.search(country):
+                continue
+            if country.lower() in {"page", "pos", "index", "no."}:
+                continue
+            out[idx] = country
     return out
 
 
