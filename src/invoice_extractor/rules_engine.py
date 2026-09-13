@@ -7,10 +7,12 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from invoice_extractor.formats import (
+    aichi_electric_v1,
     bhc_my_hub_v1,
     bitzer_v1,
     hangji_v1,
     highly_v1,
+    hisense_qingdao_v1,
     hitachi_gls_v1,
     ma_no_period_v1,
     ma_with_period_v1,
@@ -31,6 +33,8 @@ BUILTIN: list[tuple[str, Callable[[str, str], float], Extractor]] = [
     ("ma_no_period_v1", ma_no_period_v1.match_score, ma_no_period_v1.extract),
     ("ma_with_period_v1", ma_with_period_v1.match_score, ma_with_period_v1.extract),
     ("bhc_my_hub_v1", bhc_my_hub_v1.match_score, bhc_my_hub_v1.extract),
+    ("hisense_qingdao_v1", hisense_qingdao_v1.match_score, hisense_qingdao_v1.extract),
+    ("aichi_electric_v1", aichi_electric_v1.match_score, aichi_electric_v1.extract),
 ]
 
 

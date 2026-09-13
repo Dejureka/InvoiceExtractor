@@ -334,7 +334,8 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
 def parse_packing_pkg_gw(text: str) -> tuple[float | None, float | None]:
     """Packages + gross weight from a PKL (or packing section).
 
-    Order: MA ``parse_rb_packages`` → BITZER Gesamtgewicht → generic Gross/Packages.
+    Order: MA ``parse_rb_packages`` → BITZER Gesamtgewicht → BHC PKL TOTAL rows
+    → generic Gross/Packages.
     """
     pkg, gw = parse_rb_packages(text)
     if pkg is not None or gw is not None:
@@ -343,6 +344,40 @@ def parse_packing_pkg_gw(text: str) -> tuple[float | None, float | None]:
     m = re.search(r"Gesamtgewicht\s+(\d+)\s+([\d.,]+)\s*KG", text, re.I)
     if m:
         return float(m.group(1)), eu_float(m.group(2))
+
+    # BHC Supply (M) packing list: TOTAL {ctns} {nw} {gw} {m3}
+    m = re.search(
+        r"(?im)^\s*TOTAL\s+(\d+)\s+[\d.,]+\s+([\d.,]+)\s+[\d.,]+\s*$",
+        text,
+    )
+    if m:
+        return float(m.group(1)), us_float(m.group(2))
+
+    # Bosch Home Comfort Malaysia factory PKL:
+    # "1-3   3   TOTAL   52   715.5   867   7.863" → pkg=3, gw=867
+    m = re.search(
+        r"(?im)^\s*\S+\s+(\d+)\s+TOTAL\s+[\d.,]+\s+[\d.,]+\s+([\d.,]+)\s+[\d.,]+\s*$",
+        text,
+    )
+    if m:
+        return float(m.group(1)), us_float(m.group(2))
+
+    # Qingdao Hisense combined PL TOTAL row:
+    # TOTAL  209  0  169  169  45986.00  43101.00  294.52 → pkg=169, gw=45986
+    m = re.search(
+        r"(?im)^\s*TOTAL\s+[\d.,]+\s+[\d.,]+\s+(\d+)\s+\1\s+([\d.,]+)\s+[\d.,]+\s+[\d.,]+\s*$",
+        text,
+    )
+    if m:
+        return float(m.group(1)), us_float(m.group(2))
+
+    # Aichi packing sheet footer: "12 PALLETS ... 7,217 KG"
+    m = re.search(
+        r"(?im)^\s*(\d+)\s+PALLETS?\b[^\n]*?([\d,]+)\s*KG\s*$",
+        text,
+    )
+    if m:
+        return float(m.group(1)), us_float(m.group(2))
 
     gw_val: float | None = None
     m = re.search(

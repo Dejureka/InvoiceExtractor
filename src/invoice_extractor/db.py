@@ -178,10 +178,12 @@ def record_run(
 def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
     """Init DB and seed BITZER + PT Gloria formats."""
     from invoice_extractor.formats import (
+        aichi_electric_v1,
         bhc_my_hub_v1,
         bitzer_v1,
         hangji_v1,
         highly_v1,
+        hisense_qingdao_v1,
         hitachi_gls_v1,
         ma_no_period_v1,
         ma_with_period_v1,
@@ -237,6 +239,16 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 "Bosch Home Comfort Supply (M) Sdn. Bhd.",
                 ["BHC MY-HUB", "Home Comfort Supply", "Johnson Controls Air Conditioning Supply"],
                 bhc_my_hub_v1,
+            ),
+            (
+                "QINGDAO HISENSE BOSCH AIR-CONDITIONING SYSTEM CO.,LTD.",
+                ["Hisense Qingdao", "CIHT-TW", "Qingdao Hisense Bosch"],
+                hisense_qingdao_v1,
+            ),
+            (
+                "AICHI ELECTRIC CO., LTD.",
+                ["Aichi Electric", "AETW"],
+                aichi_electric_v1,
             ),
         ]
         for name, aliases, mod in extras:

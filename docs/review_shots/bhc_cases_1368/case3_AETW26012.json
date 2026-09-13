@@ -1,0 +1,261 @@
+{
+  "header": {
+    "invoice_no": "AETW26012",
+    "invoice_date": "2026-08-25",
+    "total_pkg": 12.0,
+    "gross_weight_kg": 7217.0,
+    "incoterm": "FOB NAGOYA",
+    "item_line_count": 17,
+    "total_quantity": 1463.0,
+    "amount": 7530464.0,
+    "currency": "JPY",
+    "vendor": "AICHI ELECTRIC CO., LTD.",
+    "origin": "Japan",
+    "hs_code": null
+  },
+  "items": [
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NE12586A",
+      "description": "Stator",
+      "qty": 120.0,
+      "unit": "PCS",
+      "unit_price": 8702.0,
+      "amount": 1044240.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NE12586A",
+      "description": "Stator",
+      "qty": 90.0,
+      "unit": "PCS",
+      "unit_price": 8702.0,
+      "amount": 783180.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NE15107A",
+      "description": "Stator",
+      "qty": 120.0,
+      "unit": "PCS",
+      "unit_price": 8384.0,
+      "amount": 1006080.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NE12584A",
+      "description": "Stator",
+      "qty": 120.0,
+      "unit": "PCS",
+      "unit_price": 7954.0,
+      "amount": 954480.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NE36971D",
+      "description": "Stator",
+      "qty": 216.0,
+      "unit": "PCS",
+      "unit_price": 10226.0,
+      "amount": 2208816.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NE29587A",
+      "description": "Stator",
+      "qty": 8.0,
+      "unit": "PCS",
+      "unit_price": 9960.0,
+      "amount": 79680.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NE12588A",
+      "description": "Stator",
+      "qty": 3.0,
+      "unit": "PCS",
+      "unit_price": 9676.0,
+      "amount": 29028.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NE22454A",
+      "description": "Stator",
+      "qty": 2.0,
+      "unit": "PCS",
+      "unit_price": 20991.0,
+      "amount": 41982.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NF22453A",
+      "description": "Rotor",
+      "qty": 2.0,
+      "unit": "PCS",
+      "unit_price": 10191.0,
+      "amount": 20382.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NF15390A",
+      "description": "Rotor",
+      "qty": 30.0,
+      "unit": "PCS",
+      "unit_price": 1827.0,
+      "amount": 54810.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NF15390A",
+      "description": "Rotor",
+      "qty": 17.0,
+      "unit": "PCS",
+      "unit_price": 1827.0,
+      "amount": 31059.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NF15390A",
+      "description": "Rotor",
+      "qty": 3.0,
+      "unit": "PCS",
+      "unit_price": 1827.0,
+      "amount": 5481.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NF29678A",
+      "description": "Rotor",
+      "qty": 8.0,
+      "unit": "PCS",
+      "unit_price": 1854.0,
+      "amount": 14832.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NF15106A",
+      "description": "Rotor",
+      "qty": 100.0,
+      "unit": "PCS",
+      "unit_price": 1799.0,
+      "amount": 179900.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NF18188A",
+      "description": "Rotor",
+      "qty": 3.0,
+      "unit": "PCS",
+      "unit_price": 1808.0,
+      "amount": 5424.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NF12587A",
+      "description": "Rotor",
+      "qty": 261.0,
+      "unit": "PCS",
+      "unit_price": 1770.0,
+      "amount": 461970.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "AETW26012",
+      "part_no": "2NF12585A",
+      "description": "Rotor",
+      "qty": 360.0,
+      "unit": "PCS",
+      "unit_price": 1692.0,
+      "amount": 609120.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/bhc_cases_round/bhc/case3/IV PL.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "aichi_electric_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "combined INV+packing sheet; soft-missing HS OK",
+    "labeled_amount": 7530464.0,
+    "labeled_amount_label": "Total FOB Nagoya",
+    "source": "combined",
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 17,
+        "got": 17
+      },
+      "total_quantity": {
+        "want": 1463.0,
+        "got": 1463.0
+      },
+      "amount": {
+        "want": 7530464.0,
+        "got": 7530464.0
+      },
+      "labeled_amount": {
+        "label": "Total FOB Nagoya",
+        "want": 7530464.0,
+        "header_amount": 7530464.0,
+        "sum_items": 7530464.0,
+        "item_count": 17
+      }
+    }
+  }
+}

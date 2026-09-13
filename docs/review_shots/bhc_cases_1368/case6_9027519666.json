@@ -1,0 +1,132 @@
+{
+  "header": {
+    "invoice_no": "9027519666",
+    "invoice_date": "2026-08-24",
+    "total_pkg": 3.0,
+    "gross_weight_kg": 867.0,
+    "incoterm": "CIF Taipei",
+    "item_line_count": 4,
+    "total_quantity": 52.0,
+    "amount": 12026.9,
+    "currency": "USD",
+    "vendor": "Bosch Home Comfort Supply (M) Sdn. Bhd.",
+    "origin": null,
+    "hs_code": null
+  },
+  "items": [
+    {
+      "invoice_no": "9027519666",
+      "part_no": "RPK-GP28KH3MB",
+      "description": "SF RPK-GP28KH3MB",
+      "qty": 2.0,
+      "unit": "PCS",
+      "unit_price": 200.05,
+      "amount": 400.1,
+      "origin": "Malaysia",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027519666",
+      "part_no": "RPK-GP36KH3MB",
+      "description": "SF RPK-GP36KH3MB",
+      "qty": 15.0,
+      "unit": "PCS",
+      "unit_price": 200.05,
+      "amount": 3000.75,
+      "origin": "Malaysia",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027519666",
+      "part_no": "RPK-GP40KH3MB",
+      "description": "SF RPK-GP40KH3MB",
+      "qty": 20.0,
+      "unit": "PCS",
+      "unit_price": 212.43,
+      "amount": 4248.6,
+      "origin": "Malaysia",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027519666",
+      "part_no": "RPK-GP80K3M B",
+      "description": "SF RPK-GP80K3M B",
+      "qty": 15.0,
+      "unit": "PCS",
+      "unit_price": 291.83,
+      "amount": 4377.45,
+      "origin": "Malaysia",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/bhc_cases_round/bhc/case6/P80016538_INV_9027519666_10226801.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "bhc_my_hub_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "soft-missing packing/GW OK for this format; source=split; pkl_used=yes",
+    "labeled_amount": 12026.9,
+    "labeled_amount_label": "TOTALS",
+    "source": "split",
+    "inv_file": "/workspace/bhc_cases_round/bhc/case6/P80016538_INV_9027519666_10226801.PDF",
+    "pkl_file": "/workspace/bhc_cases_round/bhc/case6/10226801_PKL.pdf",
+    "pkl_used": true,
+    "pair_status": "INV+PKL",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 4,
+        "got": 4
+      },
+      "total_quantity": {
+        "want": 52.0,
+        "got": 52.0
+      },
+      "amount": {
+        "want": 12026.9,
+        "got": 12026.9
+      },
+      "labeled_amount": {
+        "label": "TOTALS",
+        "want": 12026.9,
+        "header_amount": 12026.9,
+        "sum_items": 12026.9,
+        "item_count": 4
+      }
+    }
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 4,
+        "got": 4
+      },
+      "total_quantity": {
+        "want": 52.0,
+        "got": 52.0
+      },
+      "amount": {
+        "want": 12026.9,
+        "got": 12026.9
+      },
+      "labeled_amount": {
+        "label": "TOTALS",
+        "want": 12026.9,
+        "header_amount": 12026.9,
+        "sum_items": 12026.9,
+        "item_count": 4
+      }
+    }
+  },
+  "_pair_status": "INV+PKL",
+  "_pair_id": "P1"
+}

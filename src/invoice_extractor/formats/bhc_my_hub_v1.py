@@ -18,7 +18,7 @@ from invoice_extractor.schema import (
 )
 
 MATCH_HINTS = {
-    "filename_regex": r"INV_9027|TA2608|902745",
+    "filename_regex": r"INV_9027|TA2608|BHCWHY|9027\\d{6}",
     "keywords": [
         "Bosch Home Comfort Supply",
         "Invoice Number",
@@ -30,7 +30,7 @@ MATCH_HINTS = {
 
 NOTES = (
     "BHC MY-HUB Supply Malaysia invoice (not BITZER Versanddokument). "
-    "Soft-missing packing/GW OK. Samples: TA2608B2-*_INV_902745*.PDF."
+    "Soft-missing packing/GW OK. Samples: TA2608B2-*_INV_902745*.PDF; P80016538_INV_9027519666; BHCWHYTW2609001_INV_9027666020."
 )
 
 RULES_JSON = {
@@ -43,9 +43,11 @@ RULES_JSON = {
     },
 }
 
+# PN may include hyphens / internal space (e.g. RPK-GP28KH3MB, RPK-GP80K3M B)
+_PN = r"[A-Z0-9][A-Z0-9\- ]{2,24}[A-Z0-9]"
 _COO = r"Thailand|Malaysia|China|Vietnam|Japan|India|Taiwan|Indonesia"
 _LINE = re.compile(
-    r"^\s*(?P<pn>[A-Z0-9]{5,12}[A-Z]?)\s+(?P<desc>.+?)\s+"
+    r"^\s*(?P<pn>" + _PN + r")\s+(?P<desc>.+?)\s+"
     r"(?:(?P<coo>" + _COO + r")\s+)?"
     r"(?P<po>P\d+)\s+(?P<line>\d+)\s+"
     r"(?P<qty>[\d,.]+)\s*(?:PCS)?\s+"
@@ -54,7 +56,7 @@ _LINE = re.compile(
 )
 # PCS wrapped to next line
 _LINE_BROKEN = re.compile(
-    r"^\s*(?P<pn>[A-Z0-9]{5,12}[A-Z]?)\s+(?P<desc>.+?)\s+"
+    r"^\s*(?P<pn>" + _PN + r")\s+(?P<desc>.+?)\s+"
     r"(?:(?P<coo>" + _COO + r")\s+)?"
     r"(?P<po>P\d+)\s+(?P<line>\d+)\s+"
     r"(?P<qty>[\d,.]+)\s+(?P<price>[\d,.]+)\s+(?P<amt>[\d,.]+)\s*$",
@@ -65,7 +67,7 @@ _LINE_BROKEN = re.compile(
 def match_score(text: str, filename: str = "") -> float:
     score = 0.0
     fn = filename.upper()
-    if "902745" in fn or "INV_" in fn or "TA2608" in fn:
+    if re.search(r"9027\d{6}", fn) or "INV_" in fn or "TA2608" in fn or "BHCWHY" in fn:
         score += 0.3
     if "Bosch Home Comfort Supply" in text:
         score += 0.4
