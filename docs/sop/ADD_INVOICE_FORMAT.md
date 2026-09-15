@@ -95,6 +95,8 @@
 | `bhc_my_hub_v1` | `Bosch Home Comfort Supply`、`TOTALS:`、`PART NO`；packing／GW soft-missing OK |
 | `hisense_qingdao_v1` | `QINGDAO HISENSE BOSCH`、`CI NO.: CIHT-TW-…`、合訂 INV+PL；PN＝SELLER'S MODEL |
 | `aichi_electric_v1` | `AICHI ELECTRIC`、`AETW…`、`Total FOB Nagoya`、合訂 packing sheet；PN＝DWG No. |
+| `shanghai_nature_v1` | `SHANGHAI NATURE`、`NBT…`、`HEATING BELT`；OCR 掃描件 OK（case7） |
+| `marubeni_tetsugen_v1` | `MARUBENI TETSUGEN`、`JCH##-##M#`、`COPPER TUBE`／`FOB NAGOYA`；OCR OK（case2） |
 
 **MA**：WithPeriod／NoPeriod 已進規則庫（Round4）。其他變體（USA／Wiper／Sebang）尚未做。
 

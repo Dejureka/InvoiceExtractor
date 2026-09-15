@@ -523,6 +523,29 @@ def parse_packing_pkg_gw(text: str) -> tuple[float | None, float | None]:
     if m:
         return float(m.group(1)), us_float(m.group(2))
 
+    # BHC Thailand factory PKL (often scan/OCR):
+    # "Pallets no. 1-39" → 39; total row
+    # "Pallet … Dimension: … {qty} {nw} {gw} {cbm}"
+    pkg_ocr: float | None = None
+    m = re.search(r"Pallets?\s*no\.?,?\s*(\d+)\s*[-–]\s*(\d+)", text, re.I)
+    if m:
+        pkg_ocr = float(int(m.group(2)) - int(m.group(1)) + 1)
+    m = re.search(
+        r"Pallet[^\n]{0,40}Dimension[^\n]{0,40}?"
+        r"([\d,]+)\s+([\d,]+\.\d+)\s+([\d,]+\.\d+)\s+([\d,]+\.?\d*)",
+        text,
+        re.I,
+    )
+    if m:
+        try:
+            gw_ocr = us_float(m.group(3))
+        except ValueError:
+            gw_ocr = None
+        if pkg_ocr is not None or gw_ocr is not None:
+            return pkg_ocr, gw_ocr
+    elif pkg_ocr is not None:
+        return pkg_ocr, None
+
     gw_val: float | None = None
     m = re.search(
         r"(?:Gross\s*(?:weight|wt\.?)|G\.?\s*W\.?)\s*[:=]?\s*([\d.,]+)\s*K?G?",

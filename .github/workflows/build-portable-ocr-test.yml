@@ -42,52 +42,49 @@ jobs:
           New-Item -ItemType Directory -Force -Path vendor/poppler/bin | Out-Null
           Copy-Item -Force "$srcDir\\*" vendor/poppler/bin/
 
-      - name: Download Tesseract portable (UB Mannheim w64)
+      - name: Bundle Tesseract (Chocolatey or UB Mannheim installer)
         shell: pwsh
         run: |
-          # Offline OCR for portable-ocr-test only (not portable-latest).
-          # Prefer a known GitHub release asset; fall back to installer extract if needed.
-          $dest = "vendor/tesseract"
+          $dest = Join-Path (Get-Location) "vendor\tesseract"
           New-Item -ItemType Directory -Force -Path $dest | Out-Null
-          $urls = @(
-            "https://github.com/UB-Mannheim/tesseract/releases/download/v5.5.0.20241111/tesseract-ocr-w64-setup-5.5.0.20241111.exe",
-            "https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.5.0.20241111.exe"
-          )
-          $installer = "tesseract-setup.exe"
           $ok = $false
-          foreach ($url in $urls) {
-            try {
-              Write-Host "Fetching $url"
-              Invoke-WebRequest -Uri $url -OutFile $installer -MaximumRedirection 5
+          # 1) Chocolatey (common on windows-latest runners)
+          try {
+            choco install tesseract -y --no-progress
+            $src = "C:\Program Files\Tesseract-OCR"
+            if (Test-Path "$src\tesseract.exe") {
+              Copy-Item -Recurse -Force "$src\*" $dest
               $ok = $true
-              break
-            } catch {
-              Write-Host "Download failed: $_"
+              Write-Host "Copied Tesseract from Chocolatey install"
             }
+          } catch {
+            Write-Host "choco path failed: $_"
           }
-          if (-not $ok) { throw "Could not download Tesseract installer" }
-
-          # Silent install into vendor/tesseract (Inno Setup style)
-          $installDir = (Resolve-Path .).Path + "\vendor\tesseract"
-          Write-Host "Installing to $installDir"
-          $p = Start-Process -FilePath ".\$installer" -ArgumentList "/S","/D=$installDir" -Wait -PassThru
-          Write-Host "Installer exit: $($p.ExitCode)"
+          # 2) UB Mannheim silent installer (known-good 5.4.0 build)
+          if (-not $ok) {
+            $url = "https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.4.0.20240606.exe"
+            $installer = "tesseract-setup.exe"
+            Write-Host "Fetching $url"
+            Invoke-WebRequest -Uri $url -OutFile $installer
+            $installDir = $dest
+            $p = Start-Process -FilePath ".\$installer" -ArgumentList "/S","/D=$installDir" -Wait -PassThru
+            Write-Host "Installer exit: $($p.ExitCode)"
+            if (Test-Path "$dest\tesseract.exe") { $ok = $true }
+          }
           $exe = Get-ChildItem -Path $dest -Recurse -Filter tesseract.exe -ErrorAction SilentlyContinue | Select-Object -First 1
-          if (-not $exe) {
-            # Some builds unpack differently; try 7z if available
-            if (Get-Command 7z -ErrorAction SilentlyContinue) {
-              7z x $installer "-o$dest" -y
-              $exe = Get-ChildItem -Path $dest -Recurse -Filter tesseract.exe | Select-Object -First 1
-            }
-          }
-          if (-not $exe) { throw "tesseract.exe not found after install" }
-          Write-Host "Found $($exe.FullName)"
+          if (-not $exe) { throw "tesseract.exe not found under vendor/tesseract" }
           $td = Get-ChildItem -Path $dest -Recurse -Directory -Filter tessdata | Select-Object -First 1
           if (-not $td) { throw "tessdata/ not found" }
-          # Ensure eng.traineddata present
           $eng = Join-Path $td.FullName "eng.traineddata"
+          if (-not (Test-Path $eng)) {
+            # pull eng.traineddata from tessdata_fast if installer omitted it
+            $engUrl = "https://github.com/tesseract-ocr/tessdata_fast/raw/main/eng.traineddata"
+            New-Item -ItemType Directory -Force -Path $td.FullName | Out-Null
+            Invoke-WebRequest -Uri $engUrl -OutFile $eng
+          }
           if (-not (Test-Path $eng)) { throw "eng.traineddata missing" }
-          Get-ChildItem $dest | Select-Object -First 15 | ForEach-Object { $_.Name }
+          Write-Host "Bundled $($exe.FullName)"
+          Get-ChildItem $dest | Select-Object -First 20 | ForEach-Object { $_.Name }
 
       - name: Install
         run: |
