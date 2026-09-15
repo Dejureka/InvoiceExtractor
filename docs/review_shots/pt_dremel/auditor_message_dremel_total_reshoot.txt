@@ -1,0 +1,13 @@
+PT Dremel head3 Total: page re-shoot (shots only) — needs_gold fix
+
+Problem: Auditor needs_gold on 4 head3 invoices — prior pack had p1/p2/plast only; Total: sits on an intermediate page that was not rendered, so amount could not be visually verified.
+
+Fix: pdftotext -layout located Total:; pdftoppm -png -r 150 that page. JSON unchanged (already correct; labeled_amount_label=Total:).
+
+New shots (also mirrored under out/pt_dremel/ and png/):
+- 3415153817_total.png — PDF p3/4 of 90-DSV-25PT-459_…5071-8.pdf — Total: 2,307.42 (JSON amount 2307.42 USD)
+- 3415175473_total.png — PDF p3/4 of 90-DSV-26PT-212_…3230-6474-4.pdf — Total: 4,325.08 (JSON amount 4325.08 USD)
+- 3415178156_total.png — PDF p5/6 of 90-DSV-26PT-261_…140017GMT.pdf — Total: 9,880.00 (JSON amount 9880.0 USD)
+- 3415186746_total.png — PDF p3/4 of 40-D-26PT-311_…164956GMT.pdf — Total: 4,618.40 (JSON amount 4618.4 USD)
+
+Please re-check these 4 vs *_total.png → pass / conflict / needs_gold.
