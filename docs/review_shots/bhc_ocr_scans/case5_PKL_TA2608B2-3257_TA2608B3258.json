@@ -1,0 +1,51 @@
+{
+  "header": {
+    "invoice_no": null,
+    "invoice_date": null,
+    "total_pkg": null,
+    "gross_weight_kg": null,
+    "incoterm": null,
+    "item_line_count": null,
+    "total_quantity": null,
+    "amount": null,
+    "currency": "USD",
+    "vendor": "Bosch Home Comfort Supply (M) Sdn. Bhd.",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [],
+  "meta": {
+    "source_file": "/workspace/bhc_cases_round/bhc/case5/PKL_TA2608B2-3257, TA2608B3258.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": "bhc_my_hub_v1",
+    "confidence": "needs_gold",
+    "needs_ocr": false,
+    "needs_gold": true,
+    "notes": "soft-missing packing/GW OK for this format",
+    "labeled_amount": null,
+    "labeled_amount_label": "TOTALS",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "needs_gold",
+    "checker_issues": [
+      "needs_ocr or needs_gold flagged"
+    ],
+    "checker_details": {},
+    "text_backend_warning": "OCR used (ocr/tesseract): PDF text layer was empty. Column layout may be imperfect vs pdftotext; rules still apply."
+  },
+  "pkl_overlay": {
+    "packages": 33.0,
+    "gross_weight_kg": null,
+    "text_backend": "ocr/tesseract",
+    "needs_ocr": false
+  }
+}
