@@ -10,6 +10,7 @@ from invoice_extractor.formats.bl import (
     dhl_lcl_arrival_v1,
     hippopo_hbl_v1,
     milestone_arrival_v1,
+    tvl_hbl_v1,
 )
 from invoice_extractor.schema_bl import BLExtractResult, BLHeader, BLMeta
 
@@ -20,6 +21,7 @@ BUILTIN_BL: list[tuple[str, Callable[[str, str], float], BLExtractor]] = [
     ("dhl_lcl_arrival_v1", dhl_lcl_arrival_v1.match_score, dhl_lcl_arrival_v1.extract),
     ("hippopo_hbl_v1", hippopo_hbl_v1.match_score, hippopo_hbl_v1.extract),
     ("milestone_arrival_v1", milestone_arrival_v1.match_score, milestone_arrival_v1.extract),
+    ("tvl_hbl_v1", tvl_hbl_v1.match_score, tvl_hbl_v1.extract),
 ]
 
 
@@ -75,11 +77,11 @@ def extract_bl(
     format_id: str | None = None,
 ) -> BLExtractResult:
     """High-level: text layer → classify BL family → rules extract."""
-    from invoice_extractor.text_layer import extract_layout_text
+    from invoice_extractor.text_layer import extract_text
 
     path = Path(pdf_path)
     if text is None:
-        text, backend2, needs_ocr2 = extract_layout_text(path)
+        text, backend2, needs_ocr2 = extract_text(path, allow_ocr=True)
         backend = backend or backend2
         needs_ocr = needs_ocr2 if needs_ocr is None else needs_ocr
     else:
@@ -95,7 +97,7 @@ def extract_bl(
                 confidence="needs_gold",
                 needs_ocr=True,
                 needs_gold=True,
-                notes="empty text layer",
+                notes="empty text layer (OCR unavailable or empty)",
                 doc_kind="bl",
             ),
         )

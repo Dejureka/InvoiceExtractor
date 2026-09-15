@@ -1,0 +1,88 @@
+{
+  "header": {
+    "invoice_no": "JCH26-08M1",
+    "invoice_date": "2026-08-06",
+    "total_pkg": 5.0,
+    "gross_weight_kg": 3560.0,
+    "incoterm": "FOB NAGOYA, JAPAN",
+    "item_line_count": 2,
+    "total_quantity": 800.0,
+    "amount": 67930.24,
+    "currency": "USD",
+    "vendor": "Marubeni Tetsugen Metals Corporation",
+    "origin": "Japan",
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "JCH26-08M1",
+      "part_no": "EMCP-P100566080010",
+      "description": "COPPER TUBE (THERMOEXCEL CPC)",
+      "qty": 160.0,
+      "unit": "PCS",
+      "unit_price": 84.9128,
+      "amount": 13586.05,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "JCH26-08M1",
+      "part_no": "EMCP-P100553740020",
+      "description": "COPPER TUBE (THERMOEXCEL CPC)",
+      "qty": 640.0,
+      "unit": "PCS",
+      "unit_price": 84.9128,
+      "amount": 54344.19,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/bhc_cases_round/bhc/case2/(JCH26-08M1) Invoice, PL.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": "marubeni_tetsugen_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 67930.24,
+    "labeled_amount_label": "Total",
+    "source": "combined",
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 2,
+        "got": 2
+      },
+      "total_quantity": {
+        "want": 800.0,
+        "got": 800.0
+      },
+      "amount": {
+        "want": 67930.24,
+        "got": 67930.24
+      },
+      "labeled_amount": {
+        "label": "Total",
+        "want": 67930.24,
+        "header_amount": 67930.24,
+        "sum_items": 67930.24,
+        "item_count": 2
+      }
+    },
+    "text_backend_warning": "OCR used (ocr/tesseract): PDF text layer was empty. Column layout may be imperfect vs pdftotext; rules still apply."
+  }
+}

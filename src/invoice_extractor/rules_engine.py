@@ -9,6 +9,8 @@ from typing import Any, Callable, Optional
 from invoice_extractor.formats import (
     aichi_electric_v1,
     bhc_my_hub_v1,
+    marubeni_tetsugen_v1,
+    shanghai_nature_v1,
     bitzer_v1,
     hangji_v1,
     highly_v1,
@@ -39,6 +41,8 @@ BUILTIN: list[tuple[str, Callable[[str, str], float], Extractor]] = [
     ("bhc_my_hub_v1", bhc_my_hub_v1.match_score, bhc_my_hub_v1.extract),
     ("hisense_qingdao_v1", hisense_qingdao_v1.match_score, hisense_qingdao_v1.extract),
     ("aichi_electric_v1", aichi_electric_v1.match_score, aichi_electric_v1.extract),
+    ("shanghai_nature_v1", shanghai_nature_v1.match_score, shanghai_nature_v1.extract),
+    ("marubeni_tetsugen_v1", marubeni_tetsugen_v1.match_score, marubeni_tetsugen_v1.extract),
 ]
 
 
@@ -77,11 +81,11 @@ def extract_invoice(
     format_id: str | None = None,
 ) -> ExtractResult:
     """High-level: text layer → classify → rules extract."""
-    from invoice_extractor.text_layer import extract_layout_text
+    from invoice_extractor.text_layer import extract_text
 
     path = Path(pdf_path)
     if text is None:
-        text, backend2, needs_ocr2 = extract_layout_text(path)
+        text, backend2, needs_ocr2 = extract_text(path, allow_ocr=True)
         backend = backend or backend2
         needs_ocr = needs_ocr2 if needs_ocr is None else needs_ocr
     else:
@@ -98,7 +102,7 @@ def extract_invoice(
                 confidence="needs_gold",
                 needs_ocr=True,
                 needs_gold=True,
-                notes="empty text layer",
+                notes="empty text layer (OCR unavailable or empty)",
             ),
         )
 

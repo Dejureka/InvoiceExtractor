@@ -390,6 +390,7 @@ def run_gui() -> None:
             try:
                 from pdf_layout_text.convert import find_pdftotext
                 from invoice_extractor.text_layer import backend_warning
+                from invoice_extractor.ocr import find_tesseract, tesseract_available
 
                 if find_pdftotext():
                     self._log("Text engine: pdftotext (poppler) available")
@@ -397,6 +398,14 @@ def run_gui() -> None:
                     self._log(
                         "WARNING: "
                         + (backend_warning("pymupdf/pdfminer fallback") or "")
+                    )
+                if tesseract_available():
+                    self._log(f"OCR fallback: tesseract available ({find_tesseract()})")
+                else:
+                    self._log(
+                        "OCR fallback: tesseract not found "
+                        "(empty-text PDFs will stay needs_ocr; "
+                        "see README / portable-ocr-test)"
                     )
             except Exception as exc:
                 self._log(f"(text engine probe skipped: {exc})")
@@ -753,8 +762,17 @@ def run_gui() -> None:
                         f"amount={s.get('amount')} items={s.get('item_count')}"
                     )
                     lines.append(detail)
+                    from invoice_extractor.ocr import is_ocr_backend
+
+                    tb = s.get("text_backend") or ""
+                    if is_ocr_backend(tb):
+                        lines.append(f"    OCR used: {tb}")
                     if s.get("text_backend_warning"):
-                        lines.append("    WARNING: " + s["text_backend_warning"])
+                        warn = s["text_backend_warning"]
+                        if is_ocr_backend(tb):
+                            lines.append("    NOTE: " + warn)
+                        else:
+                            lines.append("    WARNING: " + warn)
                 else:
                     mlab = s.get("mapping_status") or "全新／需規則"
                     if not s.get("skipped"):

@@ -180,6 +180,8 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
     from invoice_extractor.formats import (
         aichi_electric_v1,
         bhc_my_hub_v1,
+        marubeni_tetsugen_v1,
+        shanghai_nature_v1,
         bitzer_v1,
         hangji_v1,
         highly_v1,
@@ -197,6 +199,7 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         dhl_lcl_arrival_v1,
         hippopo_hbl_v1,
         milestone_arrival_v1,
+        tvl_hbl_v1,
     )
 
     path = init_db(db_path)
@@ -268,6 +271,16 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 ["PT Dremel head5", "Bosch Document Number", "HSN/SAC"],
                 pt_dremel_head5_v1,
             ),
+            (
+                "Shanghai Nature International Trading Co., Ltd.",
+                ["Shanghai Nature", "NBT", "HEATING BELT"],
+                shanghai_nature_v1,
+            ),
+            (
+                "Marubeni Tetsugen Metals Corporation",
+                ["Marubeni Tetsugen", "Tetsugen Metals", "JCH26"],
+                marubeni_tetsugen_v1,
+            ),
         ]
         for name, aliases, mod in extras:
             vid = upsert_vendor(conn, name, aliases=aliases)
@@ -300,6 +313,11 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 "Milestone Forwarding (里運國際)",
                 ["Milestone", "里運國際", "MILESTONE FORWARDING", "到貨通知書"],
                 milestone_arrival_v1,
+            ),
+            (
+                "T.V.L. Global Logistics / Trans Van Links",
+                ["TVL", "T.V.L.", "TRANS VAN LINKS", "SHAKEL"],
+                tvl_hbl_v1,
             ),
         ]
         for name, aliases, mod in bl_extras:

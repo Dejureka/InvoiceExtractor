@@ -34,7 +34,8 @@
 ### 2. 抽文字層
 
 - 用工具內建文字層（優先 pdftotext／poppler；否則後備）產出對照用 `.txt`。
-- **不要只看 PDF 畫面**；規則對的是文字座標／排版字串。
+- **掃描件／文字層空**：走離線 Tesseract OCR（`meta.text_backend=ocr/tesseract`），再對 OCR 字串寫規則（**同一** rules_engine，不要另開 OCR-only format_id）。對照用 `.txt` 可從 OCR 輸出存檔。
+- **不要只看 PDF 畫面**；規則對的是文字座標／排版字串（OCR 時為 OCR 字串）。
 
 ### 3. 定錨點（分類）
 
@@ -94,6 +95,8 @@
 | `bhc_my_hub_v1` | `Bosch Home Comfort Supply`、`TOTALS:`、`PART NO`；packing／GW soft-missing OK |
 | `hisense_qingdao_v1` | `QINGDAO HISENSE BOSCH`、`CI NO.: CIHT-TW-…`、合訂 INV+PL；PN＝SELLER'S MODEL |
 | `aichi_electric_v1` | `AICHI ELECTRIC`、`AETW…`、`Total FOB Nagoya`、合訂 packing sheet；PN＝DWG No. |
+| `shanghai_nature_v1` | `SHANGHAI NATURE`、`NBT…`、`HEATING BELT`；OCR 掃描件 OK（case7） |
+| `marubeni_tetsugen_v1` | `MARUBENI TETSUGEN`、`JCH##-##M#`、`COPPER TUBE`／`FOB NAGOYA`；OCR OK（case2） |
 
 **MA**：WithPeriod／NoPeriod 已進規則庫（Round4）。其他變體（USA／Wiper／Sebang）尚未做。
 
