@@ -188,6 +188,8 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         ma_no_period_v1,
         ma_with_period_v1,
         nidec_v1,
+        pt_dremel_head3_v1,
+        pt_dremel_head5_v1,
         pt_gloria_v1,
     )
     from invoice_extractor.formats.bl import (
@@ -255,6 +257,16 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 "AICHI ELECTRIC CO., LTD.",
                 ["Aichi Electric", "AETW"],
                 aichi_electric_v1,
+            ),
+            (
+                "Robert Bosch Tool Corporation (PT Dremel head3)",
+                ["PT Dremel", "Dremel", "PPT", "Tool Corporation", "head3"],
+                pt_dremel_head3_v1,
+            ),
+            (
+                "Robert Bosch Tool Corporation (PT Dremel head5)",
+                ["PT Dremel head5", "Bosch Document Number", "HSN/SAC"],
+                pt_dremel_head5_v1,
             ),
         ]
         for name, aliases, mod in extras:

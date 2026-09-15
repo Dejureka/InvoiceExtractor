@@ -99,6 +99,11 @@ def match_score(text: str, filename: str = "") -> float:
         score += 0.15
     if "BITZER" in text or "Ladeliste" in text:
         score -= 0.5
+    # Dremel / Tool Corp layouts (head3/head5) — not Gloria GmbH
+    if "Origin/Tariff Code" in text or "Bosch Document Number" in text:
+        score -= 0.55
+    if "Robert Bosch Tool Corporation" in text and "Power Tools GmbH" not in text:
+        score -= 0.4
     return max(0.0, min(score, 1.0))
 
 

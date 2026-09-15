@@ -1,0 +1,54 @@
+{
+  "header": {
+    "invoice_no": "3415185446",
+    "invoice_date": "2026-06-11",
+    "total_pkg": null,
+    "gross_weight_kg": null,
+    "incoterm": "FCA West Memphis",
+    "item_line_count": 1,
+    "total_quantity": 15.0,
+    "amount": 17.55,
+    "currency": "USD",
+    "vendor": "Robert Bosch Tool Corporation",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "3415185446",
+      "part_no": "2.615.040.4AA",
+      "description": "404-02 1/2\" Nylon Bristle Brushes (2 PK)",
+      "qty": 15.0,
+      "unit": "EA",
+      "unit_price": 1.17,
+      "amount": 17.55,
+      "origin": "US",
+      "hs_code": "9603500000",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/PT_dremel/40-D-26PT-284_RBTW P13 INVOICE 5034964 DHL AWB#7114085134.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_dremel_head3_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 17.55,
+    "labeled_amount_label": "Total:",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": []
+  }
+}

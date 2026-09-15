@@ -1,0 +1,90 @@
+{
+  "header": {
+    "invoice_no": "3415159548",
+    "invoice_date": "2025-10-23",
+    "total_pkg": null,
+    "gross_weight_kg": null,
+    "incoterm": "FCA West Memphis",
+    "item_line_count": 4,
+    "total_quantity": 168.0,
+    "amount": 890.28,
+    "currency": "USD",
+    "vendor": "Robert Bosch Tool Corporation",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "3415159548",
+      "part_no": "2.615.022.5AJ",
+      "description": "Output Shaft 225-02",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 9.82,
+      "amount": 235.68,
+      "origin": "MX",
+      "hs_code": "8483105000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "3415159548",
+      "part_no": "2.615.062.8AE",
+      "description": "Drill Set 5000628-01 Drill Bit Set",
+      "qty": 60.0,
+      "unit": "EA",
+      "unit_price": 3.51,
+      "amount": 210.6,
+      "origin": "TW",
+      "hs_code": "8207504030",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "3415159548",
+      "part_no": "2.615.072.7AA",
+      "description": "727-01 Sanding/Grinding Kit",
+      "qty": 48.0,
+      "unit": "EA",
+      "unit_price": 3.67,
+      "amount": 176.16,
+      "origin": "TW",
+      "hs_code": "6804226000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "3415159548",
+      "part_no": "2.615.E54.4AD",
+      "description": "DREMEL EZ WOOD CUTTING WHEEL EZ544",
+      "qty": 36.0,
+      "unit": "EA",
+      "unit_price": 7.44,
+      "amount": 267.84,
+      "origin": "DE",
+      "hs_code": "6804226000",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/PT_dremel/40-D-25PT-487_RB TAIWAN P13 INVOICE 5077942 DHL AWB#4018267886.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_dremel_head3_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 890.28,
+    "labeled_amount_label": "Total:",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": []
+  }
+}

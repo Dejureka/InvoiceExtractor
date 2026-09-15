@@ -1,0 +1,78 @@
+{
+  "header": {
+    "invoice_no": "580020154",
+    "invoice_date": "2026-01-30",
+    "total_pkg": 3.0,
+    "gross_weight_kg": 604.0,
+    "incoterm": "FCA BOSCH PLANT, USA",
+    "item_line_count": 3,
+    "total_quantity": 432.0,
+    "amount": 15723.36,
+    "currency": "USD",
+    "vendor": "Robert Bosch Tool Corporation",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "580020154",
+      "part_no": "F.013.300.0TW",
+      "description": "Rotary tool 3000-N/10TW",
+      "qty": 288.0,
+      "unit": "ST",
+      "unit_price": 30.3,
+      "amount": 8726.4,
+      "origin": "MX",
+      "hs_code": "8467290090",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "580020154",
+      "part_no": "F.013.300.0TX",
+      "description": "Rotary tool 3000-2/30TW",
+      "qty": 72.0,
+      "unit": "ST",
+      "unit_price": 48.59,
+      "amount": 3498.48,
+      "origin": "MX",
+      "hs_code": "8467290090",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "580020154",
+      "part_no": "F.013.300.0TX",
+      "description": "Rotary tool 3000-2/30TW",
+      "qty": 72.0,
+      "unit": "ST",
+      "unit_price": 48.59,
+      "amount": 3498.48,
+      "origin": "MX",
+      "hs_code": "8467290090",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/PT_dremel/90-DSV-26PT-103_REVISED INVOICE, PPT INVOICE SHIP TO RB TAIWAN DOC#5005360.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_dremel_head5_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 15723.36,
+    "labeled_amount_label": "Value of Goods",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": []
+  }
+}

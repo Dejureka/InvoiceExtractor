@@ -1,0 +1,66 @@
+{
+  "header": {
+    "invoice_no": "580020494",
+    "invoice_date": "2026-04-02",
+    "total_pkg": 2.0,
+    "gross_weight_kg": 339.0,
+    "incoterm": "FCA US Port",
+    "item_line_count": 2,
+    "total_quantity": 144.0,
+    "amount": 6996.96,
+    "currency": "USD",
+    "vendor": "Robert Bosch Tool Corporation",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "580020494",
+      "part_no": "F.013.300.0TX",
+      "description": "Rotary tool 3000-2/30TW",
+      "qty": 72.0,
+      "unit": "ST",
+      "unit_price": 48.59,
+      "amount": 3498.48,
+      "origin": "MX",
+      "hs_code": "8467290090",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "580020494",
+      "part_no": "F.013.300.0TX",
+      "description": "Rotary tool 3000-2/30TW",
+      "qty": 72.0,
+      "unit": "ST",
+      "unit_price": 48.59,
+      "amount": 3498.48,
+      "origin": "MX",
+      "hs_code": "8467290090",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/PT_dremel/90-DSV-26PT-187_PPT INV BOSCH TIAWAN DOC#5022135 (003).pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_dremel_head5_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 6996.96,
+    "labeled_amount_label": "Value of Goods",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": []
+  }
+}

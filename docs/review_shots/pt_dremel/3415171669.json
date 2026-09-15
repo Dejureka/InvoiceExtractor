@@ -1,0 +1,66 @@
+{
+  "header": {
+    "invoice_no": "3415171669",
+    "invoice_date": "2026-02-12",
+    "total_pkg": null,
+    "gross_weight_kg": null,
+    "incoterm": "FCA West Memphis",
+    "item_line_count": 2,
+    "total_quantity": 138.0,
+    "amount": 739.74,
+    "currency": "USD",
+    "vendor": "Robert Bosch Tool Corporation",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "3415171669",
+      "part_no": "2.615.004.486",
+      "description": "4486 Quick Change Chuck T2 USA",
+      "qty": 90.0,
+      "unit": "EA",
+      "unit_price": 4.47,
+      "amount": 402.3,
+      "origin": "DE",
+      "hs_code": "8466100130",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "3415171669",
+      "part_no": "2.615.E40.6AD",
+      "description": "EZ406-02 EZ Lock Starter Kit",
+      "qty": 48.0,
+      "unit": "EA",
+      "unit_price": 7.03,
+      "amount": 337.44,
+      "origin": "MX",
+      "hs_code": "8466100175",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/PT_dremel/40-D-26PT-084_P13.000061983700001.OUO1MTP.20260212-172122GMT.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_dremel_head3_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 739.74,
+    "labeled_amount_label": "Total:",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": []
+  }
+}

@@ -1,0 +1,17 @@
+PT Dremel FormatSOP (NEW family vs Gloria) — please audit
+
+Scope: /home/box/Downloads/PT_dremel/ — 16 PDFs (do NOT use Gloria archive).
+Gloria match_score ~0.25 only (filename PT); layout is Tool Corp / Dremel, not Power Tools GmbH.
+
+Formats (major layout split, VBA dispatcher):
+- pt_dremel_head3_v1 — Invoice No: + Origin/Tariff Code + Total: (14/16). Soft-missing Packages/G.W. OK (not on these PDFs).
+- pt_dremel_head5_v1 — Bosch Document Number + Value of Goods + Country of Origin / HSN/SAC (2/16: 580020154, 580020494). G.W. = packing Totals gross (2nd KG), never Net.
+
+Hard check: 16/16 pass; HS required on every line (page-break look-ahead for Origin/Tariff).
+VBA refs: PT_PDFextractDremel / PT_Dremel_Declaration → head3 | head5.
+
+Pack: docs/review_shots/pt_dremel/ (JSON per invoice_no + png/ + InvoiceExtract_Result.xlsx + auditor_batch_summary.md)
+Also: out/pt_dremel/
+
+Please reply per invoice: pass | conflict | needs_gold.
+Focus: invoice_no (Invoice No: vs Bosch Document Number), Total:/Value of Goods vs sum(lines), HS on every line, head5 GW=Gross not Net, no Gloria false-class.

@@ -19,6 +19,8 @@ REQUIRE_LINE_HS_FORMATS = frozenset(
         "ma_no_period_v1",
         "ma_with_period_v1",
         "pt_gloria_v1",
+        "pt_dremel_head3_v1",
+        "pt_dremel_head5_v1",
     }
 )
 

@@ -1,0 +1,54 @@
+{
+  "header": {
+    "invoice_no": "3415177199",
+    "invoice_date": "2026-03-26",
+    "total_pkg": null,
+    "gross_weight_kg": null,
+    "incoterm": "FCA West Memphis",
+    "item_line_count": 1,
+    "total_quantity": 10.0,
+    "amount": 8.4,
+    "currency": "USD",
+    "vendor": "Robert Bosch Tool Corporation",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "3415177199",
+      "part_no": "2.615.000.431",
+      "description": "431 6pc 1/4\" 60 Grit Sanding Band",
+      "qty": 10.0,
+      "unit": "EA",
+      "unit_price": 0.84,
+      "amount": 8.4,
+      "origin": "US",
+      "hs_code": "6805301000",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/PT_dremel/40-D-26PT-140_Dremael_P13.000063320100001.OUO1MTP.20260326-155834GMT.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_dremel_head3_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 8.4,
+    "labeled_amount_label": "Total:",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": []
+  }
+}

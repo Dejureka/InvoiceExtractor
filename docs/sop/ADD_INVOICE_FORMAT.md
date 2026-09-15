@@ -82,6 +82,8 @@
 | format_id | 主要錨點（摘要） |
 |-----------|------------------|
 | `pt_gloria_v1` | `Robert Bosch Power Tools GmbH`、`Invoice No.`、`Net invoiced value of goods`；對齊 VBA `PT_PDFextract`／`PT_Declaration` |
+| `pt_dremel_head3_v1` | Tool Corp Dremel head3：`Invoice No:`、`Origin/Tariff Code`、`Total:`；VBA `PT_PDFextractDremel_head3`／`PT_Dremel_Declaration_head3`；GW soft-missing OK |
+| `pt_dremel_head5_v1` | Tool Corp Dremel head5：`Bosch Document Number`、`Value of Goods`、`Country of Origin`+`HSN/SAC`；VBA `…_head5`；GW＝packing Totals Gross |
 | `bitzer_v1` | `BITZER`、`Ladeliste`、`Commercial Invoice`、`Final amount` |
 | `nidec_v1` | `NIDEC TECHNO MOTOR`、`Invoice No. VKT…` |
 | `hangji_v1` | Hangji／`GDHJ-…` |
@@ -122,6 +124,7 @@
 | 2026-09-13 | MA NP：硬化 `_parse_coo_index`（空 Index 頁＋跨頁＋Unicode Türkiye）；WP 不變 |
 | 2026-09-10 | Round4：種子 `ma_no_period_v1`／`ma_with_period_v1`／`bhc_my_hub_v1` |
 | 2026-09-15 | MA inv+bl 6：`milestone_arrival_v1`（里運／Milestone）；同資料夾 N INV↔1 BL 共用 Summary BL 欄 |
+| 2026-09-15 | PT Dremel：`pt_dremel_head3_v1`／`pt_dremel_head5_v1`（vs Gloria；16 PDF；HS hard；head5 GW=Gross） |
 
 
 ---
