@@ -23,6 +23,9 @@ SUMMARY_COLS = [
     "Packages",
     "Package Mode",
     "G.W. (kgs)-Air DIM. (CBM)-Sea",
+    "BL No.",
+    "BL Packages",
+    "BL G.W. (kgs)",
     "Incoterms",
     "Invoice Value",
     "LINE",
@@ -65,6 +68,9 @@ _META_KEYS = [
     "inv_file",
     "pkl_file",
     "pkl_used",
+    "bl_file",
+    "bl_used",
+    "bl_format_id",
     "pair_status",
 ]
 
@@ -160,6 +166,9 @@ def _summary_row(header: dict[str, Any]) -> list[Any]:
         header.get("total_pkg"),
         pkg_mode,  # blank when format does not provide it
         header.get("gross_weight_kg"),
+        header.get("bl_no"),
+        header.get("bl_packages"),
+        header.get("bl_gross_weight_kg"),
         header.get("incoterm"),
         header.get("amount"),
         header.get("item_line_count"),
@@ -374,3 +383,121 @@ def write_extracts(
         return write_json_many(extracts, path)
     out = path if path.suffix.lower() == ".xlsx" else path.with_suffix(".xlsx")
     return write_xlsx_many(extracts, out, template=template, failures=failures)
+
+
+# --- BL / arrival-notice sheet (parallel to Summary/Lines; invoice sheets unchanged) ---
+
+BL_SHEET = "BL"
+BL_COLS = [
+    "BL/HBL No.",
+    "HBL No.",
+    "MBL No.",
+    "Vessel",
+    "Voyage",
+    "ETD",
+    "ETA",
+    "POL",
+    "POD",
+    "Packages",
+    "Package Unit",
+    "G.W. (kgs)",
+    "Meas (CBM)",
+    "Load Type",
+    "Shipper",
+    "Consignee",
+    "Invoice Refs",
+    "Containers",
+    "Forwarder",
+    "format_id",
+    "source_file",
+    "checker_verdict",
+]
+
+
+def _bl_row(data: dict) -> list:
+    h = dict(data.get("header") or {})
+    m = dict(data.get("meta") or {})
+    return [
+        h.get("bl_no") or h.get("hbl_no"),
+        h.get("hbl_no"),
+        h.get("mbl_no"),
+        h.get("vessel"),
+        h.get("voyage"),
+        h.get("etd"),
+        h.get("eta"),
+        h.get("pol"),
+        h.get("pod"),
+        h.get("packages"),
+        h.get("package_unit"),
+        h.get("gross_weight_kg"),
+        h.get("measurement_cbm"),
+        h.get("load_type"),
+        h.get("shipper"),
+        h.get("consignee"),
+        h.get("invoice_refs"),
+        h.get("container_nos"),
+        h.get("forwarder"),
+        m.get("format_id"),
+        m.get("source_file"),
+        m.get("checker_verdict"),
+    ]
+
+
+def write_bl_xlsx_many(
+    extracts: list[dict],
+    path: Path,
+    *,
+    failures: list[dict] | None = None,
+) -> Path:
+    """Write BL extracts into a workbook with sheet ``BL`` (+ ``meta``).
+
+    Creates a fresh workbook with sheet ``BL`` (+ ``meta``).
+
+    Invoice Summary also gains ``BL No.`` / ``BL Packages`` / ``BL G.W. (kgs)``
+    when BL is merged via pairing (see ``merge_bl_onto_inv``).
+    """
+    from openpyxl import Workbook
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = BL_SHEET
+    ws.append(list(BL_COLS))
+    ws_m = wb.create_sheet(META_SHEET)
+    ws_m.append(list(META_COLS))
+
+    for data in extracts:
+        ws.append([_cell(v) for v in _bl_row(data)])
+        meta = dict(data.get("meta") or {})
+        ws_m.append(_meta_row(meta, status="ok", error=None))
+
+    for fail in failures or []:
+        meta = dict(fail.get("meta") or {})
+        if "source_file" not in meta and fail.get("source_file"):
+            meta["source_file"] = fail.get("source_file")
+        ws_m.append(
+            _meta_row(
+                meta,
+                status="error",
+                error=str(fail.get("error") or fail.get("message") or "failed"),
+            )
+        )
+
+    path = Path(path)
+    if path.suffix.lower() != ".xlsx":
+        path = path.with_suffix(".xlsx")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    wb.save(path)
+    return path
+
+
+def write_bl_extracts(
+    extracts: list[dict],
+    path: Path,
+    *,
+    failures: list[dict] | None = None,
+) -> Path:
+    """Route BL batch: ``.json`` → folder/files; else Excel ``BL`` sheet."""
+    path = Path(path)
+    if is_json_out(path):
+        return write_json_many(extracts, path)
+    return write_bl_xlsx_many(extracts, path, failures=failures)

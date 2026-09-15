@@ -1,8 +1,8 @@
-"""INV / PKL role tagging, auto-pairing, and merge helpers.
+"""INV / PKL / BL role tagging, auto-pairing, and merge helpers.
 
 Primary split case today is **BHC** (Bosch Home Comfort / MY-HUB): separate
-``*_INV_*`` and ``*_PKL_*`` PDFs. MA invoices are usually a **combined** PDF
-(invoice + packing in one file) and keep the existing single-file extract path.
+``*_INV_*`` and ``*_PKL_*`` PDFs, plus optional 到貨通知／HBL. MA invoices are
+usually a **combined** PDF (invoice + packing in one file).
 """
 
 from __future__ import annotations
@@ -13,20 +13,21 @@ from pathlib import Path
 from typing import Any, Iterable, Literal, Optional
 
 from invoice_extractor.formats.ma_common import parse_rb_packages
-from invoice_extractor.schema import ExtractResult, eu_float, us_float
+from invoice_extractor.schema import ExtractResult, Header, Meta, eu_float, us_float
 
-Role = Literal["inv", "pkl", "combined", "unknown"]
+Role = Literal["inv", "pkl", "combined", "bl", "unknown"]
 
 STATUS_INV_PKL = "INV+PKL"
 STATUS_INV_ONLY = "僅 INV"
 STATUS_PKL_ONLY = "僅 PKL"
+STATUS_BL_ONLY = "僅 提單"
 STATUS_UNMATCHED = "未配對／需確認"
 
 # --- filename / text anchors -------------------------------------------------
 
 # BHC-first filename role markers (tokenized on _ - . space).
 _FN_COMBINED_HINT = re.compile(r"合訂|combined|inv.?pkl|invoice.?pack", re.I)
-_INV_TOKENS = frozenset({"INV", "INVOICE"})
+_INV_TOKENS = frozenset({"INV", "INVOICE", "IV"})  # IV = invoice abbr (e.g. "IV PL.pdf")
 _PKL_TOKENS = frozenset({"PKL", "PL", "PACKING", "PACK", "PACKLIST"})
 
 
@@ -68,11 +69,12 @@ class FileRole:
 
 @dataclass
 class PairRow:
-    """One GUI / extract unit (may be INV+PKL, INV-only, PKL-only, or unmatched)."""
+    """One GUI / extract unit (INV+PKL±BL, INV-only, PKL-only, BL-only, unmatched)."""
 
     pair_id: str
     inv_path: Optional[Path] = None
     pkl_path: Optional[Path] = None
+    bl_path: Optional[Path] = None
     status: str = STATUS_UNMATCHED
     skipped: bool = False
     # User override flag (manual rematch / split)
@@ -86,6 +88,10 @@ class PairRow:
     def display_pkl(self) -> str:
         return self.pkl_path.name if self.pkl_path else "—"
 
+    @property
+    def display_bl(self) -> str:
+        return self.bl_path.name if self.bl_path else "—"
+
     def recompute_status(self) -> None:
         if self.skipped:
             return
@@ -95,12 +101,26 @@ class PairRow:
             self.status = STATUS_INV_ONLY
         elif self.pkl_path and not self.inv_path:
             self.status = STATUS_PKL_ONLY
+        elif self.bl_path and not self.inv_path and not self.pkl_path:
+            self.status = STATUS_BL_ONLY
         else:
             self.status = STATUS_UNMATCHED
 
 
+# BL / HBL / arrival tokens (filename + soft match to INV invoice refs)
+_BL_NO = re.compile(
+    r"(?<![A-Za-z0-9])(WEB\d{9}|HB\d{8}|NGOA\d{5,}|NBT\d{3,}|SHAKEL\d+)(?![A-Za-z0-9])",
+    re.I,
+)
+# Soft invoice-ref style tokens e.g. JCH26-08M1 / AETW26012
+_SOFT_REF = re.compile(
+    r"(?<![A-Za-z0-9])([A-Z]{2,6}\d{2}[-]?\d{2,6}[A-Z]?)(?![A-Za-z0-9])",
+    re.I,
+)
+
+
 def pairing_keys_from_path(path: Path) -> set[str]:
-    """Tokens used to match INV↔PKL (BHC-first, then MA batch / invoice no)."""
+    """Tokens used to match INV↔PKL↔BL (BHC-first, then MA batch / invoice no / BL)."""
     keys: set[str] = set()
     name = path.name
     parent = path.parent.name if path.parent else ""
@@ -112,6 +132,12 @@ def pairing_keys_from_path(path: Path) -> set[str]:
         keys.add(f"ta:{m.group(1).upper()}")
     for m in _MA_BATCH.finditer(blob):
         keys.add(f"batch:{m.group(1).upper()}")
+    for m in _BL_NO.finditer(blob):
+        keys.add(f"bl:{m.group(1).upper()}")
+    for m in _SOFT_REF.finditer(blob):
+        tok = m.group(1).upper().replace("-", "")
+        if len(tok) >= 6:
+            keys.add(f"ref:{tok}")
 
     # Same-folder soft key (lower priority — used as tie-break / same-dir prefer)
     try:
@@ -136,17 +162,23 @@ def classify_role(
     *,
     filename_only: bool = False,
 ) -> FileRole:
-    """Tag a PDF as inv / pkl / combined / unknown.
+    """Tag a PDF as inv / pkl / combined / bl / unknown.
 
-    Filename markers (BHC ``_INV_`` / ``_PKL_``) win when unambiguous.
+    Filename markers (BHC ``_INV_`` / ``_PKL_`` / 到貨／HBL) win when unambiguous.
     Text anchors refine combined vs inv-only when the file has both sections.
     """
+    from invoice_extractor.bl_rules_engine import looks_like_bl_filename
+
     name = path.name
     keys = pairing_keys_from_path(path)
     tokens = _filename_tokens(name)
     fn_inv = bool(tokens & _INV_TOKENS)
     fn_pkl = bool(tokens & _PKL_TOKENS)
     fn_combined = bool(_FN_COMBINED_HINT.search(name))
+
+    # BL / arrival / HBL first (avoid mistaking "HBL draft …" as unknown)
+    if looks_like_bl_filename(name) and not (fn_inv or fn_pkl):
+        return FileRole(path, "bl", keys, 0.9, "filename BL/arrival")
 
     # Strong filename signals (BHC split; also …_INV.PDF / …_PKL.PDF stems)
     if fn_inv and not fn_pkl:
@@ -178,16 +210,20 @@ def classify_role(
 
 
 def _shared_match_score(a: set[str], b: set[str], *, same_dir: bool) -> float:
-    """Higher = better INV↔PKL match. Prefer invoice-no / TA / batch over dir-only."""
+    """Higher = better INV↔PKL/BL match. Prefer invoice-no / TA / batch / BL over dir-only."""
     inter = a & b
     score = 0.0
     for k in inter:
         if k.startswith("inv:"):
             score += 5.0
+        elif k.startswith("bl:"):
+            score += 5.0
         elif k.startswith("ta:"):
             score += 4.0
         elif k.startswith("batch:"):
             score += 4.0
+        elif k.startswith("ref:"):
+            score += 3.5
         elif k.startswith("stem:"):
             score += 3.0
         elif k.startswith("dir:"):
@@ -201,10 +237,12 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
     """Build pair rows from selected PDFs (filename roles; no PDF I/O).
 
     Strategy (BHC-optimized):
-    1. Classify each file by filename.
+    1. Classify each file by filename (INV / PKL / BL / combined).
     2. Match inv↔pkl by shared invoice no / TA / batch; **same folder preferred**.
-    3. Leftover inv → 僅 INV; leftover pkl → 僅 PKL; unknown alone → 未配對／需確認.
-    4. ``combined`` / unknown-with-MA-like → single-file row (INV side, no PKL).
+    3. Attach BL to INV-bearing rows (same folder 1:1, or shared bl:/ref: keys).
+    4. Leftover inv → 僅 INV; leftover pkl → 僅 PKL; leftover bl → 僅 提單;
+       unknown alone → 未配對／需確認.
+    5. ``combined`` / unknown-with-MA-like → single-file row (INV side, no PKL).
     """
     paths = [Path(p) for p in paths]
     if roles is None:
@@ -213,6 +251,7 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
 
     invs = [r for r in roles if r.role in ("inv",)]
     pkls = [r for r in roles if r.role == "pkl"]
+    bls = [r for r in roles if r.role == "bl"]
     singles = [r for r in roles if r.role in ("combined", "unknown")]
 
     used_inv: set[Path] = set()
@@ -314,7 +353,6 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
                     status=STATUS_INV_ONLY,  # no separate PKL; extract treats as combined
                 )
             )
-            # Mark via pair_id notes? Store as inv-only display; extract checks content
         else:
             rows.append(
                 PairRow(
@@ -324,7 +362,112 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
                 )
             )
 
-    rows.sort(key=lambda r: (r.status != STATUS_INV_PKL, r.display_inv, r.display_pkl))
+    # --- Attach BL to INV-bearing rows, then leftover → 僅 提單 ---
+    used_bl: set[Path] = set()
+    inv_rows = [r for r in rows if r.inv_path]
+    bl_roles = {r.path.resolve(): r for r in bls}
+
+    # Score BL ↔ INV-row (keys from INV and optional PKL paths)
+    bl_candidates: list[tuple[float, PairRow, FileRole]] = []
+    for row in inv_rows:
+        keys: set[str] = set()
+        if row.inv_path:
+            keys |= pairing_keys_from_path(row.inv_path)
+        if row.pkl_path:
+            keys |= pairing_keys_from_path(row.pkl_path)
+        for br in bls:
+            try:
+                same_dir = (
+                    row.inv_path is not None
+                    and row.inv_path.parent.resolve() == br.path.parent.resolve()
+                )
+            except Exception:
+                same_dir = (
+                    row.inv_path is not None
+                    and row.inv_path.parent == br.path.parent
+                )
+            sc = _shared_match_score(keys, br.keys, same_dir=same_dir)
+            # Require a real signal beyond dir-only, unless same-folder alone is unique later
+            if sc >= 4.0 or (same_dir and sc >= 1.0):
+                bl_candidates.append((sc, row, br))
+    bl_candidates.sort(key=lambda t: (-t[0], t[1].pair_id, t[2].path.name))
+
+    for sc, row, br in bl_candidates:
+        if br.path in used_bl or row.bl_path is not None:
+            continue
+        row_keys: set[str] = set()
+        if row.inv_path:
+            row_keys |= pairing_keys_from_path(row.inv_path)
+        if row.pkl_path:
+            row_keys |= pairing_keys_from_path(row.pkl_path)
+        strong = any(
+            k.startswith(("inv:", "bl:", "ta:", "batch:", "ref:", "stem:"))
+            for k in (br.keys & row_keys)
+        )
+        try:
+            same_dir = (
+                row.inv_path is not None
+                and row.inv_path.parent.resolve() == br.path.parent.resolve()
+            )
+        except Exception:
+            same_dir = (
+                row.inv_path is not None
+                and row.inv_path.parent == br.path.parent
+            )
+        if not strong and not same_dir:
+            continue
+        used_bl.add(br.path)
+        row.bl_path = br.path
+        row.recompute_status()
+
+    # Same-folder unique leftover: 1 unpaired BL + exactly 1 INV row in that dir
+    remaining_bl = [br for br in bls if br.path not in used_bl]
+    by_dir_inv_rows: dict[str, list[PairRow]] = {}
+    for row in inv_rows:
+        if row.bl_path or not row.inv_path:
+            continue
+        try:
+            d = str(row.inv_path.parent.resolve())
+        except Exception:
+            d = str(row.inv_path.parent)
+        by_dir_inv_rows.setdefault(d, []).append(row)
+    by_dir_bl: dict[str, list[FileRole]] = {}
+    for br in remaining_bl:
+        try:
+            d = str(br.path.parent.resolve())
+        except Exception:
+            d = str(br.path.parent)
+        by_dir_bl.setdefault(d, []).append(br)
+    for d, di in by_dir_inv_rows.items():
+        db = by_dir_bl.get(d) or []
+        if len(di) == 1 and len(db) == 1 and di[0].bl_path is None:
+            br = db[0]
+            if br.path in used_bl:
+                continue
+            used_bl.add(br.path)
+            di[0].bl_path = br.path
+            di[0].recompute_status()
+
+    for br in bls:
+        if br.path in used_bl:
+            continue
+        n += 1
+        rows.append(
+            PairRow(
+                pair_id=f"P{n}",
+                bl_path=br.path,
+                status=STATUS_BL_ONLY,
+            )
+        )
+
+    rows.sort(
+        key=lambda r: (
+            r.status not in (STATUS_INV_PKL, STATUS_INV_ONLY),
+            r.display_inv,
+            r.display_pkl,
+            r.display_bl,
+        )
+    )
     # renumber
     for i, r in enumerate(rows, 1):
         r.pair_id = f"P{i}"
@@ -444,6 +587,91 @@ def merge_pkl_onto_inv(
     return ExtractResult(header=header, items=list(inv_result.items), meta=meta)
 
 
+def merge_bl_onto_inv(
+    inv_result: ExtractResult,
+    *,
+    bl_header: dict[str, Any] | None,
+    bl_path: Path | str | None,
+    bl_format_id: str | None = None,
+) -> ExtractResult:
+    """Overlay BL No. / BL Packages / BL G.W. onto invoice header.
+
+    Never overwrites invoice ``total_pkg`` / ``gross_weight_kg``.
+    """
+    header = replace(inv_result.header)
+    meta = replace(inv_result.meta)
+    bl_used = False
+    bh = dict(bl_header or {})
+    bl_no = bh.get("bl_no") or bh.get("hbl_no")
+    if bl_no:
+        header.bl_no = str(bl_no)
+        bl_used = True
+    if bh.get("packages") is not None:
+        try:
+            header.bl_packages = float(bh["packages"])
+            bl_used = True
+        except (TypeError, ValueError):
+            pass
+    if bh.get("gross_weight_kg") is not None:
+        try:
+            header.bl_gross_weight_kg = float(bh["gross_weight_kg"])
+            bl_used = True
+        except (TypeError, ValueError):
+            pass
+    bl_p = str(bl_path or "") or None
+    meta.bl_file = bl_p
+    meta.bl_used = bl_used
+    if bl_format_id:
+        meta.bl_format_id = bl_format_id
+    note = (meta.notes or "").strip()
+    extra = f"bl_used={'yes' if bl_used else 'no'}"
+    if bl_p:
+        extra += f"; bl_file={Path(bl_p).name}"
+    meta.notes = f"{note}; {extra}".strip("; ") if note else extra
+    return ExtractResult(header=header, items=list(inv_result.items), meta=meta)
+
+
+def bl_only_extract(
+    *,
+    bl_header: dict[str, Any] | None,
+    bl_path: Path | str,
+    bl_format_id: str | None = None,
+    bl_meta: dict[str, Any] | None = None,
+) -> ExtractResult:
+    """Summary-only row for unpaired BL (invoice fields blank; BL columns filled)."""
+    header = Header()
+    bh = dict(bl_header or {})
+    bl_no = bh.get("bl_no") or bh.get("hbl_no")
+    if bl_no:
+        header.bl_no = str(bl_no)
+    if bh.get("packages") is not None:
+        try:
+            header.bl_packages = float(bh["packages"])
+        except (TypeError, ValueError):
+            pass
+    if bh.get("gross_weight_kg") is not None:
+        try:
+            header.bl_gross_weight_kg = float(bh["gross_weight_kg"])
+        except (TypeError, ValueError):
+            pass
+    bm = dict(bl_meta or {})
+    meta = Meta(
+        source_file=str(bl_path),
+        text_backend=str(bm.get("text_backend") or ""),
+        format_id=bl_format_id or bm.get("format_id"),
+        confidence=bm.get("confidence") or "rules",
+        needs_ocr=bool(bm.get("needs_ocr")),
+        needs_gold=bool(bm.get("needs_gold")),
+        notes=bm.get("notes"),
+        source="bl_only",
+        bl_file=str(bl_path),
+        bl_used=True,
+        bl_format_id=bl_format_id or bm.get("format_id"),
+        pair_status=STATUS_BL_ONLY,
+    )
+    return ExtractResult(header=header, items=[], meta=meta)
+
+
 def annotate_combined_meta(result: ExtractResult, path: Path | str) -> ExtractResult:
     """Mark a single-file (合訂本) extract in meta."""
     meta = replace(result.meta)
@@ -486,6 +714,8 @@ def pair_status_for_result(meta: dict[str, Any] | None) -> str:
         return STATUS_INV_PKL
     if meta.get("inv_file") and not meta.get("pkl_file"):
         return STATUS_INV_ONLY
+    if meta.get("bl_file") and not meta.get("inv_file"):
+        return STATUS_BL_ONLY
     return "—"
 
 
@@ -500,16 +730,50 @@ def extract_pair_row(
     - INV+PKL (split): INV extract + PKL packing overlay; ``source=split``.
     - Combined single PDF: normal extract; ``source=combined``.
     - INV-only: normal extract; ``缺 PKL``; pkg/GW may be empty.
+    - +BL: merge BL No./Packages/G.W. into Summary columns (never overwrite INV pkg/GW).
+    - BL-only: Summary row with BL columns only.
     - PKL-only / skipped: return None (caller lists as skipped).
     """
+    from invoice_extractor.bl_rules_engine import extract_bl
     from invoice_extractor.checker import hard_check
+    from invoice_extractor.checker_bl import hard_check_bl
     from invoice_extractor.rules_engine import extract_invoice
     from invoice_extractor.text_layer import backend_warning, extract_layout_text
 
-    if row.skipped or row.status == STATUS_PKL_ONLY or (
-        row.pkl_path and not row.inv_path
+    if row.skipped:
+        return None
+
+    # PKL-only (no INV, no BL-only path)
+    if row.status == STATUS_PKL_ONLY or (
+        row.pkl_path and not row.inv_path and not row.bl_path
     ):
         return None
+
+    # BL-only → Summary BL columns, no Lines
+    if (row.status == STATUS_BL_ONLY or (row.bl_path and not row.inv_path)) and row.bl_path:
+        bl_path = Path(row.bl_path)
+        bl_result = extract_bl(bl_path)
+        bl_data = bl_result.to_dict()
+        bl_hard = hard_check_bl(bl_data)
+        result = bl_only_extract(
+            bl_header=bl_data.get("header"),
+            bl_path=bl_path,
+            bl_format_id=(bl_data.get("meta") or {}).get("format_id"),
+            bl_meta=bl_data.get("meta"),
+        )
+        data = result.to_dict()
+        data["meta"]["checker_verdict"] = bl_hard["verdict"]
+        data["meta"]["checker_issues"] = bl_hard.get("issues")
+        data["meta"]["checker_details"] = bl_hard.get("details")
+        if bl_hard["verdict"] == "pass" and data["meta"].get("confidence") == "rules":
+            data["meta"]["confidence"] = "high"
+        warn = backend_warning(data["meta"].get("text_backend"))
+        if warn:
+            data["meta"]["text_backend_warning"] = warn
+        data["_hard"] = bl_hard
+        data["_pair_status"] = STATUS_BL_ONLY
+        data["_pair_id"] = row.pair_id
+        return data
 
     if not row.inv_path:
         return None
@@ -531,17 +795,29 @@ def extract_pair_row(
     else:
         # Peek text already used by extract; re-read cheap enough for meta
         try:
-            text, _b, _o = extract_layout_text(inv_path)
+            text_layer, _b, _o = extract_layout_text(inv_path)
         except Exception:
-            text = ""
-        role = classify_role(inv_path, text)
+            text_layer = ""
+        role = classify_role(inv_path, text_layer)
         if role.role == "combined" or (
             result.header.total_pkg is not None and result.header.gross_weight_kg is not None
-            and _TEXT_PKL.search(text or "")
+            and _TEXT_PKL.search(text_layer or "")
         ):
             result = annotate_combined_meta(result, inv_path)
         else:
             result = annotate_inv_only_meta(result, inv_path)
+
+    # Optional BL overlay (does not touch invoice Packages / G.W.)
+    if row.bl_path:
+        bl_path = Path(row.bl_path)
+        bl_result = extract_bl(bl_path)
+        bl_data = bl_result.to_dict()
+        result = merge_bl_onto_inv(
+            result,
+            bl_header=bl_data.get("header"),
+            bl_path=bl_path,
+            bl_format_id=(bl_data.get("meta") or {}).get("format_id"),
+        )
 
     data = result.to_dict()
     hard = hard_check(data)

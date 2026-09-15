@@ -1,0 +1,45 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "WEB260166449",
+    "hbl_no": "WEB260166449",
+    "mbl_no": null,
+    "vessel": "CNC LEOPARD",
+    "voyage": "0N81HN1NC",
+    "etd": "2026-08-15",
+    "eta": "2026-08-23",
+    "pol": "LAEM CHABANG",
+    "pod": "KEELUNG",
+    "packages": 33.0,
+    "package_unit": "PLT",
+    "gross_weight_kg": 6052.14,
+    "measurement_cbm": 37.271,
+    "load_type": "FCL",
+    "shipper": "BOSCH HOME COMFORT COMPONENTS (TH)",
+    "consignee": "BOSCH HOME COMFORT TAIWAN",
+    "notify": null,
+    "invoice_refs": null,
+    "container_nos": "TCNU3343821",
+    "forwarder": "CEVA / Pyramid Lines (捷飛運通)"
+  },
+  "meta": {
+    "source_file": "/workspace/bhc_cases_round/bhc/case5/到貨 449.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ceva_pyramid_arrival_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "doc_kind": "arrival_notice",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "anchors": {
+        "bl_no": "WEB260166449",
+        "packages": 33.0,
+        "gross_weight_kg": 6052.14,
+        "eta": "2026-08-23"
+      }
+    }
+  }
+}

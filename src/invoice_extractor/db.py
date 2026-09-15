@@ -190,6 +190,11 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         nidec_v1,
         pt_gloria_v1,
     )
+    from invoice_extractor.formats.bl import (
+        ceva_pyramid_arrival_v1,
+        dhl_lcl_arrival_v1,
+        hippopo_hbl_v1,
+    )
 
     path = init_db(db_path)
     conn = connect(path)
@@ -252,6 +257,34 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
             ),
         ]
         for name, aliases, mod in extras:
+            vid = upsert_vendor(conn, name, aliases=aliases)
+            insert_format(
+                conn,
+                vid,
+                version=1,
+                match_hints=mod.MATCH_HINTS,
+                rules_json=mod.RULES_JSON,
+                notes=mod.NOTES,
+            )
+
+        bl_extras = [
+            (
+                "CEVA / Pyramid Lines (捷飛運通)",
+                ["CEVA", "Pyramid Lines", "到貨通知 CEVA"],
+                ceva_pyramid_arrival_v1,
+            ),
+            (
+                "DHL Global Forwarding (Taiwan)",
+                ["DHL", "敦豪", "海運 LCL 到貨通知"],
+                dhl_lcl_arrival_v1,
+            ),
+            (
+                "Hippopo Global Logistics",
+                ["Hippopo", "HBL draft"],
+                hippopo_hbl_v1,
+            ),
+        ]
+        for name, aliases, mod in bl_extras:
             vid = upsert_vendor(conn, name, aliases=aliases)
             insert_format(
                 conn,

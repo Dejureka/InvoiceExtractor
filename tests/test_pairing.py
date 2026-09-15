@@ -5,11 +5,13 @@ from __future__ import annotations
 from pathlib import Path
 
 from invoice_extractor.pairing import (
+    STATUS_BL_ONLY,
     STATUS_INV_ONLY,
     STATUS_INV_PKL,
     STATUS_PKL_ONLY,
     auto_pair,
     classify_role,
+    merge_bl_onto_inv,
     merge_pkl_onto_inv,
     pairing_keys_from_path,
     parse_packing_pkg_gw,
@@ -145,3 +147,50 @@ def test_bitzer_fixture_still_extracts_combined():
     assert result.header.total_pkg is not None
     assert result.header.gross_weight_kg is not None
     assert result.items
+
+
+def test_classify_bl_filename(tmp_path: Path):
+    bl = tmp_path / "到貨 448.pdf"
+    bl.write_bytes(b"%PDF")
+    assert classify_role(bl, filename_only=True).role == "bl"
+
+
+def test_auto_pair_same_folder_inv_bl(tmp_path: Path):
+    inv = tmp_path / "TA2608B2-3253_INV_9027451705.PDF"
+    bl = tmp_path / "到貨 448.pdf"
+    inv.write_bytes(b"%PDF")
+    bl.write_bytes(b"%PDF")
+    rows = auto_pair([inv, bl])
+    assert len(rows) == 1
+    assert rows[0].inv_path == inv
+    assert rows[0].bl_path == bl
+    assert rows[0].status == STATUS_INV_ONLY
+
+
+def test_auto_pair_bl_only(tmp_path: Path):
+    bl = tmp_path / "到貨通知 - NGOA23259.pdf"
+    bl.write_bytes(b"%PDF")
+    rows = auto_pair([bl])
+    assert len(rows) == 1
+    assert rows[0].status == STATUS_BL_ONLY
+    assert rows[0].bl_path == bl
+
+
+def test_merge_bl_does_not_overwrite_inv_pkg_gw():
+    inv = ExtractResult(
+        header=Header(invoice_no="X", total_pkg=10.0, gross_weight_kg=100.0),
+        items=[],
+        meta=Meta(source_file="inv.pdf"),
+    )
+    out = merge_bl_onto_inv(
+        inv,
+        bl_header={"bl_no": "WEB1", "packages": 99.0, "gross_weight_kg": 17095.0},
+        bl_path="到貨.pdf",
+        bl_format_id="ceva_pyramid_arrival_v1",
+    )
+    assert out.header.total_pkg == 10.0
+    assert out.header.gross_weight_kg == 100.0
+    assert out.header.bl_no == "WEB1"
+    assert out.header.bl_packages == 99.0
+    assert out.header.bl_gross_weight_kg == 17095.0
+    assert out.meta.bl_used is True

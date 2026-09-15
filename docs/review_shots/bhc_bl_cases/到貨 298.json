@@ -1,0 +1,45 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "WEB260169298",
+    "hbl_no": "WEB260169298",
+    "mbl_no": null,
+    "vessel": "WAN HAI 286",
+    "voyage": "N112",
+    "etd": "2026-08-21",
+    "eta": "2026-08-29",
+    "pol": "PORT KLANG",
+    "pod": "KEELUNG",
+    "packages": 3.0,
+    "package_unit": "CASE",
+    "gross_weight_kg": 867.0,
+    "measurement_cbm": 7.863,
+    "load_type": "LCL",
+    "shipper": "BOSCH HOME COMFORT MALAYSIA",
+    "consignee": "BOSCH HOME COMFORT",
+    "notify": null,
+    "invoice_refs": null,
+    "container_nos": "0",
+    "forwarder": "CEVA / Pyramid Lines (捷飛運通)"
+  },
+  "meta": {
+    "source_file": "/workspace/bhc_cases_round/bhc/case6/到貨 298.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ceva_pyramid_arrival_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "doc_kind": "arrival_notice",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "anchors": {
+        "bl_no": "WEB260169298",
+        "packages": 3.0,
+        "gross_weight_kg": 867.0,
+        "eta": "2026-08-29"
+      }
+    }
+  }
+}

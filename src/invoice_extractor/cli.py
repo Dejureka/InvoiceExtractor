@@ -22,6 +22,9 @@ from invoice_extractor.gold_stub import (
     write_needs_gold_placeholder,
 )
 from invoice_extractor.rules_engine import extract_invoice, file_sha256
+from invoice_extractor.bl_rules_engine import extract_bl
+from invoice_extractor.checker_bl import hard_check_bl
+from invoice_extractor.export import write_bl_extracts
 
 
 def collect_pdfs(paths: list[str | Path]) -> tuple[list[Path], list[str]]:
@@ -134,6 +137,7 @@ def cmd_extract(args: argparse.Namespace) -> int:
         return 0 if cmp["verdict"] == "pass" and not cmp.get("diffs") else 1
 
     from invoice_extractor.pairing import (
+        STATUS_BL_ONLY,
         STATUS_PKL_ONLY,
         auto_pair,
         extract_pair_row,
@@ -141,20 +145,23 @@ def cmd_extract(args: argparse.Namespace) -> int:
 
     successes: list[dict] = []
     failures: list[dict] = []
+    # BL / arrival PDFs are paired into INV rows (or become 僅 提單 Summary rows).
+    # Pure BL batch still works via --doc-type bl (dedicated BL sheet).
     pairs = auto_pair(pdfs)
     print(f"Paired {len(pairs)} unit(s) from {len(pdfs)} PDF(s)", file=sys.stderr)
 
     for row in pairs:
+        # Skip PKL-only; BL-only is kept (Summary BL columns).
         if row.skipped or row.status == STATUS_PKL_ONLY or (
-            row.pkl_path and not row.inv_path
+            row.pkl_path and not row.inv_path and not row.bl_path
         ):
             print(
                 f"SKIP {row.pair_id}: {row.status} "
-                f"inv={row.display_inv} pkl={row.display_pkl}",
+                f"inv={row.display_inv} pkl={row.display_pkl} bl={row.display_bl}",
                 file=sys.stderr,
             )
             continue
-        label = row.inv_path or row.pkl_path
+        label = row.inv_path or row.bl_path or row.pkl_path
         try:
             data = extract_pair_row(row, format_id=args.format)
             if data is None:
@@ -174,6 +181,8 @@ def cmd_extract(args: argparse.Namespace) -> int:
                 f"pair={data['meta'].get('pair_status')} "
                 f"invoice_no={h.get('invoice_no')} amount={h.get('amount')} "
                 f"pkg={h.get('total_pkg')} gw={h.get('gross_weight_kg')} "
+                f"bl={h.get('bl_no')} bl_pkg={h.get('bl_packages')} "
+                f"bl_gw={h.get('bl_gross_weight_kg')} "
                 f"items={len(data.get('items') or [])} verdict={hard['verdict']} "
                 f"backend={data['meta'].get('text_backend')}"
             )
@@ -240,6 +249,85 @@ def cmd_extract(args: argparse.Namespace) -> int:
     return 0
 
 
+
+def _prepare_bl_extract(pdf: Path, format_id: str | None) -> dict:
+    result = extract_bl(pdf, format_id=format_id)
+    data = result.to_dict()
+    hard = hard_check_bl(data)
+    data["meta"]["checker_verdict"] = hard["verdict"]
+    if hard["verdict"] == "pass" and data["meta"].get("confidence") == "rules":
+        data["meta"]["confidence"] = "high"
+    elif hard["verdict"] == "conflict":
+        data["meta"]["confidence"] = "conflict"
+    data["meta"]["checker_issues"] = hard.get("issues")
+    data["meta"]["checker_details"] = hard.get("details")
+    from invoice_extractor.text_layer import backend_warning
+
+    warn = backend_warning(data["meta"].get("text_backend"))
+    if warn:
+        data["meta"]["text_backend_warning"] = warn
+    data["_hard"] = hard
+    return data
+
+
+def cmd_extract_bl(args: argparse.Namespace) -> int:
+    """Extract BL / arrival-notice / HBL PDFs → BL sheet or JSON."""
+    raw_paths: list[str] = list(getattr(args, "pdfs", None) or [])
+    if getattr(args, "pdf", None) and args.pdf not in raw_paths:
+        raw_paths.insert(0, args.pdf)
+
+    pdfs, path_errors = collect_pdfs(raw_paths)
+    for err in path_errors:
+        print(err, file=sys.stderr)
+    if not pdfs:
+        print("No PDF inputs to extract.", file=sys.stderr)
+        return 2
+
+    successes: list[dict] = []
+    failures: list[dict] = []
+    for pdf in pdfs:
+        try:
+            data = _prepare_bl_extract(pdf, args.format)
+            hard = data.pop("_hard")
+            warn = data["meta"].get("text_backend_warning")
+            if warn:
+                print(f"WARNING: {pdf.name}: {warn}", file=sys.stderr)
+            successes.append(data)
+            h = data.get("header") or {}
+            print(
+                f"OK {pdf.name}: format={data['meta'].get('format_id')} "
+                f"bl_no={h.get('bl_no') or h.get('hbl_no')} "
+                f"vessel={h.get('vessel')} voy={h.get('voyage')} "
+                f"eta={h.get('eta')} pkg={h.get('packages')} "
+                f"gw={h.get('gross_weight_kg')} "
+                f"inv_refs={h.get('invoice_refs')} verdict={hard['verdict']}"
+            )
+        except Exception as e:
+            failures.append(
+                {
+                    "source_file": str(pdf),
+                    "error": str(e),
+                    "meta": {"source_file": str(pdf)},
+                }
+            )
+            print(f"FAIL {pdf}: {e}", file=sys.stderr)
+
+    if not successes and failures:
+        print(f"All {len(failures)} file(s) failed; no workbook written.", file=sys.stderr)
+        return 1
+
+    if args.out:
+        out = Path(args.out)
+    else:
+        out = default_result_path().with_name("BLExtract_Result.xlsx")
+
+    written = write_bl_extracts(successes, out, failures=failures)
+    print(f"Wrote {written} ({len(successes)} BL(s), {len(failures)} failed)")
+    if failures:
+        return 1
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="invoice_extractor",
@@ -286,6 +374,12 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Launch GUI (also default when no args)",
     )
+    p.add_argument(
+        "--doc-type",
+        choices=["invoice", "bl"],
+        default="invoice",
+        help="invoice (default) or bl (arrival notice / HBL / B/L)",
+    )
     return p
 
 
@@ -310,6 +404,8 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("pdf path required (or use --init-db / --gui)")
     # Compat attribute for older tests / callers
     args.pdf = args.pdfs[0] if args.pdfs else None
+    if getattr(args, "doc_type", "invoice") == "bl":
+        return cmd_extract_bl(args)
     return cmd_extract(args)
 
 

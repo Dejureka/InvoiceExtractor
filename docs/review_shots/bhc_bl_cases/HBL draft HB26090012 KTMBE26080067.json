@@ -1,0 +1,45 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "HB26090012",
+    "hbl_no": "HB26090012",
+    "mbl_no": null,
+    "vessel": "YM INAUGURATION",
+    "voyage": "343S",
+    "etd": "2026-09-03",
+    "eta": null,
+    "pol": "NAGOYA, JAPAN",
+    "pod": "KEELUNG, TAIWAN",
+    "packages": 12.0,
+    "package_unit": "PALLETS",
+    "gross_weight_kg": 7217.0,
+    "measurement_cbm": 7.3,
+    "load_type": "FCL",
+    "shipper": "AICHI ELECTRIC CO.,LTD.",
+    "consignee": "BOSCH HOME COMFORT TAIWAN CO.,LTD.",
+    "notify": null,
+    "invoice_refs": "AETW26012",
+    "container_nos": "TEMU5584031",
+    "forwarder": "Hippopo Global Logistics"
+  },
+  "meta": {
+    "source_file": "/workspace/bhc_cases_round/bhc/case3/HBL draft HB26090012 KTMBE26080067.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "hippopo_hbl_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "doc_kind": "hbl",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "anchors": {
+        "bl_no": "HB26090012",
+        "packages": 12.0,
+        "gross_weight_kg": 7217.0,
+        "eta": null
+      }
+    }
+  }
+}

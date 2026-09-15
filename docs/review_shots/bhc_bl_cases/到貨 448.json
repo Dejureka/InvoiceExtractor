@@ -1,0 +1,45 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "WEB260166448",
+    "hbl_no": "WEB260166448",
+    "mbl_no": null,
+    "vessel": "MATOYA BAY",
+    "voyage": "0N81JN1NC",
+    "etd": "2026-08-15",
+    "eta": "2026-08-22",
+    "pol": "LAEM CHABANG",
+    "pod": "KEELUNG",
+    "packages": 99.0,
+    "package_unit": "PLT",
+    "gross_weight_kg": 17095.54,
+    "measurement_cbm": 143.91,
+    "load_type": "FCL",
+    "shipper": "BOSCH HOME COMFORT COMPONENTS",
+    "consignee": "BOSCH HOME COMFORT TAIWAN",
+    "notify": null,
+    "invoice_refs": null,
+    "container_nos": "TCKU2690375, TIIU6866300, TLLU4399533",
+    "forwarder": "CEVA / Pyramid Lines (捷飛運通)"
+  },
+  "meta": {
+    "source_file": "/workspace/bhc_cases_round/bhc/case4/到貨 448.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ceva_pyramid_arrival_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "doc_kind": "arrival_notice",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "anchors": {
+        "bl_no": "WEB260166448",
+        "packages": 99.0,
+        "gross_weight_kg": 17095.54,
+        "eta": "2026-08-22"
+      }
+    }
+  }
+}

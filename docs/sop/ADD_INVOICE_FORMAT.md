@@ -121,3 +121,30 @@
 | 2026-09-13 | BHC cases 1/3/6/8：`hisense_qingdao_v1`／`aichi_electric_v1`；MY-HUB 連字號 PN＋分檔 PKL TOTAL
 | 2026-09-13 | MA NP：硬化 `_parse_coo_index`（空 Index 頁＋跨頁＋Unicode Türkiye）；WP 不變 |
 | 2026-09-10 | Round4：種子 `ma_no_period_v1`／`ma_with_period_v1`／`bhc_my_hub_v1` |
+
+
+---
+
+## BL / 到貨通知 / HBL（平行路徑）
+
+發票 FormatSOP 仍適用「收樣本→文字層→錨點→抽欄→硬校→種子→驗收」。BL 差異：
+
+| 項目 | BL |
+|------|-----|
+| 模組位置 | `src/invoice_extractor/formats/bl/<id>.py` |
+| 引擎 | `bl_rules_engine.BUILTIN_BL` / `extract_bl` |
+| Schema | `schema_bl.BLExtractResult`（`doc_type: bl`） |
+| 硬校驗 | `checker_bl.hard_check_bl`（需 bl/hbl + ≥1 of pkg/GW/ETA） |
+| CLI | `--doc-type bl` → Excel **`BL`** sheet；發票模式配對後寫入 Summary BL 三欄 |
+| 種子 | `--init-db` 一併寫入 BL vendors |
+
+### 現有 BL format 速查
+
+| format_id | 主要錨點 |
+|-----------|----------|
+| `ceva_pyramid_arrival_v1` | `到貨通知`、`CEVA LOGISTICS`、`PYRAMID LINES`、`B/L no`（case4/5/6 共用） |
+| `dhl_lcl_arrival_v1` | `海運 LCL 到貨通知`、`HBL 提單號碼`、`DHL GLOBAL FORWARDING` |
+| `hippopo_hbl_v1` | `HIPPOPO`、`HB########`、HBL draft 稀疏欄位 |
+
+GUI 配對欄：`配對 | INV | PKL | 提單 | 狀態`；Summary 三欄由 pairing merge 填入。
+

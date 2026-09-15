@@ -38,6 +38,9 @@ SAMPLE = {
         "item_line_count": 2,
         "total_pkg": 1.0,
         "gross_weight_kg": 2.5,
+        "bl_no": "WEB260166448",
+        "bl_packages": 99.0,
+        "bl_gross_weight_kg": 17095.54,
         "incoterm": "FOB",
         "origin": None,
         "hs_code": None,
@@ -175,11 +178,17 @@ def test_write_xlsx_pdfextract_columns(tmp_path: Path):
     assert "Invoice No." in headers
     assert "Invoice Value" in headers
     assert "Invoice Currency" in headers
+    assert "BL No." in headers
+    assert "BL Packages" in headers
+    assert "BL G.W. (kgs)" in headers
     row = {headers[i]: ws_h[2][i].value for i in range(len(headers))}
     assert row["Invoice No."] == "INV-1"
     assert row["Invoice Value"] == 12.5
     assert row["Invoice Currency"] == "USD"
     assert row["Packages"] == 1.0
+    assert row["BL No."] == "WEB260166448"
+    assert row["BL Packages"] == 99.0
+    assert row["BL G.W. (kgs)"] == 17095.54
     assert row["LINE"] == 2
     assert row["QTY"] == 3.0
 

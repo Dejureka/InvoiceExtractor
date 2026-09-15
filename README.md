@@ -85,9 +85,20 @@ python -m invoice_extractor path.pdf --format bitzer_v1 --out out.xlsx
 python -m invoice_extractor path.pdf --format pt_gloria_v1 --out out.xlsx
 ```
 
+BL / 到貨通知 / HBL：
+
+- 發票模式：配對表含 **提單**；Summary 右側新增 `BL No.` / `BL Packages` / `BL G.W. (kgs)`（不覆寫發票 Packages/G.W.）
+- 專用 BL 工作表（可選）：
+
+```bash
+python -m invoice_extractor --doc-type bl arrival.pdf --out BLExtract_Result.xlsx
+python -m invoice_extractor --doc-type bl arrival.pdf --out bl.json
+```
+
+
 部分失敗時：成功的發票仍會寫入 Excel；CLI／GUI 會清楚列出失敗檔。
 
-Excel 工作簿採 **PDFextract.xlsm 風格欄位**（範本：`data/templates/InvoiceExtract_Template.xlsx`；內部 JSON schema 不變，給 Auditor 用）：
+Excel 工作簿採 **PDFextract.xlsm 風格欄位**（範本：`data/templates/InvoiceExtract_Template.xlsx`；Summary 含 `BL No.`／`BL Packages`／`BL G.W. (kgs)`；內部 JSON schema 給 Auditor 用）：
 
 | 工作表 | 說明 |
 |--------|------|

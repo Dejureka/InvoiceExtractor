@@ -23,6 +23,10 @@ class Header:
     vendor: Optional[str] = None
     origin: Optional[str] = None  # document-level country of origin
     hs_code: Optional[str] = None  # document-level HS when uniform
+    # BL / arrival-notice overlay (never replaces total_pkg / gross_weight_kg)
+    bl_no: Optional[str] = None
+    bl_packages: Optional[float] = None
+    bl_gross_weight_kg: Optional[float] = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -62,7 +66,10 @@ class Meta:
     inv_file: Optional[str] = None
     pkl_file: Optional[str] = None
     pkl_used: Optional[bool] = None
-    pair_status: Optional[str] = None  # INV+PKL / 僅 INV / …
+    bl_file: Optional[str] = None
+    bl_used: Optional[bool] = None
+    bl_format_id: Optional[str] = None
+    pair_status: Optional[str] = None  # INV+PKL / 僅 INV / 僅 提單 / …
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

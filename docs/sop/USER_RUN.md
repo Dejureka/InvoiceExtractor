@@ -112,3 +112,11 @@ Extract 後 Summary／底列會顯示每張發票的對應狀態（另附 `forma
 | 2026-09-11 | 預設一律寫工具根 `InvoiceExtract_Result.xlsx`（移除旁 PDF 的 `.extract.xlsx`） |
 | 2026-09-11 | GUI 顯示 format mapping status（audit ok／已知未審／全新／需規則／hard fail） |
 | 2026-09-10 | 初版：多檔、固定範本、溝通名稱 RunSOP |
+
+## BL / 到貨通知 / HBL
+
+```bash
+python -m invoice_extractor --doc-type bl 到貨*.pdf --out BLExtract_Result.xlsx
+```
+
+專用輸出工作表 **`BL`**（+ `meta`）。發票／GUI 模式：配對表含 **提單** 欄；配對成功或僅提單列會寫入 Summary 的 `BL No.`／`BL Packages`／`BL G.W. (kgs)`（不覆寫發票 Packages／G.W.）。

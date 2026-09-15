@@ -1,6 +1,6 @@
 """Simple tkinter GUI for InvoiceExtractor (drag-drop optional via tkinterdnd2).
 
-Adds INV+PKL pairing table under Selected files (BHC split-first; MA combined OK).
+Adds INV+PKL+提單 pairing table under Selected files (BHC split-first; MA combined OK).
 """
 
 from __future__ import annotations
@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from invoice_extractor.pairing import (
+    STATUS_BL_ONLY,
     STATUS_INV_ONLY,
     STATUS_INV_PKL,
     STATUS_PKL_ONLY,
@@ -105,12 +106,15 @@ def _extract_pairs(rows: list[PairRow], out: Path | None) -> dict[str, Any]:
                 }
             )
             continue
-        if row.status == STATUS_PKL_ONLY or (row.pkl_path and not row.inv_path):
+        if row.status == STATUS_PKL_ONLY or (
+            row.pkl_path and not row.inv_path and not row.bl_path
+        ):
             skipped.append(
                 {
                     "pair_id": row.pair_id,
                     "inv": row.display_inv,
                     "pkl": row.display_pkl,
+                    "bl": row.display_bl,
                     "reason": "PKL-only (no invoice row)",
                 }
             )
@@ -128,7 +132,7 @@ def _extract_pairs(rows: list[PairRow], out: Path | None) -> dict[str, Any]:
             )
             continue
 
-        label = row.inv_path or row.pkl_path
+        label = row.inv_path or row.bl_path or row.pkl_path
         try:
             data = extract_pair_row(row)
             if data is None:
@@ -161,6 +165,9 @@ def _extract_pairs(rows: list[PairRow], out: Path | None) -> dict[str, Any]:
                     "checker_verdict": hard["verdict"],
                     "mapping_status": map_label,
                     "pair_status": pair_status or meta.get("pair_status"),
+                    "bl_no": header.get("bl_no"),
+                    "bl_packages": header.get("bl_packages"),
+                    "bl_gross_weight_kg": header.get("bl_gross_weight_kg"),
                     "issues": hard.get("issues") or [],
                     "text_backend": meta.get("text_backend"),
                     "text_backend_warning": meta.get("text_backend_warning"),
@@ -299,10 +306,10 @@ def run_gui() -> None:
 
             frm_pair = ttk.LabelFrame(
                 self.root,
-                text="配對 (INV+PKL) — Extract 前可改配／拆開／略過",
+                text="配對 (INV+PKL+提單) — Extract 前可改配／拆開／略過",
             )
             frm_pair.pack(fill="both", expand=False, **pad)
-            cols = ("pair", "inv", "pkl", "status")
+            cols = ("pair", "inv", "pkl", "bl", "status")
             self.pair_tree = ttk.Treeview(
                 frm_pair,
                 columns=cols,
@@ -311,13 +318,15 @@ def run_gui() -> None:
                 selectmode="browse",
             )
             self.pair_tree.heading("pair", text="配對")
-            self.pair_tree.heading("inv", text="INV 檔名")
-            self.pair_tree.heading("pkl", text="PKL 檔名")
+            self.pair_tree.heading("inv", text="INV")
+            self.pair_tree.heading("pkl", text="PKL")
+            self.pair_tree.heading("bl", text="提單")
             self.pair_tree.heading("status", text="狀態")
             self.pair_tree.column("pair", width=50, anchor="center")
-            self.pair_tree.column("inv", width=260)
-            self.pair_tree.column("pkl", width=260)
-            self.pair_tree.column("status", width=120, anchor="center")
+            self.pair_tree.column("inv", width=200)
+            self.pair_tree.column("pkl", width=200)
+            self.pair_tree.column("bl", width=180)
+            self.pair_tree.column("status", width=110, anchor="center")
             self.pair_tree.pack(fill="x", padx=4, pady=4)
 
             frm_pair_btns = ttk.Frame(frm_pair)
@@ -366,7 +375,7 @@ def run_gui() -> None:
             self.summary.pack(fill="both", expand=True, padx=4, pady=4)
 
             self.status_var = tk.StringVar(
-                value="Ready — pairing: INV+PKL / 僅 INV / 僅 PKL / 未配對；mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
+                value="Ready — pairing: INV+PKL / 僅 INV / 僅 PKL / 僅 提單 / 未配對；mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
             )
             status = ttk.Label(
                 self.root, textvariable=self.status_var, relief="sunken", anchor="w"
@@ -376,7 +385,7 @@ def run_gui() -> None:
             dnd_note = "enabled" if has_dnd else "not installed (Browse still works)"
             self._log(f"Drag-drop: {dnd_note}")
             self._log(
-                "INV+PKL: BHC 分檔為主（_INV_/_PKL_）；MA 合訂本仍一次抽完。Extract 前可改配。"
+                "INV+PKL+提單: BHC 分檔為主；到貨／HBL 配入 Summary BL 欄。Extract 前可改配。"
             )
             try:
                 from pdf_layout_text.convert import find_pdftotext
@@ -452,7 +461,7 @@ def run_gui() -> None:
                     "",
                     "end",
                     iid=r.pair_id,
-                    values=(r.pair_id, r.display_inv, r.display_pkl, status),
+                    values=(r.pair_id, r.display_inv, r.display_pkl, r.display_bl, status),
                 )
 
         def _selected_pair(self) -> PairRow | None:
@@ -588,7 +597,7 @@ def run_gui() -> None:
             self.summary.delete("1.0", "end")
             if hasattr(self, "status_var"):
                 self.status_var.set(
-                    "Ready — pairing: INV+PKL / 僅 INV / 僅 PKL / 未配對；mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
+                    "Ready — pairing: INV+PKL / 僅 INV / 僅 PKL / 僅 提單 / 未配對；mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
                 )
             dnd_note = "enabled" if has_dnd else "not installed (Browse still works)"
             self._log(f"Drag-drop: {dnd_note}")
@@ -664,7 +673,10 @@ def run_gui() -> None:
 
             self._busy = True
             self.run_btn.configure(state="disabled")
-            active = sum(1 for r in pairs if not r.skipped and r.status != STATUS_PKL_ONLY)
+            active = sum(
+                1 for r in pairs
+                if not r.skipped and r.status != STATUS_PKL_ONLY
+            )
             self._log(f"Extracting {active} pair(s) from {len(self._pdfs)} file(s) …")
 
             def work() -> None:
