@@ -34,7 +34,8 @@
 ### 2. 抽文字層
 
 - 用工具內建文字層（優先 pdftotext／poppler；否則後備）產出對照用 `.txt`。
-- **不要只看 PDF 畫面**；規則對的是文字座標／排版字串。
+- **掃描件／文字層空**：走離線 Tesseract OCR（`meta.text_backend=ocr/tesseract`），再對 OCR 字串寫規則（**同一** rules_engine，不要另開 OCR-only format_id）。對照用 `.txt` 可從 OCR 輸出存檔。
+- **不要只看 PDF 畫面**；規則對的是文字座標／排版字串（OCR 時為 OCR 字串）。
 
 ### 3. 定錨點（分類）
 

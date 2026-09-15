@@ -77,11 +77,11 @@ def extract_invoice(
     format_id: str | None = None,
 ) -> ExtractResult:
     """High-level: text layer → classify → rules extract."""
-    from invoice_extractor.text_layer import extract_layout_text
+    from invoice_extractor.text_layer import extract_text
 
     path = Path(pdf_path)
     if text is None:
-        text, backend2, needs_ocr2 = extract_layout_text(path)
+        text, backend2, needs_ocr2 = extract_text(path, allow_ocr=True)
         backend = backend or backend2
         needs_ocr = needs_ocr2 if needs_ocr is None else needs_ocr
     else:
@@ -98,7 +98,7 @@ def extract_invoice(
                 confidence="needs_gold",
                 needs_ocr=True,
                 needs_gold=True,
-                notes="empty text layer",
+                notes="empty text layer (OCR unavailable or empty)",
             ),
         )
 

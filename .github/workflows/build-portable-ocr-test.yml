@@ -1,0 +1,164 @@
+name: Build portable OCR test (Tesseract)
+
+# Experiment-only: publishes tag portable-ocr-test. NEVER touches portable-latest.
+on:
+  workflow_dispatch:
+  push:
+    branches: [ocr-experiment]
+    paths:
+      - "src/**"
+      - "vendor/**"
+      - "data/**"
+      - "run_gui.py"
+      - "run_cli.py"
+      - "InvoiceExtractor.spec"
+      - "requirements.txt"
+      - "pyproject.toml"
+      - ".github/workflows/build-portable-ocr-test.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download poppler (Windows)
+        shell: pwsh
+        run: |
+          $ver = "25.07.0-0"
+          $url = "https://github.com/oschwartz10612/poppler-windows/releases/download/v$ver/Release-$ver.zip"
+          Write-Host "Fetching $url"
+          Invoke-WebRequest -Uri $url -OutFile poppler.zip
+          Expand-Archive -Path poppler.zip -DestinationPath vendor/poppler_dl -Force
+          $bin = Get-ChildItem -Path vendor/poppler_dl -Recurse -Filter pdftotext.exe | Select-Object -First 1
+          if (-not $bin) { throw "pdftotext.exe not found in poppler zip" }
+          $srcDir = $bin.Directory.FullName
+          New-Item -ItemType Directory -Force -Path vendor/poppler/bin | Out-Null
+          Copy-Item -Force "$srcDir\\*" vendor/poppler/bin/
+
+      - name: Download Tesseract portable (UB Mannheim w64)
+        shell: pwsh
+        run: |
+          # Offline OCR for portable-ocr-test only (not portable-latest).
+          # Prefer a known GitHub release asset; fall back to installer extract if needed.
+          $dest = "vendor/tesseract"
+          New-Item -ItemType Directory -Force -Path $dest | Out-Null
+          $urls = @(
+            "https://github.com/UB-Mannheim/tesseract/releases/download/v5.5.0.20241111/tesseract-ocr-w64-setup-5.5.0.20241111.exe",
+            "https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.5.0.20241111.exe"
+          )
+          $installer = "tesseract-setup.exe"
+          $ok = $false
+          foreach ($url in $urls) {
+            try {
+              Write-Host "Fetching $url"
+              Invoke-WebRequest -Uri $url -OutFile $installer -MaximumRedirection 5
+              $ok = $true
+              break
+            } catch {
+              Write-Host "Download failed: $_"
+            }
+          }
+          if (-not $ok) { throw "Could not download Tesseract installer" }
+
+          # Silent install into vendor/tesseract (Inno Setup style)
+          $installDir = (Resolve-Path .).Path + "\vendor\tesseract"
+          Write-Host "Installing to $installDir"
+          $p = Start-Process -FilePath ".\$installer" -ArgumentList "/S","/D=$installDir" -Wait -PassThru
+          Write-Host "Installer exit: $($p.ExitCode)"
+          $exe = Get-ChildItem -Path $dest -Recurse -Filter tesseract.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $exe) {
+            # Some builds unpack differently; try 7z if available
+            if (Get-Command 7z -ErrorAction SilentlyContinue) {
+              7z x $installer "-o$dest" -y
+              $exe = Get-ChildItem -Path $dest -Recurse -Filter tesseract.exe | Select-Object -First 1
+            }
+          }
+          if (-not $exe) { throw "tesseract.exe not found after install" }
+          Write-Host "Found $($exe.FullName)"
+          $td = Get-ChildItem -Path $dest -Recurse -Directory -Filter tessdata | Select-Object -First 1
+          if (-not $td) { throw "tessdata/ not found" }
+          # Ensure eng.traineddata present
+          $eng = Join-Path $td.FullName "eng.traineddata"
+          if (-not (Test-Path $eng)) { throw "eng.traineddata missing" }
+          Get-ChildItem $dest | Select-Object -First 15 | ForEach-Object { $_.Name }
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[gui]"
+          pip install pyinstaller
+
+      - name: Build
+        run: pyinstaller --noconfirm InvoiceExtractor.spec
+
+      - name: Stage zip (poppler + tesseract)
+        shell: pwsh
+        run: |
+          $out = "portable/InvoiceExtractor"
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+          Copy-Item -Recurse -Force "dist/InvoiceExtractor/*" $out
+          New-Item -ItemType Directory -Force -Path "$out/data" | Out-Null
+          if (Test-Path "data/invoice_formats.db") { Copy-Item "data/invoice_formats.db" "$out/data/" }
+          if (Test-Path "data/audited_formats.json") { Copy-Item "data/audited_formats.json" "$out/data/" }
+          if (Test-Path "data/templates") { Copy-Item -Recurse -Force "data/templates" "$out/data/" }
+          if (-not (Test-Path "$out/poppler/bin/pdftotext.exe")) {
+            if (Test-Path "vendor/poppler/bin/pdftotext.exe") {
+              New-Item -ItemType Directory -Force -Path "$out/poppler/bin" | Out-Null
+              Copy-Item -Force "vendor/poppler/bin/*" "$out/poppler/bin/"
+            }
+          }
+          if (-not (Test-Path "$out/poppler/bin/pdftotext.exe")) {
+            throw "Portable zip missing poppler/bin/pdftotext.exe"
+          }
+          # Bundle offline Tesseract next to exe
+          if (-not (Test-Path "vendor/tesseract/tesseract.exe") -and -not (Test-Path "vendor/tesseract/bin/tesseract.exe")) {
+            $texe = Get-ChildItem -Path vendor/tesseract -Recurse -Filter tesseract.exe | Select-Object -First 1
+            if (-not $texe) { throw "vendor/tesseract missing tesseract.exe" }
+          }
+          New-Item -ItemType Directory -Force -Path "$out/tesseract" | Out-Null
+          Copy-Item -Recurse -Force "vendor/tesseract/*" "$out/tesseract/"
+          $bundled = Get-ChildItem -Path "$out/tesseract" -Recurse -Filter tesseract.exe | Select-Object -First 1
+          if (-not $bundled) { throw "Staged zip missing tesseract.exe" }
+          $td = Get-ChildItem -Path "$out/tesseract" -Recurse -Directory -Filter tessdata | Select-Object -First 1
+          if (-not $td) { throw "Staged zip missing tessdata" }
+          @"
+          InvoiceExtractor OCR 實驗免安裝包（GUI + poppler + Tesseract）
+          ============================================================
+          Tag: portable-ocr-test（不是 portable-latest）
+
+          1. 解壓後整個資料夾拷走（含 poppler\\bin 與 tesseract\\）
+          2. 雙擊 InvoiceExtractor.exe
+          3. 掃描件／文字層空的 PDF 會離線走 Tesseract OCR，再進同一套規則引擎
+          4. GUI 會顯示 OCR used: ocr/tesseract
+          5. 本包已內建 poppler 與 Tesseract（eng）；不必另裝、不走雲端 OCR
+
+          注意：這是實驗包；正式同事發佈請用 portable-latest（無 OCR）。
+          "@ | Set-Content -Encoding UTF8 "$out/使用說明.txt"
+          Compress-Archive -Path $out -DestinationPath InvoiceExtractor_Portable_OCR_Win64.zip -Force
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: InvoiceExtractor_Portable_OCR_Win64
+          path: InvoiceExtractor_Portable_OCR_Win64.zip
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: portable-ocr-test
+          name: Portable Windows OCR test (Tesseract)
+          prerelease: true
+          body: |
+            **實驗包**（Windows 64-bit）：內建 **poppler** + **離線 Tesseract OCR**。
+            Tag：`portable-ocr-test`（**不會**更新 `portable-latest`）。
+            下載 ZIP → 解壓 → 整個資料夾拷走 → 雙擊 `InvoiceExtractor.exe`。
+            掃描 PDF（文字層空）→ 自動 OCR → 同一套 rules_engine；`meta.text_backend=ocr/tesseract`。
+          files: InvoiceExtractor_Portable_OCR_Win64.zip
+          make_latest: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

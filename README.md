@@ -112,6 +112,23 @@ Excel 工作簿採 **PDFextract.xlsm 風格欄位**（範本：`data/templates/I
 
 優先用 **poppler `pdftotext -layout`**（可攜包內 `poppler/bin/pdftotext.exe`，不必另裝）。若找不到，才退到 pymupdf / pdfminer；GUI 與 `meta.text_backend_warning` 會明確警告，不會默默降級而不告知。BITZER 規則已能在無 pdftotext 時從 Final amount + 多行明細抽出 5 列／37041.41，但 PT 等格式仍以 pdftotext 佈局為準。
 
+### OCR 後備（掃描件／文字層空）
+
+當 `pdftotext`／後備文字層為空（`needs_ocr`）時，會離線呼叫 **Tesseract** 把頁面光柵化後 OCR，再把文字送進**同一套** `rules_engine`（**沒有**獨立的 OCR `format_id`）。
+
+- `meta.text_backend` = `ocr/tesseract` 表示走了 OCR
+- GUI Summary 會顯示 `OCR used: ocr/tesseract`；啟動時會探測 tesseract 是否可用
+- 開發機：`apt install tesseract-ocr tesseract-ocr-eng`（或 Windows 安裝 [UB Mannheim Tesseract](https://github.com/UB-Mannheim/tesseract/wiki)），並確保 `tesseract` 在 PATH；也可用環境變數 `TESSERACT_CMD` / `TESSDATA_PREFIX`
+- **Windows 實驗包**：見 Release tag [`portable-ocr-test`](https://github.com/Dejureka/InvoiceExtractor/releases/tag/portable-ocr-test)（**不是** `portable-latest`）。該 zip 在 poppler 之外另含 `tesseract/`（`tesseract.exe` + `tessdata`）。日常正式包 `portable-latest` **不含** OCR。
+
+驗 OCR 路徑（掃描 PDF）：
+
+```bash
+python -m invoice_extractor /path/to/scan.pdf --out /tmp/ocr_test.json
+# meta.text_backend 應為 ocr/tesseract
+pytest -q tests/test_ocr.py
+```
+
 ## 內建格式
 
 | format_id | 廠商 | 備註 |
@@ -119,7 +136,7 @@ Excel 工作簿採 **PDFextract.xlsm 風格欄位**（範本：`data/templates/I
 | `bitzer_v1` | BITZER / BHC Versanddokument | 從 BHC_HeaderExtract 移植，樣本 3000214469 |
 | `pt_gloria_v1` | Robert Bosch Power Tools GmbH（PT/Gloria） | 用 `pdftotext -layout` 真輸出訓練 |
 
-未命中或文字層空 → `meta.needs_gold` / `needs_ocr`，並寫 placeholder 給人補金標。
+未命中 → `meta.needs_gold`。文字層空會先試 Tesseract OCR；仍空或無 tesseract → `needs_ocr`／placeholder。OCR 成功則 `text_backend=ocr/tesseract` 並走同一規則引擎。
 
 ## 測試
 
