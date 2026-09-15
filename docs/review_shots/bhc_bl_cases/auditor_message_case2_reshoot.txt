@@ -1,0 +1,17 @@
+BHC case2 BL re-audit (shot fix only) — 到貨通知 NGOA23259 / dhl_lcl_arrival_v1
+
+Problem: prior `case2_到貨通知 - NGOA23259-2.png` was blank (PDF physical page 2 = footer-only strip). Auditor could not verify GW 3560 KG.
+
+Cause: PDF has 3 physical pages; document "Page 2 of 2" (cargo table) is physical page 3.
+
+Fix: re-rendered with pdftoppm -png -r 200 from
+  /workspace/bhc_cases_round/bhc/case2/到貨通知 - NGOA23259.pdf
+
+New / replaced shots (also under out/bhc_bl_cases/shots/):
+- case2_到貨通知 - NGOA23259-1.png  — refreshed PDF p1 (HBL NGOA23259, 5 CASES in goods text)
+- case2_到貨通知 - NGOA23259-2.png  — REPLACED: now cargo table (was blank). Shows 5 CAS / 3560.000 KG
+- case2_到貨通知 - NGOA23259-3.png  — NEW explicit PDF p3 same cargo page (5 CAS / 3560.000 KG; container TLLU8584756)
+
+JSON unchanged (already correct): packages=5 CAS, gross_weight_kg=3560, bl_no=NGOA23259, format_id=dhl_lcl_arrival_v1, checker pass.
+
+Please re-check case2: confirm packages=5 CAS and GW=3560 KG against -2.png or -3.png → pass / conflict / needs_gold.
