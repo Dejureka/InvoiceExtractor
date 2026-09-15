@@ -98,7 +98,7 @@ def loose_date_to_iso(d: str) -> str | None:
     s = (d or "").strip()
     if not s:
         return None
-    m = re.match(r"(\d{4})-(\d{1,2})-(\d{1,2})$", s)
+    m = re.match(r"(\d{4})[-/](\d{1,2})[-/](\d{1,2})$", s)
     if m:
         return f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
     iso = us_mdy_to_iso(s)

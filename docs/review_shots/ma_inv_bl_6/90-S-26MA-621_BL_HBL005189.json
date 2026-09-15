@@ -1,0 +1,37 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "HBL005189",
+    "hbl_no": "HBL005189",
+    "mbl_no": null,
+    "vessel": "INTERASIA VISION",
+    "voyage": "N099",
+    "etd": null,
+    "eta": "2026-08-02",
+    "pol": "PORT KLANG",
+    "pod": "TAIPEI",
+    "packages": 34.0,
+    "package_unit": "PACKAGE",
+    "gross_weight_kg": 3669.19,
+    "measurement_cbm": 23.64,
+    "load_type": "FCL",
+    "shipper": "ROBERT BOSCH SDN BHD D' BLOCK WAREHOUSE, JALAN FZ2-P8 PRESINT 8, P804,P806,P833,P834,",
+    "consignee": "ROBERT BOSCH TAIWAN CO., LTD. DAHUA ST. LUZHU DIST. NO. 432 338013 TAOYUAN CITY,TAIWAN",
+    "notify": "SAME AS CONSIGNEE",
+    "invoice_refs": "2000271109",
+    "container_nos": "IAAU2752275",
+    "forwarder": "Milestone Forwarding (里運國際)"
+  },
+  "meta": {
+    "source_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-621/到貨通知 HBL005189.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "milestone_arrival_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "doc_kind": "arrival_notice",
+    "checker_verdict": "pass",
+    "checker_issues": []
+  }
+}

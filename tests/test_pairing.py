@@ -194,3 +194,18 @@ def test_merge_bl_does_not_overwrite_inv_pkg_gw():
     assert out.header.bl_packages == 99.0
     assert out.header.bl_gross_weight_kg == 17095.0
     assert out.meta.bl_used is True
+
+
+
+def test_auto_pair_same_folder_multi_inv_one_bl(tmp_path: Path):
+    """N INV + 1 BL in same folder: each INV row carries the shared BL path."""
+    inv1 = tmp_path / "0020032925_2000270044_RBTW.PDF"
+    inv2 = tmp_path / "0020032925_2000270045_RBTW.PDF"
+    bl = tmp_path / "到貨通知 HBL005135.pdf"
+    for p in (inv1, inv2, bl):
+        p.write_bytes(b"%PDF")
+    rows = auto_pair([inv1, inv2, bl])
+    assert len(rows) == 2
+    assert all(r.bl_path == bl for r in rows)
+    assert all(r.inv_path in (inv1, inv2) for r in rows)
+    assert {r.inv_path for r in rows} == {inv1, inv2}

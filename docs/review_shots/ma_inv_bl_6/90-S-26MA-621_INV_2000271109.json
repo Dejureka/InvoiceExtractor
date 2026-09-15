@@ -1,0 +1,440 @@
+{
+  "header": {
+    "invoice_no": "2000271109",
+    "invoice_date": "2026-07-22",
+    "total_pkg": 34.0,
+    "gross_weight_kg": 3669.19,
+    "incoterm": "FCA Kuala lumpur",
+    "item_line_count": 29,
+    "total_quantity": 5268.0,
+    "amount": 2328690.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "HBL005189",
+    "bl_packages": 34.0,
+    "bl_gross_weight_kg": 3669.19
+  },
+  "items": [
+    {
+      "invoice_no": "2000271109",
+      "part_no": "0580464070FP5",
+      "description": "Electric Fuel Pump",
+      "qty": 16.0,
+      "unit": "EA",
+      "unit_price": 1176.0,
+      "amount": 18816.0,
+      "origin": "Czechia",
+      "hs_code": "8413303000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "1987435058KL9",
+      "description": "Pass Compartment Filter",
+      "qty": 270.0,
+      "unit": "EA",
+      "unit_price": 126.0,
+      "amount": 34020.0,
+      "origin": "Germany",
+      "hs_code": "8421399000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "F026400149HET",
+      "description": "Air-Filter Insert",
+      "qty": 61.0,
+      "unit": "EA",
+      "unit_price": 219.0,
+      "amount": 13359.0,
+      "origin": "Germany",
+      "hs_code": "8421312000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "F026400157HRS",
+      "description": "Air-Filter Insert",
+      "qty": 36.0,
+      "unit": "EA",
+      "unit_price": 166.0,
+      "amount": 5976.0,
+      "origin": "Italy",
+      "hs_code": "8421312000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "0227100124424",
+      "description": "Ignition Trigger Box",
+      "qty": 4.0,
+      "unit": "EA",
+      "unit_price": 691.0,
+      "amount": 2764.0,
+      "origin": "Taiwan",
+      "hs_code": "8511304900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "02580300BV746",
+      "description": "Oxygen Sensor",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 1028.0,
+      "amount": 24672.0,
+      "origin": "Romania",
+      "hs_code": "9027100000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "0258007351000",
+      "description": "Oxygen Sensor",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 1132.0,
+      "amount": 2264.0,
+      "origin": "Germany",
+      "hs_code": "9027100000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "0261545117000",
+      "description": "Pressure Sensor",
+      "qty": 98.0,
+      "unit": "EA",
+      "unit_price": 829.0,
+      "amount": 81242.0,
+      "origin": "Germany",
+      "hs_code": "9026209000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "0258017178000",
+      "description": "Oxygen Sensor",
+      "qty": 26.0,
+      "unit": "EA",
+      "unit_price": 1139.0,
+      "amount": 29614.0,
+      "origin": "Germany",
+      "hs_code": "9027100000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "025803002K746",
+      "description": "Oxygen Sensor",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 944.0,
+      "amount": 22656.0,
+      "origin": "Romania",
+      "hs_code": "9027100000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "0258010431000",
+      "description": "Oxygen Sensor",
+      "qty": 7.0,
+      "unit": "EA",
+      "unit_price": 732.0,
+      "amount": 5124.0,
+      "origin": "Germany",
+      "hs_code": "9027100000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "026150001A825",
+      "description": "Injection Valve",
+      "qty": 46.0,
+      "unit": "EA",
+      "unit_price": 814.0,
+      "amount": 37444.0,
+      "origin": "Türkiye",
+      "hs_code": "8409914900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "058020343TFP5",
+      "description": "Fuel Pump Mounting Unit",
+      "qty": 199.0,
+      "unit": "EA",
+      "unit_price": 1771.0,
+      "amount": 352429.0,
+      "origin": "Czechia",
+      "hs_code": "8413303000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "0986T18017HDU",
+      "description": "Brake Fluid",
+      "qty": 336.0,
+      "unit": "EA",
+      "unit_price": 85.0,
+      "amount": 28560.0,
+      "origin": "China",
+      "hs_code": "3819000000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "1465ZS0080000",
+      "description": "Assembly Of Service Parts",
+      "qty": 13.0,
+      "unit": "EA",
+      "unit_price": 1008.0,
+      "amount": 13104.0,
+      "origin": "Germany",
+      "hs_code": "8481809900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "1457436088851",
+      "description": "Filter service package",
+      "qty": 2724.0,
+      "unit": "EA",
+      "unit_price": 321.0,
+      "amount": 874404.0,
+      "origin": "Spain",
+      "hs_code": "8421299000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "1986A01098CMT",
+      "description": "Alternator",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 5817.0,
+      "amount": 11634.0,
+      "origin": "China",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "0242140507B66",
+      "description": "Suppressed Spark Plug",
+      "qty": 200.0,
+      "unit": "EA",
+      "unit_price": 104.0,
+      "amount": 20800.0,
+      "origin": "China",
+      "hs_code": "8511102000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "1467010536770",
+      "description": "Parts Set",
+      "qty": 31.0,
+      "unit": "EA",
+      "unit_price": 291.0,
+      "amount": 9021.0,
+      "origin": "India",
+      "hs_code": "8413919000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "2410914014000",
+      "description": "Cyl. Roller Bearing",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 481.0,
+      "amount": 2886.0,
+      "origin": "Germany",
+      "hs_code": "8482500000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "24185520698GA",
+      "description": "Delivery Valve",
+      "qty": 16.0,
+      "unit": "EA",
+      "unit_price": 109.0,
+      "amount": 1744.0,
+      "origin": "Brazil",
+      "hs_code": "8481909000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "F01ZN00008741",
+      "description": "Parts Set",
+      "qty": 36.0,
+      "unit": "EA",
+      "unit_price": 517.0,
+      "amount": 18612.0,
+      "origin": "Brazil",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "141852204741N",
+      "description": "Delivery Valve",
+      "qty": 67.0,
+      "unit": "EA",
+      "unit_price": 121.0,
+      "amount": 8107.0,
+      "origin": "India",
+      "hs_code": "8481909000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "F00BC80045770",
+      "description": "Metering Unit",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 1779.0,
+      "amount": 3558.0,
+      "origin": "India",
+      "hs_code": "8481809900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "F00HN37069741",
+      "description": "Parts Set",
+      "qty": 41.0,
+      "unit": "EA",
+      "unit_price": 295.0,
+      "amount": 12095.0,
+      "origin": "Brazil",
+      "hs_code": "8413919000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "1987124103HD6",
+      "description": "antifreeze",
+      "qty": 368.0,
+      "unit": "EA",
+      "unit_price": 123.0,
+      "amount": 45264.0,
+      "origin": "China",
+      "hs_code": "3820000000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "0986580183KM9",
+      "description": "Fuel Pump Mounting Unit",
+      "qty": 3.0,
+      "unit": "EA",
+      "unit_price": 2667.0,
+      "amount": 8001.0,
+      "origin": "Poland",
+      "hs_code": "8413303000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "1986AD2332879",
+      "description": "AC condenser",
+      "qty": 10.0,
+      "unit": "EA",
+      "unit_price": 992.0,
+      "amount": 9920.0,
+      "origin": "China",
+      "hs_code": "8415901400",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000271109",
+      "part_no": "0258017025000",
+      "description": "Oxygen Sensor",
+      "qty": 600.0,
+      "unit": "EA",
+      "unit_price": 1051.0,
+      "amount": 630600.0,
+      "origin": "Germany",
+      "hs_code": "9027100000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-621/0020033417_2000271109_RBTW_20260722.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=到貨通知 HBL005189.pdf",
+    "labeled_amount": 2328690.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-621/0020033417_2000271109_RBTW_20260722.PDF",
+    "pkl_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-621/0020033417_2000271109_RBTW_20260722.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-621/到貨通知 HBL005189.pdf",
+    "bl_used": true,
+    "bl_format_id": "milestone_arrival_v1",
+    "pair_status": "INV+PKL",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 29,
+        "got": 29
+      },
+      "total_quantity": {
+        "want": 5268.0,
+        "got": 5268.0
+      },
+      "amount": {
+        "want": 2328690.0,
+        "got": 2328690.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 2328690.0,
+        "header_amount": 2328690.0,
+        "sum_items": 2328690.0,
+        "item_count": 29
+      },
+      "missing_hs_indices": []
+    }
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 29,
+        "got": 29
+      },
+      "total_quantity": {
+        "want": 5268.0,
+        "got": 5268.0
+      },
+      "amount": {
+        "want": 2328690.0,
+        "got": 2328690.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 2328690.0,
+        "header_amount": 2328690.0,
+        "sum_items": 2328690.0,
+        "item_count": 29
+      },
+      "missing_hs_indices": []
+    }
+  },
+  "_pair_status": "INV+PKL",
+  "_pair_id": "P8"
+}

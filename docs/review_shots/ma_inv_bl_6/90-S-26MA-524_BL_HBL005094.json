@@ -1,0 +1,37 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "HBL005094",
+    "hbl_no": "HBL005094",
+    "mbl_no": null,
+    "vessel": "WAN HAI 293",
+    "voyage": "N089",
+    "etd": null,
+    "eta": "2026-07-03",
+    "pol": "PORT KLANG",
+    "pod": "TAIPEI",
+    "packages": 10.0,
+    "package_unit": "PALLET",
+    "gross_weight_kg": 3765.6,
+    "measurement_cbm": 25.0,
+    "load_type": "FCL",
+    "shipper": "AC LUBRICANTS SDN BHD NO. 17-1 & 17-2, BLOCK C1, JALAN PJU 1/41, DATARAN PRIMA,",
+    "consignee": "ROBERT BOSCH TAIWAN CO., LTD. DAHUA ST. LUZHU DIST. NO. 432 338013 TAOYUAN CITY,TAIWAN",
+    "notify": "SAME AS CONSIGNEE",
+    "invoice_refs": "305229",
+    "container_nos": "IAAU2759536",
+    "forwarder": "Milestone Forwarding (里運國際)"
+  },
+  "meta": {
+    "source_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-524/到貨通知 HBL005094.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "milestone_arrival_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "doc_kind": "arrival_notice",
+    "checker_verdict": "pass",
+    "checker_issues": []
+  }
+}

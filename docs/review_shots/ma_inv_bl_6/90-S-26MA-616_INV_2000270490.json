@@ -1,0 +1,128 @@
+{
+  "header": {
+    "invoice_no": "2000270490",
+    "invoice_date": "2026-07-13",
+    "total_pkg": 4.0,
+    "gross_weight_kg": 199.77,
+    "incoterm": "FCA Kuala lumpur",
+    "item_line_count": 3,
+    "total_quantity": 608.0,
+    "amount": 326240.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "HBL005146",
+    "bl_packages": 70.0,
+    "bl_gross_weight_kg": 4902.362
+  },
+  "items": [
+    {
+      "invoice_no": "2000270490",
+      "part_no": "F01R00S4367GE",
+      "description": "Fuel Pump Mounting Unit",
+      "qty": 128.0,
+      "unit": "EA",
+      "unit_price": 970.0,
+      "amount": 124160.0,
+      "origin": "China",
+      "hs_code": "8413303000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000270490",
+      "part_no": "3398140580G4V",
+      "description": "Wiper Blade",
+      "qty": 120.0,
+      "unit": "EA",
+      "unit_price": 175.0,
+      "amount": 21000.0,
+      "origin": "Thailand",
+      "hs_code": "8512902000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000270490",
+      "part_no": "02580100107GE",
+      "description": "Oxygen Sensor",
+      "qty": 360.0,
+      "unit": "EA",
+      "unit_price": 503.0,
+      "amount": 181080.0,
+      "origin": "China",
+      "hs_code": "9027100000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-616/0020033117_2000270490_RBTW_20260713.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=到貨通知 HBL005146.pdf",
+    "labeled_amount": 326240.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-616/0020033117_2000270490_RBTW_20260713.PDF",
+    "pkl_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-616/0020033117_2000270490_RBTW_20260713.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-616/到貨通知 HBL005146.pdf",
+    "bl_used": true,
+    "bl_format_id": "milestone_arrival_v1",
+    "pair_status": "INV+PKL",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 3,
+        "got": 3
+      },
+      "total_quantity": {
+        "want": 608.0,
+        "got": 608.0
+      },
+      "amount": {
+        "want": 326240.0,
+        "got": 326240.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 326240.0,
+        "header_amount": 326240.0,
+        "sum_items": 326240.0,
+        "item_count": 3
+      },
+      "missing_hs_indices": []
+    }
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 3,
+        "got": 3
+      },
+      "total_quantity": {
+        "want": 608.0,
+        "got": 608.0
+      },
+      "amount": {
+        "want": 326240.0,
+        "got": 326240.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 326240.0,
+        "header_amount": 326240.0,
+        "sum_items": 326240.0,
+        "item_count": 3
+      },
+      "missing_hs_indices": []
+    }
+  },
+  "_pair_status": "INV+PKL",
+  "_pair_id": "P5"
+}

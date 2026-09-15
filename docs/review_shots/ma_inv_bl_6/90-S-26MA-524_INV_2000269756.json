@@ -1,0 +1,104 @@
+{
+  "header": {
+    "invoice_no": "2000269756",
+    "invoice_date": "2026-06-25",
+    "total_pkg": 10.0,
+    "gross_weight_kg": 3765.6,
+    "incoterm": "FCA Kuala lumpur",
+    "item_line_count": 1,
+    "total_quantity": 3840.0,
+    "amount": 372480.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "HBL005094",
+    "bl_packages": 10.0,
+    "bl_gross_weight_kg": 3765.6
+  },
+  "items": [
+    {
+      "invoice_no": "2000269756",
+      "part_no": "1987124141HUH",
+      "description": "Engine Oil",
+      "qty": 3840.0,
+      "unit": "EA",
+      "unit_price": 97.0,
+      "amount": 372480.0,
+      "origin": "Malaysia",
+      "hs_code": "2710194600",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-524/_2000269756_RBTW_20260625.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=到貨通知 HBL005094.pdf",
+    "labeled_amount": 372480.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-524/_2000269756_RBTW_20260625.PDF",
+    "pkl_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-524/_2000269756_RBTW_20260625.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA_inv_bl_6/90-S-26MA-524/到貨通知 HBL005094.pdf",
+    "bl_used": true,
+    "bl_format_id": "milestone_arrival_v1",
+    "pair_status": "INV+PKL",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 3840.0,
+        "got": 3840.0
+      },
+      "amount": {
+        "want": 372480.0,
+        "got": 372480.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 372480.0,
+        "header_amount": 372480.0,
+        "sum_items": 372480.0,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    }
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 3840.0,
+        "got": 3840.0
+      },
+      "amount": {
+        "want": 372480.0,
+        "got": 372480.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 372480.0,
+        "header_amount": 372480.0,
+        "sum_items": 372480.0,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    }
+  },
+  "_pair_status": "INV+PKL",
+  "_pair_id": "P9"
+}

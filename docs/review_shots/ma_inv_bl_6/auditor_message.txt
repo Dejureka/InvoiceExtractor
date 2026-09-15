@@ -1,0 +1,13 @@
+MA INV＋提單 six packs (FormatSOP) — please audit
+
+Scope: /home/box/Downloads/MA_inv_bl_6/ — 6 folders, 9 INV + 6 到貨通知.
+INV format: ma_no_period_v1 (all 90-S; no WithPeriod). HS + Origin Index + RB pkg/GW OK; 9/9 hard pass.
+BL format: NEW family milestone_arrival_v1 (里運／Milestone 到貨通知書). Existing CEVA/DHL/Hippopo did not match. 6/6 hard pass.
+
+Policy: multi-INV same BL (548→2, 616→3) — each INV Summary row repeats shared BL No./pkg/GW; invoice Packages/G.W. untouched.
+
+Pack: docs/review_shots/ma_inv_bl_6/ (JSON + PNG + InvoiceExtract_Result.xlsx + BLExtract_Result.xlsx + auditor_batch_summary.md)
+Also: out/ma_inv_bl_6/
+
+Please reply per batch / invoice: pass | conflict | needs_gold.
+Focus: HBL numbers, BL vs INV pkg/GW (548/616 sums should match BL), HS on lines, RB packing.

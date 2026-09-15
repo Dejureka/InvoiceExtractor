@@ -194,6 +194,7 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         ceva_pyramid_arrival_v1,
         dhl_lcl_arrival_v1,
         hippopo_hbl_v1,
+        milestone_arrival_v1,
     )
 
     path = init_db(db_path)
@@ -282,6 +283,11 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 "Hippopo Global Logistics",
                 ["Hippopo", "HBL draft"],
                 hippopo_hbl_v1,
+            ),
+            (
+                "Milestone Forwarding (里運國際)",
+                ["Milestone", "里運國際", "MILESTONE FORWARDING", "到貨通知書"],
+                milestone_arrival_v1,
             ),
         ]
         for name, aliases, mod in bl_extras:

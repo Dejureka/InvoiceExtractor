@@ -109,7 +109,7 @@ class PairRow:
 
 # BL / HBL / arrival tokens (filename + soft match to INV invoice refs)
 _BL_NO = re.compile(
-    r"(?<![A-Za-z0-9])(WEB\d{9}|HB\d{8}|NGOA\d{5,}|NBT\d{3,}|SHAKEL\d+)(?![A-Za-z0-9])",
+    r"(?<![A-Za-z0-9])(WEB\d{9}|HBL\d{5,}|HB\d{8}|NGOA\d{5,}|NBT\d{3,}|SHAKEL\d+)(?![A-Za-z0-9])",
     re.I,
 )
 # Soft invoice-ref style tokens e.g. JCH26-08M1 / AETW26012
@@ -239,7 +239,7 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
     Strategy (BHC-optimized):
     1. Classify each file by filename (INV / PKL / BL / combined).
     2. Match inv↔pkl by shared invoice no / TA / batch; **same folder preferred**.
-    3. Attach BL to INV-bearing rows (same folder 1:1, or shared bl:/ref: keys).
+    3. Attach BL to INV-bearing rows (shared bl:/ref: keys, or same-folder N:1 share).
     4. Leftover inv → 僅 INV; leftover pkl → 僅 PKL; leftover bl → 僅 提單;
        unknown alone → 未配對／需確認.
     5. ``combined`` / unknown-with-MA-like → single-file row (INV side, no PKL).
@@ -420,33 +420,34 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
         row.bl_path = br.path
         row.recompute_status()
 
-    # Same-folder unique leftover: 1 unpaired BL + exactly 1 INV row in that dir
-    remaining_bl = [br for br in bls if br.path not in used_bl]
+    # Same-folder N:1 — exactly one BL in a folder is shared by every INV row there
+    # (MA multi-INV packs 548/616: each INV Summary row repeats shared BL No./pkg/GW).
     by_dir_inv_rows: dict[str, list[PairRow]] = {}
     for row in inv_rows:
-        if row.bl_path or not row.inv_path:
+        if not row.inv_path:
             continue
         try:
             d = str(row.inv_path.parent.resolve())
         except Exception:
             d = str(row.inv_path.parent)
         by_dir_inv_rows.setdefault(d, []).append(row)
-    by_dir_bl: dict[str, list[FileRole]] = {}
-    for br in remaining_bl:
+    by_dir_bl_all: dict[str, list[FileRole]] = {}
+    for br in bls:
         try:
             d = str(br.path.parent.resolve())
         except Exception:
             d = str(br.path.parent)
-        by_dir_bl.setdefault(d, []).append(br)
+        by_dir_bl_all.setdefault(d, []).append(br)
     for d, di in by_dir_inv_rows.items():
-        db = by_dir_bl.get(d) or []
-        if len(di) == 1 and len(db) == 1 and di[0].bl_path is None:
-            br = db[0]
-            if br.path in used_bl:
-                continue
-            used_bl.add(br.path)
-            di[0].bl_path = br.path
-            di[0].recompute_status()
+        db = by_dir_bl_all.get(d) or []
+        if len(db) != 1:
+            continue
+        br = db[0]
+        for row in di:
+            if row.bl_path is None:
+                row.bl_path = br.path
+                row.recompute_status()
+        used_bl.add(br.path)
 
     for br in bls:
         if br.path in used_bl:

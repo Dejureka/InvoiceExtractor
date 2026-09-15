@@ -51,6 +51,8 @@ def match_score(text: str, filename: str = "") -> float:
         score += 0.1
     if "CEVA LOGISTICS" in text or "到貨通知" in text:
         score -= 0.5
+    if "MILESTONE FORWARDING" in text or "里運國際" in text:
+        score -= 0.6
     if "DHL GLOBAL FORWARDING" in text:
         score -= 0.5
     if "INVOICE" in text and "HIPPOPO" not in text.upper() and "HBL" not in fn:

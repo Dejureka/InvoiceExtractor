@@ -9,6 +9,7 @@ from invoice_extractor.formats.bl import (
     ceva_pyramid_arrival_v1,
     dhl_lcl_arrival_v1,
     hippopo_hbl_v1,
+    milestone_arrival_v1,
 )
 from invoice_extractor.schema_bl import BLExtractResult, BLHeader, BLMeta
 
@@ -18,6 +19,7 @@ BUILTIN_BL: list[tuple[str, Callable[[str, str], float], BLExtractor]] = [
     ("ceva_pyramid_arrival_v1", ceva_pyramid_arrival_v1.match_score, ceva_pyramid_arrival_v1.extract),
     ("dhl_lcl_arrival_v1", dhl_lcl_arrival_v1.match_score, dhl_lcl_arrival_v1.extract),
     ("hippopo_hbl_v1", hippopo_hbl_v1.match_score, hippopo_hbl_v1.extract),
+    ("milestone_arrival_v1", milestone_arrival_v1.match_score, milestone_arrival_v1.extract),
 ]
 
 

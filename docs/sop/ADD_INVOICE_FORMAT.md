@@ -121,6 +121,7 @@
 | 2026-09-13 | BHC cases 1/3/6/8：`hisense_qingdao_v1`／`aichi_electric_v1`；MY-HUB 連字號 PN＋分檔 PKL TOTAL
 | 2026-09-13 | MA NP：硬化 `_parse_coo_index`（空 Index 頁＋跨頁＋Unicode Türkiye）；WP 不變 |
 | 2026-09-10 | Round4：種子 `ma_no_period_v1`／`ma_with_period_v1`／`bhc_my_hub_v1` |
+| 2026-09-15 | MA inv+bl 6：`milestone_arrival_v1`（里運／Milestone）；同資料夾 N INV↔1 BL 共用 Summary BL 欄 |
 
 
 ---
@@ -145,6 +146,9 @@
 | `ceva_pyramid_arrival_v1` | `到貨通知`、`CEVA LOGISTICS`、`PYRAMID LINES`、`B/L no`（case4/5/6 共用） |
 | `dhl_lcl_arrival_v1` | `海運 LCL 到貨通知`、`HBL 提單號碼`、`DHL GLOBAL FORWARDING` |
 | `hippopo_hbl_v1` | `HIPPOPO`、`HB########`、HBL draft 稀疏欄位 |
+| `milestone_arrival_v1` | `MILESTONE FORWARDING`／`里運國際`、`ARRIVAL NOTICE 到貨通知書`、`B/L NO : HBL00#####`（MA 90-S 六包共用） |
+
+**Multi-INV same BL（同資料夾）**：一張到貨通知對多張 INV（例 548／616）時，每個 INV Summary 列都帶同一組 `BL No.`／`BL Packages`／`BL G.W.`（不覆寫發票 Packages／G.W.）。
 
 GUI 配對欄：`配對 | INV | PKL | 提單 | 狀態`；Summary 三欄由 pairing merge 填入。
 
