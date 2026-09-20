@@ -23,14 +23,14 @@ SUMMARY_COLS = [
     "Packages",
     "Package Mode",
     "G.W. (kgs)-Air DIM. (CBM)-Sea",
-    "BL No.",
-    "BL Packages",
-    "BL G.W. (kgs)",
     "Incoterms",
     "Invoice Value",
     "LINE",
     "QTY",
     "Invoice Currency",
+    "BL No.",
+    "BL Packages",
+    "BL G.W. (kgs)",
 ]
 
 # PDFextract-style detail / declaration lines.
@@ -166,14 +166,14 @@ def _summary_row(header: dict[str, Any]) -> list[Any]:
         header.get("total_pkg"),
         pkg_mode,  # blank when format does not provide it
         header.get("gross_weight_kg"),
-        header.get("bl_no"),
-        header.get("bl_packages"),
-        header.get("bl_gross_weight_kg"),
         header.get("incoterm"),
         header.get("amount"),
         header.get("item_line_count"),
         header.get("total_quantity"),
         header.get("currency"),
+        header.get("bl_no"),
+        header.get("bl_packages"),
+        header.get("bl_gross_weight_kg"),
     ]
 
 
@@ -209,12 +209,71 @@ def _clear_data_rows(ws) -> None:
         ws.delete_rows(2, ws.max_row - 1)
 
 
+
+# Unified Summary (and sheet) header look — blue fill / white bold / centered.
+_HEADER_FILL_HEX = "4472C4"
+_HEADER_FONT_COLOR = "FFFFFF"
+_AUTHOR = "Peter Yang"
+
+
+def _header_fill():
+    from openpyxl.styles import PatternFill
+
+    return PatternFill(fill_type="solid", fgColor=_HEADER_FILL_HEX)
+
+
+def _header_font():
+    from openpyxl.styles import Font
+
+    return Font(bold=True, color=_HEADER_FONT_COLOR, size=11)
+
+
+def _header_alignment():
+    from openpyxl.styles import Alignment
+
+    return Alignment(horizontal="center", vertical="center", wrap_text=True)
+
+
+def _header_border():
+    from openpyxl.styles import Border, Side
+
+    thin = Side(style="thin")
+    return Border(left=thin, right=thin, top=thin, bottom=thin)
+
+
+def _apply_header_style(ws, ncols: int | None = None) -> None:
+    """Apply one shared header style to row 1 (no special BL-only styling)."""
+    fill = _header_fill()
+    font = _header_font()
+    align = _header_alignment()
+    border = _header_border()
+    n = ncols if ncols is not None else (ws.max_column or 0)
+    for i in range(1, n + 1):
+        cell = ws.cell(1, i)
+        if cell.value is None:
+            continue
+        cell.fill = fill
+        cell.font = font
+        cell.alignment = align
+        cell.border = border
+
+
+def _set_workbook_author(wb) -> None:
+    """Stamp visible workbook creator metadata (non-breaking)."""
+    try:
+        wb.properties.creator = _AUTHOR
+        if not wb.properties.lastModifiedBy:
+            wb.properties.lastModifiedBy = _AUTHOR
+    except Exception:
+        pass
+
 def _ensure_sheet_headers(ws, title: str, cols: list[str]) -> None:
     """Ensure sheet exists with expected header row; create if missing."""
     ws.title = title
     if ws.max_row < 1 or all(c.value is None for c in ws[1]):
         for i, name in enumerate(cols, 1):
             ws.cell(1, i, name)
+        _apply_header_style(ws, len(cols))
         return
     # Rewrite header when schema drifts (e.g. new meta pairing columns)
     existing = [c.value for c in ws[1][: len(cols)]]
@@ -225,6 +284,8 @@ def _ensure_sheet_headers(ws, title: str, cols: list[str]) -> None:
             ws.cell(1, i, name)
         for i in range(len(cols) + 1, old_max + 1):
             ws.cell(1, i, None)
+    # Always unify header style (template may have mixed / unstyled cells)
+    _apply_header_style(ws, len(cols))
 
 
 def _load_workbook_for_write(template: Path | None = None):
@@ -266,6 +327,7 @@ def _load_workbook_for_write(template: Path | None = None):
     _clear_data_rows(ws_s)
     _clear_data_rows(ws_l)
     _clear_data_rows(ws_m)
+    _set_workbook_author(wb)
     return wb
 
 
@@ -462,8 +524,11 @@ def write_bl_xlsx_many(
     ws = wb.active
     ws.title = BL_SHEET
     ws.append(list(BL_COLS))
+    _apply_header_style(ws, len(BL_COLS))
     ws_m = wb.create_sheet(META_SHEET)
     ws_m.append(list(META_COLS))
+    _apply_header_style(ws_m, len(META_COLS))
+    _set_workbook_author(wb)
 
     for data in extracts:
         ws.append([_cell(v) for v in _bl_row(data)])
