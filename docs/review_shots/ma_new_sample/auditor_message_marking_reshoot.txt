@@ -1,0 +1,16 @@
+MA AK Marking HU end-page re-shoot (shots only) — needs_gold fix
+
+Problem: Auditor needs_gold on 5 MA AK invoices — prior pack only had p-1/p-2; Marking HU / pkg GW table sits on end pages beyond p2, so packing could not be visually verified.
+
+Fix: pdftotext -layout located ^Marking; pdftoppm -png -r 150 that page. JSON unchanged (total_pkg / gross_weight_kg already match full Marking HU Gross sum).
+
+New shots under docs/review_shots/ma_new_sample/ (also out/ma_new_sample/):
+
+- AK00063833_marking.png — PDF p7/8 of 90-S-26MA-712/Invoice AK00063833.PDF — Marking HU table (5 HU); continues p8 summary. JSON pkg=5 GW=966.2
+- AK00063834_marking.png — PDF p10/12 of 90-S-26MA-712/Invoice AK00063834.PDF — Marking HU start (cont. p11). JSON pkg=17 GW=1680.5
+- AK00063839_marking.png — PDF p8/10 of 90-S-26MA-712/Invoice AK00063839.PDF — Marking HU start (cont. p9). JSON pkg=15 GW=2763.27
+- AK00063843_marking.png — PDF p14/16 of 90-S-26MA-712/Invoice AK00063843.PDF — Marking HU start (cont. p15–16). JSON pkg=19 GW=4026.77
+- AK00063848_marking.png — PDF p3/3 of 90-S-26MA-713/Invoice AK00063848.PDF — Marking HU + summary (full). JSON pkg=5 GW=168.09
+
+Please re-check these 5 vs *_marking.png → pass / conflict / needs_gold.
+Focus: Marking HU row count (=Packages) and Gross KG sum (=G.W.).
