@@ -1,0 +1,26 @@
+MA AK Marking FULL-block re-shoot (all span pages) — needs_gold fix round 2
+
+Problem: Prior Marking shots only rendered the middle/start page of the Marking block, so Auditor could not see the complete HU list + Gross total/summary.
+
+Fix: pdftoppm -png -r 150 every page from ^Marking through HU list + packing summary. Also vertical stitch as *_marking.png. JSON unchanged (total_pkg / gross_weight_kg already match).
+
+New shots under docs/review_shots/ma_new_sample/ (also out/ma_new_sample/):
+
+AK00063834 — span [10,11] of 90-S-26MA-712/Invoice AK00063834.PDF — expect HU=17 GW=1680.5
+  - AK00063834_marking_p10.png — Marking start + first HU rows
+  - AK00063834_marking_p11.png — remaining HU + 17-line packing summary (Gross sum 1680.5)
+  - AK00063834_marking.png — vertical stitch of p10–p11
+
+AK00063839 — span [8,9] of 90-S-26MA-712/Invoice AK00063839.PDF — expect HU=15 GW=2763.27
+  - AK00063839_marking_p8.png — Marking start + first HU rows
+  - AK00063839_marking_p9.png — remaining HU + packing summary (qty sum 15; Gross sum 2763.27)
+  - AK00063839_marking.png — vertical stitch of p8–p9
+
+AK00063843 — span [14,15,16] of 90-S-26MA-712/Invoice AK00063843.PDF — expect HU=19 GW=4026.77
+  - AK00063843_marking_p14.png — Marking start + first HU rows
+  - AK00063843_marking_p15.png — continued HU rows
+  - AK00063843_marking_p16.png — packing summary (qty sum 19 incl. one “2”; Gross sum 4026.77)
+  - AK00063843_marking.png — vertical stitch of p14–p16
+
+Please re-check these 3 vs full Marking page set → pass / conflict / needs_gold.
+Focus: full HU count (=Packages) and Gross KG sum (=G.W.) visible across the span (prefer end-page summary + stitch).
