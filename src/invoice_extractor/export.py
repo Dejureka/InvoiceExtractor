@@ -210,16 +210,25 @@ def _clear_data_rows(ws) -> None:
 
 
 
-# Unified Summary (and sheet) header look — blue fill / white bold / centered.
+# Unified header look — blue fill / white bold / centered, with green BL headers
+# on the Summary sheet to distinguish the arrival-notice values.
 _HEADER_FILL_HEX = "4472C4"
+_BL_HEADER_FILL_HEX = "008000"
 _HEADER_FONT_COLOR = "FFFFFF"
 _AUTHOR = "Peter Yang"
+_SUMMARY_BL_HEADERS = {"BL No.", "BL Packages", "BL G.W. (kgs)"}
 
 
 def _header_fill():
     from openpyxl.styles import PatternFill
 
     return PatternFill(fill_type="solid", fgColor=_HEADER_FILL_HEX)
+
+
+def _bl_header_fill():
+    from openpyxl.styles import PatternFill
+
+    return PatternFill(fill_type="solid", fgColor=_BL_HEADER_FILL_HEX)
 
 
 def _header_font():
@@ -242,8 +251,9 @@ def _header_border():
 
 
 def _apply_header_style(ws, ncols: int | None = None) -> None:
-    """Apply one shared header style to row 1 (no special BL-only styling)."""
+    """Apply the standard header style, with green BL headers on Summary."""
     fill = _header_fill()
+    bl_fill = _bl_header_fill()
     font = _header_font()
     align = _header_alignment()
     border = _header_border()
@@ -252,7 +262,7 @@ def _apply_header_style(ws, ncols: int | None = None) -> None:
         cell = ws.cell(1, i)
         if cell.value is None:
             continue
-        cell.fill = fill
+        cell.fill = bl_fill if ws.title == SUMMARY_SHEET and cell.value in _SUMMARY_BL_HEADERS else fill
         cell.font = font
         cell.alignment = align
         cell.border = border

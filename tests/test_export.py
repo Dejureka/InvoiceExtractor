@@ -330,8 +330,8 @@ def test_collect_pdfs_dir_and_files(tmp_path: Path):
     assert errs == []
 
 
-def test_summary_bl_columns_far_right_and_unified_header_style(tmp_path: Path):
-    """BL trio is last on Summary; every header cell shares one fill/font/align."""
+def test_summary_bl_columns_far_right_and_green_header_style(tmp_path: Path):
+    """BL trio is last on Summary; BL headers are green and others stay blue."""
     path = tmp_path / "styled.xlsx"
     write_xlsx(SAMPLE, path)
     wb = load_workbook(path)
@@ -353,25 +353,26 @@ def test_summary_bl_columns_far_right_and_unified_header_style(tmp_path: Path):
         "BL Packages",
         "BL G.W. (kgs)",
     ]
-    fills = set()
-    bolds = set()
-    colors = set()
-    aligns = set()
-    for cell in ws[1]:
-        if cell.value is None:
-            continue
-        fills.add(cell.fill.fgColor.rgb if cell.fill.fgColor else None)
-        bolds.add(cell.font.bold)
-        rgb = None
-        if cell.font.color is not None and getattr(cell.font.color, "type", None) == "rgb":
-            rgb = cell.font.color.rgb
-        colors.add(rgb)
-        aligns.add(cell.alignment.horizontal)
-    assert len(fills) == 1
-    assert fills.pop().endswith("4472C4")
-    assert bolds == {True}
-    assert all(c and c.endswith("FFFFFF") for c in colors)
-    assert aligns == {"center"}
+    fills = {
+        cell.value: cell.fill.fgColor.rgb
+        for cell in ws[1]
+        if cell.value is not None
+    }
+    assert all(fills[name].endswith("4472C4") for name in headers[:-3])
+    assert all(fills[name].endswith("008000") for name in headers[-3:])
+    assert all(cell.font.bold for cell in ws[1] if cell.value is not None)
+    assert all(
+        cell.font.color is not None
+        and cell.font.color.type == "rgb"
+        and cell.font.color.rgb.endswith("FFFFFF")
+        for cell in ws[1]
+        if cell.value is not None
+    )
+    assert all(
+        cell.alignment.horizontal == "center"
+        for cell in ws[1]
+        if cell.value is not None
+    )
 
 
 def test_template_summary_order_matches_export():
