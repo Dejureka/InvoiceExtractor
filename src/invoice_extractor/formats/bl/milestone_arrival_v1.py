@@ -197,6 +197,12 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
         for num in re.findall(r"\d{6,12}", chunk):
             if num not in refs:
                 refs.append(num)
+
+    # AK Billing Document refs (MA AK family)
+    for rm in re.finditer(r"\b(AK\d{8})\b", text):
+        if rm.group(1) not in refs:
+            refs.append(rm.group(1))
+
     if refs:
         h.invoice_refs = ", ".join(refs)
 

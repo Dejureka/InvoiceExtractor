@@ -91,6 +91,7 @@
 | `highly_v1` | HIGHLY／海立、`INV#` |
 | `ma_no_period_v1` | `Robert BOSCH GmbH`、`Document No.`、`Goods Value`、13-char 無點 PN；VBA `MA_PDFextract_NoPeriod`／`MA_Declaration_noPeriod`；產地＝`Right(PN,3)`→**Country Of Origin Index**（可跨頁／首頁僅標題；勿用 `Country Of Origin\\b` 當結尾以免吃到下一頁 Index；Unicode 國名如 Türkiye） |
 | `ma_with_period_v1` | 同上但 PN 有點（`0.445…`）；VBA `MA_PDFextractWithPeriod`／`MA_Declaration_withPeriod`；資料夾 90-C*／90-M* |
+| `ma_ak_billing_v1` | `Billing Document AK…`、`Bosch Material No.`、`Commodity Code`、`Country of Origin`；VBA 無對應（新 AK 帳單）；pkg/GW＝Marking HU／Dummy Pack；**非** Document No./Goods Value／Origin Index |
 | `bhc_my_hub_v1` | `Bosch Home Comfort Supply`、`TOTALS:`、`PART NO`；packing／GW soft-missing OK |
 | `hisense_qingdao_v1` | `QINGDAO HISENSE BOSCH`、`CI NO.: CIHT-TW-…`、合訂 INV+PL；PN＝SELLER'S MODEL |
 | `aichi_electric_v1` | `AICHI ELECTRIC`、`AETW…`、`Total FOB Nagoya`、合訂 packing sheet；PN＝DWG No. |
@@ -124,6 +125,7 @@
 | 2026-09-13 | MA NP：硬化 `_parse_coo_index`（空 Index 頁＋跨頁＋Unicode Türkiye）；WP 不變 |
 | 2026-09-10 | Round4：種子 `ma_no_period_v1`／`ma_with_period_v1`／`bhc_my_hub_v1` |
 | 2026-09-15 | MA inv+bl 6：`milestone_arrival_v1`（里運／Milestone）；同資料夾 N INV↔1 BL 共用 Summary BL 欄 |
+| 2026-09-20 | MA new sample：`ma_ak_billing_v1`（Invoice AK…）＋`nippon_express_awb_v1`（pdfdq NEM AWB）；milestone 沿用 90-S HBL；OCR sidecar 支援掃描到貨 |
 | 2026-09-15 | PT Dremel：`pt_dremel_head3_v1`／`pt_dremel_head5_v1`（vs Gloria；16 PDF；HS hard；head5 GW=Gross） |
 
 
@@ -150,6 +152,7 @@
 | `dhl_lcl_arrival_v1` | `海運 LCL 到貨通知`、`HBL 提單號碼`、`DHL GLOBAL FORWARDING` |
 | `hippopo_hbl_v1` | `HIPPOPO`、`HB########`、HBL draft 稀疏欄位 |
 | `milestone_arrival_v1` | `MILESTONE FORWARDING`／`里運國際`、`ARRIVAL NOTICE 到貨通知書`、`B/L NO : HBL00#####`（MA 90-S 六包共用） |
+| `nippon_express_awb_v1` | `AIR WAYBILL`、`NIPPON EXPRESS`、`NEM #### ####`（MA 50-N pdfdq 空運提單） |
 
 **Multi-INV same BL（同資料夾）**：一張到貨通知對多張 INV（例 548／616）時，每個 INV Summary 列都帶同一組 `BL No.`／`BL Packages`／`BL G.W.`（不覆寫發票 Packages／G.W.）。
 

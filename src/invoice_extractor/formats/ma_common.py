@@ -71,3 +71,49 @@ def parse_rb_packages(text: str) -> tuple[float | None, float | None]:
     if not rb_gw:
         return None, None
     return float(len(rb_gw)), round(sum(rb_gw.values()), 3)
+
+
+
+def parse_ak_packages(text: str) -> tuple[float | None, float | None]:
+    """Packages + GW for MA Billing-Document (AK) invoices.
+
+    Prefer unique handling-unit IDs under the Marking section (with or without
+    a leading ``RB``). Fall back to ``Total Num of Packages`` plus summary
+    ``Dummy Pack. Mat.`` Gross lines when HU markers are incomplete.
+    """
+    mark = text
+    if "Marking" in text:
+        mark = text[text.find("Marking") :]
+    hu_gw: dict[str, float] = {}
+    # RB-prefixed or bare 15–20 digit HU followed by Dummy Pack… Gross
+    for m in re.finditer(
+        r"(?:\bRB\s+)?(\d{15,20})\s+Dummy Pack\. Mat\.[^\n]*?(?:\n[^\n]*){0,3}?Gross\s+([\d,.]+)\s*KG",
+        mark,
+        re.I,
+    ):
+        hu = m.group(1)
+        if hu in hu_gw:
+            continue
+        hu_gw[hu] = us_float(m.group(2))
+    if hu_gw:
+        return float(len(hu_gw)), round(sum(hu_gw.values()), 3)
+
+    tot = re.search(r"Total Num of Packages\s+(\d+)", text, re.I)
+    pkg = float(tot.group(1)) if tot else None
+    # Summary lines: "1  Dummy Pack. Mat. for Carton  Net … Gross X KG"
+    gw_vals = [
+        us_float(g)
+        for g in re.findall(
+            r"^\s*\d+\s+Dummy Pack\. Mat\.[^\n]*?Gross\s+([\d,.]+)\s*KG",
+            text,
+            re.I | re.M,
+        )
+    ]
+    if gw_vals:
+        gw = round(sum(gw_vals), 3)
+        if pkg is None:
+            pkg = float(len(gw_vals))
+        return pkg, gw
+    if pkg is not None:
+        return pkg, None
+    return None, None

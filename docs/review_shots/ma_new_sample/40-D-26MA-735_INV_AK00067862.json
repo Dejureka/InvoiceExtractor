@@ -1,0 +1,53 @@
+{
+  "header": {
+    "invoice_no": "AK00067862",
+    "invoice_date": "2026-09-17",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 0.5,
+    "incoterm": "FOB Malaysia",
+    "item_line_count": 1,
+    "total_quantity": 20.0,
+    "amount": 2180.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "AK00067862",
+      "part_no": "0215.000.837-0CP",
+      "description": "Retainer",
+      "qty": 20.0,
+      "unit": "PC",
+      "unit_price": 109.0,
+      "amount": 2180.0,
+      "origin": "DE",
+      "hs_code": "9031909000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/MA_batch_next/MAnewSample/40-D-26MA-735/Invoice AK00067862.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 2180.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": "僅 INV",
+    "checker_verdict": "pass"
+  }
+}

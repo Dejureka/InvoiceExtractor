@@ -1,0 +1,37 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "NEM17159645",
+    "hbl_no": "NEM17159645",
+    "mbl_no": "843-46208680",
+    "vessel": null,
+    "voyage": "D7 378/10",
+    "etd": null,
+    "eta": null,
+    "pol": "KUALA LUMPUR",
+    "pod": "TAOYUAN AIRPORT",
+    "packages": 3.0,
+    "package_unit": "PIECES",
+    "gross_weight_kg": 279.0,
+    "measurement_cbm": 2.057,
+    "load_type": "AIR",
+    "shipper": "ROBERT BOSCH SDN BHD",
+    "consignee": "ROBERT BOSCH TAIWAN CO.,LTD.",
+    "notify": null,
+    "invoice_refs": "AK00065676",
+    "container_nos": null,
+    "forwarder": "Nippon Express (M) SDN. BHD."
+  },
+  "meta": {
+    "source_file": "/workspace/MA_batch_next/MAnewSample/50-N-26MA-714/pdfdq_p01_nem17159645_2026-09-10_091446.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "nippon_express_awb_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "doc_kind": "air_waybill",
+    "checker_verdict": "pass",
+    "checker_issues": []
+  }
+}

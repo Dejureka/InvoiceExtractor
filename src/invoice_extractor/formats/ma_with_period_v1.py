@@ -84,6 +84,8 @@ def match_score(text: str, filename: str = "") -> float:
         score -= 0.5
     if "Cont.-Pers. Sales" in text and re.search(r"\bMA\b", text):
         score += 0.05
+    if re.search(r"Billing Document\s+AK\d+", text):
+        score -= 0.55
     return max(0.0, min(score, 1.0))
 
 

@@ -186,6 +186,7 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         hisense_qingdao_v1,
         hitachi_gls_v1,
         ma_no_period_v1,
+        ma_ak_billing_v1,
         ma_with_period_v1,
         nidec_v1,
         pt_dremel_head3_v1,
@@ -197,6 +198,7 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         dhl_lcl_arrival_v1,
         hippopo_hbl_v1,
         milestone_arrival_v1,
+        nippon_express_awb_v1,
     )
 
     path = init_db(db_path)
@@ -237,6 +239,11 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 "Robert Bosch GmbH (MA NoPeriod)",
                 ["MA", "Mobility Aftermarket", "RBTW", "Bosch MA"],
                 ma_no_period_v1,
+            ),
+            (
+                "Robert Bosch GmbH (MA AK Billing)",
+                ["MA AK", "Billing Document AK", "Invoice AK"],
+                ma_ak_billing_v1,
             ),
             (
                 "Robert Bosch GmbH (MA WithPeriod)",
@@ -300,6 +307,11 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 "Milestone Forwarding (里運國際)",
                 ["Milestone", "里運國際", "MILESTONE FORWARDING", "到貨通知書"],
                 milestone_arrival_v1,
+            ),
+            (
+                "Nippon Express (M) Air Waybill",
+                ["Nippon Express", "NEM", "pdfdq", "AIR WAYBILL"],
+                nippon_express_awb_v1,
             ),
         ]
         for name, aliases, mod in bl_extras:

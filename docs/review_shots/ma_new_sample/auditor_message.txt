@@ -1,0 +1,12 @@
+MA new sample (FormatSOP) — please audit
+
+Scope: /workspace/MA_batch_next/MAnewSample/ — 10 folders, 19 INV + 5 BL (到貨/AWB).
+INV format: NEW family ma_ak_billing_v1 (Billing Document AK…). Existing ma_no_period / ma_with_period did not match. HS=Commodity Code; Origin=Country of Origin per line; Marking HU pkg/GW. 19/19 hard pass.
+BL formats: milestone_arrival_v1 for 90-S HBL 到貨 (712 HBL005268 scan → OCR sidecar); NEW family nippon_express_awb_v1 for 50-N pdfdq NEM AWB. 5/5 hard pass.
+
+Policy: multi-INV same BL (712→5, 713→3) — each INV Summary row repeats shared BL No./pkg/GW; invoice Packages/G.W. untouched.
+
+Pack: docs/review_shots/ma_new_sample/ (JSON + PNG + InvoiceExtract_Result.xlsx + BLExtract_Result.xlsx + auditor_batch_summary.md)
+
+Please reply per batch / invoice: pass | conflict | needs_gold.
+Focus: HBL/NEM numbers, BL vs INV pkg/GW (712/713 sums should match BL), HS on lines, Marking packing.

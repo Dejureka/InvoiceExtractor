@@ -1,0 +1,53 @@
+{
+  "header": {
+    "invoice_no": "AK00063847",
+    "invoice_date": "2026-08-29",
+    "total_pkg": 5.0,
+    "gross_weight_kg": 2225.0,
+    "incoterm": "FCA Bosch Plant",
+    "item_line_count": 1,
+    "total_quantity": 1920.0,
+    "amount": 170880.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "HBL005267",
+    "bl_packages": 11.0,
+    "bl_gross_weight_kg": 3203.09
+  },
+  "items": [
+    {
+      "invoice_no": "AK00063847",
+      "part_no": "1987.L24.130-HUH",
+      "description": "Engine Oil",
+      "qty": 1920.0,
+      "unit": "PC",
+      "unit_price": 89.0,
+      "amount": 170880.0,
+      "origin": "MY",
+      "hs_code": "3403991900",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/MA_batch_next/MAnewSample/90-S-26MA-713/Invoice AK00063847.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 170880.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": "/workspace/MA_batch_next/MAnewSample/90-S-26MA-713/到貨通知 HBL005267.pdf",
+    "bl_used": true,
+    "bl_format_id": "milestone_arrival_v1",
+    "pair_status": "INV+提單",
+    "checker_verdict": "pass"
+  }
+}

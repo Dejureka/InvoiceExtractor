@@ -84,6 +84,8 @@ def match_score(text: str, filename: str = "") -> float:
     # strong: 6-digit pos + 13-char undotted PN
     if re.search(r"\d{6}\s+[A-Z0-9]{13}\s+\S+.+\bEA\b", text):
         score += 0.25
+    if re.search(r"Billing Document\s+AK\d+", text):
+        score -= 0.55
     return max(0.0, min(score, 1.0))
 
 

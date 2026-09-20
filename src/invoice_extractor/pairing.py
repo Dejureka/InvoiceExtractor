@@ -128,6 +128,8 @@ def pairing_keys_from_path(path: Path) -> set[str]:
 
     for m in _INV_NO.finditer(blob):
         keys.add(f"inv:{m.group(1)}")
+    for m in re.finditer(r"(?<![A-Za-z0-9])(AK\d{8})(?![A-Za-z0-9])", blob, re.I):
+        keys.add(f"inv:{m.group(1).upper()}")
     for m in _BHC_TA.finditer(blob):
         keys.add(f"ta:{m.group(1).upper()}")
     for m in _MA_BATCH.finditer(blob):

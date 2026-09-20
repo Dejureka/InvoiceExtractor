@@ -1,0 +1,53 @@
+{
+  "header": {
+    "invoice_no": "AK00067136",
+    "invoice_date": "2026-09-14",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 68.0,
+    "incoterm": "FCA Bosch Plant",
+    "item_line_count": 1,
+    "total_quantity": 8.0,
+    "amount": 40016.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "NEM17164630",
+    "bl_packages": 1.0,
+    "bl_gross_weight_kg": 68.0
+  },
+  "items": [
+    {
+      "invoice_no": "AK00067136",
+      "part_no": "1986.A00.630-ZKY",
+      "description": "Alternator",
+      "qty": 8.0,
+      "unit": "PC",
+      "unit_price": 5002.0,
+      "amount": 40016.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/MA_batch_next/MAnewSample/50-N-26MA-733/Invoice AK00067136.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 40016.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": "/workspace/MA_batch_next/MAnewSample/50-N-26MA-733/pdfdq_p01_nem17164630_2026-09-17_091453.pdf",
+    "bl_used": true,
+    "bl_format_id": "nippon_express_awb_v1",
+    "pair_status": "INV+提單",
+    "checker_verdict": "pass"
+  }
+}

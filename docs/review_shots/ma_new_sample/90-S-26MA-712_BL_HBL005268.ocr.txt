@@ -1,0 +1,41 @@
+TO: 台灣羅伯特博世股份有限公司
+FROM: 里運國際股份有限公司 / MILESTONE FORWARDING WORLDWIDE CO., LTD. JING#8824
+
+Shipper
+:ROBERT BOSCH SDN BHD
+D' BLOCK WAREHOUSE, JALAN FZ2-P8
+PRESINT 8, P804,P806,P833,P834,
+PORT KLANG FREE ZONE (PKFZ), 42920
+PULAU INDAH , SELANGOR, MALAYSIA                                      B/L    NO : HBL005268
+                                                                      電放
+Consignee
+:ROBERT BOSCH TAIWAN CO., LTD.
+DAHUA ST. LUZHU DIST. NO. 432                                         ARRIVAL NOTICE 到貨通知書
+338013 TAOYUAN CITY,TAIWAN
+ATTN:PETER
+TEL:02-25155388 FAX:02-25155399
+                                                                      里運國際股份有限公司
+Notify
+:SAME AS CONSIGNEE
+                                                                      MILESTONE FORWARDING WORLDWIDE
+                                                                      CO., LTD.
+
+1st Vessel                        Place of Receipt
+                                  PORT KLANG
+Ocean Vessel                      VOY.NO.                           截止更正時間：                 進儲櫃場
+WAN HAI 322                       N062                              2026/09/10 12:00
+Port of Loading                   Port of Discharge                 Port of Delivery        抵港日期
+PORT KLANG                        TAIPEI                            KEELUNG TAIWAN           2026/9/15
+Marks and Numbers    No. of pkgs. or units   description of goods            Gross weight     Measurement
+IAAU1757708 / 40'HQ / IAAJ598722                58 PACKAGES                   9,491.320 KGS         30.760 CBM
+ROBERT BOSCH                   1x40'HQ        MOBILITY AFTERMARKET
+TAIWAN CO.,                    VVVVVVV        INVOICE: AK00063832,
+LTD.                                          AK00063833, AK00063834,
+INVOICE NO:                                   AK00063839, AK00063843
+AK00063832,
+AK00063833,
+AK00063834,
+AK00063839,
+AK00063843
+
+                                          SERVICE TYPE :CY/CY "FREIGHT PREPAID"

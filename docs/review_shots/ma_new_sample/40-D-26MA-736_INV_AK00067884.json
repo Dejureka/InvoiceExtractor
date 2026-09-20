@@ -1,0 +1,53 @@
+{
+  "header": {
+    "invoice_no": "AK00067884",
+    "invoice_date": "2026-09-17",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 4.6,
+    "incoterm": "FOB Malaysia",
+    "item_line_count": 1,
+    "total_quantity": 12.0,
+    "amount": 8856.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "AK00067884",
+      "part_no": "2418.455.165-8GA",
+      "description": "Pump element",
+      "qty": 12.0,
+      "unit": "PC",
+      "unit_price": 738.0,
+      "amount": 8856.0,
+      "origin": "BR",
+      "hs_code": "8413919000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/MA_batch_next/MAnewSample/40-D-26MA-736/Invoice AK00067884.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 8856.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": "僅 INV",
+    "checker_verdict": "pass"
+  }
+}

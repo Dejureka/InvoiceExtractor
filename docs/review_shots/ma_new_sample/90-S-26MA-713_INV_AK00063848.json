@@ -1,0 +1,113 @@
+{
+  "header": {
+    "invoice_no": "AK00063848",
+    "invoice_date": "2026-08-29",
+    "total_pkg": 5.0,
+    "gross_weight_kg": 168.09,
+    "incoterm": "FCA Bosch Plant",
+    "item_line_count": 6,
+    "total_quantity": 252.0,
+    "amount": 110449.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "HBL005267",
+    "bl_packages": 11.0,
+    "bl_gross_weight_kg": 3203.09
+  },
+  "items": [
+    {
+      "invoice_no": "AK00063848",
+      "part_no": "1986.AD1.013-K5C",
+      "description": "Compressor",
+      "qty": 5.0,
+      "unit": "PC",
+      "unit_price": 3917.0,
+      "amount": 19585.0,
+      "origin": "CN",
+      "hs_code": "8414309000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00063848",
+      "part_no": "1986.A01.792-WGP",
+      "description": "Alternator",
+      "qty": 4.0,
+      "unit": "PC",
+      "unit_price": 7527.0,
+      "amount": 30108.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00063848",
+      "part_no": "1986.S10.046-WGP",
+      "description": "Starter",
+      "qty": 3.0,
+      "unit": "PC",
+      "unit_price": 5595.0,
+      "amount": 16785.0,
+      "origin": "CN",
+      "hs_code": "8511403200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00063848",
+      "part_no": "3398.140.581-G4V",
+      "description": "Wiper Blade",
+      "qty": 200.0,
+      "unit": "PC",
+      "unit_price": 149.0,
+      "amount": 29800.0,
+      "origin": "TH",
+      "hs_code": "8512902000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00063848",
+      "part_no": "0280.160.597-742",
+      "description": "Pressure Regulator",
+      "qty": 1.0,
+      "unit": "PC",
+      "unit_price": 443.0,
+      "amount": 443.0,
+      "origin": "BR",
+      "hs_code": "8481109900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00063848",
+      "part_no": "0281.006.278-002",
+      "description": "Pressure Sensor",
+      "qty": 39.0,
+      "unit": "PC",
+      "unit_price": 352.0,
+      "amount": 13728.0,
+      "origin": "DE",
+      "hs_code": "9026209000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/MA_batch_next/MAnewSample/90-S-26MA-713/Invoice AK00063848.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 110449.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": "/workspace/MA_batch_next/MAnewSample/90-S-26MA-713/到貨通知 HBL005267.pdf",
+    "bl_used": true,
+    "bl_format_id": "milestone_arrival_v1",
+    "pair_status": "INV+提單",
+    "checker_verdict": "pass"
+  }
+}

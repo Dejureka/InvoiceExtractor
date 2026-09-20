@@ -1,0 +1,53 @@
+{
+  "header": {
+    "invoice_no": "AK00065224",
+    "invoice_date": "2026-09-04",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 16.0,
+    "incoterm": "FOB Malaysia",
+    "item_line_count": 1,
+    "total_quantity": 2.0,
+    "amount": 9606.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "AK00065224",
+      "part_no": "1986.A00.895-CMT",
+      "description": "Alternator",
+      "qty": 2.0,
+      "unit": "PC",
+      "unit_price": 4803.0,
+      "amount": 9606.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/MA_batch_next/MAnewSample/40-D-26MA-701/Invoice AK00065224.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 9606.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": "僅 INV",
+    "checker_verdict": "pass"
+  }
+}

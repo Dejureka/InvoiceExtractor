@@ -1,0 +1,89 @@
+{
+  "header": {
+    "invoice_no": "AK00065676",
+    "invoice_date": "2026-09-07",
+    "total_pkg": 3.0,
+    "gross_weight_kg": 264.04,
+    "incoterm": "FCA Bosch Plant",
+    "item_line_count": 4,
+    "total_quantity": 2922.0,
+    "amount": 1044180.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "NEM17159645",
+    "bl_packages": 3.0,
+    "bl_gross_weight_kg": 279.0
+  },
+  "items": [
+    {
+      "invoice_no": "AK00065676",
+      "part_no": "H105.025.303-Y8K",
+      "description": "Hole-Type Nozzle",
+      "qty": 1248.0,
+      "unit": "PC",
+      "unit_price": 370.0,
+      "amount": 461760.0,
+      "origin": "BR",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00065676",
+      "part_no": "0432.191.796-741",
+      "description": "Nozzle And Holder Assy",
+      "qty": 277.0,
+      "unit": "PC",
+      "unit_price": 770.0,
+      "amount": 213290.0,
+      "origin": "BR",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00065676",
+      "part_no": "H105.015.623-Y8K",
+      "description": "Hole-Type Nozzle",
+      "qty": 1380.0,
+      "unit": "PC",
+      "unit_price": 258.0,
+      "amount": 356040.0,
+      "origin": "BR",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00065676",
+      "part_no": "0432.191.796-741",
+      "description": "Nozzle And Holder Assy",
+      "qty": 17.0,
+      "unit": "PC",
+      "unit_price": 770.0,
+      "amount": 13090.0,
+      "origin": "BR",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/MA_batch_next/MAnewSample/50-N-26MA-714/Invoice AK00065676.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 1044180.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": "/workspace/MA_batch_next/MAnewSample/50-N-26MA-714/pdfdq_p01_nem17159645_2026-09-10_091446.pdf",
+    "bl_used": true,
+    "bl_format_id": "nippon_express_awb_v1",
+    "pair_status": "INV+提單",
+    "checker_verdict": "pass"
+  }
+}

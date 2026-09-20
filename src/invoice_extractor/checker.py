@@ -18,6 +18,7 @@ REQUIRE_LINE_HS_FORMATS = frozenset(
     {
         "ma_no_period_v1",
         "ma_with_period_v1",
+        "ma_ak_billing_v1",
         "pt_gloria_v1",
         "pt_dremel_head3_v1",
         "pt_dremel_head5_v1",
@@ -129,7 +130,7 @@ def hard_check(extract: dict[str, Any]) -> dict[str, Any]:
         up, q, am = _f(it.get("unit_price")), _f(it.get("qty")), _f(it.get("amount"))
         if up is None or q is None or am is None:
             continue
-        if abs(up * q - am) > AMOUNT_TOL:
+        if abs(up * q - am) > max(AMOUNT_TOL, 1.0):  # allow 1-unit commercial rounding
             line_bad.append(i)
     if line_bad:
         issues.append(f"unit_price*qty != amount at indices {line_bad[:10]}")

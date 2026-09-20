@@ -19,6 +19,14 @@ def extract_layout_text(pdf_path: str | Path) -> tuple[str, str, bool]:
     path = Path(pdf_path)
     text, backend = pdf_to_layout_text(path)
     needs_ocr = not (text or "").strip()
+    if needs_ocr:
+        sidecar = path.with_suffix(path.suffix + ".ocr.txt")
+        if not sidecar.exists():
+            sidecar = path.with_name(path.stem + ".ocr.txt")
+        if sidecar.exists():
+            text = sidecar.read_text(encoding="utf-8", errors="replace")
+            backend = (backend or "") + "+ocr_sidecar"
+            needs_ocr = not (text or "").strip()
     return text or "", backend, needs_ocr
 
 

@@ -1,0 +1,53 @@
+{
+  "header": {
+    "invoice_no": "AK00064959",
+    "invoice_date": "2026-09-03",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 11.6,
+    "incoterm": "FCA Bosch Plant",
+    "item_line_count": 1,
+    "total_quantity": 200.0,
+    "amount": 26400.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "AK00064959",
+      "part_no": "0242.245.585-000",
+      "description": "Suppressed Spark Plug",
+      "qty": 200.0,
+      "unit": "PC",
+      "unit_price": 132.0,
+      "amount": 26400.0,
+      "origin": "DE",
+      "hs_code": "8511102000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/MA_batch_next/MAnewSample/40-D-26MA-698/Invoice AK00064959.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 26400.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": "僅 INV",
+    "checker_verdict": "pass"
+  }
+}

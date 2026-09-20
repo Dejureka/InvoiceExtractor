@@ -1,0 +1,77 @@
+{
+  "header": {
+    "invoice_no": "AK00063832",
+    "invoice_date": "2026-08-29",
+    "total_pkg": 2.0,
+    "gross_weight_kg": 37.15,
+    "incoterm": "FCA Supplier",
+    "item_line_count": 3,
+    "total_quantity": 162.0,
+    "amount": 45906.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "HBL005268",
+    "bl_packages": 58.0,
+    "bl_gross_weight_kg": 9491.32
+  },
+  "items": [
+    {
+      "invoice_no": "AK00063832",
+      "part_no": "0433.175.341-41N",
+      "description": "Hole-Type Nozzle",
+      "qty": 12.0,
+      "unit": "PC",
+      "unit_price": 623.0,
+      "amount": 7476.0,
+      "origin": "IN",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00063832",
+      "part_no": "0242.235.664-4S8",
+      "description": "Suppressed Spark Plug",
+      "qty": 90.0,
+      "unit": "PC",
+      "unit_price": 49.0,
+      "amount": 4410.0,
+      "origin": "CN",
+      "hs_code": "8511102000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00063832",
+      "part_no": "0986.357.822-000",
+      "description": "Ht Ignition Cable",
+      "qty": 60.0,
+      "unit": "PC",
+      "unit_price": 567.0,
+      "amount": 34020.0,
+      "origin": "DE",
+      "hs_code": "8544301200",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/MA_batch_next/MAnewSample/90-S-26MA-712/Invoice AK00063832.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 45906.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": "/workspace/MA_batch_next/MAnewSample/90-S-26MA-712/到貨通知 HBL005268.pdf",
+    "bl_used": true,
+    "bl_format_id": "milestone_arrival_v1",
+    "pair_status": "INV+提單",
+    "checker_verdict": "pass"
+  }
+}

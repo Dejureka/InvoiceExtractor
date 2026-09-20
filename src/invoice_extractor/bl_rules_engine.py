@@ -10,6 +10,7 @@ from invoice_extractor.formats.bl import (
     dhl_lcl_arrival_v1,
     hippopo_hbl_v1,
     milestone_arrival_v1,
+    nippon_express_awb_v1,
 )
 from invoice_extractor.schema_bl import BLExtractResult, BLHeader, BLMeta
 
@@ -20,6 +21,7 @@ BUILTIN_BL: list[tuple[str, Callable[[str, str], float], BLExtractor]] = [
     ("dhl_lcl_arrival_v1", dhl_lcl_arrival_v1.match_score, dhl_lcl_arrival_v1.extract),
     ("hippopo_hbl_v1", hippopo_hbl_v1.match_score, hippopo_hbl_v1.extract),
     ("milestone_arrival_v1", milestone_arrival_v1.match_score, milestone_arrival_v1.extract),
+    ("nippon_express_awb_v1", nippon_express_awb_v1.match_score, nippon_express_awb_v1.extract),
 ]
 
 
@@ -62,6 +64,10 @@ def looks_like_bl_filename(name: str) -> bool:
     if re.search(r"\bBL[#_\- ]|B/L", nu):
         return True
     if re.search(r"\bHB\d{8}\b", nu):
+        return True
+    if "PDFDQ" in nu or re.search(r"\bNEM\d{8,}", nu):
+        return True
+    if "AIR WAYBILL" in nu or "AWB" in nu.split("_") or nu.startswith("AWB"):
         return True
     return False
 

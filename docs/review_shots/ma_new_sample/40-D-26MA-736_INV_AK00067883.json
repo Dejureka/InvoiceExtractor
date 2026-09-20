@@ -1,0 +1,77 @@
+{
+  "header": {
+    "invoice_no": "AK00067883",
+    "invoice_date": "2026-09-17",
+    "total_pkg": 3.0,
+    "gross_weight_kg": 27.62,
+    "incoterm": "FCA Bosch Plant",
+    "item_line_count": 3,
+    "total_quantity": 16.0,
+    "amount": 34476.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "AK00067883",
+      "part_no": "0460.426.385-770",
+      "description": "Distributor Pump",
+      "qty": 1.0,
+      "unit": "PC",
+      "unit_price": 26017.0,
+      "amount": 26017.0,
+      "origin": "IN",
+      "hs_code": "8413303000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067883",
+      "part_no": "1986.AD1.243-K5C",
+      "description": "Compressor",
+      "qty": 2.0,
+      "unit": "PC",
+      "unit_price": 2910.0,
+      "amount": 5820.0,
+      "origin": "CN",
+      "hs_code": "8414309000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067883",
+      "part_no": "0261.230.266-002",
+      "description": "Pressure Sensor",
+      "qty": 13.0,
+      "unit": "PC",
+      "unit_price": 203.0,
+      "amount": 2639.0,
+      "origin": "DE",
+      "hs_code": "9026209000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/MA_batch_next/MAnewSample/40-D-26MA-736/Invoice AK00067883.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 34476.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": "僅 INV",
+    "checker_verdict": "pass"
+  }
+}
