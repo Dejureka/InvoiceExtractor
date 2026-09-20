@@ -181,6 +181,9 @@ def test_write_xlsx_pdfextract_columns(tmp_path: Path):
     assert "BL No." in headers
     assert "BL Packages" in headers
     assert "BL G.W. (kgs)" in headers
+    # BL columns sit at the far right (after Invoice Currency)
+    assert headers[-3:] == ["BL No.", "BL Packages", "BL G.W. (kgs)"]
+    assert headers.index("Invoice Currency") < headers.index("BL No.")
     row = {headers[i]: ws_h[2][i].value for i in range(len(headers))}
     assert row["Invoice No."] == "INV-1"
     assert row["Invoice Value"] == 12.5
@@ -325,3 +328,57 @@ def test_collect_pdfs_dir_and_files(tmp_path: Path):
     names = sorted(p.name.lower() for p in pdfs)
     assert names == ["a.pdf", "b.pdf", "c.pdf"]
     assert errs == []
+
+
+def test_summary_bl_columns_far_right_and_green_header_style(tmp_path: Path):
+    """BL trio is last on Summary; BL headers are green and others stay blue."""
+    path = tmp_path / "styled.xlsx"
+    write_xlsx(SAMPLE, path)
+    wb = load_workbook(path)
+    assert wb.properties.creator == "Peter Yang"
+    ws = wb[SUMMARY_SHEET]
+    headers = [c.value for c in ws[1] if c.value is not None]
+    assert headers == list(SUMMARY_COLS)
+    assert headers == [
+        "Invoice No.",
+        "Packages",
+        "Package Mode",
+        "G.W. (kgs)-Air DIM. (CBM)-Sea",
+        "Incoterms",
+        "Invoice Value",
+        "LINE",
+        "QTY",
+        "Invoice Currency",
+        "BL No.",
+        "BL Packages",
+        "BL G.W. (kgs)",
+    ]
+    fills = {
+        cell.value: cell.fill.fgColor.rgb
+        for cell in ws[1]
+        if cell.value is not None
+    }
+    assert all(fills[name].endswith("4472C4") for name in headers[:-3])
+    assert all(fills[name].endswith("008000") for name in headers[-3:])
+    assert all(cell.font.bold for cell in ws[1] if cell.value is not None)
+    assert all(
+        cell.font.color is not None
+        and cell.font.color.type == "rgb"
+        and cell.font.color.rgb.endswith("FFFFFF")
+        for cell in ws[1]
+        if cell.value is not None
+    )
+    assert all(
+        cell.alignment.horizontal == "center"
+        for cell in ws[1]
+        if cell.value is not None
+    )
+
+
+def test_template_summary_order_matches_export():
+    tpl = bundled_template_path()
+    assert tpl is not None
+    wb = load_workbook(tpl)
+    headers = [c.value for c in wb[SUMMARY_SHEET][1] if c.value is not None]
+    assert headers == list(SUMMARY_COLS)
+    assert headers[-3:] == ["BL No.", "BL Packages", "BL G.W. (kgs)"]

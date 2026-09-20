@@ -257,7 +257,7 @@ def run_gui() -> None:
                 root = TkinterDnD.Tk()
             else:
                 root = tk.Tk()
-            root.title("InvoiceExtractor")
+            root.title("InvoiceExtractor — Published by Peter Yang")
             root.geometry("820x720")
             root.minsize(560, 520)
             return root
@@ -373,6 +373,15 @@ def run_gui() -> None:
             frm_sum.pack(fill="both", expand=True, **pad)
             self.summary = scrolledtext.ScrolledText(frm_sum, height=10, wrap="word")
             self.summary.pack(fill="both", expand=True, padx=4, pady=4)
+
+            self.author_var = tk.StringVar(value="Published by Peter Yang")
+            author = ttk.Label(
+                self.root,
+                textvariable=self.author_var,
+                anchor="e",
+                foreground="#555555",
+            )
+            author.pack(fill="x", side="bottom", padx=8, pady=(0, 2))
 
             self.status_var = tk.StringVar(
                 value="Ready — pairing: INV+PKL / 僅 INV / 僅 PKL / 僅 提單 / 未配對；mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
