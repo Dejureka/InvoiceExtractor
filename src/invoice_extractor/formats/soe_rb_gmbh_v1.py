@@ -35,7 +35,7 @@ NOTES = (
     "SOE Robert Bosch GmbH commercial invoice (Invoice / Invoice Copy / "
     "Invoice and Packing List). Amount = labeled Invoice amount (EUR); "
     "GW = Total gross weight (not Net); pkg = Marking summary N Pallets "
-    "(OCR may use cargo-list 'N Pallets' or count RB … Pallets blocks). "
+    "(OCR: prefer Marking RB … Pallets count over cargo-list misreads). "
     "Price unit 100 → unit_price = Price/100. Samples: INV_PL_70775*, "
     "707753*, 707754*, OCR 1267620500→inv 7091802382. "
     "Not BHC MY-HUB; not MA Document No./Goods Value."
@@ -221,7 +221,12 @@ def _packages(text: str) -> float | None:
             return float(clean[-1].group("n"))
         except ValueError:
             pass
-    # Cargo-list OCR: "1267620500 12 Pallets … 341.0"
+    # Prefer Invoice Marking "RB … Pallets" block count over cargo-list
+    # OCR (e.g. 1267620500 misread as "12 Pallets" when Marking has 11).
+    n_blocks = len(_PKG_RB_BLOCK.findall(text))
+    if n_blocks >= 1:
+        return float(n_blocks)
+    # Cargo-list / transport OCR last resort: "1267620500 N Pallets …"
     m = re.search(
         r"\d{7,12}\s+(?P<n>\d+)\s+Pallets?\b.{0,40}?([\d,.]+)",
         text,
@@ -232,10 +237,19 @@ def _packages(text: str) -> float | None:
             return float(m.group("n"))
         except ValueError:
             pass
-    # Count RB … Pallets marking blocks (OCR fallback)
-    n_blocks = len(_PKG_RB_BLOCK.findall(text))
-    if n_blocks >= 1:
-        return float(n_blocks)
+    # Cargo-list footer "Number of package: N" / "PAL: N"
+    m = re.search(r"Number\s+of\s+package\s*:?\s*(?P<n>\d+)", text, re.I)
+    if m:
+        try:
+            return float(m.group("n"))
+        except ValueError:
+            pass
+    m = re.search(r"\bPAL\s*:\s*(?P<n>\d+)\b", text, re.I)
+    if m:
+        try:
+            return float(m.group("n"))
+        except ValueError:
+            pass
     return None
 
 

@@ -17,7 +17,7 @@ BHC `INV_PL_*` 弱分已罰掉（不再誤認 `bhc_my_hub_v1`）。MA NP/WP 亦�
 
 | folder | invoice_no | hard | amt EUR | pkg | GW | items | backend | file |
 |--------|------------|------|---------|-----|----|-------|---------|------|
-| 50-D-26SOE-170 | 7091802382 | pass | 160254.62 | 12.0 | 341.0 | 1 | ocr/tesseract | `1267620500 taiwan.pdf` |
+| 50-D-26SOE-170 | 7091802382 | pass | 160254.62 | 11.0 | 341.0 | 1 | ocr/tesseract | `1267620500 taiwan.pdf` |
 | 50-KWE-26SOE-179 | 7077539868 | pass | 27875.35 | 1.0 | 497.0 | 1 | pdftotext -layout | `INV_PL_7077539868.pdf` |
 | 50-KWE-26SOE-182 | 7077559620 | pass | 27875.35 | 1.0 | 496.0 | 1 | pdftotext -layout | `INV_PL_7077559620.pdf` |
 | 50-M-26SOE-175 | 7077540510 | pass | 80934.57 | 2.0 | 294.5 | 1 | pdftotext -layout | `7077540510.PDF` |
@@ -43,11 +43,12 @@ BHC `INV_PL_*` 弱分已罰掉（不再誤認 `bhc_my_hub_v1`）。MA NP/WP 亦�
 **Hard pass BL:** 2/2
 
 ## Notes for Auditor
-- GW＝**Total gross weight**（非 Net）；pkg＝Marking summary `N Pallets`（OCR 1267620500 用 cargo `12 Pallets`）。
+- GW＝**Total gross weight**（非 Net）；pkg＝Marking summary `N Pallets`；OCR 優先 Invoice **Marking RB … Pallets** 區塊數（勿用 cargo-list 誤讀）。
+- **Auditor fix:** OCR 7091802382 pkg 12→**11**（Marking 11 RB blocks／Cargo-List Number of package 11／Invoice 末頁 11 Pallets）。
 - 金額＝標籤 **Invoice amount**；Price unit 100 → unit_price=Price/100。
 - HS hard：每列 Customs tariff no（含 OCR 7091802382）。
 - 配對：50-KWE-182 INV 7077559620 ↔ HAWB 1220-19555195；50-M-175 INV 7077540510 ↔ HAWB QU100002136（面額 Invoice No. 可能不同單號，Auditor 核對）。
-- 截圖：本批 hard 全過，無 fail-only 圖集；JSON＋首頁 PNG 在 pack 供對圖。
+- 截圖：JSON＋PNG；OCR 案已補 Invoice Copy 頁（`-3` amount、`-4` Marking、`-5` 11 Pallets）。
 
 ## Materials
 - Pack: `docs/review_shots/soe_round1/`

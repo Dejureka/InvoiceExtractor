@@ -62,3 +62,53 @@ Gross Weight:   1,319.840 KG
 """
     r = pt_gloria_v1.extract_from_text(snippet, source_file="50656462", text_backend="fixture")
     assert r.header.gross_weight_kg == pytest.approx(1319.840)
+
+
+def test_pt_pkg_prefers_shipping_unit_rows():
+    """Auditor: total_pkg = unique Shipping unit rows, not partial Carton sum."""
+    # Mirrors 50666881: 1 palette + 2 cartons → summary Carton:2 but units=3
+    snippet = """
+Robert Bosch Power Tools GmbH
+Invoice No. 50666881
+Invoice Date 11.09.2026
+Net invoiced value of goods 3,032.54
+Packing details
+Shipping unit 1012340795 with Subpackage:
+22456213/                1 Bosch-Standard-Palette (HT) mit Box X07
+Shipping unit 1012410696 with Subpackage:
+22458698/                1 Carton
+Shipping unit 1012410818 with Subpackage:
+22458698/                1 Carton
+      Bosch-Standard-Palette (HT) mit Box X07                                                                     :    1
+      Carton                                                                                                      :    2
+      total                                                                                                           : 3
+"""
+    r = pt_gloria_v1.extract_from_text(snippet, source_file="50666881", text_backend="fixture")
+    assert r.header.total_pkg == pytest.approx(3.0)
+
+
+def test_pt_pkg_shipping_undercount_fix_59168_style():
+    """Bosch-Standard-Palette omitted from type regex → Shipping unit count wins."""
+    snippet = """
+Packing details
+Shipping unit 1011125430 with Subpackage:
+Shipping unit 1011151590 with Subpackage:
+Shipping unit 1011159305 with Subpackage:
+      Carton                                                                                                      :   1
+      total                                                                                                       : 3
+"""
+    r = pt_gloria_v1.extract_from_text(snippet, source_file="50659168", text_backend="fixture")
+    assert r.header.total_pkg == pytest.approx(3.0)
+
+
+def test_pt_pkg_soft_missing_unrecognized_type():
+    """Standard pallet / Packaging only → soft-missing None (no known type label)."""
+    snippet = """
+Packing details
+Shipping unit 405342300312010244 with Subpackage:
+22460847/               1 Packaging           P28
+      Packaging                 P28                                                                               :    1
+      total                                                                                                           : 1
+"""
+    r = pt_gloria_v1.extract_from_text(snippet, source_file="50667175", text_backend="fixture")
+    assert r.header.total_pkg is None

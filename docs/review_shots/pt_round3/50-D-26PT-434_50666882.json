@@ -2,7 +2,7 @@
   "header": {
     "invoice_no": "50666882",
     "invoice_date": "2026-09-11",
-    "total_pkg": 1.0,
+    "total_pkg": 2.0,
     "gross_weight_kg": 99.3,
     "incoterm": "FCA Worms",
     "item_line_count": 4,

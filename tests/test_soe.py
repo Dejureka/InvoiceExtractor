@@ -130,3 +130,37 @@ def test_soe_false_extract_fails_hard():
         },
     }
     assert hard_check(bad2)["verdict"] == "conflict"
+
+
+def test_soe_ocr_pkg_prefers_marking_rb_blocks_over_cargo_12():
+    """OCR 7091802382: cargo misread '12 Pallets' but Marking has 11 RB blocks."""
+    text = """
+Robert Bosch GmbH
+Invoice Copy
+Invoice No. : 7091802382
+Invoice amount : EUR 160,254.62
+Total gross weight : 341.000 KG
+Customs tariff no : 90318080
+01 0265.011.097-57G 026501109757G 4,928 3,251.92 160,254.62
+Sensor; MM7.zC PC 100 EUR
+ES 168.784 KG
+1267620500 12 Pallets 02650110975 7GEC ME & 341.0
+Marking
+RB 106812010 Pallets Net weight : 15.344 KG
+RB 106812011 Pallets Net weight : 15.344 KG
+RB 106812012 Pallets Net weight : 15.344 KG
+RB 106815189 Pallets Net weight : 15.344 KG
+RB 106815190 Pallets Net weight : 15.344 KG
+RB 106815191 Pallets Net weight : 15.344 KG
+RB 106815192 Pallets Net weight : 15.344 KG
+RB 106815193 Pallets Net weight : 15.344 KG
+RB 106815195 Pallets Net weight : 15.344 KG
+RB 106828023 Pallets Net weight : 15.344 KG
+RB 106828464 Pallets Net weight : 15.344 KG
+il Pallets
+Net weight : 168.784 KG Gross weight : 341.000 KG
+"""
+    r = soe_rb_gmbh_v1.extract("1267620500 taiwan.pdf", text, "ocr/tesseract", False)
+    assert r.header.total_pkg == pytest.approx(11.0)
+    assert r.header.invoice_no == "7091802382"
+    assert r.header.amount == pytest.approx(160254.62)
