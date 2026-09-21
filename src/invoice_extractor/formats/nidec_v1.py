@@ -49,7 +49,11 @@ _LINE = re.compile(
 def match_score(text: str, filename: str = "") -> float:
     score = 0.0
     fn = filename.upper()
-    if "JCH" in fn or "VKT" in fn or "NIDEC" in fn:
+    tu = text.upper()
+    # JCH alone is ambiguous (Marubeni also uses JCH##-##M# invoice nos)
+    if "VKT" in fn or "NIDEC" in fn:
+        score += 0.35
+    elif "JCH" in fn and "NIDEC" in tu:
         score += 0.35
     if "NIDEC TECHNO MOTOR" in text:
         score += 0.45
@@ -57,6 +61,8 @@ def match_score(text: str, filename: str = "") -> float:
         score += 0.2
     if "BITZER" in text or "Ladeliste" in text:
         score -= 0.5
+    if "MARUBENI" in tu or "TETSUGEN" in tu:
+        score -= 0.6
     return max(0.0, min(score, 1.0))
 
 

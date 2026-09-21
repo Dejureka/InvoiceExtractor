@@ -101,7 +101,9 @@ Verdict：`pass` / `conflict` / `needs_gold`。conflict 產出「建議的 rules
 - 硬校驗 checker
 - 一個 `formats` 種子：BITZER／3000214469（你已對過）
 
-**第一版刻意不做**：OCR、自動改 code、GUI 美化、純前端直連 LLM。
+**第一版刻意不做**：自動改 code、GUI 美化、純前端直連 LLM。
+
+**OCR（實驗，`ocr-experiment` / tag `portable-ocr-test`）**：文字層空時離線 Tesseract → 同一 `rules_engine`；`meta.text_backend=ocr/tesseract`。正式 `portable-latest` 可不含 tesseract。
 
 ## 之後才接
 

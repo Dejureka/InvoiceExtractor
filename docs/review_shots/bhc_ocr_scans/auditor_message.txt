@@ -1,0 +1,20 @@
+BHC OCR-scan FormatSOP 請審（AuditSOP）— branch ocr-experiment；OCR backend = ocr/tesseract。
+
+Scope: /workspace/bhc_cases_round/bhc/ scans — case2 Marubeni INV+PL；case4 三份 PKL scan（+ text INV 配對）；case5 PKL scan（+ text INV）；case7 invoice309/packing309 + HBL scan；case8 HBL scan（text INV/PKL 已在 bhc_cases_1368 審過，僅作 control）。
+
+Format IDs:
+- marubeni_tetsugen_v1 (case2)
+- shanghai_nature_v1 (case7 INV/PKL)
+- tvl_hbl_v1 (case7/8 HBL)
+- bhc_my_hub_v1 + OCR PKL overlay (case4/5；case8 control)
+
+Hard verdicts (primary):
+- case2 Marubeni JCH26-08M1: pass (67930.24 / 5 CASE / 3560 kg)
+- case4 INV text + 3×PKL OCR sum 99 / 17095.54: pass
+- case5 INV text + PKL OCR pkg=33, GW soft-missing (圖面 6052.14): pass soft
+- case7 Nature NBT309: pass (7478.10 / 6 lines)；packing pkg/GW soft OK
+- case7 HBL tvl_hbl_v1: pass — BL No=SHAKEL26970898 / BL Packages=1 / BL G.W.=231 (PALLET)
+- case8 HBL tvl_hbl_v1: pass — BL No=SHAKEL26770270 / BL Packages=1 / BL G.W.=3469.5 (20GP)；text INV/PKL control already audited
+
+請對照圖 vs JSON，回每列 pass | conflict | needs_gold。
+材料：/workspace/InvoiceExtractor/docs/review_shots/bhc_ocr_scans/（auditor_batch_summary.md + JSON + png）

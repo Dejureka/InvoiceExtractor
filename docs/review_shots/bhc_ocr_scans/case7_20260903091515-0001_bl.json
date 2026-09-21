@@ -1,0 +1,46 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "SHAKEL26970898",
+    "hbl_no": "SHAKEL26970898",
+    "mbl_no": null,
+    "vessel": "GLORY OCEAN",
+    "voyage": "2636S",
+    "etd": null,
+    "eta": null,
+    "pol": "SHANGHAI, CHINA",
+    "pod": "KEELUNG, TAIWAN",
+    "packages": 1.0,
+    "package_unit": "PALLET",
+    "gross_weight_kg": 231.0,
+    "measurement_cbm": 0.8,
+    "load_type": null,
+    "shipper": "SHANGHAI NATURE INTERNATIONAL TRADING",
+    "consignee": "BOSCH HOME COMFORT TAIWAN CO.,LTD.",
+    "notify": null,
+    "invoice_refs": null,
+    "container_nos": null,
+    "forwarder": "T.V.L. Global Logistics Co., Ltd."
+  },
+  "meta": {
+    "source_file": "/workspace/bhc_cases_round/bhc/case7/20260903091515-0001.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": "tvl_hbl_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "TVL / Trans Van Links HBL face. Trained on OCR of BHC case7/8 scan HBLs (SHAKEL26970898 / SHAKEL26770270).",
+    "doc_kind": "hbl",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "anchors": {
+        "bl_no": "SHAKEL26970898",
+        "packages": 1.0,
+        "gross_weight_kg": 231.0,
+        "eta": null
+      }
+    },
+    "text_backend_warning": "OCR used (ocr/tesseract): PDF text layer was empty. Column layout may be imperfect vs pdftotext; rules still apply."
+  }
+}
