@@ -1,0 +1,105 @@
+{
+  "header": {
+    "invoice_no": "50667783",
+    "invoice_date": "2026-09-17",
+    "total_pkg": null,
+    "gross_weight_kg": 12.5,
+    "incoterm": "FCA Penang",
+    "item_line_count": 4,
+    "total_quantity": 60.0,
+    "amount": 253.6,
+    "currency": "USD",
+    "vendor": "Robert Bosch Power Tools GmbH",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "50667783",
+      "part_no": "1.619.PA0.474",
+      "description": "Bevel Gear",
+      "qty": 10.0,
+      "unit": "pcs",
+      "unit_price": 4.88,
+      "amount": 48.8,
+      "origin": "CN",
+      "hs_code": "8483409000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50667783",
+      "part_no": "1.619.P06.304",
+      "description": "Carbon-Brush Set",
+      "qty": 20.0,
+      "unit": "pcs",
+      "unit_price": 0.94,
+      "amount": 18.8,
+      "origin": "CN",
+      "hs_code": "8545200000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50667783",
+      "part_no": "1.617.000.6A5",
+      "description": "Hammer Piston",
+      "qty": 20.0,
+      "unit": "pcs",
+      "unit_price": 6.2,
+      "amount": 124.0,
+      "origin": "DE",
+      "hs_code": "8467991000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50667783",
+      "part_no": "1.619.P08.136",
+      "description": "Field",
+      "qty": 10.0,
+      "unit": "pcs",
+      "unit_price": 6.2,
+      "amount": 62.0,
+      "origin": "DE",
+      "hs_code": "8503009000",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/training_20260921/PT_new/50-N-26PT-435_50667783.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_gloria_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": null,
+    "labeled_amount_label": null,
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 4,
+        "got": 4
+      },
+      "total_quantity": {
+        "want": 60.0,
+        "got": 60.0
+      },
+      "amount": {
+        "want": 253.6,
+        "got": 253.6
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

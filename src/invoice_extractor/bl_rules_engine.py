@@ -6,6 +6,8 @@ from pathlib import Path
 from typing import Callable, Optional
 
 from invoice_extractor.formats.bl import (
+    kwe_air_waybill_v1,
+    maersk_air_waybill_v1,
     ceva_pyramid_arrival_v1,
     dhl_lcl_arrival_v1,
     hippopo_hbl_v1,
@@ -24,6 +26,8 @@ BUILTIN_BL: list[tuple[str, Callable[[str, str], float], BLExtractor]] = [
     ("milestone_arrival_v1", milestone_arrival_v1.match_score, milestone_arrival_v1.extract),
     ("nippon_express_awb_v1", nippon_express_awb_v1.match_score, nippon_express_awb_v1.extract),
     ("tvl_hbl_v1", tvl_hbl_v1.match_score, tvl_hbl_v1.extract),
+    ("kwe_air_waybill_v1", kwe_air_waybill_v1.match_score, kwe_air_waybill_v1.extract),
+    ("maersk_air_waybill_v1", maersk_air_waybill_v1.match_score, maersk_air_waybill_v1.extract),
 ]
 
 
@@ -70,6 +74,12 @@ def looks_like_bl_filename(name: str) -> bool:
     if "PDFDQ" in nu or re.search(r"\bNEM\d{8,}", nu):
         return True
     if "AIR WAYBILL" in nu or "AWB" in nu.split("_") or nu.startswith("AWB"):
+        return True
+    if "HAWB" in nu or "HAWC" in nu:
+        return True
+    if re.search(r"\bQU\d{8,}\b", nu):
+        return True
+    if re.search(r"\b1220\d{8}\b", nu):
         return True
     return False
 

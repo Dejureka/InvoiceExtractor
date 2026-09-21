@@ -178,6 +178,7 @@ def record_run(
 def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
     """Init DB and seed BITZER + PT Gloria formats."""
     from invoice_extractor.formats import (
+        soe_rb_gmbh_v1,
         aichi_electric_v1,
         bhc_my_hub_v1,
         marubeni_tetsugen_v1,
@@ -196,6 +197,8 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         pt_gloria_v1,
     )
     from invoice_extractor.formats.bl import (
+        kwe_air_waybill_v1,
+        maersk_air_waybill_v1,
         ceva_pyramid_arrival_v1,
         dhl_lcl_arrival_v1,
         hippopo_hbl_v1,
@@ -284,6 +287,11 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 shanghai_nature_v1,
             ),
             (
+                "Robert Bosch GmbH (SOE Invoice)",
+                ["SOE", "Bosch Partnumber", "Invoice and Packing List", "70775"],
+                soe_rb_gmbh_v1,
+            ),
+            (
                 "Marubeni Tetsugen Metals Corporation",
                 ["Marubeni Tetsugen", "Tetsugen Metals", "JCH26"],
                 marubeni_tetsugen_v1,
@@ -325,6 +333,16 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 "Nippon Express (M) Air Waybill",
                 ["Nippon Express", "NEM", "pdfdq", "AIR WAYBILL"],
                 nippon_express_awb_v1,
+            ),
+            (
+                "Kintetsu World Express (KWE) Air Waybill",
+                ["KWE", "Kintetsu", "HAWC", "1220 air waybill"],
+                kwe_air_waybill_v1,
+            ),
+            (
+                "Maersk Logistics Air Waybill",
+                ["Maersk", "HAWB QU", "Maersk Logistics & Services"],
+                maersk_air_waybill_v1,
             ),
             (
                 "T.V.L. Global Logistics / Trans Van Links",

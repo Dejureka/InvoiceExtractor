@@ -98,6 +98,7 @@
 | `aichi_electric_v1` | `AICHI ELECTRIC`、`AETW…`、`Total FOB Nagoya`、合訂 packing sheet；PN＝DWG No. |
 | `shanghai_nature_v1` | `SHANGHAI NATURE`、`NBT…`、`HEATING BELT`；OCR 掃描件 OK（case7） |
 | `marubeni_tetsugen_v1` | `MARUBENI TETSUGEN`、`JCH##-##M#`、`COPPER TUBE`／`FOB NAGOYA`；OCR OK（case2） |
+| `soe_rb_gmbh_v1` | SOE `Robert Bosch GmbH`、`Bosch Partnumber`、`Invoice Copy`／`Invoice and Packing List`、`Invoice amount`、`Total gross weight`、`Customs tariff no`；70775…／70918…；OCR OK |
 
 **MA**：WithPeriod／NoPeriod 已進規則庫（Round4）。其他變體（USA／Wiper／Sebang）尚未做。
 
@@ -130,6 +131,7 @@
 | 2026-09-15 | MA inv+bl 6：`milestone_arrival_v1`（里運／Milestone）；同資料夾 N INV↔1 BL 共用 Summary BL 欄 |
 | 2026-09-20 | MA new sample：`ma_ak_billing_v1`（Invoice AK…）＋`nippon_express_awb_v1`（pdfdq NEM AWB）；milestone 沿用 90-S HBL；OCR sidecar 支援掃描到貨 |
 | 2026-09-15 | PT Dremel：`pt_dremel_head3_v1`／`pt_dremel_head5_v1`（vs Gloria；16 PDF；HS hard；head5 GW=Gross） |
+| 2026-09-21 | SOE 1st：`soe_rb_gmbh_v1`＋`kwe_air_waybill_v1`／`maersk_air_waybill_v1`；PT round3 既有 gloria／dremel head5 全過；BHC 罰 INV_PL_/Bosch Partnumber |
 
 
 ---
@@ -156,6 +158,8 @@
 | `hippopo_hbl_v1` | `HIPPOPO`、`HB########`、HBL draft 稀疏欄位 |
 | `milestone_arrival_v1` | `MILESTONE FORWARDING`／`里運國際`、`ARRIVAL NOTICE 到貨通知書`、`B/L NO : HBL00#####`（MA 90-S 六包共用） |
 | `nippon_express_awb_v1` | `AIR WAYBILL`、`NIPPON EXPRESS`、`NEM #### ####`（MA 50-N pdfdq 空運提單） |
+| `kwe_air_waybill_v1` | `KINTETSU WORLD EXPRESS`、`Air Waybill`、`1220-########`（SOE HAWC） |
+| `maersk_air_waybill_v1` | `MAERSK LOGISTICS`、`HAWB No: QU########`（SOE HAWB） |
 
 **Multi-INV same BL（同資料夾）**：一張到貨通知對多張 INV（例 548／616）時，每個 INV Summary 列都帶同一組 `BL No.`／`BL Packages`／`BL G.W.`（不覆寫發票 Packages／G.W.）。
 

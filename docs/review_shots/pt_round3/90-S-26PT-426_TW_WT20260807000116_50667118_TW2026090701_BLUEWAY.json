@@ -1,0 +1,69 @@
+{
+  "header": {
+    "invoice_no": "50667118",
+    "invoice_date": "2026-09-14",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 154.0,
+    "incoterm": "FCA Shenzhen",
+    "item_line_count": 1,
+    "total_quantity": 1600.0,
+    "amount": 14896.0,
+    "currency": "USD",
+    "vendor": "Robert Bosch Power Tools GmbH",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "50667118",
+      "part_no": "1.608.M00.C5D",
+      "description": "Battery Pack BA 3.7V Yoda Li-ion Battery Pack,",
+      "qty": 1600.0,
+      "unit": "pcs",
+      "unit_price": 9.31,
+      "amount": 14896.0,
+      "origin": "CN",
+      "hs_code": "85076090",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/training_20260921/PT_new/90-S-26PT-426_TW_WT20260807000116_50667118_TW2026090701_BLUEWAY.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_gloria_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": null,
+    "labeled_amount_label": null,
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 1600.0,
+        "got": 1600.0
+      },
+      "amount": {
+        "want": 14896.0,
+        "got": 14896.0
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

@@ -22,6 +22,7 @@ REQUIRE_LINE_HS_FORMATS = frozenset(
         "pt_gloria_v1",
         "pt_dremel_head3_v1",
         "pt_dremel_head5_v1",
+        "soe_rb_gmbh_v1",
     }
 )
 
