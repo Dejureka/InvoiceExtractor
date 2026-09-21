@@ -41,6 +41,50 @@ jobs:
           New-Item -ItemType Directory -Force -Path vendor/poppler/bin | Out-Null
           Copy-Item -Force "$srcDir\\*" vendor/poppler/bin/
           Get-ChildItem vendor/poppler/bin | Select-Object -First 10 | ForEach-Object { $_.Name }
+      - name: Bundle Tesseract (Chocolatey or UB Mannheim installer)
+        shell: pwsh
+        run: |
+          $dest = Join-Path (Get-Location) "vendor\tesseract"
+          New-Item -ItemType Directory -Force -Path $dest | Out-Null
+          $ok = $false
+          # 1) Chocolatey (common on windows-latest runners)
+          try {
+            choco install tesseract -y --no-progress
+            $src = "C:\Program Files\Tesseract-OCR"
+            if (Test-Path "$src\tesseract.exe") {
+              Copy-Item -Recurse -Force "$src\*" $dest
+              $ok = $true
+              Write-Host "Copied Tesseract from Chocolatey install"
+            }
+          } catch {
+            Write-Host "choco path failed: $_"
+          }
+          # 2) UB Mannheim silent installer (known-good 5.4.0 build)
+          if (-not $ok) {
+            $url = "https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.4.0.20240606.exe"
+            $installer = "tesseract-setup.exe"
+            Write-Host "Fetching $url"
+            Invoke-WebRequest -Uri $url -OutFile $installer
+            $installDir = $dest
+            $p = Start-Process -FilePath ".\$installer" -ArgumentList "/S","/D=$installDir" -Wait -PassThru
+            Write-Host "Installer exit: $($p.ExitCode)"
+            if (Test-Path "$dest\tesseract.exe") { $ok = $true }
+          }
+          $exe = Get-ChildItem -Path $dest -Recurse -Filter tesseract.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $exe) { throw "tesseract.exe not found under vendor/tesseract" }
+          $td = Get-ChildItem -Path $dest -Recurse -Directory -Filter tessdata | Select-Object -First 1
+          if (-not $td) { throw "tessdata/ not found" }
+          $eng = Join-Path $td.FullName "eng.traineddata"
+          if (-not (Test-Path $eng)) {
+            # pull eng.traineddata from tessdata_fast if installer omitted it
+            $engUrl = "https://github.com/tesseract-ocr/tessdata_fast/raw/main/eng.traineddata"
+            New-Item -ItemType Directory -Force -Path $td.FullName | Out-Null
+            Invoke-WebRequest -Uri $engUrl -OutFile $eng
+          }
+          if (-not (Test-Path $eng)) { throw "eng.traineddata missing" }
+          Write-Host "Bundled $($exe.FullName)"
+          Get-ChildItem $dest | Select-Object -First 20 | ForEach-Object { $_.Name }
+
       - name: Install
         run: |
           python -m pip install --upgrade pip
@@ -68,16 +112,28 @@ jobs:
           if (-not (Test-Path "$out/poppler/bin/pdftotext.exe")) {
             throw "Portable zip missing poppler/bin/pdftotext.exe — refusing to ship"
           }
+          # Bundle offline Tesseract next to exe
+          if (-not (Test-Path "vendor/tesseract/tesseract.exe") -and -not (Test-Path "vendor/tesseract/bin/tesseract.exe")) {
+            $texe = Get-ChildItem -Path vendor/tesseract -Recurse -Filter tesseract.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+            if (-not $texe) { throw "vendor/tesseract missing tesseract.exe" }
+          }
+          New-Item -ItemType Directory -Force -Path "$out/tesseract" | Out-Null
+          Copy-Item -Recurse -Force "vendor/tesseract/*" "$out/tesseract/"
+          $bundled = Get-ChildItem -Path "$out/tesseract" -Recurse -Filter tesseract.exe | Select-Object -First 1
+          if (-not $bundled) { throw "Staged zip missing tesseract.exe" }
+          $td = Get-ChildItem -Path "$out/tesseract" -Recurse -Directory -Filter tessdata | Select-Object -First 1
+          if (-not $td) { throw "Staged zip missing tessdata" }
           @"
-          InvoiceExtractor 免安裝包（GUI + 內建 poppler）
-          =================================
-          1. 解壓後整個資料夾拷走（不要只拷 exe）
+          InvoiceExtractor 免安裝包（GUI + poppler + Tesseract OCR）
+          ========================================================
+          1. 解壓後整個資料夾拷走（含 poppler\\bin 與 tesseract\\）
           2. 雙擊 InvoiceExtractor.exe → 開啟圖形介面
           3. 拖放或瀏覽選擇 PDF，按 Extract → 寫入本資料夾 InvoiceExtract_Result.xlsx
              （每次清舊資料列再寫；工作表 Summary / Lines / meta）
           4. 命令列仍可用：InvoiceExtractor.exe path.pdf [--out out.xlsx]
           5. 本包已內建 poppler pdftotext.exe（poppler\\bin），不必另裝。
-             若 GUI 顯示 text backend 警告，請確認 poppler\\bin 仍在同一資料夾。
+          6. 掃描件／文字層空的 PDF 會離線走 Tesseract OCR，再進同一套規則引擎。
+             GUI 可能顯示 OCR used: ocr/tesseract。
 
           注意：
           - 這不是安裝程式；不解壓到 Program Files 也沒關係
@@ -93,9 +149,10 @@ jobs:
           tag_name: portable-latest
           name: Portable Windows build
           body: |
-            免安裝可攜包（Windows 64-bit），**內建 poppler pdftotext**。
-            下載 ZIP → 解壓 → 整個資料夾拷走 → 雙擊 `InvoiceExtractor.exe` 開 GUI。
+            免安裝可攜包（Windows 64-bit），**內建 poppler pdftotext + 離線 Tesseract OCR**。
+            下載 ZIP → 解壓 → 整個資料夾拷走（含 `poppler\bin` 與 `tesseract\`）→ 雙擊 `InvoiceExtractor.exe` 開 GUI。
             拖放／瀏覽 PDF → Extract → 寫入 exe 旁 `InvoiceExtract_Result.xlsx`（Summary / Lines；同檔覆寫）。
+            掃描件（文字層空）會自動 OCR 後進同一套規則；`meta.text_backend=ocr/tesseract`。
             命令列：`InvoiceExtractor.exe path.pdf`（預設 Excel；`--out` 可改路徑／`.json`）。
           files: InvoiceExtractor_Portable_Win64.zip
           make_latest: true
