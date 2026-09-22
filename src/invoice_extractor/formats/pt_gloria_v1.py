@@ -74,7 +74,8 @@ _ORIGIN_HS = re.compile(
 )
 
 _PKG_SUMMARY = re.compile(
-    r"^\s*(?P<label>(?:P\.\d+\s+)?(?:Folding Box|CARTON|Pallet|Euro Pallet|CARTON\s*-?\w*)[^\n:]*?)"
+    r"^\s*(?P<label>(?:P\.\d+\s+)?(?:Folding Box|CARTON|Pallet|Euro Pallet|"
+    r"Standard\s+pallet|Packaging|Cardboard\s+carton|CARTON\s*-?\w*)[^\n:]*?)"
     r"\s+:\s+(?P<n>\d+)\s*$",
     re.MULTILINE | re.IGNORECASE,
 )
@@ -201,30 +202,27 @@ _SHIPPING_UNIT = re.compile(
 def _total_pkg(text: str) -> float | None:
     """Package count from Packing details.
 
-    Prefer unique ``Shipping unit <id>`` row count when the packing-type
-    summary vocabulary also matches at least one line (Carton/Pallet/…).
-    That fixes under-counts when Bosch-Standard-Palette etc. are omitted
-    from ``_PKG_SUMMARY`` while preserving soft-missing (None) when only
-    unrecognized types like ``Standard pallet`` / ``Packaging`` appear.
+    Primary: unique ``Shipping unit <id>`` row count whenever any shipping
+    unit is present (Auditor source of truth). Type labels such as
+    Packaging / Standard pallet / Cardboard carton no longer gate this.
 
-    Fallback: sum recognized type summary lines, then packing detail lines.
+    Fallback when no Shipping unit: sum recognized type summary lines
+    (``_PKG_SUMMARY``), then packing detail lines (``_PKG_LINE``).
+    Soft-missing (None) only when the document has no packing count signal.
     """
     shipping_ids = {m.group("id") for m in _SHIPPING_UNIT.finditer(text)}
     n_ship = len(shipping_ids)
+    if n_ship > 0:
+        return float(n_ship)
 
     total = 0
     found = False
     for m in _PKG_SUMMARY.finditer(text):
         total += int(m.group("n"))
         found = True
-
-    if n_ship > 0 and found:
-        # Auditor source of truth: Shipping unit rows (not partial type sum)
-        return float(n_ship)
     if found:
         return float(total)
-    # soft-missing: shipping units present but no known type label → None
-    # fallback: sum first number on packing detail lines
+
     for m in _PKG_LINE.finditer(text):
         total += int(m.group(1))
         found = True

@@ -2,7 +2,7 @@
   "header": {
     "invoice_no": "50667153",
     "invoice_date": "2026-09-14",
-    "total_pkg": null,
+    "total_pkg": 1.0,
     "gross_weight_kg": 21.5,
     "incoterm": "FCA Penang",
     "item_line_count": 5,
@@ -82,7 +82,7 @@
     "source_file": "/workspace/training_20260921/PT_new/50-N-26PT-428_50667153.pdf",
     "text_backend": "pdftotext -layout",
     "format_id": "pt_gloria_v1",
-    "confidence": "high",
+    "confidence": "rules",
     "needs_ocr": false,
     "needs_gold": false,
     "notes": null,

@@ -78,6 +78,7 @@
 - Auditor **accept** 且你抽查 OK → 可標「待實測／可釋出」
 - `conflict`／圖文不符／缺關鍵欄 → 改規則或補金標，從步驟 1 重跑
 - **MA／PT**：`hard_check` **要求每列明細都有非空 HS code**；缺一列即 `conflict`（不是軟提醒）。審核時對照圖面／JSON 的 HS。
+- **PT Gloria（`pt_gloria_v1`）`total_pkg`**：圖面／PDF 若有 Packing details、**Shipping unit** 列、或其他清楚件數，但 JSON `header.total_pkg` 為空 → **`conflict`**（不是 soft-missing）。Soft-miss 僅限文件**完全沒有** packing／件數區段。（已廢止「gloria pkg soft-missing OK」。）
 - 僅缺 origin／date 等非擋項，或 **BHC** 等本來就常缺 HS 的版式 → 記待辦，可不擋批次，但要寫進 summary
 
 ### 6. 紀錄
@@ -110,6 +111,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-22 | PT Gloria：有 Shipping unit／清楚件數但 `total_pkg` 空 → conflict；廢止 gloria pkg soft-missing OK |
 | 2026-09-13 | MA／PT：硬校驗要求每列 HS；缺一即 conflict |
 | 2026-09-10 | 初版（僅 JSON） |
 | 2026-09-10 | 改為必看圖；步驟 2 產出 invoice 圖供 3～4 共用；同步 Auditor 職責 |

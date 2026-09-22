@@ -101,8 +101,8 @@ Shipping unit 1011159305 with Subpackage:
     assert r.header.total_pkg == pytest.approx(3.0)
 
 
-def test_pt_pkg_soft_missing_unrecognized_type():
-    """Standard pallet / Packaging only → soft-missing None (no known type label)."""
+def test_pt_pkg_shipping_unit_only_packaging_type():
+    """Shipping unit present with Packaging type only → pkg=1 (not soft-missing)."""
     snippet = """
 Packing details
 Shipping unit 405342300312010244 with Subpackage:
@@ -111,4 +111,29 @@ Shipping unit 405342300312010244 with Subpackage:
       total                                                                                                           : 1
 """
     r = pt_gloria_v1.extract_from_text(snippet, source_file="50667175", text_backend="fixture")
+    assert r.header.total_pkg == pytest.approx(1.0)
+
+
+def test_pt_pkg_shipping_unit_only_standard_pallet():
+    """Shipping unit + Standard pallet / Cardboard carton summary → pkg from units."""
+    snippet = """
+Packing details
+Shipping unit 1019990001 with Subpackage:
+22460000/               1 Standard pallet
+      Standard pallet                                                                                             :    1
+      total                                                                                                           : 1
+"""
+    r = pt_gloria_v1.extract_from_text(snippet, source_file="50667364", text_backend="fixture")
+    assert r.header.total_pkg == pytest.approx(1.0)
+
+
+def test_pt_pkg_soft_missing_no_packing_section():
+    """No Shipping unit and no packing type lines → soft-missing None."""
+    snippet = """
+Robert Bosch Power Tools GmbH
+Invoice No. 50999999
+Invoice Date 11.09.2026
+Net invoiced value of goods 100.00
+"""
+    r = pt_gloria_v1.extract_from_text(snippet, source_file="50999999", text_backend="fixture")
     assert r.header.total_pkg is None
