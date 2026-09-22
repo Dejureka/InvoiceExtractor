@@ -328,6 +328,51 @@ def cmd_extract_bl(args: argparse.Namespace) -> int:
     return 0
 
 
+
+def cmd_ocr_pdf(args: argparse.Namespace) -> int:
+    """Scan PDF(s) → searchable PDFs under ocr_out/ (no invoice extract)."""
+    from invoice_extractor.ocr import (
+        default_ocr_out_dir,
+        pdfs_to_searchable_pdfs,
+        resolve_ocr_lang,
+        find_tesseract,
+        tesseract_available,
+    )
+
+    raw_paths: list[str] = list(getattr(args, "pdfs", None) or [])
+    if getattr(args, "pdf", None) and args.pdf not in raw_paths:
+        raw_paths.insert(0, args.pdf)
+
+    pdfs, path_errors = collect_pdfs(raw_paths)
+    for err in path_errors:
+        print(err, file=sys.stderr)
+    if not pdfs:
+        print("No PDF inputs for OCR.", file=sys.stderr)
+        return 2
+
+    if not tesseract_available():
+        print(
+            "tesseract not found (install Tesseract OCR, set TESSERACT_CMD, "
+            "or place portable tesseract/ next to the app)",
+            file=sys.stderr,
+        )
+        return 2
+
+    dest_dir = Path(args.out) if args.out else default_ocr_out_dir()
+    lang = resolve_ocr_lang(find_tesseract())
+    print(f"OCR lang={lang}; output dir={dest_dir}")
+    written, failures = pdfs_to_searchable_pdfs(pdfs, dest_dir)
+    for w in written:
+        print(f"OK {w}")
+    for src, err in failures:
+        print(f"FAIL {src}: {err}", file=sys.stderr)
+    if failures and not written:
+        return 1
+    if failures:
+        return 1
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="invoice_extractor",
@@ -375,6 +420,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="Launch GUI (also default when no args)",
     )
     p.add_argument(
+        "--ocr-pdf",
+        action="store_true",
+        help=(
+            "OCR scan PDF(s) to searchable/copyable PDFs under ocr_out/ "
+            "(stem.ocr.pdf). Does not run invoice extract. "
+            "--out may set the output directory."
+        ),
+    )
+    p.add_argument(
         "--doc-type",
         choices=["invoice", "bl"],
         default="invoice",
@@ -401,9 +455,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.init_db:
         return cmd_init_db(args)
     if not args.pdfs:
-        parser.error("pdf path required (or use --init-db / --gui)")
+        parser.error("pdf path required (or use --init-db / --gui / --ocr-pdf)")
     # Compat attribute for older tests / callers
     args.pdf = args.pdfs[0] if args.pdfs else None
+    if getattr(args, "ocr_pdf", False):
+        return cmd_ocr_pdf(args)
     if getattr(args, "doc_type", "invoice") == "bl":
         return cmd_extract_bl(args)
     return cmd_extract(args)

@@ -20,3 +20,6 @@ out/
 vendor/poppler/
 vendor/poppler_dl/
 poppler.zip
+
+# user-generated searchable PDFs (empty until used)
+ocr_out/
