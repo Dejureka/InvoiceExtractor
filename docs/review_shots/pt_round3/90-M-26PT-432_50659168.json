@@ -3466,7 +3466,7 @@
     "source_file": "/workspace/training_20260921/PT_new/90-M-26PT-432_50659168.pdf",
     "text_backend": "pdftotext -layout",
     "format_id": "pt_gloria_v1",
-    "confidence": "high",
+    "confidence": "rules",
     "needs_ocr": false,
     "needs_gold": false,
     "notes": null,

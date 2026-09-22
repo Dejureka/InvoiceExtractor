@@ -70,7 +70,7 @@
     "source_file": "/workspace/training_20260921/PT_new/50-D-26PT-434_50666882.pdf",
     "text_backend": "pdftotext -layout",
     "format_id": "pt_gloria_v1",
-    "confidence": "high",
+    "confidence": "rules",
     "needs_ocr": false,
     "needs_gold": false,
     "notes": null,
