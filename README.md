@@ -129,6 +129,15 @@ python -m invoice_extractor /path/to/scan.pdf --out /tmp/ocr_test.json
 pytest -q tests/test_ocr.py
 ```
 
+### OCR 成可搜尋／可複製 PDF（獨立工具）
+
+掃描件可另外匯出帶文字層的 PDF（**不**跑發票 Extract）：
+
+- GUI：**「OCR 成可複製 PDF」** → 多選掃描 PDF → 背景執行 → 結果寫入工具根目錄旁的 **`ocr_out/`**（自動建立；檔名 `{原檔名}.ocr.pdf`）
+- CLI：`python -m invoice_extractor --ocr-pdf a.pdf b.pdf`（`--out` 可指定輸出目錄）
+- 語言：預設 `eng`；若 tessdata 有 `chi_tra`／`chi_sim` 會自動一併使用
+- `ocr_out/` 在使用前為空；產出為使用者檔案，非大型安裝內容
+
 ## 內建格式
 
 | format_id | 廠商 | 備註 |

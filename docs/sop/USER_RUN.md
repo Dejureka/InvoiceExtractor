@@ -104,10 +104,16 @@ Extract 後 Summary／底列會顯示每張發票的對應狀態（另附 `forma
    - **重新自動配對**：依檔名重算
 5. Extract 後：一對一列 Summary；Lines 來自 INV；件數／GW 來自 PKL（有的話）。僅 PKL 不寫發票列。狀態欄例：`9027451705 | bhc_my_hub_v1 | INV+PKL | audit ok`。
 
+
+### OCR 成可複製 PDF（獨立於 Extract）
+
+掃描 PDF 若只要可搜尋／可複製文字層：GUI 按 **「OCR 成可複製 PDF」** 多選檔案，或 CLI `python -m invoice_extractor --ocr-pdf a.pdf`。輸出在工具根目錄的 **`ocr_out/{檔名}.ocr.pdf`**（資料夾不存在會自動建立；與 Extract／Excel 無關）。語言預設英文，若便攜包 tessdata 含繁／簡中文會一併啟用。
+
 ## 修訂紀錄
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-22 | OCR 成可複製 PDF → `ocr_out/{stem}.ocr.pdf`（獨立於 Extract） |
 | 2026-09-13 | INV＋PKL 配對表（BHC 分檔為主；MA 合訂本不變）；Extract 前可改配／拆開／略過 |
 | 2026-09-11 | 預設一律寫工具根 `InvoiceExtract_Result.xlsx`（移除旁 PDF 的 `.extract.xlsx`） |
 | 2026-09-11 | GUI 顯示 format mapping status（audit ok／已知未審／全新／需規則／hard fail） |

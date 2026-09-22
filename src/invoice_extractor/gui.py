@@ -5,6 +5,7 @@ Adds INV+PKL+提單 pairing table under Selected files (BHC split-first; MA comb
 
 from __future__ import annotations
 
+import sys
 import threading
 import traceback
 from pathlib import Path
@@ -372,6 +373,19 @@ def run_gui() -> None:
                 side="right", padx=4
             )
 
+            frm_ocr = ttk.Frame(self.root)
+            frm_ocr.pack(fill="x", **pad)
+            self.ocr_btn = ttk.Button(
+                frm_ocr,
+                text="OCR 成可複製 PDF",
+                command=self._run_ocr_pdf,
+            )
+            self.ocr_btn.pack(side="left", padx=4)
+            ttk.Label(
+                frm_ocr,
+                text="掃描 PDF → ocr_out/{檔名}.ocr.pdf（獨立於 Extract）",
+            ).pack(side="left", padx=4)
+
             frm_sum = ttk.LabelFrame(self.root, text="Summary")
             frm_sum.pack(fill="both", expand=True, **pad)
             self.summary = scrolledtext.ScrolledText(frm_sum, height=10, wrap="word")
@@ -726,6 +740,111 @@ def run_gui() -> None:
             )
             if path:
                 self.out_var.set(path)
+
+
+        def _run_ocr_pdf(self) -> None:
+            """Standalone: multi-select scan PDFs → searchable PDFs in ocr_out/."""
+            if self._busy:
+                return
+            paths = filedialog.askopenfilenames(
+                title="Select scan PDF(s) for OCR → searchable PDF",
+                filetypes=[("PDF", "*.pdf"), ("All", "*.*")],
+            )
+            if not paths:
+                return
+            pdfs = [Path(p) for p in paths]
+            for pdf in pdfs:
+                if not pdf.is_file():
+                    messagebox.showerror("Not found", f"File not found:\n{pdf}")
+                    return
+
+            from invoice_extractor.ocr import (
+                default_ocr_out_dir,
+                find_tesseract,
+                pdfs_to_searchable_pdfs,
+                resolve_ocr_lang,
+                tesseract_available,
+            )
+
+            if not tesseract_available():
+                messagebox.showerror(
+                    "OCR unavailable",
+                    "tesseract not found.\n"
+                    "Install Tesseract OCR, set TESSERACT_CMD, "
+                    "or place portable tesseract/ next to the app.",
+                )
+                return
+
+            out_dir = default_ocr_out_dir()
+            lang = resolve_ocr_lang(find_tesseract())
+            self._busy = True
+            self.ocr_btn.configure(state="disabled")
+            # Keep Extract usable? Spec says don't block Extract — only disable OCR btn
+            # but _busy is shared; allow Extract by not using shared busy for OCR,
+            # or use separate flag. Use _ocr_busy to avoid blocking Extract.
+            self._busy = False
+            self._ocr_busy = True
+            self._log(
+                f"OCR → searchable PDF: {len(pdfs)} file(s) → {out_dir} (lang={lang}) …"
+            )
+
+            def work() -> None:
+                try:
+                    written, failures = pdfs_to_searchable_pdfs(pdfs, out_dir, lang=lang)
+
+                    def ok() -> None:
+                        lines = [f"OCR output dir: {out_dir}", f"lang: {lang}", "—"]
+                        for w in written:
+                            lines.append(f"OK  {w}")
+                        for src, err in failures:
+                            lines.append(f"FAIL {src}: {err}")
+                        self._log("\n".join(lines))
+                        msg = (
+                            f"Wrote {len(written)} file(s) under:\n{out_dir}\n\n"
+                            + "\n".join(str(w.name) for w in written)
+                        )
+                        if failures:
+                            msg += "\n\nFailures:\n" + "\n".join(
+                                f"- {s.name}: {e}" for s, e in failures
+                            )
+                            messagebox.showwarning("OCR done (with failures)", msg)
+                        else:
+                            open_folder = messagebox.askyesno(
+                                "OCR done",
+                                msg + "\n\nOpen ocr_out folder?",
+                            )
+                            if open_folder:
+                                try:
+                                    import os
+                                    import subprocess
+
+                                    if hasattr(os, "startfile"):
+                                        os.startfile(str(out_dir))  # type: ignore[attr-defined]
+                                    elif sys.platform == "darwin":
+                                        subprocess.Popen(["open", str(out_dir)])
+                                    else:
+                                        subprocess.Popen(["xdg-open", str(out_dir)])
+                                except Exception as exc:
+                                    self._log(f"(open folder failed: {exc})")
+
+                    self.root.after(0, ok)
+                except Exception:
+                    err = traceback.format_exc()
+
+                    def fail() -> None:
+                        self._log("OCR ERROR:\n" + err)
+                        messagebox.showerror("OCR failed", err[-800:])
+
+                    self.root.after(0, fail)
+                finally:
+
+                    def done() -> None:
+                        self._ocr_busy = False
+                        self.ocr_btn.configure(state="normal")
+
+                    self.root.after(0, done)
+
+            threading.Thread(target=work, daemon=True).start()
 
         def _run_extract(self) -> None:
             if self._busy:
