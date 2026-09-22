@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import sys
+from copy import copy
 from pathlib import Path
 from typing import Any
 
@@ -216,6 +217,7 @@ _HEADER_FILL_HEX = "4472C4"
 _BL_HEADER_FILL_HEX = "008000"
 _HEADER_FONT_COLOR = "FFFFFF"
 _AUTHOR = "Peter Yang"
+_EXCEL_FONT_NAME = "Calibri"
 _SUMMARY_BL_HEADERS = {"BL No.", "BL Packages", "BL G.W. (kgs)"}
 
 
@@ -234,7 +236,17 @@ def _bl_header_fill():
 def _header_font():
     from openpyxl.styles import Font
 
-    return Font(bold=True, color=_HEADER_FONT_COLOR, size=11)
+    return Font(name=_EXCEL_FONT_NAME, bold=True, color=_HEADER_FONT_COLOR, size=11)
+
+
+def _apply_calibri_fonts(wb) -> None:
+    """Make every cell font explicitly Calibri while preserving its styling."""
+    for ws in wb.worksheets:
+        for row in ws.iter_rows():
+            for cell in row:
+                font = copy(cell.font)
+                font.name = _EXCEL_FONT_NAME
+                cell.font = font
 
 
 def _header_alignment():
@@ -386,6 +398,7 @@ def write_xlsx_many(
     if path.suffix.lower() != ".xlsx":
         path = path.with_suffix(".xlsx")
     path.parent.mkdir(parents=True, exist_ok=True)
+    _apply_calibri_fonts(wb)
     wb.save(path)
     return path
 
@@ -561,6 +574,7 @@ def write_bl_xlsx_many(
     if path.suffix.lower() != ".xlsx":
         path = path.with_suffix(".xlsx")
     path.parent.mkdir(parents=True, exist_ok=True)
+    _apply_calibri_fonts(wb)
     wb.save(path)
     return path
 

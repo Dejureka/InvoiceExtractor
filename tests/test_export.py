@@ -161,6 +161,12 @@ def test_bundled_template_exists():
     assert META_SHEET in wb.sheetnames
     assert [c.value for c in wb[SUMMARY_SHEET][1]] == list(SUMMARY_COLS)
     assert [c.value for c in wb[LINES_SHEET][1]] == list(LINES_COLS)
+    assert all(
+        cell.font.name == "Calibri"
+        for ws in wb.worksheets
+        for row in ws.iter_rows()
+        for cell in row
+    )
 
 
 def test_write_xlsx_pdfextract_columns(tmp_path: Path):
@@ -221,6 +227,12 @@ def test_write_xlsx_pdfextract_columns(tmp_path: Path):
     assert ws_m[2][status_idx].value == "ok"
     fmt_idx = meta_headers.index("format_id")
     assert ws_m[2][fmt_idx].value == "demo_v1"
+    assert all(
+        cell.font.name == "Calibri"
+        for ws in wb.worksheets
+        for row in ws.iter_rows()
+        for cell in row
+    )
 
 
 def test_write_xlsx_many_appends_two_invoices(tmp_path: Path):
