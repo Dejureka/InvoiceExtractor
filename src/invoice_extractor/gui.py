@@ -306,7 +306,7 @@ def run_gui() -> None:
 
             frm_pair = ttk.LabelFrame(
                 self.root,
-                text="配對 (INV+PKL+提單) — Extract 前可改配／拆開／略過",
+                text="配對 (INV+PKL+提單) — Extract 前可手配 PKL／提單／拆開／略過",
             )
             frm_pair.pack(fill="both", expand=False, **pad)
             cols = ("pair", "inv", "pkl", "bl", "status")
@@ -332,7 +332,10 @@ def run_gui() -> None:
             frm_pair_btns = ttk.Frame(frm_pair)
             frm_pair_btns.pack(fill="x", padx=4, pady=(0, 4))
             ttk.Button(
-                frm_pair_btns, text="改配 PKL…", command=self._rematch_pkl
+                frm_pair_btns, text="手配 PKL…", command=self._rematch_pkl
+            ).pack(side="left", padx=2)
+            ttk.Button(
+                frm_pair_btns, text="手配 提單…", command=self._rematch_bl
             ).pack(side="left", padx=2)
             ttk.Button(frm_pair_btns, text="拆開", command=self._split_pair).pack(
                 side="left", padx=2
@@ -394,7 +397,7 @@ def run_gui() -> None:
             dnd_note = "enabled" if has_dnd else "not installed (Browse still works)"
             self._log(f"Drag-drop: {dnd_note}")
             self._log(
-                "INV+PKL+提單: BHC 分檔為主；到貨／HBL 配入 Summary BL 欄。Extract 前可改配。"
+                "INV+PKL+提單: BHC 分檔為主；到貨／HBL 配入 Summary BL 欄。Extract 前可手配 PKL／提單。"
             )
             try:
                 from pdf_layout_text.convert import find_pdftotext
@@ -495,10 +498,10 @@ def run_gui() -> None:
         def _rematch_pkl(self) -> None:
             row = self._selected_pair()
             if not row:
-                messagebox.showinfo("改配 PKL", "請先在配對表選一列。")
+                messagebox.showinfo("手配 PKL", "請先在配對表選一列。")
                 return
             if not row.inv_path:
-                messagebox.showwarning("改配 PKL", "此列沒有 INV，無法改配。")
+                messagebox.showwarning("手配 PKL", "此列沒有 INV，無法手配。")
                 return
             inv_key = str(row.inv_path.resolve()) if row.inv_path.exists() else str(row.inv_path)
             path = filedialog.askopenfilename(
@@ -549,7 +552,66 @@ def run_gui() -> None:
                 )
             ]
             self._sync_pair_tree()
-            self._log(f"改配: INV={Path(inv_key).name} → PKL={pkl.name}")
+            self._log(f"手配 PKL: INV={Path(inv_key).name} → PKL={pkl.name}")
+
+        def _rematch_bl(self) -> None:
+            row = self._selected_pair()
+            if not row:
+                messagebox.showinfo("手配 提單", "請先在配對表選一列。")
+                return
+            if not row.inv_path:
+                messagebox.showwarning("手配 提單", "此列沒有 INV，無法手配。")
+                return
+            inv_key = str(row.inv_path.resolve()) if row.inv_path.exists() else str(row.inv_path)
+            path = filedialog.askopenfilename(
+                title="選擇要配給此 INV 的提單 PDF",
+                filetypes=[("PDF", "*.pdf *.PDF"), ("All", "*.*")],
+                initialdir=str(row.inv_path.parent) if row.inv_path else None,
+            )
+            if not path:
+                return
+            bl = Path(path)
+            # Add to selection without wiping manual state via full rebuild
+            seen = {str(p.resolve()) if p.exists() else str(p) for p in self._pdfs}
+            key = str(bl.resolve()) if bl.exists() else str(bl)
+            if key not in seen:
+                self._pdfs.append(bl)
+                self.listbox.insert("end", str(bl))
+                self.pdf_var.set(f"{len(self._pdfs)} PDFs selected")
+            # Detach this BL from any other pair; bind to this INV
+            for r in self._pairs:
+                if r.inv_path and (
+                    (str(r.inv_path.resolve()) if r.inv_path.exists() else str(r.inv_path))
+                    == inv_key
+                ):
+                    r.bl_path = bl
+                    r.manual = True
+                    r.skipped = False
+                    r.recompute_status()
+                elif r.bl_path and r.bl_path.resolve() == bl.resolve():
+                    if not (
+                        r.inv_path
+                        and (
+                            str(r.inv_path.resolve())
+                            if r.inv_path.exists()
+                            else str(r.inv_path)
+                        )
+                        == inv_key
+                    ):
+                        r.bl_path = None
+                        r.recompute_status()
+            # Drop orphan BL-only rows for this file
+            self._pairs = [
+                r
+                for r in self._pairs
+                if not (
+                    r.status == STATUS_BL_ONLY
+                    and r.bl_path
+                    and r.bl_path.resolve() == bl.resolve()
+                )
+            ]
+            self._sync_pair_tree()
+            self._log(f"手配 提單: INV={Path(inv_key).name} → BL={bl.name}")
 
         def _split_pair(self) -> None:
             row = self._selected_pair()
