@@ -1,0 +1,45 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "QU100002136",
+    "hbl_no": "QU100002136",
+    "mbl_no": null,
+    "vessel": null,
+    "voyage": "CX068/06",
+    "etd": null,
+    "eta": null,
+    "pol": "FRANKFURT AM MAIN",
+    "pod": "KAOHSIUNG",
+    "packages": 2.0,
+    "package_unit": "PIECES",
+    "gross_weight_kg": 294.5,
+    "measurement_cbm": 1.282,
+    "load_type": "AIR",
+    "shipper": "ROBERT BOSCH GMBH",
+    "consignee": "ROBERT BOSCH TAIWAN CO., LTD.",
+    "notify": null,
+    "invoice_refs": "7086963306",
+    "container_nos": null,
+    "forwarder": "Maersk Logistics & Services Germany A/S & Co. KG"
+  },
+  "meta": {
+    "source_file": "/workspace/training_20260921/SOE_1st/50-M-26SOE-175/Copy 7 - (Extra Copy) - HAWB No_ QU100002136.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "maersk_air_waybill_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "doc_kind": "air_waybill",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "anchors": {
+        "bl_no": "QU100002136",
+        "packages": 2.0,
+        "gross_weight_kg": 294.5,
+        "eta": null
+      }
+    }
+  }
+}

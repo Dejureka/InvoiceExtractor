@@ -1,0 +1,117 @@
+{
+  "header": {
+    "invoice_no": "50666881",
+    "invoice_date": "2026-09-11",
+    "total_pkg": 3.0,
+    "gross_weight_kg": 209.6,
+    "incoterm": "FCA Worms",
+    "item_line_count": 5,
+    "total_quantity": 107.0,
+    "amount": 3032.54,
+    "currency": "USD",
+    "vendor": "Robert Bosch Power Tools GmbH",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "50666881",
+      "part_no": "1.600.A03.9HY",
+      "description": "Tool Set 63-Piece",
+      "qty": 30.0,
+      "unit": "pcs",
+      "unit_price": 51.52,
+      "amount": 1545.6,
+      "origin": "CN",
+      "hs_code": "82060000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50666881",
+      "part_no": "2.608.690.550",
+      "description": "Pointed Chisel SDS m Pointed Chisel",
+      "qty": 1.0,
+      "unit": "pcs",
+      "unit_price": 7.38,
+      "amount": 7.38,
+      "origin": "IT",
+      "hs_code": "82079099",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50666881",
+      "part_no": "1.600.A03.9L7",
+      "description": "8-in-1 Folding Hex K",
+      "qty": 4.0,
+      "unit": "pcs",
+      "unit_price": 3.59,
+      "amount": 14.36,
+      "origin": "CN",
+      "hs_code": "82041100",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50666881",
+      "part_no": "2.608.522.518",
+      "description": "Drill/Screwdriver bi",
+      "qty": 36.0,
+      "unit": "pcs",
+      "unit_price": 20.35,
+      "amount": 732.6,
+      "origin": "CN",
+      "hs_code": "82079030",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50666881",
+      "part_no": "2.608.522.518",
+      "description": "Drill/Screwdriver bi",
+      "qty": 36.0,
+      "unit": "pcs",
+      "unit_price": 20.35,
+      "amount": 732.6,
+      "origin": "CN",
+      "hs_code": "82079030",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/training_20260921/PT_new/50-D-26PT-434_50666881.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_gloria_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": null,
+    "labeled_amount_label": null,
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 5,
+        "got": 5
+      },
+      "total_quantity": {
+        "want": 107.0,
+        "got": 107.0
+      },
+      "amount": {
+        "want": 3032.54,
+        "got": 3032.54
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

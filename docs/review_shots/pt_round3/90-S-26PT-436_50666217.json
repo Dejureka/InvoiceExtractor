@@ -1,0 +1,81 @@
+{
+  "header": {
+    "invoice_no": "50666217",
+    "invoice_date": "2026-09-08",
+    "total_pkg": 2.0,
+    "gross_weight_kg": 50.4,
+    "incoterm": "FCA Port Klang",
+    "item_line_count": 2,
+    "total_quantity": 32.0,
+    "amount": 1737.84,
+    "currency": "USD",
+    "vendor": "Robert Bosch Power Tools GmbH",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "50666217",
+      "part_no": "0.601.076.800",
+      "description": "Inclinometer Bosch Blue Inclinometer G",
+      "qty": 8.0,
+      "unit": "pcs",
+      "unit_price": 119.37,
+      "amount": 954.96,
+      "origin": "CN",
+      "hs_code": "9031809000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "50666217",
+      "part_no": "0.601.065.3K0",
+      "description": "Laser Level GLL 50 G Laser Level",
+      "qty": 24.0,
+      "unit": "pcs",
+      "unit_price": 32.62,
+      "amount": 782.88,
+      "origin": "CN",
+      "hs_code": "9015300000",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/training_20260921/PT_new/90-S-26PT-436_50666217.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_gloria_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": null,
+    "labeled_amount_label": null,
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 2,
+        "got": 2
+      },
+      "total_quantity": {
+        "want": 32.0,
+        "got": 32.0
+      },
+      "amount": {
+        "want": 1737.84,
+        "got": 1737.84
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

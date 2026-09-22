@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from invoice_extractor.formats import (
+    soe_rb_gmbh_v1,
     aichi_electric_v1,
     bhc_my_hub_v1,
     marubeni_tetsugen_v1,
@@ -45,6 +46,7 @@ BUILTIN: list[tuple[str, Callable[[str, str], float], Extractor]] = [
     ("aichi_electric_v1", aichi_electric_v1.match_score, aichi_electric_v1.extract),
     ("shanghai_nature_v1", shanghai_nature_v1.match_score, shanghai_nature_v1.extract),
     ("marubeni_tetsugen_v1", marubeni_tetsugen_v1.match_score, marubeni_tetsugen_v1.extract),
+    ("soe_rb_gmbh_v1", soe_rb_gmbh_v1.match_score, soe_rb_gmbh_v1.extract),
 ]
 
 

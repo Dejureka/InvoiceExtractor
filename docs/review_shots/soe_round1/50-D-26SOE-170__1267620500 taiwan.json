@@ -1,0 +1,77 @@
+{
+  "header": {
+    "invoice_no": "7091802382",
+    "invoice_date": "2026-09-01",
+    "total_pkg": 11.0,
+    "gross_weight_kg": 341.0,
+    "incoterm": "FCA Guadalajara",
+    "item_line_count": 1,
+    "total_quantity": 4928.0,
+    "amount": 160254.62,
+    "currency": "EUR",
+    "vendor": "Robert Bosch GmbH",
+    "origin": "ES",
+    "hs_code": "90318080",
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "7091802382",
+      "part_no": "0265.011.097-57G",
+      "description": "Sensor; MM7.zC",
+      "qty": 4928.0,
+      "unit": "PC",
+      "unit_price": 32.5192,
+      "amount": 160254.62,
+      "origin": "ES",
+      "hs_code": "90318080",
+      "currency": "EUR"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/training_20260921/SOE_1st/50-D-26SOE-170/1267620500 taiwan.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": "soe_rb_gmbh_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 160254.62,
+    "labeled_amount_label": "Invoice amount",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 4928.0,
+        "got": 4928.0
+      },
+      "amount": {
+        "want": 160254.62,
+        "got": 160254.62
+      },
+      "labeled_amount": {
+        "label": "Invoice amount",
+        "want": 160254.62,
+        "header_amount": 160254.62,
+        "sum_items": 160254.62,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    },
+    "text_backend_warning": "OCR used (ocr/tesseract): PDF text layer was empty. Column layout may be imperfect vs pdftotext; rules still apply."
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "header": {
+    "invoice_no": "50667440",
+    "invoice_date": "2026-09-15",
+    "total_pkg": null,
+    "gross_weight_kg": 154.0,
+    "incoterm": "FCA Dongguan",
+    "item_line_count": 1,
+    "total_quantity": 35.0,
+    "amount": 10484.95,
+    "currency": "USD",
+    "vendor": "Robert Bosch Power Tools GmbH",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "50667440",
+      "part_no": "0.601.065.1K0",
+      "description": "Laser Level GLL 18V- Laser Level",
+      "qty": 35.0,
+      "unit": "pcs",
+      "unit_price": 299.57,
+      "amount": 10484.95,
+      "origin": "CN",
+      "hs_code": "9031809090",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/training_20260921/PT_new/90-S-26PT-433_50667440.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "pt_gloria_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": null,
+    "labeled_amount_label": null,
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 35.0,
+        "got": 35.0
+      },
+      "amount": {
+        "want": 10484.95,
+        "got": 10484.95
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

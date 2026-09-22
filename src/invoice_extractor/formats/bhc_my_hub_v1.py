@@ -67,8 +67,13 @@ _LINE_BROKEN = re.compile(
 def match_score(text: str, filename: str = "") -> float:
     score = 0.0
     fn = filename.upper()
-    if re.search(r"9027\d{6}", fn) or "INV_" in fn or "TA2608" in fn or "BHCWHY" in fn:
+    # Filename alone is weak — require BHC-ish name tokens (not bare INV_ which SOE also uses)
+    if re.search(r"9027\d{6}", fn) or "TA2608" in fn or "BHCWHY" in fn:
         score += 0.3
+    elif "INV_" in fn and (
+        "Bosch Home Comfort Supply" in text or "MY-HUB" in text or "PART NO" in text
+    ):
+        score += 0.15
     if "Bosch Home Comfort Supply" in text:
         score += 0.4
     if "MY-HUB FINANCE" in text or "TOTALS:" in text:
@@ -79,6 +84,11 @@ def match_score(text: str, filename: str = "") -> float:
         score -= 0.5
     if "Power Tools GmbH" in text:
         score -= 0.4
+    # SOE Robert Bosch GmbH Invoice / Packing List (70775… INV_PL_*) — not MY-HUB
+    if "Bosch Partnumber" in text or "Invoice and Packing List" in text:
+        score -= 0.55
+    if re.search(r"\b70775\d+|\b70918\d+", text) and "Home Comfort" not in text:
+        score -= 0.35
     return max(0.0, min(score, 1.0))
 
 

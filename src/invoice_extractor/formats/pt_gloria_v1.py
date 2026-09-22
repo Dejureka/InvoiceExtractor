@@ -192,14 +192,38 @@ def _gross_weight(text: str) -> float | None:
     return None
 
 
+_SHIPPING_UNIT = re.compile(
+    r"Shipping\s+unit\s+(?P<id>\d+)",
+    re.IGNORECASE,
+)
+
+
 def _total_pkg(text: str) -> float | None:
+    """Package count from Packing details.
+
+    Prefer unique ``Shipping unit <id>`` row count when the packing-type
+    summary vocabulary also matches at least one line (Carton/Pallet/…).
+    That fixes under-counts when Bosch-Standard-Palette etc. are omitted
+    from ``_PKG_SUMMARY`` while preserving soft-missing (None) when only
+    unrecognized types like ``Standard pallet`` / ``Packaging`` appear.
+
+    Fallback: sum recognized type summary lines, then packing detail lines.
+    """
+    shipping_ids = {m.group("id") for m in _SHIPPING_UNIT.finditer(text)}
+    n_ship = len(shipping_ids)
+
     total = 0
     found = False
     for m in _PKG_SUMMARY.finditer(text):
         total += int(m.group("n"))
         found = True
+
+    if n_ship > 0 and found:
+        # Auditor source of truth: Shipping unit rows (not partial type sum)
+        return float(n_ship)
     if found:
         return float(total)
+    # soft-missing: shipping units present but no known type label → None
     # fallback: sum first number on packing detail lines
     for m in _PKG_LINE.finditer(text):
         total += int(m.group(1))

@@ -1,0 +1,76 @@
+{
+  "header": {
+    "invoice_no": "7077559620",
+    "invoice_date": "2026-09-17",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 496.0,
+    "incoterm": "FCA Utsunomiya",
+    "item_line_count": 1,
+    "total_quantity": 240.0,
+    "amount": 27875.35,
+    "currency": "EUR",
+    "vendor": "Robert Bosch GmbH",
+    "origin": "JP",
+    "hs_code": "90328100",
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "7077559620",
+      "part_no": "0265.311.476-589",
+      "description": "Hydraulic Unit",
+      "qty": 240.0,
+      "unit": "PC",
+      "unit_price": 116.1473,
+      "amount": 27875.35,
+      "origin": "JP",
+      "hs_code": "90328100",
+      "currency": "EUR"
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/training_20260921/SOE_1st/50-KWE-26SOE-182/INV_PL_7077559620.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "soe_rb_gmbh_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 27875.35,
+    "labeled_amount_label": "Invoice amount",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 240.0,
+        "got": 240.0
+      },
+      "amount": {
+        "want": 27875.35,
+        "got": 27875.35
+      },
+      "labeled_amount": {
+        "label": "Invoice amount",
+        "want": 27875.35,
+        "header_amount": 27875.35,
+        "sum_items": 27875.35,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    }
+  }
+}
