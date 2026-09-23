@@ -1,0 +1,234 @@
+{
+  "header": {
+    "invoice_no": "AK00067725",
+    "invoice_date": "2026-09-15",
+    "total_pkg": 7.0,
+    "gross_weight_kg": 887.4,
+    "incoterm": "FOB Malaysia",
+    "item_line_count": 14,
+    "total_quantity": 632.0,
+    "amount": 302093.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "1986.A01.029-YCL",
+      "description": "Alternator",
+      "qty": 4.0,
+      "unit": "PC",
+      "unit_price": 3700.0,
+      "amount": 14800.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "0258.986.79A-760",
+      "description": "Oxygen Sensor",
+      "qty": 2.0,
+      "unit": "PC",
+      "unit_price": 865.0,
+      "amount": 1730.0,
+      "origin": "US",
+      "hs_code": "9027100000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "1986.S01.169-ZRZ",
+      "description": "Starter",
+      "qty": 5.0,
+      "unit": "PC",
+      "unit_price": 2159.0,
+      "amount": 10795.0,
+      "origin": "CN",
+      "hs_code": "8511403200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "1986.S01.145-ZRZ",
+      "description": "Starter",
+      "qty": 2.0,
+      "unit": "PC",
+      "unit_price": 1585.0,
+      "amount": 3170.0,
+      "origin": "CN",
+      "hs_code": "8511403200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "1986.A00.902-CMT",
+      "description": "Alternator",
+      "qty": 13.0,
+      "unit": "PC",
+      "unit_price": 2728.0,
+      "amount": 35464.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "0258.003.559-760",
+      "description": "Oxygen Sensor",
+      "qty": 5.0,
+      "unit": "PC",
+      "unit_price": 792.0,
+      "amount": 3960.0,
+      "origin": "US",
+      "hs_code": "9027100000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "1986.A00.932-WSK",
+      "description": "Alternator",
+      "qty": 17.0,
+      "unit": "PC",
+      "unit_price": 3234.0,
+      "amount": 54978.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "0433.175.489-8GA",
+      "description": "Hole-Type Nozzle",
+      "qty": 12.0,
+      "unit": "PC",
+      "unit_price": 800.0,
+      "amount": 9600.0,
+      "origin": "BR",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "0986.479.058-HL8",
+      "description": "Brake Disc",
+      "qty": 26.0,
+      "unit": "PC",
+      "unit_price": 741.0,
+      "amount": 19266.0,
+      "origin": "CN",
+      "hs_code": "8708309000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "1986.S00.886-GF2",
+      "description": "Starter",
+      "qty": 4.0,
+      "unit": "PC",
+      "unit_price": 2717.0,
+      "amount": 10868.0,
+      "origin": "CN",
+      "hs_code": "8511403200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "1986.A01.983-ZKY",
+      "description": "Alternator",
+      "qty": 22.0,
+      "unit": "PC",
+      "unit_price": 2911.0,
+      "amount": 64042.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "0261.500.136-825",
+      "description": "Injection Valve",
+      "qty": 20.0,
+      "unit": "PC",
+      "unit_price": 1246.0,
+      "amount": 24920.0,
+      "origin": "TR",
+      "hs_code": "8409914900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "F026.407.152-HCT",
+      "description": "Oil-Filter Element",
+      "qty": 400.0,
+      "unit": "PC",
+      "unit_price": 97.0,
+      "amount": 38800.0,
+      "origin": "BG",
+      "hs_code": "8421232100",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067725",
+      "part_no": "F026.407.152-HCT",
+      "description": "Oil-Filter Element",
+      "qty": 100.0,
+      "unit": "PC",
+      "unit_price": 97.0,
+      "amount": 9700.0,
+      "origin": "BG",
+      "hs_code": "8421232100",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-747/90-S-26MA-747/SAP INV/Invoice AK00067725.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 302093.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 14,
+        "got": 14
+      },
+      "total_quantity": {
+        "want": 632.0,
+        "got": 632.0
+      },
+      "amount": {
+        "want": 302093.0,
+        "got": 302093.0
+      },
+      "labeled_amount": {
+        "label": "Net value",
+        "want": 302093.0,
+        "header_amount": 302093.0,
+        "sum_items": 302093.0,
+        "item_count": 14
+      },
+      "missing_hs_indices": []
+    },
+    "match_score": 1.0,
+    "classified_format_id": "ma_ak_billing_v1"
+  }
+}

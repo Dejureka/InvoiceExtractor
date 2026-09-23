@@ -131,7 +131,10 @@ def hard_check(extract: dict[str, Any]) -> dict[str, Any]:
         up, q, am = _f(it.get("unit_price")), _f(it.get("qty")), _f(it.get("amount"))
         if up is None or q is None or am is None:
             continue
-        if abs(up * q - am) > max(AMOUNT_TOL, 1.0):  # allow 1-unit commercial rounding
+        # Absolute 1-unit rounding OR 0.1% relative (Bosch AK Net Value can
+        # differ slightly from Unit Price × Qty after commercial conditions).
+        tol = max(AMOUNT_TOL, 1.0, 0.001 * abs(am))
+        if abs(up * q - am) > tol:
             line_bad.append(i)
     if line_bad:
         issues.append(f"unit_price*qty != amount at indices {line_bad[:10]}")

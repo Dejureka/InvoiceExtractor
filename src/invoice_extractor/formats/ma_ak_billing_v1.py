@@ -32,11 +32,13 @@ MATCH_HINTS = {
 }
 
 NOTES = (
-    "MA Billing Document AK######## (Invoice AK….PDF). "
+    "MA Billing Document AK######## (Invoice AK….PDF / AK…_INV.PDF). "
     "PN like 0263.063.737-F0U / H105.025.303-Y8K; HS=Commodity Code; "
     "Origin=Country of Origin per line (not COO Index). "
     "Packages/GW from Marking HU / Dummy Pack. Mat. (not line Gross Weight). "
-    "Samples: MAnewSample 40-D / 50-N / 90-S folders."
+    "Net Value may differ slightly from Unit Price×Qty (commercial conditions); "
+    "trust printed Net Value; hard_check allows 0.1% relative line tol. "
+    "Samples: MAnewSample 40-D / 50-N / 90-S; MA-747 90-S-26MA-747 FWD+SAP."
 )
 
 RULES_JSON = {
@@ -80,7 +82,8 @@ _DESC = re.compile(r"^\s{2,}([A-Za-z][A-Za-z0-9 /&\-.,]{2,80}?)\s{2,}|\s{2,}([A-
 def match_score(text: str, filename: str = "") -> float:
     score = 0.0
     fn = filename.upper()
-    if re.search(r"\bAK\d{8}\b", fn) or "INVOICE AK" in fn:
+    # AK########_INV (FWD) has no word-boundary after digits; also Invoice AK…
+    if re.search(r"AK\d{8}", fn):
         score += 0.35
     if re.search(r"Billing Document\s+AK\d+", text):
         score += 0.35

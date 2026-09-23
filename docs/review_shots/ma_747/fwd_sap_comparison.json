@@ -1,0 +1,137 @@
+[
+  {
+    "invoice_no": "AK00067724",
+    "amount": "same",
+    "pkg": "same",
+    "gw": "same",
+    "lines": "same",
+    "hs_complete": "same",
+    "fwd_hard": "pass",
+    "sap_hard": "pass",
+    "fwd": {
+      "amount": 1526657.0,
+      "pkg": 13.0,
+      "gw": 1881.55,
+      "lines": 37,
+      "hs_miss": 0,
+      "score": 1.0
+    },
+    "sap": {
+      "amount": 1526657.0,
+      "pkg": 13.0,
+      "gw": 1881.55,
+      "lines": 37,
+      "hs_miss": 0,
+      "score": 1.0
+    },
+    "pdf_bytes": "identical"
+  },
+  {
+    "invoice_no": "AK00067725",
+    "amount": "same",
+    "pkg": "same",
+    "gw": "same",
+    "lines": "same",
+    "hs_complete": "same",
+    "fwd_hard": "pass",
+    "sap_hard": "pass",
+    "fwd": {
+      "amount": 302093.0,
+      "pkg": 7.0,
+      "gw": 887.4,
+      "lines": 14,
+      "hs_miss": 0,
+      "score": 1.0
+    },
+    "sap": {
+      "amount": 302093.0,
+      "pkg": 7.0,
+      "gw": 887.4,
+      "lines": 14,
+      "hs_miss": 0,
+      "score": 1.0
+    },
+    "pdf_bytes": "identical"
+  },
+  {
+    "invoice_no": "AK00067726",
+    "amount": "same",
+    "pkg": "same",
+    "gw": "same",
+    "lines": "same",
+    "hs_complete": "same",
+    "fwd_hard": "pass",
+    "sap_hard": "pass",
+    "fwd": {
+      "amount": 383464.0,
+      "pkg": 6.0,
+      "gw": 909.7,
+      "lines": 11,
+      "hs_miss": 0,
+      "score": 1.0
+    },
+    "sap": {
+      "amount": 383464.0,
+      "pkg": 6.0,
+      "gw": 909.7,
+      "lines": 11,
+      "hs_miss": 0,
+      "score": 1.0
+    },
+    "pdf_bytes": "identical"
+  },
+  {
+    "invoice_no": "AK00067729",
+    "amount": "same",
+    "pkg": "same",
+    "gw": "same",
+    "lines": "same",
+    "hs_complete": "same",
+    "fwd_hard": "pass",
+    "sap_hard": "pass",
+    "fwd": {
+      "amount": 3275203.0,
+      "pkg": 33.0,
+      "gw": 4134.17,
+      "lines": 52,
+      "hs_miss": 0,
+      "score": 1.0
+    },
+    "sap": {
+      "amount": 3275203.0,
+      "pkg": 33.0,
+      "gw": 4134.17,
+      "lines": 52,
+      "hs_miss": 0,
+      "score": 1.0
+    },
+    "pdf_bytes": "identical"
+  },
+  {
+    "invoice_no": "AK00067730",
+    "amount": "same",
+    "pkg": "same",
+    "gw": "same",
+    "lines": "same",
+    "hs_complete": "same",
+    "fwd_hard": "pass",
+    "sap_hard": "pass",
+    "fwd": {
+      "amount": 888855.0,
+      "pkg": 19.0,
+      "gw": 3409.35,
+      "lines": 51,
+      "hs_miss": 0,
+      "score": 1.0
+    },
+    "sap": {
+      "amount": 888855.0,
+      "pkg": 19.0,
+      "gw": 3409.35,
+      "lines": 51,
+      "hs_miss": 0,
+      "score": 1.0
+    },
+    "pdf_bytes": "identical"
+  }
+]

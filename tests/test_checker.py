@@ -194,3 +194,42 @@ def test_ma_all_hs_present_passes():
     }
     r = hard_check(extract)
     assert r["verdict"] == "pass"
+
+
+def test_line_amount_relative_tol_commercial_net():
+    """Bosch AK Net Value can differ ~0.1% from Unit Price × Qty."""
+    extract = {
+        "header": {
+            "invoice_no": "AK00067730",
+            "amount": 18182.0 + 7973.0,
+            "currency": "TWD",
+            "item_line_count": 2,
+            "total_quantity": 85,
+        },
+        "items": [
+            # 35*228=7980 vs net 7973 (diff 7 ≈ 0.088%)
+            {"qty": 35, "unit_price": 228, "amount": 7973, "currency": "TWD", "hs_code": "8708309000"},
+            # 50*364=18200 vs net 18182 (diff 18 ≈ 0.099%)
+            {"qty": 50, "unit_price": 364, "amount": 18182, "currency": "TWD", "hs_code": "8708309000"},
+        ],
+        "meta": {
+            "format_id": "ma_ak_billing_v1",
+            "labeled_amount": 18182.0 + 7973.0,
+            "labeled_amount_label": "Net value",
+        },
+    }
+    r = hard_check(extract)
+    assert r["verdict"] == "pass", r
+
+
+def test_line_amount_still_flags_large_mismatch():
+    extract = {
+        "header": {"invoice_no": "X", "amount": 100.0, "currency": "TWD"},
+        "items": [
+            {"qty": 10, "unit_price": 10, "amount": 50, "currency": "TWD"},  # 50% off → fail
+        ],
+        "meta": {},
+    }
+    r = hard_check(extract)
+    assert r["verdict"] == "conflict"
+    assert any("unit_price*qty" in i for i in r["issues"])
