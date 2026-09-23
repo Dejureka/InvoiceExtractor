@@ -69,11 +69,21 @@ def find_tesseract() -> Path | None:
 
 
 def _tessdata_dir(tess_bin: Path) -> Path | None:
+    """Return the directory that contains ``*.traineddata`` files.
+
+    Honors ``TESSDATA_PREFIX`` when it already points at that directory, or at
+    its parent (legacy Linux layout where PREFIX/tessdata/ holds the files).
+    Otherwise looks for ``tessdata/`` next to the portable binary.
+    """
     env = (os.environ.get("TESSDATA_PREFIX") or "").strip()
     if env:
         p = Path(env)
         if p.is_dir():
-            return p
+            if any(p.glob("*.traineddata")):
+                return p
+            nested = p / "tessdata"
+            if nested.is_dir() and any(nested.glob("*.traineddata")):
+                return nested
     # Common portable layout: tesseract/tessdata next to binary
     for parent in (tess_bin.parent, tess_bin.parent.parent):
         td = parent / "tessdata"
@@ -87,14 +97,7 @@ def tesseract_available() -> bool:
 
 
 def _run_tesseract(img: Path, out_base: Path, *, lang: str, tess_bin: Path) -> str:
-    env = os.environ.copy()
-    td = _tessdata_dir(tess_bin)
-    if td is not None:
-        # Tesseract expects TESSDATA_PREFIX to be the *parent* of tessdata/,
-        # or the tessdata dir itself depending on version; set both safely.
-        env["TESSDATA_PREFIX"] = str(td if td.name != "tessdata" else td.parent)
-        # Some Windows builds want the tessdata folder path:
-        env.setdefault("TESSDATA_DIR", str(td))
+    env = _tesseract_env(tess_bin)
 
     cmd = [str(tess_bin), str(img), str(out_base), "-l", lang, "--psm", "6"]
     proc = subprocess.run(
@@ -303,11 +306,17 @@ def resolve_ocr_lang(tess_bin: Path | None = None, *, prefer: str = DEFAULT_LANG
 
 
 def _tesseract_env(tess_bin: Path) -> dict[str, str]:
+    """Env for subprocess: ``TESSDATA_PREFIX`` = dir with ``*.traineddata``.
+
+    Modern Windows Tesseract (UB Mannheim / Chocolatey) looks for
+    ``$TESSDATA_PREFIX/<lang>.traineddata`` and its error text asks for the
+    tessdata directory — not the parent. Setting the parent made portable
+    OCR fail with ``.../tesseract/eng.traineddata`` missing.
+    """
     env = os.environ.copy()
     td = _tessdata_dir(tess_bin)
     if td is not None:
-        env["TESSDATA_PREFIX"] = str(td if td.name != "tessdata" else td.parent)
-        env.setdefault("TESSDATA_DIR", str(td))
+        env["TESSDATA_PREFIX"] = str(td)
     return env
 
 

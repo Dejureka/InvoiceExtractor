@@ -44,6 +44,30 @@ def test_resolve_ocr_lang_prefers_eng_and_optional_chinese(tmp_path):
         assert resolve_ocr_lang(fake_bin) == "eng+chi_tra"
 
 
+
+def test_tesseract_env_sets_prefix_to_tessdata_dir(tmp_path, monkeypatch):
+    """Windows Tesseract wants TESSDATA_PREFIX = dir with *.traineddata (not parent)."""
+    from invoice_extractor.ocr import _tesseract_env, _tessdata_dir
+
+    root = tmp_path / "tesseract"
+    td = root / "tessdata"
+    td.mkdir(parents=True)
+    (td / "eng.traineddata").write_bytes(b"x")
+    tess_bin = root / "tesseract.exe"
+    tess_bin.write_bytes(b"x")
+
+    monkeypatch.delenv("TESSDATA_PREFIX", raising=False)
+    assert _tessdata_dir(tess_bin) == td
+    env = _tesseract_env(tess_bin)
+    assert Path(env["TESSDATA_PREFIX"]) == td
+
+    # Legacy: user set PREFIX to parent of tessdata → still resolve traineddata dir
+    monkeypatch.setenv("TESSDATA_PREFIX", str(root))
+    assert _tessdata_dir(tess_bin) == td
+    env2 = _tesseract_env(tess_bin)
+    assert Path(env2["TESSDATA_PREFIX"]) == td
+
+
 def test_pdf_to_searchable_pdf_mocked(tmp_path):
     """Unit path without real tesseract: render + per-page pdf + merge."""
     src = tmp_path / "scan.pdf"
