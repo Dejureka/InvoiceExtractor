@@ -75,14 +75,17 @@ jobs:
           if (-not $exe) { throw "tesseract.exe not found under vendor/tesseract" }
           $td = Get-ChildItem -Path $dest -Recurse -Directory -Filter tessdata | Select-Object -First 1
           if (-not $td) { throw "tessdata/ not found" }
-          $eng = Join-Path $td.FullName "eng.traineddata"
-          if (-not (Test-Path $eng)) {
-            # pull eng.traineddata from tessdata_fast if installer omitted it
-            $engUrl = "https://github.com/tesseract-ocr/tessdata_fast/raw/main/eng.traineddata"
-            New-Item -ItemType Directory -Force -Path $td.FullName | Out-Null
-            Invoke-WebRequest -Uri $engUrl -OutFile $eng
+          New-Item -ItemType Directory -Force -Path $td.FullName | Out-Null
+          # Ensure eng (+ chi_tra for Traditional Chinese) from tessdata_fast if omitted
+          foreach ($lang in @("eng", "chi_tra")) {
+            $trained = Join-Path $td.FullName "$lang.traineddata"
+            if (-not (Test-Path $trained)) {
+              $url = "https://github.com/tesseract-ocr/tessdata_fast/raw/main/$lang.traineddata"
+              Write-Host "Fetching $url"
+              Invoke-WebRequest -Uri $url -OutFile $trained
+            }
+            if (-not (Test-Path $trained)) { throw "$lang.traineddata missing" }
           }
-          if (-not (Test-Path $eng)) { throw "eng.traineddata missing" }
           Write-Host "Bundled $($exe.FullName)"
           Get-ChildItem $dest | Select-Object -First 20 | ForEach-Object { $_.Name }
 
@@ -125,6 +128,10 @@ jobs:
           if (-not $bundled) { throw "Staged zip missing tesseract.exe" }
           $td = Get-ChildItem -Path "$out/tesseract" -Recurse -Directory -Filter tessdata | Select-Object -First 1
           if (-not $td) { throw "Staged zip missing tessdata" }
+          foreach ($lang in @("eng", "chi_tra")) {
+            $trained = Join-Path $td.FullName "$lang.traineddata"
+            if (-not (Test-Path $trained)) { throw "Staged zip missing tessdata/$lang.traineddata" }
+          }
           @"
           InvoiceExtractor OCR 實驗免安裝包（GUI + poppler + Tesseract）
           ============================================================
