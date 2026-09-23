@@ -1,0 +1,198 @@
+{
+  "header": {
+    "invoice_no": "AK00067726",
+    "invoice_date": "2026-09-15",
+    "total_pkg": 6.0,
+    "gross_weight_kg": 909.7,
+    "incoterm": "FCA Supplier",
+    "item_line_count": 11,
+    "total_quantity": 390.0,
+    "amount": 383464.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "AK00067726",
+      "part_no": "9430.034.264-41N",
+      "description": "Hole-Type Nozzle",
+      "qty": 144.0,
+      "unit": "PC",
+      "unit_price": 182.0,
+      "amount": 26208.0,
+      "origin": "IN",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067726",
+      "part_no": "0433.171.486-41N",
+      "description": "Hole-Type Nozzle",
+      "qty": 12.0,
+      "unit": "PC",
+      "unit_price": 387.0,
+      "amount": 4644.0,
+      "origin": "IN",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067726",
+      "part_no": "0986.357.822-000",
+      "description": "Ht Ignition Cable",
+      "qty": 30.0,
+      "unit": "PC",
+      "unit_price": 567.0,
+      "amount": 17010.0,
+      "origin": "DE",
+      "hs_code": "8544301200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067726",
+      "part_no": "1468.334.378-80C",
+      "description": "Hydraulic Head",
+      "qty": 2.0,
+      "unit": "PC",
+      "unit_price": 3694.0,
+      "amount": 7388.0,
+      "origin": "IN",
+      "hs_code": "8413919000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067726",
+      "part_no": "0414.693.006-80D",
+      "description": "Fuel-Injection Pump",
+      "qty": 6.0,
+      "unit": "PC",
+      "unit_price": 3783.0,
+      "amount": 22698.0,
+      "origin": "IN",
+      "hs_code": "8413303000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067726",
+      "part_no": "F00B.C80.045-770",
+      "description": "Metering Unit",
+      "qty": 10.0,
+      "unit": "PC",
+      "unit_price": 1779.0,
+      "amount": 17790.0,
+      "origin": "IN",
+      "hs_code": "8481809900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067726",
+      "part_no": "0444.022.074-357",
+      "description": "Pump module",
+      "qty": 14.0,
+      "unit": "PC",
+      "unit_price": 13745.0,
+      "amount": 192430.0,
+      "origin": "AT",
+      "hs_code": "8413509000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067726",
+      "part_no": "0433.175.341-41N",
+      "description": "Hole-Type Nozzle",
+      "qty": 24.0,
+      "unit": "PC",
+      "unit_price": 623.0,
+      "amount": 14952.0,
+      "origin": "IN",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067726",
+      "part_no": "0433.175.341-41N",
+      "description": "Hole-Type Nozzle",
+      "qty": 24.0,
+      "unit": "PC",
+      "unit_price": 623.0,
+      "amount": 14952.0,
+      "origin": "IN",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067726",
+      "part_no": "0433.271.775-41N",
+      "description": "Hole-Type Nozzle",
+      "qty": 24.0,
+      "unit": "PC",
+      "unit_price": 283.0,
+      "amount": 6792.0,
+      "origin": "IN",
+      "hs_code": "8409994900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00067726",
+      "part_no": "0986.478.867-E0K",
+      "description": "Brake Disc",
+      "qty": 100.0,
+      "unit": "PC",
+      "unit_price": 586.0,
+      "amount": 58600.0,
+      "origin": "CZ",
+      "hs_code": "8708309000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-747/90-S-26MA-747/SAP INV/Invoice AK00067726.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 383464.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 11,
+        "got": 11
+      },
+      "total_quantity": {
+        "want": 390.0,
+        "got": 390.0
+      },
+      "amount": {
+        "want": 383464.0,
+        "got": 383464.0
+      },
+      "labeled_amount": {
+        "label": "Net value",
+        "want": 383464.0,
+        "header_amount": 383464.0,
+        "sum_items": 383464.0,
+        "item_count": 11
+      },
+      "missing_hs_indices": []
+    },
+    "match_score": 1.0,
+    "classified_format_id": "ma_ak_billing_v1"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "HBL005289",
+    "hbl_no": "HBL005289",
+    "mbl_no": null,
+    "vessel": "WAN HAI 287",
+    "voyage": "N077",
+    "etd": null,
+    "eta": "2026-09-25",
+    "pol": "PORT KLANG",
+    "pod": "TAIPEI",
+    "packages": 78.0,
+    "package_unit": "PACKAGE",
+    "gross_weight_kg": 11222.17,
+    "measurement_cbm": 45.72,
+    "load_type": "FCL",
+    "shipper": "ROBERT BOSCH SDN BHD D' BLOCK WAREHOUSE, JALAN FZ2-P8 PRESINT 8, P804,P806,P833,P834,",
+    "consignee": "ROBERT BOSCH TAIWAN CO., LTD. DAHUA ST. LUZHU DIST. NO. 432 338013 TAOYUAN CITY,TAIWAN",
+    "notify": "SAME AS CONSIGNEE",
+    "invoice_refs": "AK00067724, AK00067725, AK00067726, AK00067729, AK00067730",
+    "container_nos": "IAAU1757708",
+    "forwarder": "Milestone Forwarding (里運國際)"
+  },
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-747/90-S-26MA-747/到貨通知 HBL005289.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "milestone_arrival_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "doc_kind": "arrival_notice",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "match_score": 1.0
+  }
+}

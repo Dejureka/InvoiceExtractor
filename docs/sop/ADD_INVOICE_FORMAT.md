@@ -131,6 +131,7 @@
 | 2026-09-15 | MA inv+bl 6：`milestone_arrival_v1`（里運／Milestone）；同資料夾 N INV↔1 BL 共用 Summary BL 欄 |
 | 2026-09-20 | MA new sample：`ma_ak_billing_v1`（Invoice AK…）＋`nippon_express_awb_v1`（pdfdq NEM AWB）；milestone 沿用 90-S HBL；OCR sidecar 支援掃描到貨 |
 | 2026-09-15 | PT Dremel：`pt_dremel_head3_v1`／`pt_dremel_head5_v1`（vs Gloria；16 PDF；HS hard；head5 GW=Gross） |
+| 2026-09-23 | MA-747 90-S：FWD+SAP AK Billing（byte-identical）+ milestone HBL005289；`ma_ak_billing_v1` FWD `AK…_INV` score；hard_check 0.1% line relative tol（Net Value≠Unit×Qty） |
 | 2026-09-21 | SOE 1st：`soe_rb_gmbh_v1`＋`kwe_air_waybill_v1`／`maersk_air_waybill_v1`；PT round3 既有 gloria／dremel head5 全過；BHC 罰 INV_PL_/Bosch Partnumber |
 
 
