@@ -2,8 +2,8 @@
   "header": {
     "invoice_no": "TW-MANUAL-015",
     "invoice_date": "29-Jun-26",
-    "total_pkg": null,
-    "gross_weight_kg": null,
+    "total_pkg": 1.0,
+    "gross_weight_kg": 1.0,
     "incoterm": null,
     "item_line_count": 1,
     "total_quantity": 1.0,
@@ -13,8 +13,8 @@
     "origin": "CN",
     "hs_code": null,
     "bl_no": "SHAKEL26971792",
-    "bl_packages": 1.0,
-    "bl_gross_weight_kg": 2608.83
+    "bl_packages": 222.0,
+    "bl_gross_weight_kg": 2608.53
   },
   "items": [
     {
@@ -37,13 +37,13 @@
     "confidence": "high",
     "needs_ocr": false,
     "needs_gold": false,
-    "notes": "source=split; pkl_used=no; bl_used=yes; bl_file=20260918102712-0001.pdf",
+    "notes": "source=split; pkl_used=yes; bl_used=yes; bl_file=20260918102712-0001.pdf",
     "labeled_amount": 83.0,
     "labeled_amount_label": "TOTAL",
     "source": "split",
     "inv_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/INV#TW-MANUAL-015-BHCWHQA260915A.pdf",
     "pkl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/PKL_ BHCWHQA260915A.pdf",
-    "pkl_used": false,
+    "pkl_used": true,
     "bl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/20260918102712-0001.pdf",
     "bl_used": true,
     "bl_format_id": "tvl_hbl_v1",

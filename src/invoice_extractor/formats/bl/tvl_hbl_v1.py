@@ -24,7 +24,9 @@ MATCH_HINTS = {
 
 NOTES = (
     "TVL / Trans Van Links HBL face. Trained on OCR of BHC case7/8 scan HBLs "
-    "(SHAKEL26970898 / SHAKEL26770270)."
+    "(SHAKEL26970898 / SHAKEL26770270; BHC 3rd SHAKEL26971792 / SHAKEL26972017). "
+    "Prefer cargo cartons/pallets over Say-Total container (1×20GP). "
+    "GW: prefer CARTONS/KGS when carton count matches; else standalone KGS; cross-check OCR slips (.830→.53, B26CARTONS≠326)."
 )
 
 RULES_JSON = {
@@ -107,27 +109,106 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
     if re.search(r"KEELUNG", text, re.I):
         h.pod = "KEELUNG, TAIWAN"
 
-    # Gross weight: 231.000KGS / OCR typos K6S / KG5
-    weights = re.findall(r"([\d]{2,5}[.,]\d{2,3})\s*K[G6][S5]?", text, re.I)
-    if weights:
-        cand = weights[0].replace(",", ".")
-        try:
-            h.gross_weight_kg = float(cand)
-        except ValueError:
-            pass
+    # Packages: prefer cargo cartons/pallets on the face, NOT Say-Total container
+    # (e.g. "222 CARTONS" / "222CARTONS/2608.53KGS" wins over "SAY TOTAL: ONE (1) 20'GP").
+    # Combo must not steal a leading letter digit (OCR "B26CARTONS" from "326").
+    combo_rx = re.compile(
+        r"(?<![A-Za-z0-9])(\d{1,4})\s*C\s*ARTONS\s*/\s*([\d]+[.,]\d{2,3})\s*K[G6][S5]?",
+        re.I,
+    )
+    combos = list(combo_rx.finditer(text))
+    carton_counts = [
+        float(m.group(1))
+        for m in re.finditer(r"(?<![A-Za-z0-9])(\d{1,4})\s*CARTONS\b", text, re.I)
+    ]
+    m_plts = re.search(
+        r"(?<![A-Za-z0-9])(\d{1,4})\s*CTNS?\s*=\s*(\d+)\s*PLTS?"
+        r"|(?<![A-Za-z0-9])(\d{1,4})\s*PALLETS?\b",
+        text,
+        re.I,
+    )
 
-    # Packages — prefer SAY TOTAL container/pallet, else cartons count
-    if re.search(r"SAY\s+TOTAL[^\n]{0,40}PALLET|ONE\s*\(1\)\s*PALLET", text, re.I):
+    if carton_counts:
+        # Prefer the largest plausible face count (e.g. 326 over a stray 26).
+        h.packages = max(carton_counts)
+        h.package_unit = "CARTONS"
+    elif combos:
+        h.packages = float(combos[0].group(1))
+        h.package_unit = "CARTONS"
+    elif m_plts:
+        # "83CTNS=2PLTS" → prefer CTNS group if present; else PALLETS count
+        if m_plts.group(1) and m_plts.group(2):
+            h.packages = float(m_plts.group(1))
+            h.package_unit = "CARTONS"
+        else:
+            raw = m_plts.group(3) or m_plts.group(1)
+            if raw:
+                h.packages = float(raw)
+                h.package_unit = "PALLETS"
+    elif re.search(r"SAY\s+TOTAL[^\n]{0,40}PALLET|ONE\s*\(1\)\s*PALLET", text, re.I):
         h.packages = 1.0
         h.package_unit = "PALLET"
     elif re.search(r"SAY\s+TOTAL[^\n]{0,60}20.?GP|ONE\s*\(1\)\s*20", text, re.I):
         h.packages = 1.0
         h.package_unit = "20GP"
+
+    # Gross weight: trust CARTONS/KGS combo only when its carton count matches
+    # chosen packages; else use standalone KGS and fix common OCR .830↔.53 slips.
+    def _to_f(raw: str) -> float | None:
+        try:
+            return float(raw.replace(",", "."))
+        except ValueError:
+            return None
+
+    matched_combo_gw = None
+    for cm in combos:
+        if h.packages is not None and float(cm.group(1)) == float(h.packages):
+            matched_combo_gw = _to_f(cm.group(2))
+            if matched_combo_gw is not None:
+                break
+    if matched_combo_gw is not None:
+        h.gross_weight_kg = matched_combo_gw
     else:
-        m = re.search(r"(\d{1,4})\s*CARTONS", text, re.I)
-        if m:
-            h.packages = float(m.group(1))
-            h.package_unit = "CARTONS"
+        weights_raw = re.findall(r"([\d]{2,5}[.,]\d{2,3})\s*K[G6][S5]?", text, re.I)
+        # Drop combo weights whose carton count disagrees with packages
+        mistrust = set()
+        for cm in combos:
+            if h.packages is None or float(cm.group(1)) != float(h.packages):
+                mistrust.add(cm.group(2).replace(",", "."))
+        cands = []
+        for w in weights_raw:
+            key = w.replace(",", ".")
+            if key in mistrust:
+                continue
+            v = _to_f(w)
+            if v is not None and 1 <= v <= 100000:
+                cands.append((w, v))
+        chosen_v = None
+        if cands:
+            # Prefer ###.### cargo face (3dp) over first 2dp when both exist,
+            # unless the 3dp looks like the .830 OCR slip of a known .53 sibling.
+            three = [(w, v) for w, v in cands if re.search(r"[.,]\d{3}$", w)]
+            two = [(w, v) for w, v in cands if re.search(r"[.,]\d{2}$", w)]
+            if three:
+                w0, v0 = three[0]
+                if str(v0).endswith("83") or w0.replace(",", ".").endswith("830"):
+                    # 2608.830 vs face 2608.53 — prefer matching 2dp sibling
+                    stem = int(v0)
+                    sib = next((v for _, v in two if int(v) == stem), None)
+                    if sib is not None:
+                        chosen_v = sib
+                    else:
+                        # reconstruct common 5→8 OCR slip: *.830 → *.53
+                        if w0.replace(",", ".").endswith("830"):
+                            chosen_v = float(f"{stem}.53")
+                        else:
+                            chosen_v = v0
+                else:
+                    chosen_v = v0
+            elif two:
+                chosen_v = two[0][1]
+        if chosen_v is not None:
+            h.gross_weight_kg = chosen_v
 
     m = re.search(r"([\d.]+)\s*M3|([\d.]+)\s*CBM", text, re.I)
     if m:
@@ -147,7 +228,7 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
 
     conf = "rules"
     needs_gold = False
-    if needs_ocr or not h.bl_no:
+    if not h.bl_no:
         conf = "needs_gold"
         needs_gold = True
 

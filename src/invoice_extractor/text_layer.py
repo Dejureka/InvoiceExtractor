@@ -15,6 +15,65 @@ from invoice_extractor.ocr import OCR_BACKEND, is_ocr_backend, try_ocr_pdf
 PREFERRED_BACKEND_PREFIX = "pdftotext"
 
 
+def _garbage_char_ratio(s: str) -> float:
+    """Fraction of chars that look like binary / private-use garbage (not normal text)."""
+    if not s:
+        return 0.0
+    weird = 0
+    n = 0
+    for c in s:
+        if c in "\n\r\t ":
+            continue
+        n += 1
+        o = ord(c)
+        if o < 32 or (0x7F <= o < 0xA0) or (0xE000 <= o <= 0xF8FF):
+            weird += 1
+    return (weird / n) if n else 0.0
+
+
+def text_layer_looks_unreliable(text: str) -> bool:
+    """True when the PDF text layer looks stale/corrupt vs a visible scan page.
+
+    Heuristics (generic — not filename-specific):
+    - High overall ratio of control / private-use characters
+    - Any page after the first that is mostly binary garbage (common when an
+      image page still carries leftover text objects from another document)
+    """
+    if not (text or "").strip():
+        return True
+    if _garbage_char_ratio(text) > 0.08 and len(text) > 200:
+        return True
+    pages = text.split("\f")
+    for page in pages[1:]:
+        if len(page.strip()) < 80:
+            continue
+        if _garbage_char_ratio(page) > 0.12:
+            return True
+    return False
+
+
+def ocr_text_looks_more_reliable(layer: str, ocr: str) -> bool:
+    """Prefer OCR when it recovers packing/invoice anchors the layer lacks,
+    or when the layer is garbage-heavy while OCR is mostly printable."""
+    if not (ocr or "").strip():
+        return False
+    if text_layer_looks_unreliable(layer) and _garbage_char_ratio(ocr) < 0.05:
+        return True
+    # Layer has an Invoice No. but packing body contradicts OCR's clear TOTAL PALLETS/GW
+    import re
+    ocr_has_pallet_total = bool(
+        re.search(r"TOTAL\s*:?\s*\d+\s*PALLETS?|\(\s*TOTAL\s*:?\s*\d+\s*PALLETS?", ocr, re.I)
+    )
+    layer_has_pallet_total = bool(re.search(r"\d+\s*PALLETS?", layer or "", re.I))
+    if ocr_has_pallet_total and not layer_has_pallet_total:
+        # and OCR shares an invoice token with the layer header (same doc) or layer is thin
+        invs_ocr = set(re.findall(r"\b(USDI\d+|VKT\d+|9027\d{6}|OK\d{8})\b", ocr, re.I))
+        invs_layer = set(re.findall(r"\b(USDI\d+|VKT\d+|9027\d{6}|OK\d{8})\b", layer or "", re.I))
+        if invs_ocr and (invs_ocr & invs_layer or not invs_layer):
+            return True
+    return False
+
+
 def extract_layout_text(pdf_path: str | Path) -> tuple[str, str, bool]:
     """Return ``(text, backend, needs_ocr)``.
 
@@ -68,18 +127,32 @@ def extract_text(
         return extract_layout_text(path)
 
     text, backend, needs_ocr = extract_layout_text(path)
-    if not needs_ocr or not allow_ocr:
+    if not allow_ocr:
+        return text, backend, needs_ocr
+
+    # Empty layer → OCR. Non-empty but unreliable/stale (garbage pages / high
+    # binary ratio) → OCR and prefer it. Clean text layers are left alone
+    # (no blanket OCR on every PDF).
+    stale = (not needs_ocr) and text_layer_looks_unreliable(text)
+    if not needs_ocr and not stale:
         return text, backend, needs_ocr
 
     ocr_text, ocr_backend, err = try_ocr_pdf(path)
     if ocr_text is not None and ocr_text.strip():
-        return ocr_text, ocr_backend or OCR_BACKEND, False
+        tag = ocr_backend or OCR_BACKEND
+        if stale:
+            # Only swap when OCR is clearly better; otherwise keep layer
+            if ocr_text_looks_more_reliable(text, ocr_text) or needs_ocr:
+                tag = f"{tag}+prefer_over_stale_layer" if stale else tag
+                return ocr_text, tag, False
+            return text, backend, False
+        return ocr_text, tag, False
 
-    # Keep empty text; annotate backend so callers can surface the OCR error.
+    # Keep empty/stale text; annotate backend so callers can surface the OCR error.
     note_backend = backend or ""
     if err:
         note_backend = f"{note_backend}+ocr_failed" if note_backend else "ocr_failed"
-    return text, note_backend, True
+    return text, note_backend, True if needs_ocr else False
 
 
 def backend_is_preferred(backend: str | None) -> bool:
@@ -92,7 +165,12 @@ def backend_warning(backend: str | None) -> str | None:
         if "error:" in str(backend):
             return str(backend).split("error:", 1)[-1].strip() or "Excel read failed"
         return None
-    if is_ocr_backend(backend):
+    if is_ocr_backend(backend) or (backend and "prefer_over_stale_layer" in str(backend)):
+        if backend and "prefer_over_stale_layer" in str(backend):
+            return (
+                f"OCR preferred ({backend}): PDF text layer looked stale/corrupt "
+                "or contradicted visible packing anchors; rules use OCR text."
+            )
         return (
             f"OCR used ({backend}): PDF text layer was empty. "
             "Column layout may be imperfect vs pdftotext; rules still apply."

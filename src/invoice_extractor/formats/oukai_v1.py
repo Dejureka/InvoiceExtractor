@@ -22,7 +22,10 @@ MATCH_HINTS = {
 
 NOTES = (
     "Changzhou Oukai Electric stepper-motor INV+PL. Primary source often .xls "
-    "(excel/xlrd). Sample: OK20260921.xls (BHC 3rd case7)."
+    "(excel/xlrd). Sample: OK20260921.xls (BHC 3rd case7). "
+    "Auditor 2026-09-24: vendor Total qty cell 10750 is a typo (omits 10000 line); "
+    "line-sum qty 20750 is correct — hard_check uses sum(lines); soft note when "
+    "labeled Total qty disagrees with sum(lines)."
 )
 
 RULES_JSON = {
@@ -154,10 +157,17 @@ def extract_from_text(
     if amount is None and items:
         amount = round(sum(it.amount or 0 for it in items), 2)
     sum_qty = float(sum(it.qty or 0 for it in items)) if items else None
+    qty_note = None
     # Source Total row sometimes under-states qty vs lines (OK20260921: 10750 vs 20750);
-    # trust sum(lines) when both present and disagree.
+    # trust sum(lines) when both present and disagree (vendor typo — Auditor confirmed).
     if sum_qty is not None:
-        if total_qty is None or abs(total_qty - sum_qty) > 0.5:
+        if total_qty is not None and abs(total_qty - sum_qty) > 0.5:
+            qty_note = (
+                f"vendor Total qty {total_qty:g} != sum(lines) {sum_qty:g}; "
+                "using sum(lines)"
+            )
+            total_qty = sum_qty
+        elif total_qty is None:
             total_qty = sum_qty
 
     header = Header(
@@ -182,6 +192,7 @@ def extract_from_text(
         labeled_amount=amount,
         labeled_amount_label="Total",
         source="combined",
+        notes=qty_note,
     )
     if not invoice_no or amount is None or not items:
         meta.confidence = "needs_gold"
