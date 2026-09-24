@@ -1,9 +1,14 @@
-"""Wrap pdf_layout_text; flag empty text as needs_ocr; OCR fallback; backend quality."""
+"""Wrap pdf_layout_text; Excel workbook text; flag empty text as needs_ocr; OCR fallback."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
+from invoice_extractor.excel_text import (
+    ExcelUnsupportedError,
+    is_excel_path,
+    workbook_to_text,
+)
 from invoice_extractor.ocr import OCR_BACKEND, is_ocr_backend, try_ocr_pdf
 
 # Backends that preserve BITZER/PT column layout best.
@@ -15,10 +20,18 @@ def extract_layout_text(pdf_path: str | Path) -> tuple[str, str, bool]:
 
     ``needs_ocr`` is True when the text layer is empty / whitespace-only.
     Does **not** run OCR — call :func:`extract_text` for the OCR fallback.
+    Excel inputs are converted via openpyxl (never OCR).
     """
+    path = Path(pdf_path)
+    if is_excel_path(path):
+        try:
+            text, backend = workbook_to_text(path)
+        except ExcelUnsupportedError as exc:
+            return "", f"excel/error:{exc}", True
+        return text or "", backend, not (text or "").strip()
+
     from pdf_layout_text import pdf_to_layout_text
 
-    path = Path(pdf_path)
     text, backend = pdf_to_layout_text(path)
     needs_ocr = not (text or "").strip()
     if needs_ocr:
@@ -41,6 +54,7 @@ def extract_text(
 
     Returns ``(text, backend, needs_ocr)``.
 
+    - Excel (``.xlsx``/``.xlsm``): cell text via openpyxl; never OCR.
     - If the native text layer has content: ``needs_ocr=False``, normal backend.
     - If empty and OCR succeeds with non-empty text: ``backend`` is
       ``ocr/tesseract`` (or equivalent), ``needs_ocr=False`` so the same
@@ -49,6 +63,10 @@ def extract_text(
       (empty) backend preserved when possible.
     """
     path = Path(pdf_path)
+    # Excel: never attempt OCR (binary workbook / not a scan PDF).
+    if is_excel_path(path):
+        return extract_layout_text(path)
+
     text, backend, needs_ocr = extract_layout_text(path)
     if not needs_ocr or not allow_ocr:
         return text, backend, needs_ocr
@@ -70,6 +88,10 @@ def backend_is_preferred(backend: str | None) -> bool:
 
 def backend_warning(backend: str | None) -> str | None:
     """Human-readable note when not using poppler pdftotext (or when OCR used)."""
+    if backend and str(backend).startswith("excel/"):
+        if "error:" in str(backend):
+            return str(backend).split("error:", 1)[-1].strip() or "Excel read failed"
+        return None
     if is_ocr_backend(backend):
         return (
             f"OCR used ({backend}): PDF text layer was empty. "

@@ -30,7 +30,7 @@ Browse／`--out` 可改路徑；**不再**預設在 PDF 旁產生 `<檔名>.extr
 
 1. 下載並解壓 `InvoiceExtractor_Portable_Win64.zip`（**整個資料夾**保留，含 `poppler/bin`）。
 2. 雙擊 `InvoiceExtractor.exe` → 應出現視窗（不該只閃黑窗）。
-3. **Browse** 多選 PDF，或 **Add folder**，或拖檔／拖資料夾進視窗。
+3. **Browse** 多選 PDF／Excel（`.xlsx`／`.xlsm`／`.xls`），或 **Add folder**，或拖檔／拖資料夾進視窗。工具自己的 `InvoiceExtract_Result.xlsx`、範本、以及 `ocr_out/` 內檔案不會被當成輸入。
 4. 輸出路徑可改；預設為工具根目錄的 `InvoiceExtract_Result.xlsx`（同檔覆寫）。
 5. 按 **Extract**。成功看 Summary／Lines；失敗檔會在介面列出。
 
@@ -66,6 +66,8 @@ python -m invoice_extractor ./invoices_dir
 | 金額像「單價」、明細只有 1 行 | 文字層／規則問題；看 `meta` 的 backend／verdict；換含 poppler 的完整資料夾 |
 | G.W. 偏小 | 可能誤抓淨重；回報發票號＋畫面（正確應為 Gross） |
 | 某廠商完全抽不到 | 可能尚未有規則（例如多數 **MA** 變體）；走 FormatSOP 開新 format |
+| 丟入 Excel 發票 | 已接受為輸入；尚無對應 Excel format 時會標 **全新／需規則**（不跑 OCR）。之後依 FormatSOP 寫規則即可 |
+| 舊版 `.xls` | 請另存成 `.xlsx` 再抽（openpyxl 不讀 `.xls`） |
 | 要給 Auditor | 另存／輸出 `.json`（或依現行參數），見 AuditSOP |
 
 **審核**：要給 Auditor 時依 **AuditSOP**——Tools 需附 JSON＋invoice 圖，不只 txt／JSON。
@@ -110,6 +112,10 @@ Extract 後 Summary／底列會顯示每張發票的對應狀態（另附 `forma
 掃描 PDF 若只要可搜尋／可複製文字層：GUI 按 **「OCR 成可複製 PDF」** 多選檔案，或 CLI `python -m invoice_extractor --ocr-pdf a.pdf`。輸出在工具根目錄的 **`ocr_out/{檔名}.ocr.pdf`**（資料夾不存在會自動建立；與 Extract／Excel 無關）。語言預設英文，若便攜包 tessdata 含繁／簡中文會一併啟用。
 
 ## 修訂紀錄
+
+| 日期 | 說明 |
+|------|------|
+| 2026-09-24 | GUI／CLI 接受 Excel（`.xlsx`／`.xlsm`／`.xls`）輸入；跳過 Result／範本／`ocr_out` |
 
 | 日期 | 說明 |
 |------|------|

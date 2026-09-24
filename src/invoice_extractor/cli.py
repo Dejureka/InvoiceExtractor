@@ -27,36 +27,64 @@ from invoice_extractor.checker_bl import hard_check_bl
 from invoice_extractor.export import write_bl_extracts
 
 
-def collect_pdfs(paths: list[str | Path]) -> tuple[list[Path], list[str]]:
-    """Expand files and directories into a de-duplicated PDF list.
+_INPUT_GLOBS = (
+    "*.pdf",
+    "*.PDF",
+    "*.Pdf",
+    "*.xlsx",
+    "*.XLSX",
+    "*.xlsm",
+    "*.XLSM",
+    "*.xls",
+    "*.XLS",
+)
+_INPUT_SUFFIXES = frozenset({".pdf", ".xlsx", ".xlsm", ".xls"})
 
-    Returns (pdfs, errors) where errors are human-readable path problems.
+
+def collect_pdfs(paths: list[str | Path]) -> tuple[list[Path], list[str]]:
+    """Expand files and directories into a de-duplicated PDF/Excel list.
+
+    Accepts ``.pdf``, ``.xlsx``, ``.xlsm``, ``.xls``. Skips tool outputs
+    (``InvoiceExtract_Result.xlsx``, templates) and anything under ``ocr_out/``.
+
+    Returns (files, errors) where errors are human-readable path problems.
     """
+    from invoice_extractor.excel_text import should_skip_input
+
     found: list[Path] = []
     errors: list[str] = []
     seen: set[str] = set()
+
+    def _add(m: Path) -> None:
+        if should_skip_input(m):
+            return
+        if m.suffix.lower() not in _INPUT_SUFFIXES:
+            return
+        key = str(m.resolve()) if m.exists() else str(m)
+        if key not in seen:
+            seen.add(key)
+            found.append(m)
+
     for raw in paths:
         p = Path(raw)
         if p.is_dir():
-            matches = sorted(
-                {*(p.glob("*.pdf")), *(p.glob("*.PDF")), *(p.glob("*.Pdf"))}
-            )
-            if not matches:
-                errors.append(f"No PDFs in directory: {p}")
+            matches: set[Path] = set()
+            for pat in _INPUT_GLOBS:
+                matches.update(p.glob(pat))
+            usable = sorted(m for m in matches if not should_skip_input(m))
+            if not usable:
+                errors.append(f"No PDF/Excel inputs in directory: {p}")
                 continue
-            for m in matches:
-                key = str(m.resolve()) if m.exists() else str(m)
-                if key not in seen:
-                    seen.add(key)
-                    found.append(m)
+            for m in usable:
+                _add(m)
         elif p.is_file():
-            if p.suffix.lower() != ".pdf":
-                errors.append(f"Not a PDF: {p}")
+            if should_skip_input(p):
+                errors.append(f"Skipped tool output/template: {p}")
                 continue
-            key = str(p.resolve())
-            if key not in seen:
-                seen.add(key)
-                found.append(p)
+            if p.suffix.lower() not in _INPUT_SUFFIXES:
+                errors.append(f"Not a PDF/Excel input: {p}")
+                continue
+            _add(p)
         else:
             errors.append(f"Path not found: {p}")
     return found, errors
@@ -113,7 +141,7 @@ def cmd_extract(args: argparse.Namespace) -> int:
     for err in path_errors:
         print(err, file=sys.stderr)
     if not pdfs:
-        print("No PDF inputs to extract.", file=sys.stderr)
+        print("No PDF/Excel inputs to extract.", file=sys.stderr)
         return 2
 
     multi = len(pdfs) > 1
@@ -280,7 +308,7 @@ def cmd_extract_bl(args: argparse.Namespace) -> int:
     for err in path_errors:
         print(err, file=sys.stderr)
     if not pdfs:
-        print("No PDF inputs to extract.", file=sys.stderr)
+        print("No PDF/Excel inputs to extract.", file=sys.stderr)
         return 2
 
     successes: list[dict] = []
@@ -343,9 +371,14 @@ def cmd_ocr_pdf(args: argparse.Namespace) -> int:
     if getattr(args, "pdf", None) and args.pdf not in raw_paths:
         raw_paths.insert(0, args.pdf)
 
-    pdfs, path_errors = collect_pdfs(raw_paths)
+    files, path_errors = collect_pdfs(raw_paths)
     for err in path_errors:
         print(err, file=sys.stderr)
+    # OCR is PDF-only — skip Excel inputs with a clear note.
+    skipped_non_pdf = [f for f in files if f.suffix.lower() != ".pdf"]
+    pdfs = [f for f in files if f.suffix.lower() == ".pdf"]
+    for f in skipped_non_pdf:
+        print(f"OCR skipped (not a PDF): {f}", file=sys.stderr)
     if not pdfs:
         print("No PDF inputs for OCR.", file=sys.stderr)
         return 2
@@ -377,8 +410,8 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="invoice_extractor",
         description=(
-            "Extract invoice header/items to Excel (.xlsx) or JSON from PDF(s). "
-            "Multiple PDFs/directories → one workbook (Summary + Lines)."
+            "Extract invoice header/items to Excel (.xlsx) or JSON from PDF/Excel inputs. "
+            "Multiple files/directories → one workbook (Summary + Lines)."
         ),
     )
     p.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
@@ -394,7 +427,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "pdfs",
         nargs="*",
-        help="Input PDF path(s) and/or directories of PDFs",
+        help="Input PDF/Excel path(s) and/or directories (.pdf/.xlsx/.xlsm/.xls)",
     )
     p.add_argument(
         "--out",

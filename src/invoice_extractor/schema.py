@@ -70,6 +70,8 @@ class Meta:
     bl_used: Optional[bool] = None
     bl_format_id: Optional[str] = None
     pair_status: Optional[str] = None  # INV+PKL / 僅 INV / 僅 提單 / …
+    # Input document kind: "pdf" | "excel" (workbook cell text)
+    source_kind: Optional[str] = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

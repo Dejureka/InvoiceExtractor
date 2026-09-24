@@ -48,11 +48,11 @@ def _parse_dnd_paths(raw: str) -> list[str]:
 
 
 def _expand_pdf_inputs(paths: list[str]) -> list[Path]:
-    """Turn dropped/selected paths into PDF files (directories expanded)."""
+    """Turn dropped/selected paths into PDF/Excel files (directories expanded)."""
     from invoice_extractor.cli import collect_pdfs
 
-    pdfs, _errs = collect_pdfs(paths)
-    return pdfs
+    files, _errs = collect_pdfs(paths)
+    return files
 
 
 def _extract_one(pdf: Path) -> dict[str, Any]:
@@ -267,7 +267,7 @@ def run_gui() -> None:
             self.root = self._make_root()
             pad = {"padx": 8, "pady": 4}
 
-            frm_pdf = ttk.LabelFrame(self.root, text="PDFs (multi-select / folders OK)")
+            frm_pdf = ttk.LabelFrame(self.root, text="Files (PDF / Excel; multi-select / folders OK)")
             frm_pdf.pack(fill="x", **pad)
             self.pdf_var = tk.StringVar()
             ttk.Entry(frm_pdf, textvariable=self.pdf_var).pack(
@@ -282,13 +282,13 @@ def run_gui() -> None:
 
             frm_drop = ttk.LabelFrame(
                 self.root,
-                text="Drop zone (PDF / folder)"
+                text="Drop zone (PDF / Excel / folder)"
                 + (" — drag-drop on" if has_dnd else " — use Browse"),
             )
             frm_drop.pack(fill="x", **pad)
             self.drop_label = ttk.Label(
                 frm_drop,
-                text="Drop PDFs or a folder here, or use Browse",
+                text="Drop PDFs/Excel or a folder here, or use Browse",
                 anchor="center",
                 padding=20,
             )
@@ -449,7 +449,7 @@ def run_gui() -> None:
             elif len(self._pdfs) == 1:
                 self.pdf_var.set(str(self._pdfs[0]))
             else:
-                self.pdf_var.set(f"{len(self._pdfs)} PDFs selected")
+                self.pdf_var.set(f"{len(self._pdfs)} files selected")
             self._rebuild_pairs()
 
         def _rebuild_pairs(self) -> None:
@@ -519,8 +519,8 @@ def run_gui() -> None:
                 return
             inv_key = str(row.inv_path.resolve()) if row.inv_path.exists() else str(row.inv_path)
             path = filedialog.askopenfilename(
-                title="選擇要配給此 INV 的 PKL PDF",
-                filetypes=[("PDF", "*.pdf *.PDF"), ("All", "*.*")],
+                title="選擇要配給此 INV 的 PKL 檔",
+                filetypes=[("PDF/Excel", "*.pdf *.PDF *.xlsx *.xlsm *.xls"), ("PDF", "*.pdf *.PDF"), ("Excel", "*.xlsx *.xlsm *.xls"), ("All", "*.*")],
                 initialdir=str(row.inv_path.parent) if row.inv_path else None,
             )
             if not path:
@@ -532,7 +532,7 @@ def run_gui() -> None:
             if key not in seen:
                 self._pdfs.append(pkl)
                 self.listbox.insert("end", str(pkl))
-                self.pdf_var.set(f"{len(self._pdfs)} PDFs selected")
+                self.pdf_var.set(f"{len(self._pdfs)} files selected")
             # Detach this PKL from any other pair; bind to this INV
             for r in self._pairs:
                 if r.inv_path and (
@@ -578,8 +578,8 @@ def run_gui() -> None:
                 return
             inv_key = str(row.inv_path.resolve()) if row.inv_path.exists() else str(row.inv_path)
             path = filedialog.askopenfilename(
-                title="選擇要配給此 INV 的提單 PDF",
-                filetypes=[("PDF", "*.pdf *.PDF"), ("All", "*.*")],
+                title="選擇要配給此 INV 的提單檔",
+                filetypes=[("PDF/Excel", "*.pdf *.PDF *.xlsx *.xlsm *.xls"), ("PDF", "*.pdf *.PDF"), ("Excel", "*.xlsx *.xlsm *.xls"), ("All", "*.*")],
                 initialdir=str(row.inv_path.parent) if row.inv_path else None,
             )
             if not path:
@@ -591,7 +591,7 @@ def run_gui() -> None:
             if key not in seen:
                 self._pdfs.append(bl)
                 self.listbox.insert("end", str(bl))
-                self.pdf_var.set(f"{len(self._pdfs)} PDFs selected")
+                self.pdf_var.set(f"{len(self._pdfs)} files selected")
             # Detach this BL from any other pair; bind to this INV
             for r in self._pairs:
                 if r.inv_path and (
@@ -703,29 +703,46 @@ def run_gui() -> None:
                 return
             pdfs = _expand_pdf_inputs(parts)
             if not pdfs:
-                self._log("Drop ignored: no PDFs found")
+                self._log("Drop ignored: no PDF/Excel inputs found")
                 return
             self._set_pdfs(pdfs, append=True)
-            self._log(f"Added {len(pdfs)} PDF(s); total {len(self._pdfs)}")
+            self._log(f"Added {len(pdfs)} file(s); total {len(self._pdfs)}")
 
         def _browse_pdf(self) -> None:
             paths = filedialog.askopenfilenames(
-                title="Select invoice PDF(s)",
-                filetypes=[("PDF", "*.pdf *.PDF"), ("All", "*.*")],
+                title="Select invoice PDF/Excel file(s)",
+                filetypes=[
+                    ("PDF/Excel", "*.pdf *.PDF *.xlsx *.xlsm *.xls"),
+                    ("PDF", "*.pdf *.PDF"),
+                    ("Excel", "*.xlsx *.xlsm *.xls"),
+                    ("All", "*.*"),
+                ],
             )
             if paths:
-                self._set_pdfs([Path(p) for p in paths], append=True)
-                self._log(f"Selected {len(paths)} file(s); total {len(self._pdfs)}")
+                files = _expand_pdf_inputs(list(paths))
+                if not files:
+                    messagebox.showwarning(
+                        "No inputs",
+                        "No usable PDF/Excel files selected "
+                        "(tool Result/Template Excel are skipped).",
+                    )
+                    return
+                self._set_pdfs(files, append=True)
+                self._log(f"Selected {len(files)} file(s); total {len(self._pdfs)}")
 
         def _browse_folder(self) -> None:
-            folder = filedialog.askdirectory(title="Select folder of invoice PDFs")
+            folder = filedialog.askdirectory(title="Select folder of invoice PDF/Excel files")
             if folder:
                 pdfs = _expand_pdf_inputs([folder])
                 if not pdfs:
-                    messagebox.showwarning("No PDFs", f"No PDF files in:\n{folder}")
+                    messagebox.showwarning(
+                        "No inputs",
+                        f"No PDF/Excel files in:\n{folder}\n"
+                        "(tool Result/Template Excel and ocr_out/ are skipped)",
+                    )
                     return
                 self._set_pdfs(pdfs, append=True)
-                self._log(f"Added folder ({len(pdfs)} PDFs); total {len(self._pdfs)}")
+                self._log(f"Added folder ({len(pdfs)} files); total {len(self._pdfs)}")
 
         def _browse_out(self) -> None:
             path = filedialog.asksaveasfilename(
@@ -752,11 +769,24 @@ def run_gui() -> None:
             )
             if not paths:
                 return
-            pdfs = [Path(p) for p in paths]
-            for pdf in pdfs:
+            pdfs = []
+            skipped = []
+            for raw in paths:
+                pdf = Path(raw)
                 if not pdf.is_file():
                     messagebox.showerror("Not found", f"File not found:\n{pdf}")
                     return
+                if pdf.suffix.lower() != ".pdf":
+                    skipped.append(pdf.name)
+                    continue
+                pdfs.append(pdf)
+            if skipped:
+                messagebox.showwarning(
+                    "OCR skips non-PDF",
+                    "OCR only accepts PDF. Skipped:\n" + "\n".join(skipped),
+                )
+            if not pdfs:
+                return
 
             from invoice_extractor.ocr import (
                 default_ocr_out_dir,
@@ -850,7 +880,7 @@ def run_gui() -> None:
             if self._busy:
                 return
             typed = self.pdf_var.get().strip().strip('"')
-            if typed and not typed.endswith("PDFs selected") and Path(typed).is_file():
+            if typed and not typed.endswith("files selected") and not typed.endswith("PDFs selected") and Path(typed).is_file():
                 if not self._pdfs or str(self._pdfs[0]) != typed:
                     self._set_pdfs([Path(typed)], append=False)
 

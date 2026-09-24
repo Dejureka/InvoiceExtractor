@@ -34,6 +34,7 @@
 ### 2. 抽文字層
 
 - 用工具內建文字層（優先 pdftotext／poppler；否則後備）產出對照用 `.txt`。
+- **Excel 輸入**（`.xlsx`／`.xlsm`；`.xls` 請另存 xlsx）：以 openpyxl 把各 sheet 轉成列文字（`=== Sheet: … ===`＋儲存格 tab 分隔），再走**同一套** match_score／規則（`meta.source_kind=excel`）。不跑 OCR。
 - **掃描件／文字層空**：走離線 Tesseract OCR（`meta.text_backend=ocr/tesseract`），再對 OCR 字串寫規則（**同一** rules_engine，不要另開 OCR-only format_id）。對照用 `.txt` 可從 OCR 輸出存檔。
 - **不要只看 PDF 畫面**；規則對的是文字座標／排版字串（OCR 時為 OCR 字串）。
 
@@ -123,6 +124,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-24 | GUI／CLI 接受 Excel 輸入；Excel format 仍走 FormatSOP（cell→text） |
 | 2026-09-10 | 初版：與使用者復盤後定稿；澄清種子與 v1／v2 選法 |
 | 2026-09-13 | 分檔 PKL 為同家族補充來源（BHC 為主）；主 format_id 看 INV／合訂本 |
 | 2026-09-13 | BHC cases 1/3/6/8：`hisense_qingdao_v1`／`aichi_electric_v1`；MY-HUB 連字號 PN＋分檔 PKL TOTAL

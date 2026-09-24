@@ -85,16 +85,35 @@ def extract_invoice(
     format_id: str | None = None,
 ) -> ExtractResult:
     """High-level: text layer → classify → rules extract."""
+    from invoice_extractor.excel_text import is_excel_path
     from invoice_extractor.text_layer import extract_text
 
     path = Path(pdf_path)
+    kind = "excel" if is_excel_path(path) else "pdf"
     if text is None:
-        text, backend2, needs_ocr2 = extract_text(path, allow_ocr=True)
+        # Excel: never OCR. PDF: allow OCR fallback when text layer empty.
+        text, backend2, needs_ocr2 = extract_text(path, allow_ocr=(kind == "pdf"))
         backend = backend or backend2
         needs_ocr = needs_ocr2 if needs_ocr is None else needs_ocr
     else:
         backend = backend or "provided"
         needs_ocr = bool(needs_ocr) if needs_ocr is not None else not text.strip()
+
+    # Excel read errors (e.g. legacy .xls) surface as empty + excel/error backend.
+    if kind == "excel" and (backend or "").startswith("excel/error:"):
+        msg = (backend or "").split("excel/error:", 1)[-1].strip() or "Excel read failed"
+        return ExtractResult(
+            header=Header(),
+            items=[],
+            meta=Meta(
+                source_file=str(path),
+                text_backend=backend or "",
+                confidence="needs_gold",
+                needs_gold=True,
+                notes=msg,
+                source_kind=kind,
+            ),
+        )
 
     if needs_ocr:
         return ExtractResult(
@@ -107,6 +126,7 @@ def extract_invoice(
                 needs_ocr=True,
                 needs_gold=True,
                 notes="empty text layer (OCR unavailable or empty)",
+                source_kind=kind,
             ),
         )
 
@@ -124,10 +144,12 @@ def extract_invoice(
                 confidence="needs_gold",
                 needs_gold=True,
                 notes=f"no format matched (best_score={score})",
+                source_kind=kind,
             ),
         )
 
     result = apply_format(fid, str(path), text, backend or "", bool(needs_ocr))
+    result.meta.source_kind = kind
     if score < 0.5 and result.meta.confidence == "rules":
         result.meta.notes = (result.meta.notes or "") + f" low_match={score:.2f}"
     return result
