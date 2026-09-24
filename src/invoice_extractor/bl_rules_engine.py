@@ -9,7 +9,10 @@ from invoice_extractor.formats.bl import (
     kwe_air_waybill_v1,
     maersk_air_waybill_v1,
     ceva_pyramid_arrival_v1,
+    china_progress_bl_v1,
+    dhl_danmar_bl_v1,
     dhl_lcl_arrival_v1,
+    hippopo_arrival_v1,
     hippopo_hbl_v1,
     milestone_arrival_v1,
     nippon_express_awb_v1,
@@ -22,7 +25,10 @@ BLExtractor = Callable[[str, str, str, bool], BLExtractResult]
 BUILTIN_BL: list[tuple[str, Callable[[str, str], float], BLExtractor]] = [
     ("ceva_pyramid_arrival_v1", ceva_pyramid_arrival_v1.match_score, ceva_pyramid_arrival_v1.extract),
     ("dhl_lcl_arrival_v1", dhl_lcl_arrival_v1.match_score, dhl_lcl_arrival_v1.extract),
+    ("dhl_danmar_bl_v1", dhl_danmar_bl_v1.match_score, dhl_danmar_bl_v1.extract),
+    ("hippopo_arrival_v1", hippopo_arrival_v1.match_score, hippopo_arrival_v1.extract),
     ("hippopo_hbl_v1", hippopo_hbl_v1.match_score, hippopo_hbl_v1.extract),
+    ("china_progress_bl_v1", china_progress_bl_v1.match_score, china_progress_bl_v1.extract),
     ("milestone_arrival_v1", milestone_arrival_v1.match_score, milestone_arrival_v1.extract),
     ("nippon_express_awb_v1", nippon_express_awb_v1.match_score, nippon_express_awb_v1.extract),
     ("tvl_hbl_v1", tvl_hbl_v1.match_score, tvl_hbl_v1.extract),
@@ -63,9 +69,11 @@ def looks_like_bl_filename(name: str) -> bool:
 
     n = name
     nu = name.upper()
-    if "到貨" in n or "提單" in n:
+    if "到貨" in n or "提單" in n or "提单" in n:
         return True
     if "HBL" in nu or "ARRIVAL" in nu:
+        return True
+    if "BILL OF LADING" in nu or nu.startswith("BL.") or nu == "BL.PDF":
         return True
     if re.search(r"\bBL[#_\- ]|B/L", nu):
         return True

@@ -41,22 +41,33 @@ RULES_JSON = {
 def match_score(text: str, filename: str = "") -> float:
     score = 0.0
     fn = filename.upper()
+    tu = text.upper()
     if "HBL" in fn or re.search(r"HB\d{8}", fn):
         score += 0.3
-    if "HIPPOPO" in text.upper():
-        score += 0.4
+    if "HIPPOPO" in tu:
+        score += 0.35
     if re.search(r"\bHB\d{8}\b", text):
-        score += 0.2
+        score += 0.3
     if "FREIGHT COLLECT" in text:
-        score += 0.1
-    if "CEVA LOGISTICS" in text or "到貨通知" in text:
+        score += 0.05
+    # This module is HBL *draft* face (HB########), not arrival notice / third-party B/L
+    if "ARRIVAL NOTICE" in tu or "到貨通知書" in text or "到貨通知" in text:
+        score -= 0.7
+    if "CEVA LOGISTICS" in text:
         score -= 0.5
     if "MILESTONE FORWARDING" in text or "里運國際" in text:
         score -= 0.6
     if "DHL GLOBAL FORWARDING" in text:
         score -= 0.5
-    if "INVOICE" in text and "HIPPOPO" not in text.upper() and "HBL" not in fn:
+    if "CHINA PROGRESS" in tu or "中进国际" in text:
+        score -= 0.8
+    if "B/L NUMBER" in tu and not re.search(r"\bHB\d{8}\b", text):
+        score -= 0.4
+    if "INVOICE" in text and "HIPPOPO" not in tu and "HBL" not in fn:
         score -= 0.2
+    # Require HB######## style id for a confident match
+    if not re.search(r"\bHB\d{8}\b", text) and "HBL" not in fn:
+        score = min(score, 0.25)
     return max(0.0, min(score, 1.0))
 
 

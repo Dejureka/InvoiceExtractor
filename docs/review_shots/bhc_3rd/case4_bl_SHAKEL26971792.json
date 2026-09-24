@@ -1,0 +1,37 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "SHAKEL26971792",
+    "hbl_no": "SHAKEL26971792",
+    "mbl_no": null,
+    "vessel": "GLORY OCEAN",
+    "voyage": "2638S",
+    "etd": null,
+    "eta": null,
+    "pol": "SHANGHAI, CHINA",
+    "pod": "KEELUNG, TAIWAN",
+    "packages": 222.0,
+    "package_unit": "CARTONS",
+    "gross_weight_kg": 2608.53,
+    "measurement_cbm": 16.519,
+    "load_type": "FCL",
+    "shipper": "BOSCH AIR CONDITIONING (WUHU) CO.,LTD.",
+    "consignee": "BOSCH HOME COMFORT TAIWAN CO., LTD.",
+    "notify": null,
+    "invoice_refs": "BHCWHYTW2609004, BHCWHQA260915A",
+    "container_nos": "TWCU2149470 / JJAA498378 / 20GP",
+    "forwarder": "T.V.L. Global Logistics Co., Ltd."
+  },
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/20260918102712-0001.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": "tvl_hbl_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "TVL / Trans Van Links HBL face. Trained on OCR of BHC case7/8 scan HBLs (SHAKEL26970898 / SHAKEL26770270; BHC 3rd SHAKEL26971792 / SHAKEL26972017). Prefer cargo cartons/pallets over Say-Total container (1×20GP). GW/CBM: prefer CARTONS/KGS[/CBM] when carton count matches; 20GP CBM sanity ≤33; OCR slips (.830→.53, 46.519→16.519, GO.→CO.). Container: ISO 4 letters+7 digits + seal; invoice_refs: all BHCWH* / P/L NO.",
+    "doc_kind": "hbl",
+    "checker_verdict": "pass",
+    "checker_issues": []
+  }
+}

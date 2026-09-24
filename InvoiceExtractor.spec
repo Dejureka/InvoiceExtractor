@@ -7,6 +7,8 @@ hidden = collect_submodules("invoice_extractor") + collect_submodules("pdf_layou
 hidden += ["pdfminer", "pdfminer.high_level"]
 # Excel export
 hidden += collect_submodules("openpyxl") + collect_submodules("et_xmlfile")
+hidden += collect_submodules("xlrd")
+hidden += ["xlrd"]
 # Self-contained text fallback (when bundled poppler missing)
 try:
     hidden += collect_submodules("pymupdf")

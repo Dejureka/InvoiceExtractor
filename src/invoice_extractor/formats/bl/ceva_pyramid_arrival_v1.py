@@ -44,20 +44,29 @@ RULES_JSON = {
 def match_score(text: str, filename: str = "") -> float:
     score = 0.0
     fn = filename
+    tu = text.upper()
     if "到貨" in fn or re.search(r"WEB\d{9}", fn, re.I):
-        score += 0.25
+        score += 0.15
     if "到貨通知" in text:
-        score += 0.25
+        score += 0.1
     if "CEVA LOGISTICS" in text or "捷飛運通" in text:
-        score += 0.3
+        score += 0.4
     if "PYRAMID LINES" in text:
-        score += 0.2
+        score += 0.25
     if re.search(r"B/L no\s*:", text):
         score += 0.15
     if "海運 LCL 到貨通知" in text or "DHL GLOBAL FORWARDING" in text:
         score -= 0.6
-    if "BILL OF LADING" in text.upper() and "CEVA" not in text:
+    if "BILL OF LADING" in tu and "CEVA" not in tu:
         score -= 0.2
+    # Hippopo / Milestone arrival notices share 到貨通知 filename — do not steal
+    if "HIPPOPO" in tu or "河馬" in text:
+        score -= 0.8
+    if "MILESTONE FORWARDING" in tu or "里運國際" in text:
+        score -= 0.8
+    # Require at least one CEVA-family anchor
+    if "CEVA" not in tu and "PYRAMID" not in tu and "捷飛運通" not in text:
+        score = min(score, 0.2)
     return max(0.0, min(score, 1.0))
 
 

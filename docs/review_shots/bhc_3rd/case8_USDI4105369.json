@@ -1,0 +1,124 @@
+{
+  "header": {
+    "invoice_no": "USDI4105369",
+    "invoice_date": "16/09/2026",
+    "total_pkg": 2.0,
+    "gross_weight_kg": 1174.0,
+    "incoterm": "CIF KEELUNG",
+    "item_line_count": 5,
+    "total_quantity": 38.0,
+    "amount": 6936.92,
+    "currency": "USD",
+    "vendor": "Hitachi Asia Ltd.",
+    "origin": "TH",
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "USDI4105369",
+      "part_no": "2NB06322A",
+      "description": "1.5KW EFOUP-K 4P",
+      "qty": 12.0,
+      "unit": "PIECE",
+      "unit_price": 105.05,
+      "amount": 1260.6,
+      "origin": "TH",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "USDI4105369",
+      "part_no": "2NB06322A",
+      "description": "1.5KW EFOUP-K 4P",
+      "qty": 12.0,
+      "unit": "PIECE",
+      "unit_price": 105.05,
+      "amount": 1260.6,
+      "origin": "TH",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "USDI4105369",
+      "part_no": "2NB39081A",
+      "description": "7.5HP TFO-LKK 4P",
+      "qty": 3.0,
+      "unit": "PIECE",
+      "unit_price": 521.38,
+      "amount": 1564.14,
+      "origin": "TH",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "USDI4105369",
+      "part_no": "2NB02479A",
+      "description": "3.7KW EFOUP-K 4P",
+      "qty": 9.0,
+      "unit": "PIECE",
+      "unit_price": 200.98,
+      "amount": 1808.82,
+      "origin": "TH",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "USDI4105369",
+      "part_no": "2NB39081A",
+      "description": "7.5HP TFO-LKK 4P",
+      "qty": 2.0,
+      "unit": "PIECE",
+      "unit_price": 521.38,
+      "amount": 1042.76,
+      "origin": "TH",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 8/USDI4105369.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "hitachi_asia_hitt_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=split; pkl_used=yes; pkl_text_backend=ocr/tesseract+prefer_over_stale_layer; bl_used=no; bl_file=BL.pdf",
+    "labeled_amount": 6936.92,
+    "labeled_amount_label": "GRAND TOTAL",
+    "source": "split",
+    "inv_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 8/USDI4105369.pdf",
+    "pkl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 8/PACKING LIST (BOSCH).pdf",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 8/BL.pdf",
+    "bl_used": false,
+    "bl_format_id": null,
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 5,
+        "got": 5
+      },
+      "total_quantity": {
+        "want": 38.0,
+        "got": 38.0
+      },
+      "amount": {
+        "want": 6936.92,
+        "got": 6936.92
+      },
+      "labeled_amount": {
+        "label": "GRAND TOTAL",
+        "want": 6936.92,
+        "header_amount": 6936.92,
+        "sum_items": 6936.92,
+        "item_count": 5
+      }
+    }
+  }
+}

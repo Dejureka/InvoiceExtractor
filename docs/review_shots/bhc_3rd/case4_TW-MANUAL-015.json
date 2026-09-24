@@ -1,0 +1,76 @@
+{
+  "header": {
+    "invoice_no": "TW-MANUAL-015",
+    "invoice_date": "29-Jun-26",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 1.0,
+    "incoterm": null,
+    "item_line_count": 1,
+    "total_quantity": 1.0,
+    "amount": 83.0,
+    "currency": "USD",
+    "vendor": "Bosch Home Comfort Supply (M) Sdn. Bhd.",
+    "origin": "CN",
+    "hs_code": null,
+    "bl_no": "SHAKEL26971792",
+    "bl_packages": 222.0,
+    "bl_gross_weight_kg": 2608.53
+  },
+  "items": [
+    {
+      "invoice_no": "TW-MANUAL-015",
+      "part_no": "A10459510A",
+      "description": "PCB AS.",
+      "qty": 1.0,
+      "unit": "PCS",
+      "unit_price": 83.0,
+      "amount": 83.0,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/INV#TW-MANUAL-015-BHCWHQA260915A.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "bhc_manual_inv_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=split; pkl_used=yes; bl_used=yes; bl_file=20260918102712-0001.pdf",
+    "labeled_amount": 83.0,
+    "labeled_amount_label": "TOTAL",
+    "source": "split",
+    "inv_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/INV#TW-MANUAL-015-BHCWHQA260915A.pdf",
+    "pkl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/PKL_ BHCWHQA260915A.pdf",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/20260918102712-0001.pdf",
+    "bl_used": true,
+    "bl_format_id": "tvl_hbl_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 1.0,
+        "got": 1.0
+      },
+      "amount": {
+        "want": 83.0,
+        "got": 83.0
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 83.0,
+        "header_amount": 83.0,
+        "sum_items": 83.0,
+        "item_count": 1
+      }
+    }
+  }
+}

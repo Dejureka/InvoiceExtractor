@@ -1,0 +1,244 @@
+{
+  "header": {
+    "invoice_no": "9027757002",
+    "invoice_date": "2026-09-18",
+    "total_pkg": 221.0,
+    "gross_weight_kg": 2607.53,
+    "incoterm": "CIF Taipei",
+    "item_line_count": 15,
+    "total_quantity": 2670.0,
+    "amount": 79095.76,
+    "currency": "USD",
+    "vendor": "Bosch Home Comfort Supply (M) Sdn. Bhd.",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "SHAKEL26971792",
+    "bl_packages": 222.0,
+    "bl_gross_weight_kg": 2608.53
+  },
+  "items": [
+    {
+      "invoice_no": "9027757002",
+      "part_no": "1AH09999WHB",
+      "description": "ELE.AS.",
+      "qty": 132.0,
+      "unit": "PCS",
+      "unit_price": 9.59,
+      "amount": 1265.88,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "2FA18479WHA",
+      "description": "SW.PCB AS.",
+      "qty": 58.0,
+      "unit": "PCS",
+      "unit_price": 11.67,
+      "amount": 676.86,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "1AH14348A",
+      "description": "IN.ELE.AS.",
+      "qty": 107.0,
+      "unit": "PCS",
+      "unit_price": 24.48,
+      "amount": 2619.36,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "1AH14348A",
+      "description": "IN.ELE.AS.",
+      "qty": 229.0,
+      "unit": "PCS",
+      "unit_price": 24.48,
+      "amount": 5605.92,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "1FA14297A",
+      "description": "PWR.PCB AS.",
+      "qty": 96.0,
+      "unit": "PCS",
+      "unit_price": 54.45,
+      "amount": 5227.2,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "1FA14297A",
+      "description": "PWR.PCB AS.",
+      "qty": 278.0,
+      "unit": "PCS",
+      "unit_price": 54.45,
+      "amount": 15137.1,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "2FA35318C",
+      "description": "IPM PCB AS.",
+      "qty": 548.0,
+      "unit": "PCS",
+      "unit_price": 48.74,
+      "amount": 26709.52,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "2FA35460A",
+      "description": "PWR.FILTER AS.",
+      "qty": 672.0,
+      "unit": "PCS",
+      "unit_price": 14.19,
+      "amount": 9535.68,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "2AH22755WHA",
+      "description": "SYSTEM CTL AS.",
+      "qty": 116.0,
+      "unit": "PCS",
+      "unit_price": 18.2,
+      "amount": 2111.2,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "2AH28224WHA",
+      "description": "CONTROL AS.",
+      "qty": 100.0,
+      "unit": "PCS",
+      "unit_price": 33.88,
+      "amount": 3388.0,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "2AH22755WHA",
+      "description": "SYSTEM CTL AS.",
+      "qty": 24.0,
+      "unit": "PCS",
+      "unit_price": 18.2,
+      "amount": 436.8,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "2FA18479WHA",
+      "description": "SW.PCB AS.",
+      "qty": 20.0,
+      "unit": "PCS",
+      "unit_price": 11.67,
+      "amount": 233.4,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "2FA33326B",
+      "description": "MAIN PCB AS.",
+      "qty": 262.0,
+      "unit": "PCS",
+      "unit_price": 18.26,
+      "amount": 4784.12,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "2FA35318C",
+      "description": "IPM PCB AS.",
+      "qty": 24.0,
+      "unit": "PCS",
+      "unit_price": 48.74,
+      "amount": 1169.76,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027757002",
+      "part_no": "2FA35318C",
+      "description": "IPM PCB AS.",
+      "qty": 4.0,
+      "unit": "PCS",
+      "unit_price": 48.74,
+      "amount": 194.96,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/BHCWHYTW2609004_INV_9027757002.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "bhc_my_hub_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "soft-missing packing/GW OK for this format; source=split; pkl_used=yes; bl_used=yes; bl_file=20260918102712-0001.pdf",
+    "labeled_amount": 79095.76,
+    "labeled_amount_label": "TOTALS",
+    "source": "split",
+    "inv_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/BHCWHYTW2609004_INV_9027757002.PDF",
+    "pkl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/PKL_BHCWHYTW2609004  台湾 世邦.pdf",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 4/20260918102712-0001.pdf",
+    "bl_used": true,
+    "bl_format_id": "tvl_hbl_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 15,
+        "got": 15
+      },
+      "total_quantity": {
+        "want": 2670.0,
+        "got": 2670.0
+      },
+      "amount": {
+        "want": 79095.76,
+        "got": 79095.76
+      },
+      "labeled_amount": {
+        "label": "TOTALS",
+        "want": 79095.76,
+        "header_amount": 79095.76,
+        "sum_items": 79095.76,
+        "item_count": 15
+      }
+    }
+  }
+}

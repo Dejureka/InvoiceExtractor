@@ -1,0 +1,100 @@
+{
+  "header": {
+    "invoice_no": "OK20260921",
+    "invoice_date": "Sep.21th,2026",
+    "total_pkg": 83.0,
+    "gross_weight_kg": 830.0,
+    "incoterm": "FOB SHANGHAI",
+    "item_line_count": 3,
+    "total_quantity": 20750.0,
+    "amount": 14755.0,
+    "currency": "USD",
+    "vendor": "Changzhou Oukai Electric Co.,Ltd",
+    "origin": "CN",
+    "hs_code": null,
+    "bl_no": "SHAKEL26972017",
+    "bl_packages": 83.0,
+    "bl_gross_weight_kg": 830.0
+  },
+  "items": [
+    {
+      "invoice_no": "OK20260921",
+      "part_no": "3NA71563J",
+      "description": "Step Motor",
+      "qty": 250.0,
+      "unit": "PCS",
+      "unit_price": 0.72,
+      "amount": 180.0,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "OK20260921",
+      "part_no": "3NA17030W",
+      "description": "Step Motor",
+      "qty": 10500.0,
+      "unit": "PCS",
+      "unit_price": 0.75,
+      "amount": 7875.0,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "OK20260921",
+      "part_no": "3NA17030E",
+      "description": "Step Motor",
+      "qty": 10000.0,
+      "unit": "PCS",
+      "unit_price": 0.67,
+      "amount": 6700.0,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 7/OK20260921.xls",
+    "text_backend": "excel/xlrd",
+    "format_id": "oukai_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=20260923094251-0001.pdf",
+    "labeled_amount": 14755.0,
+    "labeled_amount_label": "Total",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 7/OK20260921.xls",
+    "pkl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 7/OK20260921.xls",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 7/20260923094251-0001.pdf",
+    "bl_used": true,
+    "bl_format_id": "tvl_hbl_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "excel",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 3,
+        "got": 3
+      },
+      "total_quantity": {
+        "want": 20750.0,
+        "got": 20750.0
+      },
+      "amount": {
+        "want": 14755.0,
+        "got": 14755.0
+      },
+      "labeled_amount": {
+        "label": "Total",
+        "want": 14755.0,
+        "header_amount": 14755.0,
+        "sum_items": 14755.0,
+        "item_count": 3
+      }
+    }
+  }
+}

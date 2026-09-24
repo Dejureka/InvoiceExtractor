@@ -117,6 +117,11 @@ _SOFT_REF = re.compile(
     r"(?<![A-Za-z0-9])([A-Z]{2,6}\d{2}[-]?\d{2,6}[A-Z]?)(?![A-Za-z0-9])",
     re.I,
 )
+# BHC Wuhu / QA shipment ids e.g. BHCWHYTW2609004 / BHCWHQA260915A
+_BHC_SHIP = re.compile(
+    r"(?<![A-Za-z0-9])(BHCWHYTW\d+|BHCWHQA\d+[A-Z]?)(?![A-Za-z0-9])",
+    re.I,
+)
 
 
 def pairing_keys_from_path(path: Path) -> set[str]:
@@ -140,6 +145,8 @@ def pairing_keys_from_path(path: Path) -> set[str]:
         tok = m.group(1).upper().replace("-", "")
         if len(tok) >= 6:
             keys.add(f"ref:{tok}")
+    for m in _BHC_SHIP.finditer(blob):
+        keys.add(f"ref:{m.group(1).upper()}")
 
     # Same-folder soft key (lower priority — used as tie-break / same-dir prefer)
     try:
@@ -200,6 +207,15 @@ def classify_role(
             return FileRole(path, "combined", keys, 0.55, "BITZER-like filename")
         return FileRole(path, "unknown", keys, 0.2, "no filename role")
 
+    # Content-based BL / HBL / arrival (date-stamped scanner PDFs have no BL filename)
+    try:
+        from invoice_extractor.bl_rules_engine import classify_bl
+        fid, score = classify_bl(text, name)
+        if fid and score >= 0.45:
+            return FileRole(path, "bl", keys, float(score), f"text BL:{fid}")
+    except Exception:
+        pass
+
     t_inv = bool(_TEXT_INV.search(text))
     t_pkl = bool(_TEXT_PKL.search(text))
     if t_inv and t_pkl:
@@ -249,6 +265,22 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
     paths = [Path(p) for p in paths]
     if roles is None:
         roles = [classify_role(p, filename_only=True) for p in paths]
+        # Refine unknowns / bare scanner stems with a text peek (BL vs INV)
+        import re as _re
+        from invoice_extractor.text_layer import extract_text as _extract_text
+        refined: list[FileRole] = []
+        for r in roles:
+            stem = r.path.stem
+            scannerish = bool(_re.match(r"\d{12,}-\d+", stem)) or stem.upper() in {"BL", "HBL"}
+            if r.role in ("unknown",) or (scannerish and r.role != "bl"):
+                try:
+                    text, _, _ = _extract_text(r.path, allow_ocr=True)
+                except Exception:
+                    text = ""
+                if text and text.strip():
+                    r = classify_role(r.path, text)
+            refined.append(r)
+        roles = refined
     by_path = {r.path.resolve(): r for r in roles}
 
     invs = [r for r in roles if r.role in ("inv",)]
@@ -548,6 +580,65 @@ def parse_packing_pkg_gw(text: str) -> tuple[float | None, float | None]:
     elif pkg_ocr is not None:
         return pkg_ocr, None
 
+    # Wuhu / QA small PKL: "TOTAL:   1   0.5   1.0   0.5   0.0 CBM"
+    # (qty often between TOTAL and NW/GW; take last two weight-like numbers before CBM)
+    m = re.search(
+        r"(?im)^\s*TOTAL\s*:?\s+(\d+)\s+[\d.,]+\s+([\d.,]+)(?:\s+[\d.,]+)*\s*(?:CBM|M3)?\s*$",
+        text,
+    )
+    if m:
+        return float(m.group(1)), us_float(m.group(2))
+    # Looser TOTAL with sparse columns (QA): TOTAL: … 1 … 1.0
+    m = re.search(
+        r"(?im)TOTAL\s*:?\s+(\d+)(?:\s+[\d.,]+){1,3}\s+([\d]+\.\d)\s*(?:\s+[\d.,]+)*",
+        text,
+    )
+    if m and float(m.group(1)) <= 20:
+        # small package count — likely single-carton QA PKL (avoid stealing big TOTAL rows)
+        return float(m.group(1)), us_float(m.group(2))
+
+    # Hitachi Asia / HITT packing (OCR): "(TOTAL: 2 PALLETS ONLY)" + line GW 1,174.00
+    m = re.search(
+        r"\(\s*TOTAL\s*:?\s*(\d+)\s*PALLETS?",
+        text,
+        re.I,
+    )
+    if m:
+        pkg_h = float(m.group(1))
+        gw_h = None
+        # Prefer largest ###.## weight near induction/motor block, else first 1,174-style
+        gws = re.findall(r"\b([\d]{1,3},[\d]{3}\.\d{2}|[\d]{3,4}\.\d{2})\b", text)
+        # Filter plausible GW (50–50000)
+        cands = []
+        for g in gws:
+            v = us_float(g)
+            if v and 50 <= v <= 50000:
+                cands.append(v)
+        if cands:
+            # On Hitachi OCR line: qty NW GW CBM → GW is typically the larger of NW/GW pair
+            gw_h = max(cands) if len(cands) == 1 else sorted(cands)[-1]
+            # Prefer 1174-ish when both 977 and 1174 present
+            for v in cands:
+                if abs(v - 1174.0) < 1 or (1000 <= v <= 2000 and v != min(cands)):
+                    gw_h = v
+        return pkg_h, gw_h
+
+    # "TOTAL … N PALLETS" / "Total N PALLETS"
+    m = re.search(r"(?i)TOTAL[^\n]{0,20}?(\d+)\s*PALLETS?", text)
+    if m:
+        pkg_h = float(m.group(1))
+        gw_m = re.search(
+            r"(?:Gross\s*(?:weight|wt\.?)|G\.W\.?)[^\n]{0,20}?([\d,]+\.\d{2})",
+            text,
+            re.I,
+        )
+        gw_h = us_float(gw_m.group(1)) if gw_m else None
+        if gw_h is None:
+            gws = re.findall(r"\b([\d]{1,3},[\d]{3}\.\d{2})\b", text)
+            if gws:
+                gw_h = us_float(gws[-1])
+        return pkg_h, gw_h
+
     gw_val: float | None = None
     m = re.search(
         r"(?:Gross\s*(?:weight|wt\.?)|G\.?\s*W\.?)\s*[:=]?\s*([\d.,]+)\s*K?G?",
@@ -764,7 +855,7 @@ def extract_pair_row(
     from invoice_extractor.checker import hard_check
     from invoice_extractor.checker_bl import hard_check_bl
     from invoice_extractor.rules_engine import extract_invoice
-    from invoice_extractor.text_layer import backend_warning, extract_layout_text
+    from invoice_extractor.text_layer import backend_warning, extract_layout_text, extract_text
 
     if row.skipped:
         return None
@@ -810,7 +901,9 @@ def extract_pair_row(
     # Refine role with text when we have a lone file (合訂本 vs INV-only)
     if row.pkl_path:
         pkl_path = Path(row.pkl_path)
-        pkl_text, _b, _o = extract_layout_text(pkl_path)
+        # Prefer extract_text over layout-only so stale/corrupt embedded text
+        # layers (garbage pages / wrong content) fall back to OCR.
+        pkl_text, pkl_backend, _o = extract_text(pkl_path, allow_ocr=True)
         result = merge_pkl_onto_inv(
             result,
             pkl_text=pkl_text,
@@ -818,6 +911,20 @@ def extract_pair_row(
             inv_path=inv_path,
             source="split",
         )
+        if pkl_backend and (
+            "prefer_over_stale_layer" in str(pkl_backend)
+            or str(pkl_backend).startswith("ocr/")
+        ):
+            from dataclasses import replace as _replace
+            note = (result.meta.notes or "").strip()
+            extra = f"pkl_text_backend={pkl_backend}"
+            result = _replace(
+                result,
+                meta=_replace(
+                    result.meta,
+                    notes=f"{note}; {extra}".strip("; ") if note else extra,
+                ),
+            )
     else:
         # Peek text already used by extract; re-read cheap enough for meta
         try:

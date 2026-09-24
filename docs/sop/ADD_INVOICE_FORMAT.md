@@ -34,7 +34,7 @@
 ### 2. 抽文字層
 
 - 用工具內建文字層（優先 pdftotext／poppler；否則後備）產出對照用 `.txt`。
-- **Excel 輸入**（`.xlsx`／`.xlsm`；`.xls` 請另存 xlsx）：以 openpyxl 把各 sheet 轉成列文字（`=== Sheet: … ===`＋儲存格 tab 分隔），再走**同一套** match_score／規則（`meta.source_kind=excel`）。不跑 OCR。
+- **Excel 輸入**（`.xlsx`／`.xlsm`／`.xls`）：`.xlsx`/`.xlsm` 用 openpyxl；`.xls` 用 xlrd（`excel/xlrd`）。各 sheet 轉成列文字（`=== Sheet: … ===`＋儲存格 tab 分隔），再走**同一套** match_score／規則（`meta.source_kind=excel`）。不跑 OCR。
 - **掃描件／文字層空**：走離線 Tesseract OCR（`meta.text_backend=ocr/tesseract`），再對 OCR 字串寫規則（**同一** rules_engine，不要另開 OCR-only format_id）。對照用 `.txt` 可從 OCR 輸出存檔。
 - **不要只看 PDF 畫面**；規則對的是文字座標／排版字串（OCR 時為 OCR 字串）。
 
@@ -100,6 +100,13 @@
 | `shanghai_nature_v1` | `SHANGHAI NATURE`、`NBT…`、`HEATING BELT`；OCR 掃描件 OK（case7） |
 | `marubeni_tetsugen_v1` | `MARUBENI TETSUGEN`、`JCH##-##M#`、`COPPER TUBE`／`FOB NAGOYA`；OCR OK（case2） |
 | `soe_rb_gmbh_v1` | SOE `Robert Bosch GmbH`、`Bosch Partnumber`、`Invoice Copy`／`Invoice and Packing List`、`Invoice amount`、`Total gross weight`、`Customs tariff no`；70775…／70918…；OCR OK |
+| `suzhou_aichi_v1` | `SUZHOU AICHI TECHNOLOGY`、`SATJG…`、ROTOR、FOB SHENZHEN；OCR OK（BHC 3rd case1；≠ `aichi_electric_v1`） |
+| `sumitronics_hk_v1` | `SUMITRONICS`、`ST########`、PCB ASSEMBLY、FOB HAIPHONG；xlsx twin OK |
+| `dunan_v1` | `ZHEJIANG DUNAN`／盾安、`DA…` slash INV nos、FOB NINGBO；xlsx OK |
+| `ohizumi_dongguan_v1` | `DONG GUAN OHIZUMI`／东莞大泉、`OHIZUMI-…OUT`、TEMPERATURE SENSOR；xls OK |
+| `oukai_v1` | `Changzhou Oukai`／欧凯、`OK########`、Step Motor；xls primary |
+| `hitachi_asia_hitt_v1` | `Hitachi Asia Ltd`、`USDI…`、HITT NO／BHC NO；≠ `hitachi_gls_v1` (MEH) |
+| `bhc_manual_inv_v1` | `TW-MANUAL-…`、no commercial value；≠ MY-HUB `TOTALS:` table |
 
 **MA**：WithPeriod／NoPeriod 已進規則庫（Round4）。其他變體（USA／Wiper／Sebang）尚未做。
 
@@ -124,6 +131,9 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-24 | BHC 3rd **Round 3**：`tvl_hbl_v1` CBM from CARTONS/KGS/CBM + 20GP≤33; ISO container+seal; all BHCWH* refs; GO.→CO. OCR
+| 2026-09-24 | BHC 3rd **Round 2**：`tvl_hbl_v1` prefer CARTONS over Say-Total 20GP + GW OCR cross-check (.830→.53 / mistrust mismatched CARTONS/KGS); PKL overlay uses `extract_text` + stale-layer→OCR (`text_layer_looks_unreliable`); QA/Hitachi PKL pkg/GW parsers; `oukai_v1` soft note when vendor Total qty ≠ sum(lines)
+| 2026-09-24 | BHC 3rd batch (cases 1–9)：`suzhou_aichi_v1`／`sumitronics_hk_v1`／`dunan_v1`／`ohizumi_dongguan_v1`／`oukai_v1`／`hitachi_asia_hitt_v1`／`bhc_manual_inv_v1`＋BL `hippopo_arrival_v1`／`dhl_danmar_bl_v1`／`china_progress_bl_v1`；`.xls` via xlrd；review `docs/review_shots/bhc_3rd/` |
 | 2026-09-24 | GUI／CLI 接受 Excel 輸入；Excel format 仍走 FormatSOP（cell→text） |
 | 2026-09-10 | 初版：與使用者復盤後定稿；澄清種子與 v1／v2 選法 |
 | 2026-09-13 | 分檔 PKL 為同家族補充來源（BHC 為主）；主 format_id 看 INV／合訂本 |
@@ -159,10 +169,14 @@
 | `ceva_pyramid_arrival_v1` | `到貨通知`、`CEVA LOGISTICS`、`PYRAMID LINES`、`B/L no`（case4/5/6 共用） |
 | `dhl_lcl_arrival_v1` | `海運 LCL 到貨通知`、`HBL 提單號碼`、`DHL GLOBAL FORWARDING` |
 | `hippopo_hbl_v1` | `HIPPOPO`、`HB########`、HBL draft 稀疏欄位 |
+| `tvl_hbl_v1` | `T.V.L. GLOBAL LOGISTICS`／`TRANS VAN LINKS`、`SHAKEL…` HBL（OCR OK） |
 | `milestone_arrival_v1` | `MILESTONE FORWARDING`／`里運國際`、`ARRIVAL NOTICE 到貨通知書`、`B/L NO : HBL00#####`（MA 90-S 六包共用） |
 | `nippon_express_awb_v1` | `AIR WAYBILL`、`NIPPON EXPRESS`、`NEM #### ####`（MA 50-N pdfdq 空運提單） |
 | `kwe_air_waybill_v1` | `KINTETSU WORLD EXPRESS`、`Air Waybill`、`1220-########`（SOE HAWC） |
 | `maersk_air_waybill_v1` | `MAERSK LOGISTICS`、`HAWB No: QU########`（SOE HAWB） |
+| `hippopo_arrival_v1` | Hippopo **到貨通知書**、`B/L NO :` CPSE／P076…（≠ HBL draft `hippopo_hbl_v1`） |
+| `dhl_danmar_bl_v1` | `Danmar Lines`／DHL GF Japan ocean B/L、`NGOA…`（≠ `dhl_lcl_arrival_v1`） |
+| `china_progress_bl_v1` | `CHINA PROGRESS`／中进国际、`NBSE…` 提单 |
 
 **Multi-INV same BL（同資料夾）**：一張到貨通知對多張 INV（例 548／616）時，每個 INV Summary 列都帶同一組 `BL No.`／`BL Packages`／`BL G.W.`（不覆寫發票 Packages／G.W.）。
 

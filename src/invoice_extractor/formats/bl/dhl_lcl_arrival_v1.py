@@ -41,18 +41,26 @@ RULES_JSON = {
 
 def match_score(text: str, filename: str = "") -> float:
     score = 0.0
+    tu = text.upper()
     if "到貨通知" in filename or "NGOA" in filename.upper():
-        score += 0.2
+        score += 0.15
     if "海運 LCL 到貨通知" in text:
-        score += 0.35
+        score += 0.4
     if "DHL GLOBAL FORWARDING" in text or "敦豪全球貨運" in text:
-        score += 0.3
+        score += 0.25
     if "HBL 提單號碼" in text:
         score += 0.2
     if "CEVA LOGISTICS" in text or "PYRAMID LINES" in text:
         score -= 0.6
-    if "HIPPOPO" in text.upper():
+    if "HIPPOPO" in tu:
         score -= 0.3
+    # Danmar / Japan ocean B/L draft is a different family
+    if "DANMAR LINES" in tu or "DHL GLOBAL FORWARDING JAPAN" in tu:
+        score -= 0.8
+    if "BILL OF LADING" in tu and "海運 LCL 到貨通知" not in text:
+        score -= 0.4
+    if "海運 LCL 到貨通知" not in text and "HBL 提單號碼" not in text:
+        score = min(score, 0.25)
     return max(0.0, min(score, 1.0))
 
 

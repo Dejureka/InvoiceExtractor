@@ -1,0 +1,37 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": null,
+    "hbl_no": null,
+    "mbl_no": null,
+    "vessel": null,
+    "voyage": null,
+    "etd": null,
+    "eta": null,
+    "pol": null,
+    "pod": null,
+    "packages": null,
+    "package_unit": null,
+    "gross_weight_kg": null,
+    "measurement_cbm": null,
+    "load_type": null,
+    "shipper": null,
+    "consignee": null,
+    "notify": null,
+    "invoice_refs": null,
+    "container_nos": null,
+    "forwarder": null
+  },
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 8/BL.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": null,
+    "confidence": "needs_gold",
+    "needs_ocr": false,
+    "needs_gold": true,
+    "notes": "no BL format matched (best_score=0.1)",
+    "doc_kind": "bl",
+    "checker_verdict": null,
+    "checker_issues": null
+  }
+}

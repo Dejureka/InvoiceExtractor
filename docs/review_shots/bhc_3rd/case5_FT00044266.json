@@ -1,0 +1,148 @@
+{
+  "header": {
+    "invoice_no": "DA15199998/2/5/52",
+    "invoice_date": "Sep.21,2026",
+    "total_pkg": 8.0,
+    "gross_weight_kg": 3326.0,
+    "incoterm": "FOB NINGBO",
+    "item_line_count": 7,
+    "total_quantity": 24782.0,
+    "amount": 45545.58,
+    "currency": "USD",
+    "vendor": "ZHEJIANG DUNAN INTERNATIONAL TRADING CO.,LTD.",
+    "origin": "CN",
+    "hs_code": null,
+    "bl_no": "NBSE26090042",
+    "bl_packages": 8.0,
+    "bl_gross_weight_kg": 3326.0
+  },
+  "items": [
+    {
+      "invoice_no": "DA15199998/2/5/52",
+      "part_no": "2HL29677A",
+      "description": "ACCUMULATOR",
+      "qty": 36.0,
+      "unit": "PCS",
+      "unit_price": 29.755,
+      "amount": 1071.18,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "DA15199998/2/5/52",
+      "part_no": "3EF37915Q",
+      "description": "COIL",
+      "qty": 600.0,
+      "unit": "PCS",
+      "unit_price": 1.75,
+      "amount": 1050.0,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "DA15199998/2/5/52",
+      "part_no": "3EF83256A",
+      "description": "COIL",
+      "qty": 2300.0,
+      "unit": "PCS",
+      "unit_price": 1.669,
+      "amount": 3838.7,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "DA15199998/2/5/52",
+      "part_no": "3EF83256B",
+      "description": "COIL",
+      "qty": 2300.0,
+      "unit": "PCS",
+      "unit_price": 1.751,
+      "amount": 4027.3,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "DA15199998/2/5/52",
+      "part_no": "2CN37596A",
+      "description": "DEEP GROOVE BALL BEARING",
+      "qty": 600.0,
+      "unit": "PCS",
+      "unit_price": 11.888,
+      "amount": 7132.8,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "DA15199998/2/5/52",
+      "part_no": "3LD80984A",
+      "description": "SERVICE VALVE",
+      "qty": 80.0,
+      "unit": "PCS",
+      "unit_price": 17.147,
+      "amount": 1371.76,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "DA15199998/2/5/52",
+      "part_no": "3HP24307D",
+      "description": "SERVICE VALVE",
+      "qty": 18866.0,
+      "unit": "PCS",
+      "unit_price": 1.434,
+      "amount": 27053.84,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 5/标准_结汇发票FT00044266.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "dunan_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=split; pkl_used=no; 缺 PKL; bl_used=yes; bl_file=44266提单.pdf | pkg/GW from paired packing PDF",
+    "labeled_amount": 45545.58,
+    "labeled_amount_label": "TOTAL",
+    "source": "split",
+    "inv_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 5/标准_结汇发票FT00044266.pdf",
+    "pkl_file": null,
+    "pkl_used": false,
+    "bl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 5/44266提单.pdf",
+    "bl_used": true,
+    "bl_format_id": "china_progress_bl_v1",
+    "pair_status": "僅 INV",
+    "source_kind": "pdf",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 7,
+        "got": 7
+      },
+      "total_quantity": {
+        "want": 24782.0,
+        "got": 24782.0
+      },
+      "amount": {
+        "want": 45545.58,
+        "got": 45545.58
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 45545.58,
+        "header_amount": 45545.58,
+        "sum_items": 45545.58,
+        "item_count": 7
+      }
+    }
+  }
+}

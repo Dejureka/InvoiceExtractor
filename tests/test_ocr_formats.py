@@ -69,7 +69,9 @@ def test_tvl_hbl_ocr_case8():
     d = extract_bl(CASE8_BL).to_dict()
     assert d["meta"]["format_id"] == "tvl_hbl_v1"
     assert d["header"]["bl_no"] == "SHAKEL26770270"
-    assert d["header"]["package_unit"] == "20GP"
+    # Prefer face CARTONS over Say-Total 1×20GP (FormatSOP BHC 3rd round-2).
+    assert d["header"]["packages"] == 326
+    assert d["header"]["package_unit"] == "CARTONS"
     assert d["header"]["gross_weight_kg"] == pytest.approx(3469.5)
 
 

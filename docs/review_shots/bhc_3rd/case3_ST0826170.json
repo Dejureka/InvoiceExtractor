@@ -1,0 +1,112 @@
+{
+  "header": {
+    "invoice_no": "ST0826170",
+    "invoice_date": "31/Aug/2026",
+    "total_pkg": 36.0,
+    "gross_weight_kg": 6937.4,
+    "incoterm": "FOB HAIPHONG",
+    "item_line_count": 4,
+    "total_quantity": 3967.0,
+    "amount": 145584.8,
+    "currency": "USD",
+    "vendor": "Sumitronics Hong Kong Ltd.",
+    "origin": "VN",
+    "hs_code": null,
+    "bl_no": "P076ADNE2608",
+    "bl_packages": 36.0,
+    "bl_gross_weight_kg": 6937.4
+  },
+  "items": [
+    {
+      "invoice_no": "ST0826170",
+      "part_no": "2FA35318A",
+      "description": "Ipm Pcb Assembly",
+      "qty": 4.0,
+      "unit": "SETS",
+      "unit_price": 36.35,
+      "amount": 145.4,
+      "origin": "VN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "ST0826170",
+      "part_no": "1FA14284B",
+      "description": "Power Pcb Assembly",
+      "qty": 1480.0,
+      "unit": "SETS",
+      "unit_price": 36.5,
+      "amount": 54020.0,
+      "origin": "VN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "ST0826170",
+      "part_no": "2FA35318A",
+      "description": "Ipm Pcb Assembly",
+      "qty": 2294.0,
+      "unit": "SETS",
+      "unit_price": 36.35,
+      "amount": 83386.9,
+      "origin": "VN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "ST0826170",
+      "part_no": "2FA35318B",
+      "description": "Ipm Pcb Assembly",
+      "qty": 189.0,
+      "unit": "SETS",
+      "unit_price": 42.5,
+      "amount": 8032.5,
+      "origin": "VN",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 3/ST0826170 INV&PL.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "sumitronics_hk_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=到貨通知.pdf",
+    "labeled_amount": 145584.8,
+    "labeled_amount_label": "TOTAL",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 3/ST0826170 INV&PL.pdf",
+    "pkl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 3/ST0826170 INV&PL.pdf",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 3/到貨通知.pdf",
+    "bl_used": true,
+    "bl_format_id": "hippopo_arrival_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 4,
+        "got": 4
+      },
+      "total_quantity": {
+        "want": 3967.0,
+        "got": 3967.0
+      },
+      "amount": {
+        "want": 145584.8,
+        "got": 145584.8
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 145584.8,
+        "header_amount": 145584.8,
+        "sum_items": 145584.8,
+        "item_count": 4
+      }
+    }
+  }
+}
