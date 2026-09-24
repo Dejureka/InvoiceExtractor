@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "updated": "2026-09-11",
-  "notes": "Formats that passed AuditSOP (Round3–Round4b). GUI mapping_status uses this registry.",
+  "updated": "2026-09-24",
+  "notes": "Formats that passed AuditSOP (Auditor final pass after conflict fixes). GUI mapping_status uses this registry; BL-only rows also use meta.format_id → same path.",
   "formats": {
     "bitzer_v1": {
       "audited": true,
       "date": "2026-09-10",
-      "note": "Round2/3 BITZER + BHC classic; hard_check pass"
+      "note": "Round2/3 BITZER + BHC classic; Auditor pass"
     },
     "pt_gloria_v1": {
       "audited": true,
       "date": "2026-09-10",
-      "note": "Round1 + Round4 PT mega (20/20 pass)"
+      "note": "Round1 + Round4 PT mega (20/20); pt_round3 reconfirm"
     },
     "hangji_v1": {
       "audited": true,
@@ -36,17 +36,92 @@
     "ma_with_period_v1": {
       "audited": true,
       "date": "2026-09-11",
-      "note": "Round4 + Round4b currency TWD fix"
+      "note": "Round4 + Round4b currency TWD fix (Auditor pass)"
     },
     "ma_no_period_v1": {
       "audited": true,
       "date": "2026-09-10",
-      "note": "Round4 MA NoPeriod (21/21 pass)"
+      "note": "Round4 MA NoPeriod; ma_inv_bl_6 reconfirm"
     },
     "bhc_my_hub_v1": {
       "audited": true,
       "date": "2026-09-10",
-      "note": "Round4 BHC MY-HUB Supply Malaysia"
+      "note": "Round4 BHC MY-HUB; bhc_cases_1368 + OCR PKL overlay"
+    },
+    "hisense_qingdao_v1": {
+      "audited": true,
+      "date": "2026-09-13",
+      "note": "bhc_cases_1368 case1 Auditor pass"
+    },
+    "aichi_electric_v1": {
+      "audited": true,
+      "date": "2026-09-13",
+      "note": "bhc_cases_1368 case3 Auditor pass"
+    },
+    "ceva_pyramid_arrival_v1": {
+      "audited": true,
+      "date": "2026-09-15",
+      "note": "bhc_bl_cases case4/5/6 Auditor pass"
+    },
+    "dhl_lcl_arrival_v1": {
+      "audited": true,
+      "date": "2026-09-15",
+      "note": "bhc_bl_cases case2 Auditor pass after GW shot reshoot"
+    },
+    "hippopo_hbl_v1": {
+      "audited": true,
+      "date": "2026-09-15",
+      "note": "bhc_bl_cases case3 Auditor pass"
+    },
+    "milestone_arrival_v1": {
+      "audited": true,
+      "date": "2026-09-15",
+      "note": "ma_inv_bl_6 six packs Auditor pass; ma_747 HBL005289"
+    },
+    "pt_dremel_head3_v1": {
+      "audited": true,
+      "date": "2026-09-15",
+      "note": "pt_dremel 14/14 Auditor pass after Total-page reshoot"
+    },
+    "pt_dremel_head5_v1": {
+      "audited": true,
+      "date": "2026-09-15",
+      "note": "pt_dremel 2/2 Auditor pass; pt_round3 reconfirm"
+    },
+    "marubeni_tetsugen_v1": {
+      "audited": true,
+      "date": "2026-09-16",
+      "note": "bhc_ocr_scans case2 Auditor pass"
+    },
+    "shanghai_nature_v1": {
+      "audited": true,
+      "date": "2026-09-16",
+      "note": "bhc_ocr_scans case7 INV Auditor pass"
+    },
+    "tvl_hbl_v1": {
+      "audited": true,
+      "date": "2026-09-16",
+      "note": "bhc_ocr_scans case7/8 HBL Auditor pass"
+    },
+    "soe_rb_gmbh_v1": {
+      "audited": true,
+      "date": "2026-09-22",
+      "note": "soe_round1 Auditor pass (merge formatsop-pt-soe)"
+    },
+    "kwe_air_waybill_v1": {
+      "audited": true,
+      "date": "2026-09-22",
+      "note": "soe_round1 KWE HAWB Auditor pass"
+    },
+    "maersk_air_waybill_v1": {
+      "audited": true,
+      "date": "2026-09-22",
+      "note": "soe_round1 Maersk HAWB Auditor pass"
+    },
+    "ma_ak_billing_v1": {
+      "audited": true,
+      "date": "2026-09-23",
+      "note": "ma_747 AK Billing FWD+SAP Auditor pass"
     }
   }
 }
