@@ -117,6 +117,11 @@ _SOFT_REF = re.compile(
     r"(?<![A-Za-z0-9])([A-Z]{2,6}\d{2}[-]?\d{2,6}[A-Z]?)(?![A-Za-z0-9])",
     re.I,
 )
+# BHC Wuhu / QA shipment ids e.g. BHCWHYTW2609004 / BHCWHQA260915A
+_BHC_SHIP = re.compile(
+    r"(?<![A-Za-z0-9])(BHCWHYTW\d+|BHCWHQA\d+[A-Z]?)(?![A-Za-z0-9])",
+    re.I,
+)
 
 
 def pairing_keys_from_path(path: Path) -> set[str]:
@@ -140,6 +145,8 @@ def pairing_keys_from_path(path: Path) -> set[str]:
         tok = m.group(1).upper().replace("-", "")
         if len(tok) >= 6:
             keys.add(f"ref:{tok}")
+    for m in _BHC_SHIP.finditer(blob):
+        keys.add(f"ref:{m.group(1).upper()}")
 
     # Same-folder soft key (lower priority — used as tie-break / same-dir prefer)
     try:
@@ -200,6 +207,15 @@ def classify_role(
             return FileRole(path, "combined", keys, 0.55, "BITZER-like filename")
         return FileRole(path, "unknown", keys, 0.2, "no filename role")
 
+    # Content-based BL / HBL / arrival (date-stamped scanner PDFs have no BL filename)
+    try:
+        from invoice_extractor.bl_rules_engine import classify_bl
+        fid, score = classify_bl(text, name)
+        if fid and score >= 0.45:
+            return FileRole(path, "bl", keys, float(score), f"text BL:{fid}")
+    except Exception:
+        pass
+
     t_inv = bool(_TEXT_INV.search(text))
     t_pkl = bool(_TEXT_PKL.search(text))
     if t_inv and t_pkl:
@@ -249,6 +265,22 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
     paths = [Path(p) for p in paths]
     if roles is None:
         roles = [classify_role(p, filename_only=True) for p in paths]
+        # Refine unknowns / bare scanner stems with a text peek (BL vs INV)
+        import re as _re
+        from invoice_extractor.text_layer import extract_text as _extract_text
+        refined: list[FileRole] = []
+        for r in roles:
+            stem = r.path.stem
+            scannerish = bool(_re.match(r"\d{12,}-\d+", stem)) or stem.upper() in {"BL", "HBL"}
+            if r.role in ("unknown",) or (scannerish and r.role != "bl"):
+                try:
+                    text, _, _ = _extract_text(r.path, allow_ocr=True)
+                except Exception:
+                    text = ""
+                if text and text.strip():
+                    r = classify_role(r.path, text)
+            refined.append(r)
+        roles = refined
     by_path = {r.path.resolve(): r for r in roles}
 
     invs = [r for r in roles if r.role in ("inv",)]

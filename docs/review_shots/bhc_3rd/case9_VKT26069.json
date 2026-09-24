@@ -1,0 +1,105 @@
+{
+  "header": {
+    "invoice_no": "VKT26069",
+    "invoice_date": "2026-09-18",
+    "total_pkg": 31.0,
+    "gross_weight_kg": 7498.7,
+    "incoterm": "CIF KEELUNG",
+    "item_line_count": 4,
+    "total_quantity": 1597.0,
+    "amount": 83493.0,
+    "currency": "USD",
+    "vendor": "NIDEC TECHNO MOTOR CORPORATION",
+    "origin": "TH",
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null
+  },
+  "items": [
+    {
+      "invoice_no": "VKT26069",
+      "part_no": "2NB27125A",
+      "description": "SIC-81FW-F1183-1",
+      "qty": 137.0,
+      "unit": "PCS",
+      "unit_price": 43.5,
+      "amount": 5959.5,
+      "origin": "TH",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "VKT26069",
+      "part_no": "3NA81161A",
+      "description": "SIC-101CW-F1250-6",
+      "qty": 90.0,
+      "unit": "PCS",
+      "unit_price": 55.15,
+      "amount": 4963.5,
+      "origin": "TH",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "VKT26069",
+      "part_no": "3NA76033D",
+      "description": "SIC-101CW-F1250-9",
+      "qty": 1170.0,
+      "unit": "PCS",
+      "unit_price": 55.8,
+      "amount": 65286.0,
+      "origin": "TH",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "VKT26069",
+      "part_no": "3NA81161B",
+      "description": "SIC-70CW-F196-2",
+      "qty": 200.0,
+      "unit": "PCS",
+      "unit_price": 36.42,
+      "amount": 7284.0,
+      "origin": "TH",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 9/BHC-TW_VKT26069_I000009572_draft.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "nidec_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes",
+    "labeled_amount": null,
+    "labeled_amount_label": null,
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 9/BHC-TW_VKT26069_I000009572_draft.pdf",
+    "pkl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 9/BHC-TW_VKT26069_I000009572_draft.pdf",
+    "pkl_used": true,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 4,
+        "got": 4
+      },
+      "total_quantity": {
+        "want": 1597.0,
+        "got": 1597.0
+      },
+      "amount": {
+        "want": 83493.0,
+        "got": 83493.0
+      }
+    }
+  }
+}

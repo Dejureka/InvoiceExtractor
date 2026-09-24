@@ -42,10 +42,10 @@ def test_workbook_to_text_sheets_and_tabs(tmp_path: Path):
     assert "ABC-1\t2" in text
 
 
-def test_xls_raises_clear_message(tmp_path: Path):
+def test_xls_raises_clear_message_on_corrupt(tmp_path: Path):
     fake = tmp_path / "legacy.xls"
     fake.write_bytes(b"not-a-real-xls")
-    with pytest.raises(ExcelUnsupportedError, match="save as .xlsx"):
+    with pytest.raises(ExcelUnsupportedError, match="Cannot open Excel file"):
         workbook_to_text(fake)
 
 
@@ -92,11 +92,48 @@ def test_unmatched_excel_needs_rules(tmp_path: Path):
     assert mapping_status(meta, None) == LABEL_NEW_NEEDS_RULES
 
 
-def test_xls_extract_notes_save_as_xlsx(tmp_path: Path):
+def test_xls_extract_notes_on_corrupt(tmp_path: Path):
     fake = tmp_path / "legacy.xls"
     fake.write_bytes(b"not-a-real-xls")
     result = extract_invoice(fake)
     meta = result.to_dict()["meta"]
     assert meta.get("source_kind") == "excel"
     assert meta.get("needs_gold") is True
-    assert "save as .xlsx" in (meta.get("notes") or "").lower()
+    assert "cannot open" in (meta.get("notes") or "").lower() or "xls" in (meta.get("notes") or "").lower()
+
+
+def _write_sample_xls(path: Path) -> Path:
+    """Minimal BIFF8 .xls via xlrd-writable path: use LibreOffice? Prefer xlwt if present, else skip.
+    Create with xlrd's companion — use openpyxl is xlsx only. Use a real fixture if available.
+    """
+    import xlrd
+    # Build a tiny BIFF workbook with the `xlwt` package if available; else craft via soffice.
+    try:
+        import xlwt
+    except ImportError:
+        pytest.importorskip("xlwt")
+        import xlwt
+    wb = xlwt.Workbook()
+    ws = wb.add_sheet("INV")
+    ws.write(0, 0, "Invoice No")
+    ws.write(0, 1, "Amount")
+    ws.write(0, 2, "Currency")
+    ws.write(1, 0, "XLS-DEMO-001")
+    ws.write(1, 1, 99.5)
+    ws.write(1, 2, "USD")
+    wb.save(str(path))
+    return path
+
+
+def test_workbook_to_text_xls(tmp_path: Path):
+    pytest.importorskip("xlrd")
+    try:
+        import xlwt  # noqa: F401
+    except ImportError:
+        pytest.skip("xlwt needed to synthesize .xls fixture")
+    xls = _write_sample_xls(tmp_path / "sample_inv.xls")
+    text, backend = workbook_to_text(xls)
+    assert backend == "excel/xlrd"
+    assert "=== Sheet: INV ===" in text
+    assert "Invoice No\tAmount\tCurrency" in text
+    assert "XLS-DEMO-001" in text

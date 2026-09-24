@@ -48,12 +48,31 @@ def workbook_to_text(path: str | Path) -> tuple[str, str]:
     p = Path(path)
     suffix = p.suffix.lower()
     if suffix == ".xls":
-        raise ExcelUnsupportedError(
-            f"Legacy .xls not supported ({p.name}). Please save as .xlsx and retry."
-        )
+        return _workbook_to_text_xlrd(p)
     if suffix not in OPENPYXL_SUFFIXES:
         raise ExcelUnsupportedError(f"Not an Excel workbook: {p}")
+    return _workbook_to_text_openpyxl(p)
 
+
+def _cells_to_blocks(sheet_rows: list[tuple[str, list[list[object]]]]) -> str:
+    """Build ``=== Sheet ===`` + tab-joined non-empty cells from row values."""
+    blocks: list[str] = []
+    for title, rows in sheet_rows:
+        lines = [f"=== Sheet: {title} ==="]
+        for row in rows:
+            cells: list[str] = []
+            for cell in row:
+                if cell is None:
+                    continue
+                s = str(cell).strip()
+                if s:
+                    cells.append(s)
+            lines.append("\t".join(cells) if cells else "")
+        blocks.append("\n".join(lines).rstrip())
+    return "\n\n".join(blocks).strip() + ("\n" if blocks else "")
+
+
+def _workbook_to_text_openpyxl(p: Path) -> tuple[str, str]:
     try:
         from openpyxl import load_workbook
     except ImportError as exc:  # pragma: no cover
@@ -66,22 +85,57 @@ def workbook_to_text(path: str | Path) -> tuple[str, str]:
     except Exception as exc:  # noqa: BLE001
         raise ExcelUnsupportedError(f"Cannot open Excel file {p.name}: {exc}") from exc
 
-    blocks: list[str] = []
+    sheet_rows: list[tuple[str, list[list[object]]]] = []
     try:
         for sheet in wb.worksheets:
-            lines = [f"=== Sheet: {sheet.title} ==="]
-            for row in sheet.iter_rows(values_only=True):
-                cells: list[str] = []
-                for cell in row:
-                    if cell is None:
-                        continue
-                    s = str(cell).strip()
-                    if s:
-                        cells.append(s)
-                lines.append("\t".join(cells) if cells else "")
-            blocks.append("\n".join(lines).rstrip())
+            rows = [list(row) for row in sheet.iter_rows(values_only=True)]
+            sheet_rows.append((sheet.title, rows))
     finally:
         wb.close()
+    return _cells_to_blocks(sheet_rows), "excel/openpyxl"
 
-    text = "\n\n".join(blocks).strip() + ("\n" if blocks else "")
-    return text, "excel/openpyxl"
+
+def _workbook_to_text_xlrd(p: Path) -> tuple[str, str]:
+    """Legacy BIFF .xls via xlrd (pure Python)."""
+    try:
+        import xlrd
+    except ImportError as exc:  # pragma: no cover
+        raise ExcelUnsupportedError(
+            f"Legacy .xls requires xlrd ({p.name}). "
+            "Install xlrd or save as .xlsx and retry."
+        ) from exc
+
+    try:
+        book = xlrd.open_workbook(str(p), formatting_info=False)
+    except Exception as exc:  # noqa: BLE001
+        raise ExcelUnsupportedError(f"Cannot open Excel file {p.name}: {exc}") from exc
+
+    sheet_rows: list[tuple[str, list[list[object]]]] = []
+    for sheet in book.sheets():
+        rows: list[list[object]] = []
+        for r in range(sheet.nrows):
+            row_vals: list[object] = []
+            for c in range(sheet.ncols):
+                cell = sheet.cell(r, c)
+                # xlrd: 3=date; convert to ISO-ish string when possible
+                if cell.ctype == xlrd.XL_CELL_DATE:
+                    try:
+                        from datetime import datetime
+                        t = xlrd.xldate_as_tuple(cell.value, book.datemode)
+                        row_vals.append(datetime(*t).isoformat(sep=" ", timespec="seconds"))
+                    except Exception:
+                        row_vals.append(cell.value)
+                elif cell.ctype == xlrd.XL_CELL_EMPTY:
+                    row_vals.append(None)
+                elif cell.ctype == xlrd.XL_CELL_NUMBER:
+                    # Prefer int when whole number
+                    v = cell.value
+                    if isinstance(v, float) and v.is_integer():
+                        row_vals.append(int(v))
+                    else:
+                        row_vals.append(v)
+                else:
+                    row_vals.append(cell.value)
+            rows.append(row_vals)
+        sheet_rows.append((sheet.name, rows))
+    return _cells_to_blocks(sheet_rows), "excel/xlrd"

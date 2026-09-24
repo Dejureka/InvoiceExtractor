@@ -10,6 +10,7 @@ from invoice_extractor.formats import (
     soe_rb_gmbh_v1,
     aichi_electric_v1,
     bhc_my_hub_v1,
+    bhc_manual_inv_v1,
     marubeni_tetsugen_v1,
     shanghai_nature_v1,
     bitzer_v1,
@@ -17,6 +18,7 @@ from invoice_extractor.formats import (
     highly_v1,
     hisense_qingdao_v1,
     hitachi_gls_v1,
+    hitachi_asia_hitt_v1,
     ma_no_period_v1,
     ma_ak_billing_v1,
     ma_with_period_v1,
@@ -24,6 +26,11 @@ from invoice_extractor.formats import (
     pt_dremel_head3_v1,
     pt_dremel_head5_v1,
     pt_gloria_v1,
+    suzhou_aichi_v1,
+    sumitronics_hk_v1,
+    dunan_v1,
+    ohizumi_dongguan_v1,
+    oukai_v1,
 )
 from invoice_extractor.schema import ExtractResult, Header, Meta
 
@@ -47,6 +54,13 @@ BUILTIN: list[tuple[str, Callable[[str, str], float], Extractor]] = [
     ("shanghai_nature_v1", shanghai_nature_v1.match_score, shanghai_nature_v1.extract),
     ("marubeni_tetsugen_v1", marubeni_tetsugen_v1.match_score, marubeni_tetsugen_v1.extract),
     ("soe_rb_gmbh_v1", soe_rb_gmbh_v1.match_score, soe_rb_gmbh_v1.extract),
+    ("suzhou_aichi_v1", suzhou_aichi_v1.match_score, suzhou_aichi_v1.extract),
+    ("sumitronics_hk_v1", sumitronics_hk_v1.match_score, sumitronics_hk_v1.extract),
+    ("dunan_v1", dunan_v1.match_score, dunan_v1.extract),
+    ("ohizumi_dongguan_v1", ohizumi_dongguan_v1.match_score, ohizumi_dongguan_v1.extract),
+    ("oukai_v1", oukai_v1.match_score, oukai_v1.extract),
+    ("hitachi_asia_hitt_v1", hitachi_asia_hitt_v1.match_score, hitachi_asia_hitt_v1.extract),
+    ("bhc_manual_inv_v1", bhc_manual_inv_v1.match_score, bhc_manual_inv_v1.extract),
 ]
 
 

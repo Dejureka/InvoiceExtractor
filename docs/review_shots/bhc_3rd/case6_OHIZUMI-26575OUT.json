@@ -1,0 +1,124 @@
+{
+  "header": {
+    "invoice_no": "OHIZUMI-26575OUT",
+    "invoice_date": "2026-09-14",
+    "total_pkg": 22.0,
+    "gross_weight_kg": 267.86,
+    "incoterm": null,
+    "item_line_count": 5,
+    "total_quantity": 4300.0,
+    "amount": 8543.54,
+    "currency": "USD",
+    "vendor": "DONG GUAN OHIZUMI SENSOR CO.,LTD.",
+    "origin": "CN",
+    "hs_code": null,
+    "bl_no": "CPSE26090724",
+    "bl_packages": 22.0,
+    "bl_gross_weight_kg": 267.86
+  },
+  "items": [
+    {
+      "invoice_no": "OHIZUMI-26575OUT",
+      "part_no": "3FM81374A",
+      "description": "TEMPERATURE SENSOR",
+      "qty": 1000.0,
+      "unit": "PCS",
+      "unit_price": 1.8621,
+      "amount": 1862.1000000000001,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "OHIZUMI-26575OUT",
+      "part_no": "3FM81374A",
+      "description": "TEMPERATURE SENSOR",
+      "qty": 1000.0,
+      "unit": "PCS",
+      "unit_price": 1.8621,
+      "amount": 1862.1000000000001,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "OHIZUMI-26575OUT",
+      "part_no": "3FM77396C",
+      "description": "TEMPERATURE SENSOR",
+      "qty": 800.0,
+      "unit": "PCS",
+      "unit_price": 2.11,
+      "amount": 1688.0,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "OHIZUMI-26575OUT",
+      "part_no": "3FM77396C",
+      "description": "TEMPERATURE SENSOR",
+      "qty": 600.0,
+      "unit": "PCS",
+      "unit_price": 2.11,
+      "amount": 1266.0,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "OHIZUMI-26575OUT",
+      "part_no": "3FM81374B",
+      "description": "TEMPERATURE SENSOR",
+      "qty": 900.0,
+      "unit": "PCS",
+      "unit_price": 2.0726,
+      "amount": 1865.34,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 6/台湾博世 26-09-14.26575A(东莞大泉).xls",
+    "text_backend": "excel/xlrd",
+    "format_id": "ohizumi_dongguan_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=到貨通知.pdf",
+    "labeled_amount": 8543.54,
+    "labeled_amount_label": "TOTAL",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 6/台湾博世 26-09-14.26575A(东莞大泉).xls",
+    "pkl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 6/台湾博世 26-09-14.26575A(东莞大泉).xls",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-0924/3rd data/case 6/到貨通知.pdf",
+    "bl_used": true,
+    "bl_format_id": "hippopo_arrival_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "excel",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 5,
+        "got": 5
+      },
+      "total_quantity": {
+        "want": 4300.0,
+        "got": 4300.0
+      },
+      "amount": {
+        "want": 8543.54,
+        "got": 8543.54
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 8543.54,
+        "header_amount": 8543.54,
+        "sum_items": 8543.54,
+        "item_count": 5
+      }
+    }
+  }
+}

@@ -89,6 +89,14 @@ def match_score(text: str, filename: str = "") -> float:
         score -= 0.55
     if re.search(r"\b70775\d+|\b70918\d+", text) and "Home Comfort" not in text:
         score -= 0.35
+    # TW-MANUAL / gift / damage-replacement layout is a different family
+    if "TW-MANUAL" in text.upper() or "TW-MANUAL" in fn:
+        score -= 0.7
+    if "no commercial value" in text.lower():
+        score -= 0.4
+    # Require MY-HUB table anchors; filename+vendor alone is not enough
+    if "TOTALS:" not in text and "Invoice Number:" not in text:
+        score = min(score, 0.25)
     return max(0.0, min(score, 1.0))
 
 

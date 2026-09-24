@@ -181,6 +181,7 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         soe_rb_gmbh_v1,
         aichi_electric_v1,
         bhc_my_hub_v1,
+        bhc_manual_inv_v1,
         marubeni_tetsugen_v1,
         shanghai_nature_v1,
         bitzer_v1,
@@ -188,6 +189,7 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         highly_v1,
         hisense_qingdao_v1,
         hitachi_gls_v1,
+        hitachi_asia_hitt_v1,
         ma_no_period_v1,
         ma_ak_billing_v1,
         ma_with_period_v1,
@@ -195,12 +197,20 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         pt_dremel_head3_v1,
         pt_dremel_head5_v1,
         pt_gloria_v1,
+        suzhou_aichi_v1,
+        sumitronics_hk_v1,
+        dunan_v1,
+        ohizumi_dongguan_v1,
+        oukai_v1,
     )
     from invoice_extractor.formats.bl import (
         kwe_air_waybill_v1,
         maersk_air_waybill_v1,
         ceva_pyramid_arrival_v1,
+        china_progress_bl_v1,
+        dhl_danmar_bl_v1,
         dhl_lcl_arrival_v1,
+        hippopo_arrival_v1,
         hippopo_hbl_v1,
         milestone_arrival_v1,
         nippon_express_awb_v1,
@@ -296,6 +306,41 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 ["Marubeni Tetsugen", "Tetsugen Metals", "JCH26"],
                 marubeni_tetsugen_v1,
             ),
+            (
+                "SUZHOU AICHI TECHNOLOGY CO., LTD.",
+                ["Suzhou Aichi", "SATJG", "苏州爱知"],
+                suzhou_aichi_v1,
+            ),
+            (
+                "Sumitronics Hong Kong Ltd.",
+                ["Sumitronics", "ST0826170", "PCBA Sumitronics"],
+                sumitronics_hk_v1,
+            ),
+            (
+                "ZHEJIANG DUNAN INTERNATIONAL TRADING CO.,LTD.",
+                ["Dunan", "盾安", "FT00044266"],
+                dunan_v1,
+            ),
+            (
+                "DONG GUAN OHIZUMI SENSOR CO.,LTD.",
+                ["Ohizumi", "东莞大泉", "OHIZUMI"],
+                ohizumi_dongguan_v1,
+            ),
+            (
+                "Changzhou Oukai Electric Co.,Ltd",
+                ["Oukai", "欧凯", "OK20260921"],
+                oukai_v1,
+            ),
+            (
+                "Hitachi Asia Ltd. (HITT)",
+                ["Hitachi Asia", "USDI", "HITT", "Induction Motor"],
+                hitachi_asia_hitt_v1,
+            ),
+            (
+                "Bosch Home Comfort Supply (M) — TW-MANUAL",
+                ["TW-MANUAL", "BHCWHQA", "no commercial value"],
+                bhc_manual_inv_v1,
+            ),
         ]
         for name, aliases, mod in extras:
             vid = upsert_vendor(conn, name, aliases=aliases)
@@ -348,6 +393,21 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 "T.V.L. Global Logistics / Trans Van Links",
                 ["TVL", "T.V.L.", "TRANS VAN LINKS", "SHAKEL"],
                 tvl_hbl_v1,
+            ),
+            (
+                "Hippopo Global Logistics (Arrival Notice)",
+                ["Hippopo arrival", "河馬到貨", "CPSE"],
+                hippopo_arrival_v1,
+            ),
+            (
+                "DHL / Danmar Lines ocean B/L",
+                ["Danmar", "NGOA", "DHL Japan B/L"],
+                dhl_danmar_bl_v1,
+            ),
+            (
+                "Shenzhen China Progress International",
+                ["China Progress", "中进国际", "NBSE", "提单"],
+                china_progress_bl_v1,
             ),
         ]
         for name, aliases, mod in bl_extras:
