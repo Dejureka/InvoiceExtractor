@@ -1,7 +1,7 @@
 # BHC 3rd data (cases 1–9) — FormatSOP audit pack
 
 **Date:** 2026-09-24 (Asia/Taipei)  
-**Branch:** `feature/formatsop-bhc-3rd` (do **not** merge main until Auditor accept; no portable)  
+**Branch:** `feature/formatsop-bhc-3rd` (Auditor Round3 HBL minor; merge to main after this pack)  
 **Input:** `/home/box/Downloads/BHC-batch-0924/3rd data/case 1 .. case 9` (`.msg` ignored)  
 **Review pack:** `/workspace/InvoiceExtractor/docs/review_shots/bhc_3rd/`
 
@@ -39,7 +39,7 @@ Also: real **`.xls` support** via `xlrd` (`excel/xlrd` backend) in `excel_text.p
 | 3 | 到貨通知.pdf | arrival | `hippopo_arrival_v1` | — | — | — | — | — | — | P076ADNE2608 / 36 / 6937.4 | pass | pdftotext | 18+18 PLTS summed |
 | 4 | BHCWHYTW2609004_INV_9027757002.PDF | INV | `bhc_my_hub_v1` | 9027757002 | 79095.76 | USD | 15 | 221 | 2607.53 | SHAKEL26971792 / **222 CARTONS** / **2608.53** | pass | pdftotext | PKL overlay; BL pkg/GW = hub+QA (221+1 / 2607.53+1) |
 | 4 | INV#TW-MANUAL-015-BHCWHQA260915A.pdf | INV | `bhc_manual_inv_v1` **NEW** | TW-MANUAL-015 | 83.00 | USD | 1 | **1** | **1.0** | SHAKEL26971792 / 222 CARTONS / 2608.53 | pass | pdftotext | QA PKL overlay (TOTAL: 1 … 1.0); no commercial value |
-| 4 | 20260918102712-0001.pdf | HBL | `tvl_hbl_v1` | — | — | — | — | — | — | SHAKEL26971792 / **222 CARTONS** / **2608.53** | pass | ocr/tesseract | Round2: cartons over Say-Total; GW from 222CARTONS/2608.53KGS |
+| 4 | 20260918102712-0001.pdf | HBL | `tvl_hbl_v1` | — | — | — | — | — | — | SHAKEL26971792 / **222 CARTONS** / **2608.53** / CBM **16.519** / TWCU2149470 | pass | ocr/tesseract | Round3: CBM+container+refs+consignee OCR |
 | 5 | 标准_结汇发票FT00044266.pdf | INV | `dunan_v1` **NEW** | DA15199998/2/5/52 | 45545.58 | USD | 7 | 8 | 3326 | NBSE26090042 / 8 / 3326 | pass | pdftotext | xlsx twin same amt; pkg from PKL |
 | 5 | 44266提单.pdf | B/L | `china_progress_bl_v1` **NEW** | — | — | — | — | — | — | NBSE26090042 / 8 PALLETS / 3326 | pass | pdftotext | |
 | 6 | (發票)…东莞大泉.pdf / .xls | INV+PL | `ohizumi_dongguan_v1` **NEW** | OHIZUMI-26575OUT | 8543.54 | USD | 5 | 22 | 267.86 | CPSE26090724 / 22 / 267.86 | pass | pdf + excel/xlrd | xls preferred for GW |
@@ -111,6 +111,20 @@ Auditor conflicts closed at **rule level** (not one-off path hacks):
 
 **Re-review files:**  
 `case4_INV_9027757002.json`, `case4_TW-MANUAL-015.json`, `case4_bl_SHAKEL26971792.json` (+ PNG), `case4_bl_SHAKEL26971792-1.png`, `case8_USDI4105369.json`, `case8_PKL_PACKING_LIST_BOSCH-1.png`, `case8_bl-1.png`, this summary.
+
+
+## Round 3 fixes (2026-09-24 Taipei)
+
+Auditor minor conflict on case4 HBL only (INV rows already PASS):
+
+1. **measurement_cbm** `46.519` → **`16.519`** — prefer `CARTONS/KGS/CBM` combo; 20GP sanity ≤33 CBM (OCR 1→4).
+2. **container_nos** null → **`TWCU2149470 / JJAA498378 / 20GP`** — ISO 4+7 + seal (seal B→8 amid digits).
+3. **invoice_refs** → **`BHCWHYTW2609004, BHCWHQA260915A`** — all P/L NO slash refs; BHG→BHC normalize.
+4. **consignee** `GO., LTD.` → **`CO., LTD.`** — light company-suffix OCR fix.
+
+case8/case9 BL stay needs_gold. case7 OK.
+
+**pytest:** 126 passed, 3 skipped.
 
 ## CLI
 

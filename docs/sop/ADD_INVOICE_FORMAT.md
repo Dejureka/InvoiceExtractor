@@ -131,6 +131,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-24 | BHC 3rd **Round 3**：`tvl_hbl_v1` CBM from CARTONS/KGS/CBM + 20GP≤33; ISO container+seal; all BHCWH* refs; GO.→CO. OCR
 | 2026-09-24 | BHC 3rd **Round 2**：`tvl_hbl_v1` prefer CARTONS over Say-Total 20GP + GW OCR cross-check (.830→.53 / mistrust mismatched CARTONS/KGS); PKL overlay uses `extract_text` + stale-layer→OCR (`text_layer_looks_unreliable`); QA/Hitachi PKL pkg/GW parsers; `oukai_v1` soft note when vendor Total qty ≠ sum(lines)
 | 2026-09-24 | BHC 3rd batch (cases 1–9)：`suzhou_aichi_v1`／`sumitronics_hk_v1`／`dunan_v1`／`ohizumi_dongguan_v1`／`oukai_v1`／`hitachi_asia_hitt_v1`／`bhc_manual_inv_v1`＋BL `hippopo_arrival_v1`／`dhl_danmar_bl_v1`／`china_progress_bl_v1`；`.xls` via xlrd；review `docs/review_shots/bhc_3rd/` |
 | 2026-09-24 | GUI／CLI 接受 Excel 輸入；Excel format 仍走 FormatSOP（cell→text） |
