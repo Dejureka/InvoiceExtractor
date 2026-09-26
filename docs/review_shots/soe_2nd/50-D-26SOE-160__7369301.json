@@ -37,7 +37,7 @@
   "confidence": "rules",
   "needs_ocr": false,
   "needs_gold": false,
-  "notes": "OCR PN reconciled 0265.011.097: readings -57G×2, -576×2 — -57G/-576 differ only by letter/digit look-alikes, letter form -57G kept (item row read -576)",
+  "notes": "OCR PN reconciled 0265.011.097: readings -57G×2, -576×2 — -57G kept (pos 3 G/6 → G, one-way G→6 OCR error), item row read -576",
   "labeled_amount": 21852.9,
   "labeled_amount_label": "Invoice amount",
   "source": null,

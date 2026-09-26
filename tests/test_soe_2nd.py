@@ -190,7 +190,7 @@ def test_soe2_ocr_pn_reconciled_7405713_minority_letter_reading():
     assert r.items[0].part_no == "0265.011.097-57G"
     assert not r.meta.needs_gold_fields and r.meta.needs_gold is False
     assert "readings -57G×1, -576×3 — " in r.meta.notes
-    assert "(item row read -576)" in r.meta.notes
+    assert ", item row read -576" in r.meta.notes
     assert hc["verdict"] == "pass"
 
 
@@ -282,3 +282,74 @@ def test_soe2_thin_retry_skips_long_documents(monkeypatch, tmp_path):
     r = extract_invoice(pdf)
     assert r.meta.format_id is None
     assert r.meta.needs_gold is True
+
+
+# --- Round 2b (Auditor rule risk): letter priority only for G/6 -------------
+
+def _mini_invoice(pn: str, cust: str, extra: str = "") -> str:
+    return (
+        "Invoice No. : 7091800640\nDate Invoice : 06.08.2026\n"
+        f"01 {pn} {cust} 672 3,251.92 21,852.90\n"
+        "Sensor PC 100 EUR\nES 23.016 KG\nCustoms tariff no : 90318080\n"
+        "Invoice amount: EUR 21,852.90\n" + extra
+    )
+
+
+def test_soe2_gg6_letter_wins_even_as_minority():
+    # 57G×1 vs 576×3 (7405713 pattern) → G.
+    t = _mini_invoice("0265.011.097-576", "0265011097576",
+                      "Transport 026501109757GEC\nDelivery 0265011097576\n")
+    r = soe_rb_gmbh_v1.extract("x.pdf", t, "ocr/tesseract", False)
+    assert r.items[0].part_no == "0265.011.097-57G"
+    assert not r.meta.needs_gold_fields
+
+
+def test_soe2_digit_suffix_not_flipped_2u1_vs_zu1():
+    # Real -2U1 read 3× as 2U1, 1× as ZU1 → stays 2U1 (Z/2 has no letter priority).
+    t = _mini_invoice("0263.036.668-2U1", "02630366682U1",
+                      "Cargo 0263.036.668-2U1\nTransport 0263036668ZU1\n")
+    r = soe_rb_gmbh_v1.extract("x.pdf", t, "ocr/tesseract", False)
+    assert r.items[0].part_no == "0263.036.668-2U1"
+    assert not r.meta.needs_gold_fields
+    assert "pos 1 2/Z → 2 (majority 3/4)" in r.meta.notes
+
+
+def test_soe2_digit_suffix_restored_when_item_row_flipped_to_letter():
+    # Item row OCR'd -ZU1 but 3 other PN readings say 2U1 → 2U1.
+    t = _mini_invoice("0263.036.668-ZU1", "02630366682U1",
+                      "Cargo 0263.036.668-2U1\nTransport 02630366682U1\n")
+    r = soe_rb_gmbh_v1.extract("x.pdf", t, "ocr/tesseract", False)
+    assert r.items[0].part_no == "0263.036.668-2U1"
+    assert "item row read -ZU1" in r.meta.notes
+
+
+def test_soe2_digit_suffix_not_flipped_501_vs_s01():
+    t = _mini_invoice("0265.011.097-501", "0265011097501", "Cargo 0265011097S01\n")
+    r = soe_rb_gmbh_v1.extract("x.pdf", t, "ocr/tesseract", False)
+    assert r.items[0].part_no == "0265.011.097-501"
+    assert not r.meta.needs_gold_fields
+
+
+def test_soe2_digit_suffix_2u1_last_char_not_flipped_to_I():
+    t = _mini_invoice("0263.036.668-2U1", "02630366682U1", "Cargo 0263036668 2UI\n")
+    r = soe_rb_gmbh_v1.extract("x.pdf", t, "ocr/tesseract", False)
+    assert r.items[0].part_no == "0263.036.668-2U1"
+
+
+def test_soe2_non_g6_tie_needs_gold():
+    # 2U1×2 vs ZU1×2 → tie at a non-G/6 position → needs_gold, value kept as read.
+    t = _mini_invoice("0263.036.668-2U1", "02630366682U1",
+                      "Cargo 0263.036.668-ZU1\nTransport 0263036668ZU1\n")
+    r = soe_rb_gmbh_v1.extract("x.pdf", t, "ocr/tesseract", False)
+    assert r.items[0].part_no == "0263.036.668-2U1"
+    assert r.meta.needs_gold_fields == ["items.part_no"]
+    assert "ties (only G/6 has letter priority)" in r.meta.notes
+    assert hard_check(r.to_dict())["verdict"] == "needs_gold"
+
+
+def test_soe2_non_g6_letter_needs_strict_majority():
+    # S01×2 vs 501×1 → letter S is a strict majority by itself → S01.
+    t = _mini_invoice("0265.011.097-S01", "0265011097S01", "Cargo 0265011097501\n")
+    r = soe_rb_gmbh_v1.extract("x.pdf", t, "ocr/tesseract", False)
+    assert r.items[0].part_no == "0265.011.097-S01"
+    assert not r.meta.needs_gold_fields

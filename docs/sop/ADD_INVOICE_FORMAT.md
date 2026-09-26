@@ -99,7 +99,7 @@
 | `aichi_electric_v1` | `AICHI ELECTRIC`、`AETW…`、`Total FOB Nagoya`、合訂 packing sheet；PN＝DWG No. |
 | `shanghai_nature_v1` | `SHANGHAI NATURE`、`NBT…`、`HEATING BELT`；OCR 掃描件 OK（case7） |
 | `marubeni_tetsugen_v1` | `MARUBENI TETSUGEN`、`JCH##-##M#`、`COPPER TUBE`／`FOB NAGOYA`；OCR OK（case2） |
-| `soe_rb_gmbh_v1` | SOE `Robert Bosch GmbH`、`Bosch Partnumber`、`Invoice Copy`／`Invoice and Packing List`、`Invoice amount`、`Total gross weight`、`Customs tariff no`；70775…／70918…；OCR OK（掃描 cargo list＋DN＋invoice 合檔；OCR PN 對帳：品項列／Customer PN／cargo list／transport order 各讀法，僅差字形相似（G/6、S/5…）且過半 → 取字母形；無法調和 → `needs_gold_fields=[items.part_no]`）；無 Total gross weight → Marking `N Pallets` 下 Gross weight；`N cardboard pallet` 亦計 pkg；向量字型薄文字層 → rules_engine OCR 重試 |
+| `soe_rb_gmbh_v1` | SOE `Robert Bosch GmbH`、`Bosch Partnumber`、`Invoice Copy`／`Invoice and Packing List`、`Invoice amount`、`Total gross weight`、`Customs tariff no`；70775…／70918…；OCR OK（掃描 cargo list＋DN＋invoice 合檔；OCR PN 對帳：品項列／Customer PN／cargo list／transport order 各讀法，字形相似類須佔全部讀法過半；類內逐位：G/6 → G（即使少數）、其他（0/O、1/I、5/S、2/Z、8/B）取該位過半者，平手 → `needs_gold_fields=[items.part_no]`）；無 Total gross weight → Marking `N Pallets` 下 Gross weight；`N cardboard pallet` 亦計 pkg；向量字型薄文字層 → rules_engine OCR 重試 |
 | `suzhou_aichi_v1` | `SUZHOU AICHI TECHNOLOGY`、`SATJG…`、ROTOR、FOB SHENZHEN；OCR OK（BHC 3rd case1；≠ `aichi_electric_v1`） |
 | `sumitronics_hk_v1` | `SUMITRONICS`、`ST########`、PCB ASSEMBLY、FOB HAIPHONG；xlsx twin OK |
 | `dunan_v1` | `ZHEJIANG DUNAN`／盾安、`DA…` slash INV nos、FOB NINGBO；xlsx OK |
@@ -131,6 +131,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-26 | SOE 2nd **Round 2b**（Auditor 15/15 pass＋規則風險）：字母優先只限 G/6；其他字形相似對逐位嚴格過半（數字或字母），平手 → needs_gold；真數字尾碼（-2U1、-501）不再被翻成字母 |
 | 2026-09-26 | SOE 2nd **Round 2**（Auditor 13 pass／2 conflict）：`soe_rb_gmbh_v1` OCR PN 對帳取代「尾碼不一即 needs_gold」：候選＝品項列點號 PN、Customer PN 無點形、cargo list／transport order／DN 料號欄（數值標籤欄如 `Volume in cdm` 排除）；字形相似類過半 → 字母形（7369301、7405713 → `-57G`；1267475174 保持 `-57G`）；無過半 → needs_gold；分隔符誤讀且無第二讀法 → needs_gold |
 | 2026-09-26 | SOE 2nd（**只跑 invoice**，15 份／13 case，全 `soe_rb_gmbh_v1` 擴充，無新 format_id；HBL／PL／XC PL xlsx／NCN93230104 NEC HAWB 跳過）：OCR PN 分隔符修補（純空白＝良性；`,` 代 `.`＝字形誤讀 → needs_gold）、OCR 同 PN 尾碼多讀法（57G／576）→ `items.part_no` needs_gold；Marking GW fallback；裸原產地行；`N cardboard pallet`；缺頁 soft note；`rules_engine` 薄文字層（<400 字/頁、≤10 頁）且無 format 命中 → OCR 重試（`+thin_text_layer`）；review `docs/review_shots/soe_2nd/` |
 | 2026-09-26 | PT 4th **Round 2**（Auditor 22 pass／1 needs_gold）：`pt_gloria_v1` 無 Shipping unit 且 packing 列數≠`total : N` → `needs_gold_fields=[total_pkg]`（checker 其餘硬校仍跑，過則 verdict＝needs_gold）；`labeled_amount` 由 NIV／`Value:` 填入，硬校比對標籤總額 |

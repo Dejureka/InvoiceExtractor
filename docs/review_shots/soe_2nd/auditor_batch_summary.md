@@ -1,6 +1,6 @@
-# SOE 2nd batch — audit report (invoice-only scope) — Round 2
+# SOE 2nd batch — audit report (invoice-only scope) — Round 2b
 
-**Auditor Round 1 @7118522:** 13 pass, 2 conflict, 0 needs_gold (`out/soe_2nd_auditor_review.md`, crops `/workspace/soe2audit/`). Conflicts: 7369301 (160) and 7405713 (167) `items[0].part_no` `-576` → print `0265.011.097-57G`. 1267475174 (167): needs_gold was a false flag, so it is pass. 168 pkg=5 was confirmed (5 HUs; the booking image says 5 PALLETS; only the email subject says 10). 166 empty pkg was accepted. **Round 2** implements Auditor's PN reconciliation rule generically in `soe_rb_gmbh_v1`.
+**Auditor Round 1 @7118522:** 13 pass, 2 conflict, 0 needs_gold (`out/soe_2nd_auditor_review.md`, crops `/workspace/soe2audit/`). Conflicts: 7369301 (160) and 7405713 (167) `items[0].part_no` `-576` → print `0265.011.097-57G`. 1267475174 (167): needs_gold was a false flag, so it is pass. 168 pkg=5 was confirmed (5 HUs; the booking image says 5 PALLETS; only the email subject says 10). 166 empty pkg was accepted. **Round 2** (@06ff88b) implements Auditor's PN reconciliation rule generically in `soe_rb_gmbh_v1`. Auditor re-review: 15/15 pass, with one rule risk (letter priority beyond G/6). That is fixed in **Round 2b**: only G/6 has letter priority; other look-alikes need a per-position majority.
 
 Branch `feature/soe-2nd` · input `/home/box/Downloads/SOE-batch-2nd/2nd data/` (12 .msg + 1 loose PDF) · attachments extracted to `/home/box/Downloads/SOE-batch-2nd/extracted/<case>/` (inline png/jpg/gif skipped).
 
@@ -20,9 +20,9 @@ No needs_gold and no conflict remain. Info / FYI only:
 
 | File | Status | Note |
 |---|---|---|
-| 7369301.pdf (50-D-26SOE-160) | pass (info) | OCR PN reconciled 0265.011.097: readings -57G×2, -576×2 — -57G/-576 differ only by letter/digit look-alikes, letter form -57G kept (item row read -576). Auditor confirmed the print shows `0265.011.097-57G` |
-| 1267475174 taiwan.pdf (50-D-26SOE-167) | pass (info) | OCR PN reconciled 0265.011.097: readings -576×2, -876×1, -57G×4 — -576/-57G differ only by letter/digit look-alikes, letter form -57G kept (outlier -876 ignored). Auditor confirmed the print shows `0265.011.097-57G` |
-| 7405713.pdf (50-D-26SOE-167) | pass (info) | OCR PN reconciled 0265.011.097: readings -57G×1, -576×3 — -57G/-576 differ only by letter/digit look-alikes, letter form -57G kept (item row read -576). Auditor confirmed the print shows `0265.011.097-57G` |
+| 7369301.pdf (50-D-26SOE-160) | pass (info) | OCR PN reconciled 0265.011.097: readings -57G×2, -576×2 — -57G kept (pos 3 G/6 → G, one-way G→6 OCR error), item row read -576. Auditor confirmed the print shows `0265.011.097-57G` |
+| 1267475174 taiwan.pdf (50-D-26SOE-167) | pass (info) | OCR PN reconciled 0265.011.097: readings -576×2, -876×1, -57G×4 — -57G kept (pos 3 G/6 → G, one-way G→6 OCR error), outlier -876 ignored. Auditor confirmed the print shows `0265.011.097-57G` |
+| 7405713.pdf (50-D-26SOE-167) | pass (info) | OCR PN reconciled 0265.011.097: readings -57G×1, -576×3 — -57G kept (pos 3 G/6 → G, one-way G→6 OCR error), item row read -576. Auditor confirmed the print shows `0265.011.097-57G` |
 | 7077515945.pdf (90-S-26SOE-166) | pass + soft | Page 3/3 (Marking/pallets) is not in the PDF, so pkg is empty (accepted by Auditor). **GW FYI:** the invoice prints Total gross weight 24.000 kg; the out-of-scope HBL WT20260814000087 and the XC PL xlsx say 27.000 kg / 1 pallet. If shipping GW is wanted it must come from PL/HBL (human decision) |
 | 7077513531.pdf (90-S-26SOE-168) | pass | pkg 5 confirmed by Auditor (5 RB HUs × 480 PC = 2,400; booking image 5 PALLETS). The email subject '10 Pallets' is a subject discrepancy to raise with the shipper |
 | 7077513532.pdf (90-S-26SOE-169) | pass | FYI (Auditor): the inline booking image in that email (Keelung / 5 PALLETS) does not match this KHH shipment. Reference only |

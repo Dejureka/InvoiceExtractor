@@ -10,12 +10,12 @@ SOE 2nd (2026-09-26) extensions — additive, v1 meaning unchanged:
 - OCR only, PN reconciliation (SOE 2nd Round 2, Auditor): collect every
   reading of the PN stem in the scan (item row dotted PN, Customer PN
   no-dot form, cargo list / transport order / delivery note PN fields;
-  numeric-labelled fields such as "Volume in cdm 576" never count). If the
-  readings differ only by letter/digit look-alikes (G/6, S/5, B/8, O/0, Z/2,
-  I/1) and that class is a strict majority, the letter form wins (Tesseract
-  reads G as 6, not the reverse; letter suffixes are normal: -5R9, -2CG,
-  -1HX). No majority → ``items.part_no`` needs_gold. A separator misread with
-  no second reading to corroborate → needs_gold.
+  numeric-labelled fields such as "Volume in cdm 576" never count). The
+  dominant look-alike class (G/6, S/5, B/8, O/0, Z/2, I/1) must be a strict
+  majority of all readings; inside it, G/6 → G even as minority (one-way
+  Tesseract error), every other pair → per-position strict majority (digit
+  or letter), tie → ``items.part_no`` needs_gold. A separator misread with no
+  second reading to corroborate → needs_gold.
 - GW fallback: Marking summary "N Pallets / Net weight … Gross weight : X KG"
   when no "Total gross weight" line is printed (7077520279).
 - Origin fallback: bare country line (no Net weight) above Customs tariff no.
@@ -60,7 +60,7 @@ NOTES = (
     "707753*, 707754*, OCR 1267620500→inv 7091802382. "
     "Not BHC MY-HUB; not MA Document No./Goods Value. "
     "SOE 2nd: OCR PN separator repair; OCR PN reconciliation across item row / "
-    "Customer PN / cargo list (look-alike letter form wins, else needs_gold), Marking GW fallback, bare-origin "
+    "Customer PN / cargo list (G/6 → G; other look-alikes by majority, tie → needs_gold), Marking GW fallback, bare-origin "
     "fallback, thin-text-layer OCR retry (rules_engine)."
 )
 
@@ -400,10 +400,9 @@ def _parse_items(
     return items
 
 
-# OCR look-alikes (letter ↔ digit). Tesseract reads the letter as the digit
-# far more often than the reverse, and Bosch 10-digit PN suffixes are
-# alphanumeric (-5R9, -2CG, -1HX, -57G), so a letter reading that other
-# part-number sources corroborate beats its digit look-alike.
+# OCR look-alikes (letter ↔ digit). Only G/6 gets letter priority (Tesseract
+# reads this G as 6, not the reverse); 0/O, 1/I, 5/S, 2/Z, 8/B flip both ways,
+# so those need a per-position strict majority (see _reconcile_ocr_pn).
 _LOOKALIKE = {"6": "G", "5": "S", "8": "B", "0": "O", "2": "Z", "1": "I"}
 # Numeric-labelled fields are never part-number evidence ("26) Volume in cdm 576").
 _NUMERIC_LABEL = re.compile(r"(?:Volume|cdm|weight|\bkg\b|Sum\b)", re.I)
@@ -443,11 +442,16 @@ def _reconcile_ocr_pn(
 ) -> tuple[str | None, str | None, bool]:
     """OCR only. Returns ``(new_pn, note, unresolved)``.
 
-    - all readings agree → ``(None, None, False)`` (keep).
-    - readings split only by letter/digit look-alikes (57G / 576) and that
-      look-alike class holds a strict majority → the letter-bearing reading
-      (``new_pn`` if it differs from the item row) + an info note.
-    - otherwise → ``unresolved=True`` (caller flags needs_gold).
+    1. All readings agree → keep (``(None, None, False)``).
+    2. Group readings into look-alike classes (G/6, S/5, B/8, O/0, Z/2, I/1).
+       The dominant class must hold a strict majority of *all* readings,
+       otherwise → unresolved (needs_gold). Readings outside it are outliers.
+    3. Inside the dominant class, decide character by character:
+       - G/6: **G wins even as the minority** (Tesseract's G→6 error is
+         one-directional on these prints).
+       - any other pair (0/O, 1/I, 5/S, 2/Z, 8/B): the character that holds a
+         strict majority of the class members at that position wins (digit
+         or letter); a tie → unresolved (needs_gold).
     """
     stem, _, row_suf = pn.partition("-")
     digits = re.sub(r"[^0-9]", "", stem)
@@ -464,19 +468,41 @@ def _reconcile_ocr_pn(
     best_key, best = max(classes.items(), key=lambda kv: len(kv[1]))
     readings = ", ".join(f"-{u}×{sufs.count(u)}" for u in uniq)
     if len(best) * 2 <= len(sufs):
-        return None, f"suffix readings {readings}", True
-    members = list(dict.fromkeys(best))
-    win = max(members, key=lambda x: (sum(ch.isalpha() for ch in x), best.count(x)))
+        return None, f"suffix readings {readings}; no look-alike class holds a majority", True
+    chosen: list[str] = []
+    reasons: list[str] = []
+    for pos in range(len(best[0])):
+        col = [x[pos] for x in best]
+        chars = list(dict.fromkeys(col))
+        if len(chars) == 1:
+            chosen.append(chars[0])
+            continue
+        if set(chars) == {"G", "6"}:
+            chosen.append("G")
+            reasons.append(f"pos {pos + 1} G/6 → G, one-way G→6 OCR error")
+            continue
+        top = max(chars, key=col.count)
+        if col.count(top) * 2 > len(col):
+            chosen.append(top)
+            reasons.append(
+                f"pos {pos + 1} {'/'.join(chars)} → {top} (majority {col.count(top)}/{len(col)})"
+            )
+        else:
+            return None, (
+                f"suffix readings {readings}; pos {pos + 1} "
+                f"{'/'.join(f'{c}×{col.count(c)}' for c in chars)} ties (only G/6 has letter priority)"
+            ), True
+    win = "".join(chosen)
     ignored = [u for u in uniq if _shape(u) != best_key]
     note = (
-        f"OCR PN reconciled {stem}: readings {readings} — "
-        f"-{'/-'.join(members)} differ only by letter/digit look-alikes, "
-        f"letter form -{win} kept"
-        + (f" (outlier {'/'.join('-' + u for u in ignored)} ignored)" if ignored else "")
+        f"OCR PN reconciled {stem}: readings {readings} — -{win} kept ("
+        + ", ".join(reasons)
+        + ")"
+        + (f", outlier {'/'.join('-' + u for u in ignored)} ignored" if ignored else "")
     )
     new_pn = f"{stem}-{win}" if win != row_suf.upper() else None
     if new_pn:
-        note += f" (item row read -{row_suf})"
+        note += f", item row read -{row_suf}"
     return new_pn, note, False
 
 
