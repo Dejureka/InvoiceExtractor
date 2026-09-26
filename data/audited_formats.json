@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-24",
+  "updated": "2026-09-26",
   "notes": "Formats that passed AuditSOP (Auditor final pass after conflict fixes). GUI mapping_status uses this registry; BL-only rows also use meta.format_id → same path.",
   "formats": {
     "bitzer_v1": {
@@ -10,8 +10,8 @@
     },
     "pt_gloria_v1": {
       "audited": true,
-      "date": "2026-09-10",
-      "note": "Round1 + Round4 PT mega (20/20); pt_round3 reconfirm"
+      "date": "2026-09-26",
+      "note": "Round1 + Round4 PT mega (20/20); pt_round3 reconfirm; PT 4th Auditor pass (22/23 pass, 50663231 total_pkg needs_gold; needs_gold rule + labeled total)"
     },
     "hangji_v1": {
       "audited": true,
