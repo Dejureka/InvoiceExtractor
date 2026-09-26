@@ -105,8 +105,8 @@
     },
     "soe_rb_gmbh_v1": {
       "audited": true,
-      "date": "2026-09-22",
-      "note": "soe_round1 Auditor pass (merge formatsop-pt-soe)"
+      "date": "2026-09-26",
+      "note": "soe_round1 Auditor pass (merge formatsop-pt-soe); SOE 2nd Auditor pass (invoice-only)"
     },
     "kwe_air_waybill_v1": {
       "audited": true,
