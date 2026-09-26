@@ -1,0 +1,70 @@
+{
+ "header": {
+  "invoice_no": "50654373",
+  "invoice_date": "2026-06-26",
+  "total_pkg": 1.0,
+  "gross_weight_kg": 65.0,
+  "incoterm": "FCA Worms",
+  "item_line_count": 1,
+  "total_quantity": 800.0,
+  "amount": 1456.0,
+  "currency": "USD",
+  "vendor": "Robert Bosch Power Tools GmbH",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "50654373",
+   "part_no": "1.619.M01.4EG",
+   "description": "wrist band Sport Wri",
+   "qty": 800.0,
+   "unit": "pcs",
+   "unit_price": 1.82,
+   "amount": 1456.0,
+   "origin": "CN",
+   "hs_code": "61159500",
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/PT-batch-4th/4th data/90-C-26PT-405_50654373.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "pt_gloria_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "source=combined; pkl_used=yes",
+  "labeled_amount": null,
+  "labeled_amount_label": null,
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/90-C-26PT-405_50654373.pdf",
+  "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/90-C-26PT-405_50654373.pdf",
+  "pkl_used": true,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 1,
+    "got": 1
+   },
+   "total_quantity": {
+    "want": 800.0,
+    "got": 800.0
+   },
+   "amount": {
+    "want": 1456.0,
+    "got": 1456.0
+   },
+   "missing_hs_indices": []
+  }
+ }
+}

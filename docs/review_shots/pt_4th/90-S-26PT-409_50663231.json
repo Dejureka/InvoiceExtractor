@@ -1,0 +1,106 @@
+{
+ "header": {
+  "invoice_no": "50663231",
+  "invoice_date": "2026-08-19",
+  "total_pkg": 12.0,
+  "gross_weight_kg": 4100.0,
+  "incoterm": "FCA Shanghai",
+  "item_line_count": 4,
+  "total_quantity": 20160.0,
+  "amount": 14918.4,
+  "currency": "USD",
+  "vendor": "Robert Bosch Power Tools GmbH",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "50663231",
+   "part_no": "2.608.626.199",
+   "description": "Flap Disc",
+   "qty": 5040.0,
+   "unit": "pcs",
+   "unit_price": 0.74,
+   "amount": 3729.6,
+   "origin": "CN",
+   "hs_code": "68053000",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663231",
+   "part_no": "2.608.626.200",
+   "description": "Flap Disc",
+   "qty": 5040.0,
+   "unit": "pcs",
+   "unit_price": 0.74,
+   "amount": 3729.6,
+   "origin": "CN",
+   "hs_code": "68053000",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663231",
+   "part_no": "2.608.626.201",
+   "description": "Flap Disc",
+   "qty": 5040.0,
+   "unit": "pcs",
+   "unit_price": 0.74,
+   "amount": 3729.6,
+   "origin": "CN",
+   "hs_code": "68053000",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663231",
+   "part_no": "2.608.626.202",
+   "description": "Flap Disc",
+   "qty": 5040.0,
+   "unit": "pcs",
+   "unit_price": 0.74,
+   "amount": 3729.6,
+   "origin": "CN",
+   "hs_code": "68053000",
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-409_50663231.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "pt_gloria_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "soft: packing rows sum 1 != total_pkg 12 (Packing details summary kept; verify on PDF); source=combined; pkl_used=yes",
+  "labeled_amount": null,
+  "labeled_amount_label": null,
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-409_50663231.pdf",
+  "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-409_50663231.pdf",
+  "pkl_used": true,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 4,
+    "got": 4
+   },
+   "total_quantity": {
+    "want": 20160.0,
+    "got": 20160.0
+   },
+   "amount": {
+    "want": 14918.4,
+    "got": 14918.4
+   },
+   "missing_hs_indices": []
+  }
+ }
+}

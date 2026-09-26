@@ -1,0 +1,106 @@
+{
+ "header": {
+  "invoice_no": "50663901",
+  "invoice_date": "2026-08-24",
+  "total_pkg": 4.0,
+  "gross_weight_kg": 895.92,
+  "incoterm": "FCA Hangzhou",
+  "item_line_count": 4,
+  "total_quantity": 208.0,
+  "amount": 20053.84,
+  "currency": "USD",
+  "vendor": "Robert Bosch Power Tools GmbH",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "50663901",
+   "part_no": "0.611.279.0C0",
+   "description": "Rotary hammer 5kg on 115V, 50-60Hz, 1100W,",
+   "qty": 24.0,
+   "unit": "pcs",
+   "unit_price": 213.0,
+   "amount": 5112.0,
+   "origin": "CN",
+   "hs_code": "8467299000",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663901",
+   "part_no": "0.601.9C5.0K1",
+   "description": "CORDLESS ROTARY TOOL GRO 12V-35 solo, ASEAN",
+   "qty": 120.0,
+   "unit": "pcs",
+   "unit_price": 31.47,
+   "amount": 3776.4,
+   "origin": "CN",
+   "hs_code": "8467299000",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663901",
+   "part_no": "0.611.332.1C0",
+   "description": "Rotary Hammer GBH4-3 Rotary Hammer",
+   "qty": 32.0,
+   "unit": "pcs",
+   "unit_price": 174.46,
+   "amount": 5582.72,
+   "origin": "CN",
+   "hs_code": "8467299000",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663901",
+   "part_no": "0.611.332.1C0",
+   "description": "Rotary Hammer GBH4-3 Rotary Hammer",
+   "qty": 32.0,
+   "unit": "pcs",
+   "unit_price": 174.46,
+   "amount": 5582.72,
+   "origin": "CN",
+   "hs_code": "8467299000",
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-407_50663901.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "pt_gloria_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "source=combined; pkl_used=yes",
+  "labeled_amount": null,
+  "labeled_amount_label": null,
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-407_50663901.pdf",
+  "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-407_50663901.pdf",
+  "pkl_used": true,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 4,
+    "got": 4
+   },
+   "total_quantity": {
+    "want": 208.0,
+    "got": 208.0
+   },
+   "amount": {
+    "want": 20053.84,
+    "got": 20053.84
+   },
+   "missing_hs_indices": []
+  }
+ }
+}

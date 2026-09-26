@@ -1,0 +1,167 @@
+       Invoice
+                                                                                                                                                                                                                                             Robert Bosch Power Tools GmbH
+
+                                                                                                                                                                                                                                             70538 Stuttgart
+       Ship-To                                                                                 Sold-To                                                                                               Page                1/     4
+
+       Company                                                                                 Robert Bosch Taiwan Co., Ltd.
+       Robert Bosch Taiwan Co., Ltd (RBTW)                                                     Dahua St. Luzhu Dist. No.432
+       No.432, Dahua St. Luzhu Dist.                                                           338013 TAOYUAN CITY                                                                                   Invoice Date                                   19.08.2026
+       338013 TAOYUAN CITY                                                                     TAIWAN
+       TAIWAN
+                                                                                                                                                                                                     Transport No.
+
+       Consignee                                                                               Your contact person at Bosch:                                                                         Customer No.                                   227026
+                                                                                               Tools: Customer Service East
+       Robert Bosch Taiwan Co., Ltd.                                                           E-Mail: DE-WOR-MIT1-CUSTOMERSERVICE-EAST@FIEGE.COM
+       Dahua St. Luzhu Dist. No.432                                                            Telephone: +49 6242 502 558 - Fax:+49 6242 502 511                                                    Account No.                                    227026
+       338013 TAOYUAN CITY                                                                     Service: Kerstin Denecke
+                                                                                               E-Mail: KERSTIN.DENECKE@DE.BOSCH.COM
+       TAIWAN
+                                                                                               Telephone: +49 5553 202-248 - Fax: +49 5553 202-322
+                                                                                                                                                                                                     Dispatch type
+                                                                                               Accessories: Tingting Jin
+                                                                                               E-Mail:
+                                                                                               Telephone: - Fax:
+                                                                                                                                                                                                     Invoice No.                                    50663231
+
+                                                                                                                                                                                                     VAT-ident. no.                  DE811128452
+
+
+       Your VAT-Ident. / Tax no.                                                                                                                                                                     Departure country                              China
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                            19.08.2026 - 07:40:26
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                                                      Customer No.                    227026                            Page                 2/     4
+
+                                                              Invoice No.                     50663231                           Account No.                     227026                            Invoice Date                                 19.08.2026
+
+      Delivery no.                Gross             Mat.Net              Material no.                     Material description                        Material description                        Qty. Unit                   Price          Total amount     Pref.
+      Packing no.                 Weight/kg                                                               Origin/Tarif Code                            Bosch order no.                            Ref. no./Date               USD            USD
+      Delivery Date                                                      Cust. goods no.                  Cust. goods descrip.                         Cust. order no.                            ext. Text Extranet
+
+      22445380/                     4100.000              957.600        2.608.626.199                    Flap Disc                                                                                         5,040 pcs                 0.74       3,729.60     X
+      272104738                                                                                           CN 68053000                                 112774952 / 10
+      19.08.2026                                                                                                                                      4534437216
+
+                                                          932.400        2.608.626.200                    Flap Disc                                                                                         5,040 pcs                 0.74       3,729.60     X
+                                                                                                          CN 68053000                                 112774952 / 20
+                                                                                                                                                      4534437216
+
+                                                          907.200        2.608.626.201                    Flap Disc                                                                                         5,040 pcs                 0.74       3,729.60     X
+                                                                                                          CN 68053000                                 112774952 / 30
+                                                                                                                                                      4534437216
+
+                                                          882.000        2.608.626.202                    Flap Disc                                                                                         5,040 pcs                 0.74       3,729.60     X
+                                                                                                          CN 68053000                                 112774952 / 40
+                                                                                                                                                      4534437216
+
+
+                                                                                                          Net invoiced value of goods                                                                                                          14,918.40          *
+                                                                                                          Net value 2                                                                                                                          14,918.40
+                                                                                                          VAT FREE DELIVERY FROM ABROAD 0%                                                14,918.40                                                 0.00
+                                                                                                          Total                                                                                                                                14,918.40          **
+                                                                                                          FCA Shanghai
+                                                                                                          Discountable amount                                                                                                                  14,918.40
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          19.08.2026 - 07:40:26
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                                                      Customer No.                    227026                            Page                 3/     4
+
+                                                              Invoice No.                     50663231                           Account No.                     227026                            Invoice Date                                 19.08.2026
+
+      Terms of payment          Up to 18.10.2026 without deduction
+      Deutsche Bank AG Stuttgart,
+      IBAN: DE49600700700111233300
+      BIC: DEUTDESSXXX
+
+
+      Address of payee:
+      ROBERT BOSCH POWER TOOLS GMBH
+      GS/OBC138-EMEA1
+      POSTFACH 30 02 20
+      70442 STUTTGART
+      DEUTSCHLAND/GERMANY
+
+
+
+      Robert Bosch Power Tools GmbH
+
+
+
+
+      Country of origin
+      CN = China
+
+
+      Tarif Code                                              Net Weight                         Value
+      68053000                                              3,679.200 KG                14,918.40 USD
+      total                                                 3,679.200 KG                14,918.40 USD
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          19.08.2026 - 07:40:26
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                                                      Customer No.                    227026                            Page                 4/     4
+
+                                                              Invoice No.                     50663231                           Account No.                     227026                            Invoice Date                                 19.08.2026
+
+
+      total:                                                 Net Weight:                  3,679.200 KG
+                                                           Gross Weight:                  4,100.000 KG
+                                                                  Value:                14,918.40 USD
+
+
+      Packing details
+
+      Packing no.                                                                                                                                            Weight Net             Weight Gross                         Dimensions             Value of goods
+
+
+      22445380/                         1     P.13 Folding Box with Euro Pallet                                                                            3,679.200 kg              4,100.000 kg             1,200/ 800/1070 MM               14,918.40 USD
+      272104738
+
+      total                                                                                                                                          ______________            ______________
+                                                                                                                                                         3,679.200 kg              4,100.000 kg
+      P.13 Folding Box with Euro Pallet                                                                           :   12
+
+
+      total                                                                                                       : 12
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          19.08.2026 - 07:40:26
+

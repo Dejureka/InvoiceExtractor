@@ -31,7 +31,11 @@ MATCH_HINTS = {
 
 NOTES = (
     "PT GmbH / Gloria commercial invoice; layout-trained from msg_extract PDFs "
-    "(50656407 etc.). Amounts US-style; currency from Value:/column header USD."
+    "(50656407 etc.). Amounts US-style; currency from Value:/column header USD. "
+    "PT 4th (2026-09-26): pkg fallback = Packing-details 'total : N' when no "
+    "Shipping unit; packing vocab + Bosch-Standard-Palette / Palette / Slip sheet; "
+    "soft notes for packing-row vs total mismatch (50663231) and mixed HS "
+    "lengths (50664217)."
 )
 
 RULES_JSON = {
@@ -73,16 +77,32 @@ _ORIGIN_HS = re.compile(
     re.MULTILINE,
 )
 
+# Packing-type vocabulary (Packing details summary ``<type> : N``).
+# PT 4th (2026-09-26) extension: ``Bosch-Standard-Palette (HT) …``,
+# ``Slip sheet 1200* 800``, ``Carton X02`` (covered by CARTON\w*), ``Palette``.
+_PKG_TYPES = (
+    r"Folding Box|CARTON|Pallet|Euro Pallet|Standard\s+pallet|Packaging|"
+    r"Cardboard\s+carton|CARTON\s*-?\w*|"
+    r"Bosch-Standard-Palette|Palette|Slip\s+sheet"
+)
+
 _PKG_SUMMARY = re.compile(
-    r"^\s*(?P<label>(?:P\.\d+\s+)?(?:Folding Box|CARTON|Pallet|Euro Pallet|"
-    r"Standard\s+pallet|Packaging|Cardboard\s+carton|CARTON\s*-?\w*)[^\n:]*?)"
+    r"^\s*(?P<label>(?:P\.\d+\s+)?(?:" + _PKG_TYPES + r")[^\n:]*?)"
     r"\s+:\s+(?P<n>\d+)\s*$",
     re.MULTILINE | re.IGNORECASE,
 )
 
 # Also count packing lines: "1 P.13 Folding Box..." or "1 CARTON"
 _PKG_LINE = re.compile(
-    r"^\s*\d+/\s+(\d+)\s+(?:P\.\d+\s+)?(?:Folding|CARTON|Pallet|Euro)",
+    r"^\s*\d+/\s+(\d+)\s+(?:P\.\d+\s+)?"
+    r"(?:Folding|CARTON|Pallet|Euro|Standard\s+pallet|Packaging|Cardboard|"
+    r"Bosch-Standard-Palette|Palette|Slip\s+sheet)",
+    re.MULTILINE | re.IGNORECASE,
+)
+
+# Packing-details grand total ``total : N`` (after the type summary lines).
+_PKG_GRAND_TOTAL = re.compile(
+    r"^\s*total\s+:\s+(?P<n>\d+)\s*$",
     re.MULTILINE | re.IGNORECASE,
 )
 
@@ -215,6 +235,12 @@ def _total_pkg(text: str) -> float | None:
     if n_ship > 0:
         return float(n_ship)
 
+    # PT 4th: Packing-details grand ``total : N`` beats a partial type sum
+    # (unknown packing-type vocabulary can no longer undercount).
+    grand = _PKG_GRAND_TOTAL.findall(text)
+    if grand:
+        return float(int(grand[-1]))
+
     total = 0
     found = False
     for m in _PKG_SUMMARY.finditer(text):
@@ -227,6 +253,44 @@ def _total_pkg(text: str) -> float | None:
         total += int(m.group(1))
         found = True
     return float(total) if found else None
+
+
+_PKG_ROW = re.compile(
+    r"^\s*\d+/\s+(?P<n>\d+)\s+(?P<type>\S.*?)\s{2,}[\d,]+\.\d+\s*kg\s+[\d,]+\.\d+\s*kg",
+    re.MULTILINE | re.IGNORECASE,
+)
+
+
+def _soft_notes(text: str, pkg: float | None, items: list[Item]) -> list[str]:
+    """Soft (non-blocking) vendor-consistency notes for Auditor / human review.
+
+    PT 4th (2026-09-26):
+    - Packing-detail rows sum vs Packing-details ``total : N`` / Shipping units
+      disagree (e.g. 50663231: one row qty 1 but ``total : 12``) → the tool
+      keeps the summary/Shipping-unit count, but flags it.
+    - Mixed HS digit lengths (8 vs 10) within one invoice (e.g. 50664217
+      ``84672920`` next to ``8467290000``) → values kept as printed.
+    """
+    notes: list[str] = []
+    rows = [int(m.group("n")) for m in _PKG_ROW.finditer(text)]
+    grand = _PKG_GRAND_TOTAL.findall(text)
+    n_ship = len({m.group("id") for m in _SHIPPING_UNIT.finditer(text)})
+    if rows and pkg is not None and sum(rows) != int(pkg):
+        notes.append(
+            f"soft: packing rows sum {sum(rows)} != total_pkg {int(pkg)} "
+            "(Packing details summary kept; verify on PDF)"
+        )
+    if grand and n_ship and int(grand[-1]) != n_ship:
+        notes.append(
+            f"soft: Shipping unit count {n_ship} != Packing total {grand[-1]}"
+        )
+    lens = sorted({len(it.hs_code) for it in items if it.hs_code})
+    if len(lens) > 1:
+        odd = sorted({it.hs_code for it in items if it.hs_code and len(it.hs_code) != lens[-1]})
+        notes.append(
+            f"soft: mixed HS digit lengths {lens} (as printed: {', '.join(odd)})"
+        )
+    return notes
 
 
 def _parse_items(text: str, invoice_no: str | None, currency: str | None) -> list[Item]:
@@ -323,6 +387,9 @@ def extract_from_text(
         confidence="rules",
         needs_ocr=needs_ocr,
     )
+    soft = _soft_notes(text, pkg, items)
+    if soft:
+        meta.notes = "; ".join(soft)
     if needs_ocr or not invoice_no:
         meta.confidence = "needs_gold"
         meta.needs_gold = True

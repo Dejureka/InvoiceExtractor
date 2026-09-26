@@ -83,7 +83,7 @@
 
 | format_id | 主要錨點（摘要） |
 |-----------|------------------|
-| `pt_gloria_v1` | `Robert Bosch Power Tools GmbH`、`Invoice No.`、`Net invoiced value of goods`；對齊 VBA `PT_PDFextract`／`PT_Declaration` |
+| `pt_gloria_v1` | `Robert Bosch Power Tools GmbH`、`Invoice No.`、`Net invoiced value of goods`；對齊 VBA `PT_PDFextract`／`PT_Declaration`；pkg＝Shipping unit 數 → 無則 Packing `total : N` → 類型加總（含 Bosch-Standard-Palette／Palette／Slip sheet）；soft notes：packing 列數≠total、HS 位數混用 |
 | `pt_dremel_head3_v1` | Tool Corp Dremel head3：`Invoice No:`、`Origin/Tariff Code`、`Total:`；VBA `PT_PDFextractDremel_head3`／`PT_Dremel_Declaration_head3`；GW soft-missing OK |
 | `pt_dremel_head5_v1` | Tool Corp Dremel head5：`Bosch Document Number`、`Value of Goods`、`Country of Origin`+`HSN/SAC`；VBA `…_head5`；GW＝packing Totals Gross |
 | `bitzer_v1` | `BITZER`、`Ladeliste`、`Commercial Invoice`、`Final amount` |
@@ -131,6 +131,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-26 | PT 4th（23 PDF／15 case，全 `pt_gloria_v1` 擴充，無新 format_id）：無 Shipping unit 時 pkg 取 Packing `total : N`；packing 詞彙＋`Bosch-Standard-Palette`／`Palette`／`Slip sheet`；soft `meta.notes`（50663231 列 1 vs total 12；50664217 HS 8/10 位混用）；review `docs/review_shots/pt_4th/` |
 | 2026-09-24 | BHC 3rd **Round 3**：`tvl_hbl_v1` CBM from CARTONS/KGS/CBM + 20GP≤33; ISO container+seal; all BHCWH* refs; GO.→CO. OCR
 | 2026-09-24 | BHC 3rd **Round 2**：`tvl_hbl_v1` prefer CARTONS over Say-Total 20GP + GW OCR cross-check (.830→.53 / mistrust mismatched CARTONS/KGS); PKL overlay uses `extract_text` + stale-layer→OCR (`text_layer_looks_unreliable`); QA/Hitachi PKL pkg/GW parsers; `oukai_v1` soft note when vendor Total qty ≠ sum(lines)
 | 2026-09-24 | BHC 3rd batch (cases 1–9)：`suzhou_aichi_v1`／`sumitronics_hk_v1`／`dunan_v1`／`ohizumi_dongguan_v1`／`oukai_v1`／`hitachi_asia_hitt_v1`／`bhc_manual_inv_v1`＋BL `hippopo_arrival_v1`／`dhl_danmar_bl_v1`／`china_progress_bl_v1`；`.xls` via xlrd；review `docs/review_shots/bhc_3rd/` |
