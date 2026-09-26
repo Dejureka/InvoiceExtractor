@@ -80,6 +80,7 @@
 - **MA／PT**：`hard_check` **要求每列明細都有非空 HS code**；缺一列即 `conflict`（不是軟提醒）。審核時對照圖面／JSON 的 HS。
 - **PT Gloria（`pt_gloria_v1`）`total_pkg`**：圖面／PDF 若有 Packing details、**Shipping unit** 列、或其他清楚件數，但 JSON `header.total_pkg` 為空 → **`conflict`**（不是 soft-missing）。Soft-miss 僅限文件**完全沒有** packing／件數區段。（已廢止「gloria pkg soft-missing OK」。）
 - **PT Gloria 件數自相矛盾**：無 Shipping unit 且 Packing details 列數加總≠`total : N` → `total_pkg` **needs_gold**（值僅為建議，需 BL／到貨通知佐證）；工具以 `meta.needs_gold_fields` 標示，checker verdict＝needs_gold。
+- **SOE OCR 料號**：掃描檔（cargo list＋DN＋invoice）同一 Bosch PN 尾碼多種讀法時，工具對帳（品項列／Customer PN／cargo list／transport order；數值欄如 `Volume in cdm` 不算）；字形相似類過半後逐位判定：僅 G/6 字母優先（57G／576 → 57G），其他相似對取該位過半、平手 → `items.part_no` needs_gold；工具寫 info note，審核仍須對圖（不要以 email 內容代填）。
 - 僅缺 origin／date 等非擋項，或 **BHC** 等本來就常缺 HS 的版式 → 記待辦，可不擋批次，但要寫進 summary
 
 ### 6. 紀錄
@@ -112,6 +113,8 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-26 | SOE 2nd Round 2：圖清楚時 OCR 料號分歧屬 conflict 非 needs_gold；工具改為字形相似過半取字母形（7369301、7405713 → -57G） |
+| 2026-09-26 | SOE 2nd：只審 invoice；OCR 掃描 PN 尾碼讀法不一／分隔符誤讀 → `items.part_no` needs_gold；缺頁（印 k/M 但 PDF 無）只 soft，不擋 |
 | 2026-09-26 | PT 4th：Gloria 無 Shipping unit＋列數≠`total : N` → needs_gold（50663231）；欄位級 `needs_gold_fields` |
 | 2026-09-22 | PT Gloria：有 Shipping unit／清楚件數但 `total_pkg` 空 → conflict；廢止 gloria pkg soft-missing OK |
 | 2026-09-13 | MA／PT：硬校驗要求每列 HS；缺一即 conflict |

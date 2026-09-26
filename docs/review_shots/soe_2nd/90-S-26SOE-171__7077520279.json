@@ -1,0 +1,80 @@
+{
+ "header": {
+  "invoice_no": "7077520279",
+  "invoice_date": "2026-08-21",
+  "total_pkg": 2.0,
+  "gross_weight_kg": 213.0,
+  "incoterm": "FCA Suzhou",
+  "item_line_count": 1,
+  "total_quantity": 3840.0,
+  "amount": 37174.27,
+  "currency": "EUR",
+  "vendor": "Robert Bosch GmbH",
+  "origin": "CN",
+  "hs_code": "90318080",
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "7077520279",
+   "part_no": "0265.019.150-2CG",
+   "description": "Steerg-Wheel-Angle Sensor",
+   "qty": 3840.0,
+   "unit": "PC",
+   "unit_price": 9.6808,
+   "amount": 37174.27,
+   "origin": "CN",
+   "hs_code": "90318080",
+   "currency": "EUR"
+  }
+ ],
+ "meta": {
+  "source_file": "extracted/90-S-26SOE-171/7077520279.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "soe_rb_gmbh_v1",
+  "confidence": "rules",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": null,
+  "labeled_amount": 37174.27,
+  "labeled_amount_label": "Invoice amount",
+  "source": null,
+  "inv_file": null,
+  "pkl_file": null,
+  "pkl_used": null,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": null,
+  "source_kind": "pdf",
+  "needs_gold_fields": null
+ },
+ "hard_check": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 1,
+    "got": 1
+   },
+   "total_quantity": {
+    "want": 3840.0,
+    "got": 3840.0
+   },
+   "amount": {
+    "want": 37174.27,
+    "got": 37174.27
+   },
+   "labeled_amount": {
+    "label": "Invoice amount",
+    "want": 37174.27,
+    "header_amount": 37174.27,
+    "sum_items": 37174.27,
+    "item_count": 1
+   },
+   "missing_hs_indices": []
+  }
+ }
+}

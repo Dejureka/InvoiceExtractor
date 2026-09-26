@@ -1,0 +1,104 @@
+{
+ "header": {
+  "invoice_no": "7077515945",
+  "invoice_date": "2026-08-19",
+  "total_pkg": null,
+  "gross_weight_kg": 24.0,
+  "incoterm": "FCA DISPATCH POINT",
+  "item_line_count": 3,
+  "total_quantity": 892.0,
+  "amount": 2834.18,
+  "currency": "EUR",
+  "vendor": "Robert Bosch GmbH",
+  "origin": null,
+  "hs_code": "8708999900",
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "7077515945",
+   "part_no": "0263.036.668-2U1",
+   "description": "Retainer; Gen6 Honda Taffeta White",
+   "qty": 292.0,
+   "unit": "PC",
+   "unit_price": 3.2857,
+   "amount": 959.42,
+   "origin": "DE",
+   "hs_code": "8708999900",
+   "currency": "EUR"
+  },
+  {
+   "invoice_no": "7077515945",
+   "part_no": "0263.036.669-2U1",
+   "description": "Retainer; Gen6 Honda Taffeta White",
+   "qty": 300.0,
+   "unit": "PC",
+   "unit_price": 3.2857,
+   "amount": 985.71,
+   "origin": "DE",
+   "hs_code": "8708999900",
+   "currency": "EUR"
+  },
+  {
+   "invoice_no": "7077515945",
+   "part_no": "0215.000.838-2U1",
+   "description": "Retainer; Gen6 Honda Meteoroid Gray M.",
+   "qty": 300.0,
+   "unit": "PC",
+   "unit_price": 2.9635,
+   "amount": 889.05,
+   "origin": "CN",
+   "hs_code": "8708999900",
+   "currency": "EUR"
+  }
+ ],
+ "meta": {
+  "source_file": "extracted/90-S-26SOE-166/7077515945.pdf",
+  "text_backend": "ocr/tesseract+thin_text_layer",
+  "format_id": "soe_rb_gmbh_v1",
+  "confidence": "rules",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "SOFT: invoice page(s) 3/3 not in PDF (fields printed only there, e.g. Marking/pallets, stay empty)",
+  "labeled_amount": 2834.18,
+  "labeled_amount_label": "Invoice amount",
+  "source": null,
+  "inv_file": null,
+  "pkl_file": null,
+  "pkl_used": null,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": null,
+  "source_kind": "pdf",
+  "needs_gold_fields": null
+ },
+ "hard_check": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 3,
+    "got": 3
+   },
+   "total_quantity": {
+    "want": 892.0,
+    "got": 892.0
+   },
+   "amount": {
+    "want": 2834.18,
+    "got": 2834.18
+   },
+   "labeled_amount": {
+    "label": "Invoice amount",
+    "want": 2834.18,
+    "header_amount": 2834.18,
+    "sum_items": 2834.18,
+    "item_count": 3
+   },
+   "missing_hs_indices": []
+  }
+ }
+}

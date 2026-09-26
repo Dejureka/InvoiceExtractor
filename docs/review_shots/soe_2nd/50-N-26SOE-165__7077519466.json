@@ -1,0 +1,80 @@
+{
+ "header": {
+  "invoice_no": "7077519466",
+  "invoice_date": "2026-08-21",
+  "total_pkg": 1.0,
+  "gross_weight_kg": 220.5,
+  "incoterm": "FCA Bosch Plant",
+  "item_line_count": 1,
+  "total_quantity": 1440.0,
+  "amount": 11759.18,
+  "currency": "EUR",
+  "vendor": "Robert Bosch GmbH",
+  "origin": "CN",
+  "hs_code": "90303370",
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "7077519466",
+   "part_no": "0199.300.151-1HX",
+   "description": "EL Control Unit",
+   "qty": 1440.0,
+   "unit": "PC",
+   "unit_price": 8.1661,
+   "amount": 11759.18,
+   "origin": "CN",
+   "hs_code": "90303370",
+   "currency": "EUR"
+  }
+ ],
+ "meta": {
+  "source_file": "extracted/50-N-26SOE-165/7077519466.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "soe_rb_gmbh_v1",
+  "confidence": "rules",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": null,
+  "labeled_amount": 11759.18,
+  "labeled_amount_label": "Invoice amount",
+  "source": null,
+  "inv_file": null,
+  "pkl_file": null,
+  "pkl_used": null,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": null,
+  "source_kind": "pdf",
+  "needs_gold_fields": null
+ },
+ "hard_check": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 1,
+    "got": 1
+   },
+   "total_quantity": {
+    "want": 1440.0,
+    "got": 1440.0
+   },
+   "amount": {
+    "want": 11759.18,
+    "got": 11759.18
+   },
+   "labeled_amount": {
+    "label": "Invoice amount",
+    "want": 11759.18,
+    "header_amount": 11759.18,
+    "sum_items": 11759.18,
+    "item_count": 1
+   },
+   "missing_hs_indices": []
+  }
+ }
+}

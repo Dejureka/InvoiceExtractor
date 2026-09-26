@@ -90,6 +90,36 @@ def apply_format(
     raise KeyError(f"unknown format_id: {format_id}")
 
 
+THIN_RETRY_MAX_PAGES = 10
+
+
+def _retry_thin_layer_with_ocr(
+    path: Path, text: str, backend: str | None
+) -> tuple[Optional[str], float, str, str | None]:
+    """No format matched on a *thin* text layer → OCR once and re-classify.
+
+    Only runs after classification already failed, so PDFs that extract from
+    their text layer today are unaffected. Returns ``(fid, score, text, backend)``;
+    ``fid`` is None when OCR is unavailable or still matches nothing.
+    """
+    from invoice_extractor.ocr import OCR_BACKEND, is_ocr_backend, try_ocr_pdf
+    from invoice_extractor.text_layer import text_layer_looks_thin
+
+    if is_ocr_backend(backend) or not text_layer_looks_thin(text):
+        return None, 0.0, text, backend
+    # Invoices are short; long thin PDFs (e.g. MA Label_*.pdf, 24–138 pages)
+    # never classify after OCR either, so skip the cost.
+    if len(text.split("\f")) > THIN_RETRY_MAX_PAGES:
+        return None, 0.0, text, backend
+    ocr_text, ocr_backend, _err = try_ocr_pdf(path)
+    if not ocr_text or not ocr_text.strip():
+        return None, 0.0, text, backend
+    fid, score = classify(ocr_text, path.name)
+    if not fid:
+        return None, score, text, backend
+    return fid, score, ocr_text, f"{ocr_backend or OCR_BACKEND}+thin_text_layer"
+
+
 def extract_invoice(
     pdf_path: str | Path,
     *,
@@ -104,6 +134,7 @@ def extract_invoice(
 
     path = Path(pdf_path)
     kind = "excel" if is_excel_path(path) else "pdf"
+    text_from_file = text is None
     if text is None:
         # Excel: never OCR. PDF: allow OCR fallback when text layer empty.
         text, backend2, needs_ocr2 = extract_text(path, allow_ocr=(kind == "pdf"))
@@ -148,6 +179,10 @@ def extract_invoice(
     score = 1.0
     if not fid:
         fid, score = classify(text, path.name)
+    if not fid and kind == "pdf" and text_from_file:
+        fid2, score2, text2, backend2 = _retry_thin_layer_with_ocr(path, text, backend)
+        if fid2:
+            fid, score, text, backend = fid2, score2, text2, backend2
     if not fid:
         return ExtractResult(
             header=Header(),

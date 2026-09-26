@@ -1,0 +1,141 @@
+ Robert Bosch GmbH
+
+                                                                     Invoice Copy                                       1 /        2
+
+                                                                     Invoice No.                : 7077520279
+                                                                     Date Invoice               :    21.08.2026
+                                                                     Supplier code              :    0097338624
+                                                                     Payer                      :    1000005984
+ Robert Bosch Taiwan Co., Ltd.                                       Customer No.               :    1000041329
+ 6F,Nº.90, Jian Guo N.Road, Sec1                                     Ship to                    :    1000180135
+ 10491 TAIPEI
+ TAIWAN
+                                                                     Contact addresses
+                                                                     Sales :
+                                                                     Accounting : GS/OSP-SP251 Precup-Muresan L.
+                                                                     Our VAT ID No : DE811128135
+                                                                     Your VAT ID No :
+                                                                     Registration no. WEEE: DE92899867
+
+
+
+
+Dispatch address : Robert Bosch Taiwan Co., Ltd., c/o ELITE International Logistics, No. 100 Chung-hen 10th Rd.,          TW-43542
+Taichung City
+Recipient of Supply (for tax reasons, Goods/Services):
+Robert Bosch Taiwan Co., Ltd., 6F,Nº.90, Jian Guo N.Road, Sec1, TW-10491 Taipei
+_______________________________________________________________________
+Correspondence : Robert Bosch GmbH, GS/OBC-EMEA1, Postfach 10 60 50, DE-70049 Stuttgart
+Company address : Robert Bosch GmbH, Robert-Bosch-Platz 1, DE-70839 Gerlingen-Schillerhoehe
+Shipping point ad. : Bosch Automotive Products (Suzhou), Co.,Ltd,368 Chang Yang Street,Suzhou Industrial Park           ,CN- 215021
+Suzhou
+_______________________________________________________________________
+Item N°.   Bosch Partnumber           Customer Partnumber                   Quantity                Price                 Amount
+                                      Material Description                  Unit Qty           Price unit               Currency
+Ctry Origin                                                                                        Rebate
+_______________________________________________________________________
+Dispatch note : 1267475879                              Date : 21.08.2026           Unloading point : XXXXXXXXXX
+Transport no.: 25644494       Shipping point :   675W                 Dispatch type :
+
+01         0265.019.150-2CG           02650191502CG                            3,840                968.08               37,174.27
+                                      Steerg-Wheel-Angle Sensor                   PC                   100                     EUR
+CN
+                                             Customs tariff no :           90318080
+
+
+Our order number : 25919836      Your order number : 0055912143                                     Date : 25.10.2024
+PO position : 1
+Date of supply (service/ goods delivery): 21.08.2026
+
+
+                                                                     Value of goods:                  EUR           37,174.27
+
+
+
+
+ Bank Details : DEUTSCHE BANK AG, BIC DEUTDESSXXX, IBAN DE32 6007 0070 0119 0677 14
+
+
+
+
+ Registered Office: Stuttgart, Registration Court: Amtsgericht Stuttgart, HRB 14000;
+ Chairman of the Supervisory Board: Prof. Dr. Stefan Asenkerschbaumer;
+ Managing Directors: Dr. Christian Fischer, Dr. Markus Forschner, Stefan Grosch,
+ Dr. Markus Heyn, Dr. Frank Meyer, Katja von Raven, Dr. Tanja Rueckert
+Robert Bosch GmbH
+
+                                                                    Invoice Copy                                     2 /         2
+
+Robert Bosch Taiwan Co., Ltd.                                       Invoice No.                    : 7077520279
+6F,Nº.90, Jian Guo N.Road, Sec1                                     Date Invoice                   :    21.08.2026
+10491 TAIPEI                                                        Supplier code                  :    0097338624
+TAIWAN                                                              Payer                          :    1000005984
+                                                                    Customer No.                   :    1000041329
+                                                                    Ship to                        :    1000180135
+
+
+
+Item N°.   Bosch Partnumber            Customer Partnumber                   Quantity                   Price            Amount
+                                       Material Description                  Unit Qty              Price unit          Currency
+Ctry Origin                                                                                            Rebate
+
+
+
+
+                                                                            Net amount:                    EUR       37,174.27
+                                                               Value Added Tax (VAT) :     0.000       %   EUR            0.00
+                                                                     Invoice amount   :                    EUR       37,174.27
+
+
+
+
+Tax Information: non-taxable, out of the scope of Value Added Tax (VAT)
+
+
+Payment conditions :
+60 days net
+Up to 20.10.2026 without deduction
+
+
+Payment reductions can only be taken based on payment terms and conditions already agreed with you.
+
+
+Payment address :
+
+
+Incoterms 2020:FCA Suzhou
+
+
+
+
+Customs Tarif N°                                                                   Amount
+90318080                                                                    37,174.27 EUR
+
+Marking
+RB 421757449            Pallets
+                        1200.000/       800.000/     780.000
+   (   1,920 PC )
+RB 421765826            Pallets
+                        1200.000/       800.000/     780.000
+   (   1,920 PC )
+
+
+                    2   Pallets
+                        Net weight :       161.280 KG                     Gross weight :               213.000 KG
+
+
+
+This document is legally valid without a signature
+
+
+
+Bank Details : DEUTSCHE BANK AG, BIC DEUTDESSXXX, IBAN DE32 6007 0070 0119 0677 14
+
+
+
+
+Registered Office: Stuttgart, Registration Court: Amtsgericht Stuttgart, HRB 14000;
+Chairman of the Supervisory Board: Prof. Dr. Stefan Asenkerschbaumer;
+Managing Directors: Dr. Christian Fischer, Dr. Markus Forschner, Stefan Grosch,
+Dr. Markus Heyn, Dr. Frank Meyer, Katja von Raven, Dr. Tanja Rueckert
+

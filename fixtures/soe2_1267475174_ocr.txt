@@ -1,0 +1,250 @@
+CARGO-LIST pace tof 1
+Robert Bosch Espana Fea. Madrid, S. LSP Guadalajara 9
+Caile Antonio Battle 3 19004 Guadalajara ES Spain 18.08.2026
+Customer:
+| Robert Bosch Taiwan Co., Ltd. Carrier:
+c/o ELITE International Logistic
+5 No. 100 Chung-hen 10th Rd.
+TW 43542 Taichung City
+/ Transp.no. : 25621957 INNO A TA
+Loadno. : 1957
+Customerno. : 1000180135 Route > ZADUMY
+Ship.Type : 50 Unloading pt.: XXXXXXXXKX
+Package-No. tested Packagetype Content ,
+M 106790502 7475174 PBP 32| 60 80 50/CAR ACCESSO.
+AQAA AAC ACA AN AA 0265,082-097-576
+M 106790504 7475174 PBP 32 60 80 50|CAR ACCESSO. |
+CAAA TAA 0265, 011.097-57¢
+- M 106790520 7475174 PBP 32 60 80 SO|CAR ACCESSO.
+AMANO ANC A 0265.011.097-576
+M 106790521 7475174 PBP 32] 60 80 SO/CAR ACCESSO.
+TU 0265. 011.097-876
+M 106790524 7475174 PBP 32 60 80 50|CAR ACCESSO.
+AA TAT 0265,011.097-576
+| .
+|
++
+)
+|
+.
+|
+f Number of package: 5 Sum: 160 1.2 m3
+KIs: /CAR: /PAL: /PBP:  5/SON:
+Shipper: Collector:
+@ 7
+|
+ty 1) Sender/Supplier 2) Supplier-no. 0097281636 3) Shipping order-no. |
+} Robert Bosch Espana Fca. Madrid, S. k
+LSP Guadalajara :
+: Calle Antonio Battle 3 fy 4) No. sender at the
+19004 Guadalajara fy Shipping carrier
+ES Spain ;
+5) Loading point 4 6)Date 18.08.2026 7)Relations-no.
+LSP Guadalajara, 965W
+| 8) Transportnumber 25621957 if 9) shipping carrier 10) Cartier-no.
+° 4 14) Recipient 42) Customer-no. 1000180135 gi
+Robert Bosch Taiwan Co., Ltd.
+1 6F,No.90 Jian Guo N.Road,Sec.1
+; TW 10491 Taipei :
+FE ; #1 13) Bordereau-/Cargo list no. |
+4 14) Delivery-funtoading point . ! 15) Sendemote for the shipping carrier:
+. | Robert Bosch Taiwan Co., Ltd. E
+c/o ELITE International Logistics i
+No. 100 Chung-hen 10th Rd. t
+TW 43542 Taichung City d
+XXXXXX F 16) Arrive-date 17) Artive-time
+4 18) Reference and no 19) Number/20) Packaging 122) Contents. 123) Load carr. 24) Gross weight
+delivery nate no. weight kg kg
+} 1267475174 5 cardboard 026501109757GEC ME 0 160.0
+: 4} 1957 026501109757G
+Empt .customer name empties RB
+: Freight duty weight: 160
+F 27) 28)
+25) Sum 5 26) Volume in cdm Sum 40 160.0
+j 29) hazardous freight classification
+30) hazardous freight name
+k 31) Prepayment of charges 32) Worth of goods for insurance 33) Jransportinsurance to cover by 34) Sender-cash on delivery
+} Free Carrier earier wi
+lem GUAGALAZ, ALA cemuscaresesensoche . ne ae ee
+] 35) Enclosures 36) Order-no. Customer 0055984625
+F 37) Account assignment
+38) Means of transport no
+3 39) Lorry reg.
+, 40) Dispatch type collective At eoditig-key
+: E | 42) Acknowledgment of receipt of goods
+mentioned transport complete and in a proper condition recieved
+; |
+43) Takeover confirmation from the driver:
+get the mentioned transport complete, in a proper condition and i .
+Li allowing safe transport and toaded operationally reliable. i Company stamp/signature -
+if 44) The transport containes ff of it changed
+Date _—_lime Signature | Euro-Grate-pal.(GP) f Euro-Grate-pal.(GP)
+pAb) Medic: Suiste ata legislatién espaol vigante y nRIe te Vesa Ts FOUR AAA 23, #31 vk Hs, Ea Bias, 40) efor Reealver aces at GDh |
+gee ag Morne ecient: rae be EO EE fein een fee he PES eee |
+2) Supplier-no. 8) Transportnumber
+0097281636 2825621957
+10) Carrier-no. 13) Bordereau-/Cargo list no.
+"av
+5) Robert Bosch Espana Fca. Madrid, S.
+Calle Antonio Battle 3 . . : :
+19004 Guadalajara 19 : ° . . : .
+ES Spain if queries please specify customer and delivemote no. 3) Delivery note no 1267475174 |pace 1
+4 )Robert Bosch GmbH 1) Customer 5) Supplier No. LNR | Packb. | LKZ| Z abs | Sov | KZA 4) Dispatchdate
+Kb 5
+9 Delivery/installation is made by property reservation according Creationday
+Robert-Bosch-Platz 1 to our conditions, which underlie the contractual relationship. 17.08.2026
+DE 70839 Gerlingen-Schillerhoehe eee fice | [entant] wasson | fcarior | | 74) 0
+10) Your sign 11) Your Order No. Date 15) additional data customer 17) Dispatch place [Fr.Gut_ | |Vehic.foreign| _| oH orNo
+. Express Vehic. own .
+880 0055984625 14.12.2025 LSP Guadalajara eprese | ereown | 164156
+19) Shipping type 20) Incoterms 2010 21) Packing type 22) Dispatch sign 23) Total weight kg aA
+collective air fr. Free Carrier 5 PBP grease! 0 net 76,7
+25) Dispatch Address Destination 26) Receipt-/unload-point
+Robert Bosch Taiwan Co., Ltd. c/o ELITE International Logistics
+XXXKXXXKXXK
+No. 100 Chung-hen 10th Rd. TW_43542 Taichung Ci
+27) Pos [26) Bosch-Order-No. [Index [Partnumbercustomer____[28)Deserplonofdelvery —————SSSCSC~SCS~SCSCSCSCSCSCSCSC«SO)uatty AD) Recervernotes —————=S
+Quty.(Is)
+i ) - fl
+[Rotation | [2 Enuyrotes__—=SCSCSCSC~w Yay He
+Name |
+i A OC
+"RADAR TATRATA
+Invoice Copy 1/ 3
+
+Invoice No. : 7091801544
+
+Date Invoice : 20.08.2026
+
+Supplier code : 0097281636
+
+Payer > 1000005984
+
+Robert Bosch Taiwan Co., Ltd. Customer No. : 1000041329
+
+6F,N°.90, Jian Guo N.Road, Secl Ship to : 1000180135
+
+10491 TAIPETL
+
+TAIWAN a
+
+Contact addresses
+
+Sales :
+
+Accounting : GS/OSP-SP251 Precup-Muresan L.
+
+Our VAT ID No : ESW00410581
+
+Your VAT ID No:
+
+Registration no. WEEE: DE92899867
+a
+Dispatch address : Robert Bosch Taiwan Co., Ltd., c/o ELITE International Logistics, No. 100 Chung-hen 10th Rd., TW-43542
+Taichung City
+Correspondence : Robert Bosch GmbH, GS/OBC-EMEA|I, Postfach 10 60 50, DE-70049 Stuttgart
+Company address : Robert Bosch GmbH, Robert-Bosch-Platz 1, DE-70839 Gerlingen-Schillerhoehe
+Shipping point ad. : Robert Bosch Espana Fea. Madrid, $.A., LSP Guadalajara,Calle Antonio Battle 3. ,ES- 19004 Guadalajara
+
+Item N°. Bosch Partnumber Customer Partnumber Quantity Price Amount
+Material Description Unit Qty Price unit Currency
+Ctry Origin Net weight/kg Rebate
+Dispatch note : 1267475174 Date : 20.08.2026 Unloading point : XXXXXXXXXXK
+Transport no.: 25621957 Shipping point: 965A Dispatch type : collective air fr.
+01 0265.011.097-57G 026501109757G 2,240 3,251.92 72,843.01
+Sensor; MM7.zC PC 100 EUR
+ES 76.720 KG
+Customs tariff no ; 90318080
+Our order number : 26164155 Your order number : 0055984625 Date : 14.12.2025
+PO position : 1
+Date of supply (service/ goods delivery): 20.08.2026
+Value of goods: EUR 72,843.01
+Net amount: EUR 72,843.01
+Value Added Tax (VAT) : 0.000 % EUR 0.00
+Invoice amount : EUR 72,843.01
+Tax effective date : 20.08.2026
+————————
+Bank Details : DEUTSCHE BANK AG, BIC DEUTDESSXXX, IBAN DE32 6007 0070 0119 0677 14
+— eS *
+Registered Office: Stuttgart, Registration Court: Amtsgericht Stuttgart, HRB 14000;
+Chairman of the Supervisory Board: Prof. Dr. Stefan Asenkerschbaumer;
+Managing Directors: Dr, Christian Fischer, Dr. Markus Forschner, Stefan Grosch,
+Dr. Markus Heyn, Dr. Frank Meyer, Katja von Raven, Dr. Tanja Rueckert
+a ————————————————————
+! Invoice Copy 2/ 3
+
+Robert Bosch Taiwan Co., Ltd. Invoice No. : 7091801544
+| 6F,N°.90, Jian Guo N.Road, Secl Date Invoice : 20.08.2026
+
+10491 TAIPEI Supplier code : 0097281636
+
+TAIWAN Payer : 1000005984
+
+Customer No. : 1000041329
+Ship to : 1000180135
+Item N°. Bosch Partnumber Customer Partnumber Quantity Price Amount
+Material Description Unit Qty Price unit Currency
+Ctry Origin Net weight/kg Rebate
+
+Tax Information: VAT exempt export according Art. 146 VAT Directive 2006/112/EC
+
+Payment conditions :
+
+60 days net
+
+Up to 19.10.2026 without deduction
+|
+| Payment reductions can only be taken based on payment terms and conditions already agreed with you.
+Payment address :
+Incoterms 2020:FCA Guadalajara
+| Total net weight : 76.720 KG Total gross weight : 160.000 KG
+Customs Tarif N° WeightKg Amount
+| 90318080 76.720 72,843.01 EUR
+
+Bank Details : DEUTSCHE BANK AG, BIC DEUTDESSXXX, IBAN DE32 6007 0070 0119 0677 14
+
+Registered Office: Stuttgart, Registration Court: Amtsgericht Stuttgart, HRB 14000;
+
+Chairman of the Supervisory Board: Prof. Dr. Stefan Asenkerschbaumer;
+
+Managing Directors: Dr. Christian Fischer, Dr. Markus Forschner, Stefan Grosch,
+
+Dr. Markus Heyn, Dr. Frank Meyer, Katja von Raven, Dr. Tanja Rueckert
+Robert Bosch GmbH
+i,
+Invoice Copy 3 / 3 |
+Robert Bosch Taiwan Co., Ltd. Invoice No. : 7091801544
+6F,N°.90, Jian Guo N.Road, Secl Date Invoice : 20.08.2026
+10491 TAIPEI Supplier code : 0097281636
+TAIWAN Payer : 1000005984
+Customer No. : 1000041329
+Ship to : 1000180135
+ee
+Item N°. Bosch Partnumber Customer Partnumber Quantity Price Amount
+Material Description Unit Qty Price unit Currency
+Ctry Origin Net weight/kg Rebate '
+i
+Marking
+RB 106790502 cardboard pallet Net weight : 15.344 KG
+600.000/ 800.000/ 500.000 Gross weight : 32.000 KG
+( 448 PC)
+RB 106790504 cardboard pallet Net weight : 15.344 KG
+600.000/ 800.000/ 500.000 Gross weight : 32.000 KG
+| ( 448PC)
+| RB 106790520 cardboard pailet Net weight : 15.344 KG
+| 600.000/ 800.000/ 500.000 Gross weight : 32.000 KG
+( 448 PC)
+RB 106790521 cardboard pallet Net weight : 15.344 KG
+600.000/ 800.000/ 500.000 Gross weight : 32.000 KG
+( 448 PC)
+RB 106790524 cardboard pallet Net weight : 15.344 KG |
+600.000/ 800.000/ 500.000 Gross weight : 32.000 KG |
+| ( 448 PC)
+: 5 cardboard pallet
+Net weight : 76.720 KG Gross weight : 160.000 KG
+This document is legally valid without a signature
+Bank Details : DEUTSCHE BANK AG, BIC DEUTDESSXXX, IBAN DE32 6007 0070 0119 0677 14
+Registered Office: Stuttgart, Registration Court: Amtsgericht Stuttgart, HRB 14000;
+Chairman of the Supervisory Board: Prof. Dr. Stefan Asenkerschbaumer;
+Managing Directors: Dr. Christian Fischer, Dr. Markus Forschner, Stefan Grosch,
+Dr. Markus Heyn, Dr. Frank Meyer, Katja von Raven, Dr. Tanja Rueckert

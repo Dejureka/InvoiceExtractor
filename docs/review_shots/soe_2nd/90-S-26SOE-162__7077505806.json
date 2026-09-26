@@ -1,0 +1,80 @@
+{
+ "header": {
+  "invoice_no": "7077505806",
+  "invoice_date": "2026-08-10",
+  "total_pkg": 3.0,
+  "gross_weight_kg": 1002.516,
+  "incoterm": "FCA DISPATCH POINT",
+  "item_line_count": 1,
+  "total_quantity": 1440.0,
+  "amount": 76788.72,
+  "currency": "EUR",
+  "vendor": "Robert Bosch GmbH",
+  "origin": "TH",
+  "hs_code": "90328100",
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "7077505806",
+   "part_no": "0265.299.799-5R9",
+   "description": "Hydraulic Unit",
+   "qty": 1440.0,
+   "unit": "PC",
+   "unit_price": 53.3255,
+   "amount": 76788.72,
+   "origin": "TH",
+   "hs_code": "90328100",
+   "currency": "EUR"
+  }
+ ],
+ "meta": {
+  "source_file": "extracted/90-S-26SOE-162/7077505806.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "soe_rb_gmbh_v1",
+  "confidence": "rules",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": null,
+  "labeled_amount": 76788.72,
+  "labeled_amount_label": "Invoice amount",
+  "source": null,
+  "inv_file": null,
+  "pkl_file": null,
+  "pkl_used": null,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": null,
+  "source_kind": "pdf",
+  "needs_gold_fields": null
+ },
+ "hard_check": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 1,
+    "got": 1
+   },
+   "total_quantity": {
+    "want": 1440.0,
+    "got": 1440.0
+   },
+   "amount": {
+    "want": 76788.72,
+    "got": 76788.72
+   },
+   "labeled_amount": {
+    "label": "Invoice amount",
+    "want": 76788.72,
+    "header_amount": 76788.72,
+    "sum_items": 76788.72,
+    "item_count": 1
+   },
+   "missing_hs_indices": []
+  }
+ }
+}
