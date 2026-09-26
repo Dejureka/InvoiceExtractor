@@ -1,0 +1,114 @@
+{
+ "header": {
+  "invoice_no": "50664949",
+  "invoice_date": "2026-08-31",
+  "total_pkg": 2.0,
+  "gross_weight_kg": 46.8,
+  "incoterm": "FCA Hangzhou",
+  "item_line_count": 4,
+  "total_quantity": 500.0,
+  "amount": 592.0,
+  "currency": "USD",
+  "vendor": "Robert Bosch Power Tools GmbH",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "50664949",
+   "part_no": "2.608.690.119",
+   "description": "Pointed Chisel",
+   "qty": 300.0,
+   "unit": "pcs",
+   "unit_price": 0.98,
+   "amount": 294.0,
+   "origin": "CN",
+   "hs_code": "82079099",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50664949",
+   "part_no": "2.608.706.902",
+   "description": "SDSplus hammer drill",
+   "qty": 20.0,
+   "unit": "pcs",
+   "unit_price": 1.51,
+   "amount": 30.2,
+   "origin": "CN",
+   "hs_code": "82075030",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50664949",
+   "part_no": "2.608.706.902",
+   "description": "SDSplus hammer drill",
+   "qty": 80.0,
+   "unit": "pcs",
+   "unit_price": 1.51,
+   "amount": 120.8,
+   "origin": "CN",
+   "hs_code": "82075030",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50664949",
+   "part_no": "2.608.588.424",
+   "description": "Drill bit",
+   "qty": 100.0,
+   "unit": "pcs",
+   "unit_price": 1.47,
+   "amount": 147.0,
+   "origin": "CN",
+   "hs_code": "82075060",
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-413_50664949.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "pt_gloria_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "source=combined; pkl_used=yes",
+  "labeled_amount": 592.0,
+  "labeled_amount_label": "Net invoiced value of goods",
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-413_50664949.pdf",
+  "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-413_50664949.pdf",
+  "pkl_used": true,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 4,
+    "got": 4
+   },
+   "total_quantity": {
+    "want": 500.0,
+    "got": 500.0
+   },
+   "amount": {
+    "want": 592.0,
+    "got": 592.0
+   },
+   "labeled_amount": {
+    "label": "Net invoiced value of goods",
+    "want": 592.0,
+    "header_amount": 592.0,
+    "sum_items": 592.0,
+    "item_count": 4
+   },
+   "missing_hs_indices": []
+  }
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "header": {
+  "invoice_no": "50663621",
+  "invoice_date": "2026-08-21",
+  "total_pkg": 2.0,
+  "gross_weight_kg": 356.576,
+  "incoterm": "FCA CHENGDU",
+  "item_line_count": 2,
+  "total_quantity": 144.0,
+  "amount": 5221.44,
+  "currency": "USD",
+  "vendor": "Robert Bosch Power Tools GmbH",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "50663621",
+   "part_no": "0.601.394.1C0",
+   "description": "Angle Grinder 115V,750W,6.5A,2800~1",
+   "qty": 72.0,
+   "unit": "pcs",
+   "unit_price": 36.26,
+   "amount": 2610.72,
+   "origin": "CN",
+   "hs_code": "8467291000",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663621",
+   "part_no": "0.601.394.1C0",
+   "description": "Angle Grinder 115V,750W,6.5A,2800~1",
+   "qty": 72.0,
+   "unit": "pcs",
+   "unit_price": 36.26,
+   "amount": 2610.72,
+   "origin": "CN",
+   "hs_code": "8467291000",
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-412_50663621.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "pt_gloria_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "source=combined; pkl_used=yes",
+  "labeled_amount": 5221.44,
+  "labeled_amount_label": "Net invoiced value of goods",
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-412_50663621.pdf",
+  "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-412_50663621.pdf",
+  "pkl_used": true,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 2,
+    "got": 2
+   },
+   "total_quantity": {
+    "want": 144.0,
+    "got": 144.0
+   },
+   "amount": {
+    "want": 5221.44,
+    "got": 5221.44
+   },
+   "labeled_amount": {
+    "label": "Net invoiced value of goods",
+    "want": 5221.44,
+    "header_amount": 5221.44,
+    "sum_items": 5221.44,
+    "item_count": 2
+   },
+   "missing_hs_indices": []
+  }
+ }
+}

@@ -1,0 +1,186 @@
+{
+ "header": {
+  "invoice_no": "50663797",
+  "invoice_date": "2026-08-24",
+  "total_pkg": 5.0,
+  "gross_weight_kg": 239.4,
+  "incoterm": "FCA Hangzhou",
+  "item_line_count": 10,
+  "total_quantity": 2740.0,
+  "amount": 4509.8,
+  "currency": "USD",
+  "vendor": "Robert Bosch Power Tools GmbH",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "50663797",
+   "part_no": "2.608.588.417",
+   "description": "Drill bit",
+   "qty": 100.0,
+   "unit": "pcs",
+   "unit_price": 1.44,
+   "amount": 144.0,
+   "origin": "CN",
+   "hs_code": "82075060",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663797",
+   "part_no": "2.608.682.157",
+   "description": "MASONRY DRILL Drill bit",
+   "qty": 100.0,
+   "unit": "pcs",
+   "unit_price": 1.56,
+   "amount": 156.0,
+   "origin": "CN",
+   "hs_code": "82075030",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663797",
+   "part_no": "2.608.706.902",
+   "description": "SDSplus hammer drill",
+   "qty": 300.0,
+   "unit": "pcs",
+   "unit_price": 1.51,
+   "amount": 453.0,
+   "origin": "CN",
+   "hs_code": "82075030",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663797",
+   "part_no": "2.608.706.902",
+   "description": "SDSplus hammer drill",
+   "qty": 800.0,
+   "unit": "pcs",
+   "unit_price": 1.51,
+   "amount": 1208.0,
+   "origin": "CN",
+   "hs_code": "82075030",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663797",
+   "part_no": "2.608.706.940",
+   "description": "SDSplus hammer drill",
+   "qty": 40.0,
+   "unit": "pcs",
+   "unit_price": 3.42,
+   "amount": 136.8,
+   "origin": "CN",
+   "hs_code": "82075030",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663797",
+   "part_no": "2.608.682.157",
+   "description": "MASONRY DRILL Drill bit",
+   "qty": 100.0,
+   "unit": "pcs",
+   "unit_price": 1.56,
+   "amount": 156.0,
+   "origin": "CN",
+   "hs_code": "82075030",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663797",
+   "part_no": "2.608.706.919",
+   "description": "SDSplus hammer drill",
+   "qty": 600.0,
+   "unit": "pcs",
+   "unit_price": 2.36,
+   "amount": 1416.0,
+   "origin": "CN",
+   "hs_code": "82075030",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663797",
+   "part_no": "2.608.706.881",
+   "description": "SDSplus hammer drill",
+   "qty": 300.0,
+   "unit": "pcs",
+   "unit_price": 1.2,
+   "amount": 360.0,
+   "origin": "CN",
+   "hs_code": "82075030",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663797",
+   "part_no": "2.608.706.881",
+   "description": "SDSplus hammer drill",
+   "qty": 100.0,
+   "unit": "pcs",
+   "unit_price": 1.2,
+   "amount": 120.0,
+   "origin": "CN",
+   "hs_code": "82075030",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50663797",
+   "part_no": "2.608.706.881",
+   "description": "SDSplus hammer drill",
+   "qty": 300.0,
+   "unit": "pcs",
+   "unit_price": 1.2,
+   "amount": 360.0,
+   "origin": "CN",
+   "hs_code": "82075030",
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-407_50663797.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "pt_gloria_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "source=combined; pkl_used=yes",
+  "labeled_amount": 4509.8,
+  "labeled_amount_label": "Net invoiced value of goods",
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-407_50663797.pdf",
+  "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-407_50663797.pdf",
+  "pkl_used": true,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 10,
+    "got": 10
+   },
+   "total_quantity": {
+    "want": 2740.0,
+    "got": 2740.0
+   },
+   "amount": {
+    "want": 4509.8,
+    "got": 4509.8
+   },
+   "labeled_amount": {
+    "label": "Net invoiced value of goods",
+    "want": 4509.8,
+    "header_amount": 4509.8,
+    "sum_items": 4509.8,
+    "item_count": 10
+   },
+   "missing_hs_indices": []
+  }
+ }
+}

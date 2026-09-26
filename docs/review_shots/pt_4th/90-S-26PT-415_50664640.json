@@ -1,0 +1,78 @@
+{
+ "header": {
+  "invoice_no": "50664640",
+  "invoice_date": "2026-08-28",
+  "total_pkg": 1.0,
+  "gross_weight_kg": 132.016,
+  "incoterm": "FCA Dongguan",
+  "item_line_count": 1,
+  "total_quantity": 48.0,
+  "amount": 3881.76,
+  "currency": "USD",
+  "vendor": "Robert Bosch Power Tools GmbH",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "50664640",
+   "part_no": "0.601.065.7K1",
+   "description": "Laser Level GLL 50-1 Laser Level",
+   "qty": 48.0,
+   "unit": "pcs",
+   "unit_price": 80.87,
+   "amount": 3881.76,
+   "origin": "CN",
+   "hs_code": "9031809090",
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-415_50664640.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "pt_gloria_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "source=combined; pkl_used=yes",
+  "labeled_amount": 3881.76,
+  "labeled_amount_label": "Net invoiced value of goods",
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-415_50664640.pdf",
+  "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-415_50664640.pdf",
+  "pkl_used": true,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 1,
+    "got": 1
+   },
+   "total_quantity": {
+    "want": 48.0,
+    "got": 48.0
+   },
+   "amount": {
+    "want": 3881.76,
+    "got": 3881.76
+   },
+   "labeled_amount": {
+    "label": "Net invoiced value of goods",
+    "want": 3881.76,
+    "header_amount": 3881.76,
+    "sum_items": 3881.76,
+    "item_count": 1
+   },
+   "missing_hs_indices": []
+  }
+ }
+}

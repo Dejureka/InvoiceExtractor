@@ -72,6 +72,10 @@ class Meta:
     pair_status: Optional[str] = None  # INV+PKL / 僅 INV / 僅 提單 / …
     # Input document kind: "pdf" | "excel" (workbook cell text)
     source_kind: Optional[str] = None
+    # Field-level needs_gold (e.g. ["total_pkg"]): the value is only a suggestion
+    # because the document contradicts itself. Other hard checks still run; if
+    # they pass, checker verdict = needs_gold (manual check), not pass.
+    needs_gold_fields: Optional[list[str]] = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

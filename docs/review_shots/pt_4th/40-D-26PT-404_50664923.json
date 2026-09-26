@@ -1,0 +1,126 @@
+{
+ "header": {
+  "invoice_no": "50664923",
+  "invoice_date": "2026-08-31",
+  "total_pkg": 3.0,
+  "gross_weight_kg": 15.1,
+  "incoterm": "FCA Shanghai",
+  "item_line_count": 5,
+  "total_quantity": 88.0,
+  "amount": 1116.6,
+  "currency": "USD",
+  "vendor": "Robert Bosch Power Tools GmbH",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "50664923",
+   "part_no": "2.608.901.400",
+   "description": "Hole Saw",
+   "qty": 10.0,
+   "unit": "pcs",
+   "unit_price": 8.06,
+   "amount": 80.6,
+   "origin": "CN",
+   "hs_code": "82079071",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50664923",
+   "part_no": "2.608.901.419",
+   "description": "Hole Saw",
+   "qty": 12.0,
+   "unit": "pcs",
+   "unit_price": 13.38,
+   "amount": 160.56,
+   "origin": "CN",
+   "hs_code": "82079071",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50664923",
+   "part_no": "2.608.901.421",
+   "description": "Hole Saw",
+   "qty": 8.0,
+   "unit": "pcs",
+   "unit_price": 12.25,
+   "amount": 98.0,
+   "origin": "CN",
+   "hs_code": "82079071",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50664923",
+   "part_no": "2.608.901.418",
+   "description": "Hole Saw",
+   "qty": 40.0,
+   "unit": "pcs",
+   "unit_price": 10.58,
+   "amount": 423.2,
+   "origin": "CN",
+   "hs_code": "82079071",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "50664923",
+   "part_no": "2.608.901.437",
+   "description": "Hole Saw",
+   "qty": 18.0,
+   "unit": "pcs",
+   "unit_price": 19.68,
+   "amount": 354.24,
+   "origin": "CN",
+   "hs_code": "82079071",
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/PT-batch-4th/4th data/40-D-26PT-404_50664923.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "pt_gloria_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "source=combined; pkl_used=yes",
+  "labeled_amount": 1116.6,
+  "labeled_amount_label": "Net invoiced value of goods",
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/40-D-26PT-404_50664923.pdf",
+  "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/40-D-26PT-404_50664923.pdf",
+  "pkl_used": true,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 5,
+    "got": 5
+   },
+   "total_quantity": {
+    "want": 88.0,
+    "got": 88.0
+   },
+   "amount": {
+    "want": 1116.6,
+    "got": 1116.6
+   },
+   "labeled_amount": {
+    "label": "Net invoiced value of goods",
+    "want": 1116.6,
+    "header_amount": 1116.6,
+    "sum_items": 1116.6,
+    "item_count": 5
+   },
+   "missing_hs_indices": []
+  }
+ }
+}

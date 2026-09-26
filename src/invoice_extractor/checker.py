@@ -67,7 +67,11 @@ def hard_check(extract: dict[str, Any]) -> dict[str, Any]:
     issues: list[str] = []
     details: dict[str, Any] = {}
 
-    if meta.get("needs_ocr") or meta.get("needs_gold"):
+    gold_fields = [str(f) for f in (meta.get("needs_gold_fields") or []) if f]
+    # Whole-document needs_gold (OCR / unreadable) short-circuits. Field-level
+    # needs_gold (``meta.needs_gold_fields``) still runs every hard check so a
+    # real conflict is not hidden behind the manual-check flag.
+    if meta.get("needs_ocr") or (meta.get("needs_gold") and not gold_fields):
         return {
             "verdict": "needs_gold",
             "issues": ["needs_ocr or needs_gold flagged"],
@@ -154,10 +158,19 @@ def hard_check(extract: dict[str, Any]) -> dict[str, Any]:
                 f"({len(missing_hs)}/{len(items)} lines; required for {fid})"
             )
 
+    if gold_fields:
+        details["needs_gold_fields"] = gold_fields
+
     if not header.get("invoice_no") and not items:
         verdict = "needs_gold"
     elif issues:
         verdict = "conflict"
+    elif gold_fields:
+        verdict = "needs_gold"
+        issues.append(
+            "needs_gold field(s): " + ", ".join(gold_fields)
+            + " (document contradicts itself; confirm manually / from BL)"
+        )
     else:
         verdict = "pass"
 

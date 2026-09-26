@@ -1,0 +1,282 @@
+       Invoice
+                                                                                                                                                                                                                                             Robert Bosch Power Tools GmbH
+
+                                                                                                                                                                                                                                             70538 Stuttgart
+       Ship-To                                                                                 Sold-To                                                                                               Page                1/     6
+
+       Company                                                                                 Robert Bosch Taiwan Co., Ltd.
+       Robert Bosch Taiwan Co., Ltd (RBTW)                                                     Dahua St. Luzhu Dist. No.432
+       No.432, Dahua St. Luzhu Dist.                                                           338013 TAOYUAN CITY                                                                                   Invoice Date                                   26.08.2026
+       338013 TAOYUAN CITY                                                                     TAIWAN
+       TAIWAN
+                                                                                                                                                                                                     Transport No.                                     11004639
+
+
+       Consignee                                                                               Your contact person at Bosch:                                                                         Customer No.                                   227026
+                                                                                               Tools: Customer Service East
+       Robert Bosch Taiwan Co., Ltd.                                                           E-Mail: DE-WOR-MIT1-CUSTOMERSERVICE-EAST@FIEGE.COM
+       Dahua St. Luzhu Dist. No.432                                                            Telephone: +49 6242 502 558 - Fax:+49 6242 502 511                                                    Account No.                                    227026
+       338013 TAOYUAN CITY                                                                     Service: Kerstin Denecke
+                                                                                               E-Mail: KERSTIN.DENECKE@DE.BOSCH.COM
+       TAIWAN
+                                                                                               Telephone: +49 5553 202-248 - Fax: +49 5553 202-322
+                                                                                                                                                                                                     Dispatch type                                  Sea
+                                                                                               Accessories: Tingting Jin
+                                                                                               E-Mail:
+                                                                                               Telephone: - Fax:
+                                                                                                                                                                                                     Invoice No.                                    50664217
+
+                                                                                                                                                                                                     VAT-ident. no.                  DE811128452
+
+
+       Your VAT-Ident. / Tax no.                                                                                                                                                                     Departure country                              Malaysia
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                            26.08.2026 - 05:19:58
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                      11004639                        Customer No.                    227026                            Page                 2/     6
+
+                                                              Invoice No.                     50664217                           Account No.                     227026                            Invoice Date                                 26.08.2026
+
+      Delivery no.                Gross             Mat.Net              Material no.                     Material description                        Material description                        Qty. Unit                   Price          Total amount     Pref.
+      Packing no.                 Weight/kg                                                               Origin/Tarif Code                            Bosch order no.                            Ref. no./Date               USD            USD
+      Delivery Date                                                      Cust. goods no.                  Cust. goods descrip.                         Cust. order no.                            ext. Text Extranet
+
+      22449279/                         93.400             77.400        0.601.9L6.0C0                    Impact Wrench GDR 18                        Impact Wrench                                             22 pcs               76.70       1,687.40     X
+      140100080058263734                                                                                  MY 8467290000                               112773569 / 10
+      26.08.2026                                                                                                                                      4534436289
+
+      22449280/                       130.500             114.500        0.601.9J9.180                    Cordless Screw Drive                                                                                103 pcs                46.19       4,757.57     X
+      140100080058425200                                                                                  MY 8467290000                               112868493 / 10
+      26.08.2026                                                                                                                                      4534538157
+
+      22449281/                       188.000             172.000        0.601.9G8.0C1                    Cordless Drill Drive                                                                                  88 pcs               45.00       3,960.00     X
+      140100080058441590                                                                                  MY 8467290000                               112753472 / 10
+      26.08.2026                                                                                                                                      4534413761
+
+      22449669/                       133.100             117.100        0.601.9S0.1C0                    Cordl Perc Screwdr G                        Cordl Perc Screwdr                                        60 pcs               63.90       3,834.00     X
+      140100080058325586                                                                                  MY 8467290000                               112861886 / 10
+      26.08.2026                                                                                                                                      4534532748
+
+      22449778/                         94.500             78.500        0.601.9L6.0C0                    Impact Wrench GDR 18                        Impact Wrench                                             22 pcs               76.70       1,687.40     X
+      140100080058278080                                                                                  MY 8467290000                               112773569 / 10
+      26.08.2026                                                                                                                                      4534436289
+
+      22449779/                       184.900             168.900        0.601.9E0.0C1                    GDR 12V-EC (2.0Ah x                         Impact Wrench                                             60 pcs               87.77       5,266.20     X
+      140100080058418998                                                                                  MY 84672920                                 112829210 / 10
+      26.08.2026                                                                                                                                      4534497559
+
+      22449780/                       188.900             172.900        0.601.9G8.0C1                    Cordless Drill Drive                                                                                  88 pcs               45.00       3,960.00     X
+      140100080058441156                                                                                  MY 8467290000                               112753472 / 10
+      26.08.2026                                                                                                                                      4534413761
+
+      22449881/                       184.800             168.800        0.601.9H2.281                    Cordless Screw Drive                                                                                216 pcs                20.99       4,533.84     X
+      140100080058424869                                                                                  MY 8467290000                               112747637 / 10
+      26.08.2026                                                                                                                                      4534408164
+
+
+
+
+                                                                                                          Sub total                                                                                                                             29,686.41
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          26.08.2026 - 05:19:58
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                      11004639                        Customer No.                    227026                            Page                 3/     6
+
+                                                              Invoice No.                     50664217                           Account No.                     227026                            Invoice Date                                 26.08.2026
+
+      Delivery no.                Gross             Mat.Net              Material no.                     Material description                        Material description                        Qty. Unit                   Price          Total amount     Pref.
+      Packing no.                 Weight/kg                                                               Origin/Tarif Code                            Bosch order no.                            Ref. no./Date               USD            USD
+      Delivery Date                                                      Cust. goods no.                  Cust. goods descrip.                         Cust. order no.                            ext. Text Extranet
+
+      22449882/                       200.400             184.400        0.601.9H2.282                    Cordless Screw Drive                                                                                216 pcs                23.31       5,034.96     X
+      140100080058510234                                                                                  MY 8467290000                               112813085 / 20
+      26.08.2026                                                                                                                                      4534478558
+
+      22449916/                         96.900             80.900        0.601.9L6.0C0                    Impact Wrench GDR 18                        Impact Wrench                                             22 pcs               76.70       1,687.40     X
+      140100080058263727                                                                                  MY 8467290000                               112773569 / 10
+      26.08.2026                                                                                                                                      4534436289
+
+      22449917/                       169.500             153.500        0.601.9E0.0C1                    GDR 12V-EC (2.0Ah x                         Impact Wrench                                             60 pcs               87.77       5,266.20     X
+      140100080058417403                                                                                  MY 84672920                                 112829210 / 10
+      26.08.2026                                                                                                                                      4534497559
+
+
+                                                                                                          Net invoiced value of goods                                                                                                          41,674.97          *
+                                                                                                          Net value 2                                                                                                                          41,674.97
+                                                                                                          VAT free delivery from abroad 0%                                      41,674.97                                                           0.00
+                                                                                                          Total                                                                                                                                41,674.97          **
+                                                                                                          FCA Penang
+                                                                                                          Discountable amount                                                                                                                  41,674.97
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          26.08.2026 - 05:19:58
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                      11004639                        Customer No.                    227026                            Page                 4/     6
+
+                                                              Invoice No.                     50664217                           Account No.                     227026                            Invoice Date                                 26.08.2026
+
+      Terms of payment          Up to 25.10.2026 without deduction
+      VAT exempt export according Art. 146 VAT Directive 2006/112/EC
+      Deutsche Bank AG Stuttgart,
+      IBAN: DE49600700700111233300
+      BIC: DEUTDESSXXX
+
+
+      Address of payee:
+      ROBERT BOSCH POWER TOOLS GMBH
+      GS/OBC138-EMEA1
+      POSTFACH 30 02 20
+      70442 STUTTGART
+      DEUTSCHLAND/GERMANY
+
+
+
+      Robert Bosch Power Tools GmbH
+
+
+
+
+      Country of origin
+      MY = Malaysia
+
+
+      Tarif Code                                              Net Weight                         Value
+      8467290000                                            1,166.500 KG                31,142.57 USD
+      84672920                                                322.400 KG                10,532.40 USD
+      total                                                 1,488.900 KG                41,674.97 USD
+
+
+      total:                                                 Net Weight:                  1,488.900 KG
+                                                           Gross Weight:                  1,664.900 KG
+                                                                  Value:                41,674.97 USD
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          26.08.2026 - 05:19:58
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                      11004639                        Customer No.                    227026                            Page                 5/     6
+
+                                                              Invoice No.                     50664217                           Account No.                     227026                            Invoice Date                                 26.08.2026
+
+
+      Packing details
+
+      Packing no.                                                                                                                                            Weight Net             Weight Gross                         Dimensions             Value of goods
+
+
+      Shipping unit 140100080058263734 with Subpackage:
+      22449279/               1 Standard pallet                                                                                                                77.400 kg                 93.400 kg             1,200/ 800/ 980 MM                1,687.40 USD
+      140100080058263734
+
+      Shipping unit 140100080058425200 with Subpackage:
+      22449280/               1 Standard pallet                                                                                                              114.500 kg                130.500 kg              1,200/ 800/ 980 MM                4,757.57 USD
+      140100080058425200
+
+      Shipping unit 140100080058441590 with Subpackage:
+      22449281/               1 Standard pallet                                                                                                              172.000 kg                188.000 kg              1,200/ 800/ 980 MM                3,960.00 USD
+      140100080058441590
+
+      Shipping unit 140100080058263727 with Subpackage:
+      22449916/               1 Standard pallet                                                                                                                80.900 kg                 96.900 kg             1,200/ 800/ 980 MM                1,687.40 USD
+      140100080058263727
+
+      Shipping unit 140100080058417403 with Subpackage:
+      22449917/               1 Standard pallet                                                                                                              153.500 kg                169.500 kg              1,200/ 800/ 980 MM                5,266.20 USD
+      140100080058417403
+
+      Shipping unit 140100080058278080 with Subpackage:
+      22449778/               1 Standard pallet                                                                                                                78.500 kg                 94.500 kg             1,200/ 800/ 980 MM                1,687.40 USD
+      140100080058278080
+
+      Shipping unit 140100080058418998 with Subpackage:
+      22449779/               1 Standard pallet                                                                                                              168.900 kg                184.900 kg              1,200/ 800/ 980 MM                5,266.20 USD
+      140100080058418998
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          26.08.2026 - 05:19:58
+      Invoice
+      Robert Bosch Power Tools GmbH
+
+      70538 Stuttgart                                         Transport No.                      11004639                        Customer No.                    227026                            Page                 6/     6
+
+                                                              Invoice No.                     50664217                           Account No.                     227026                            Invoice Date                                 26.08.2026
+
+
+      Packing details
+
+      Packing no.                                                                                                                                            Weight Net             Weight Gross                         Dimensions             Value of goods
+
+
+      Shipping unit 140100080058441156 with Subpackage:
+      22449780/               1 Standard pallet                                                                                                              172.900 kg                188.900 kg              1,200/ 800/ 980 MM                3,960.00 USD
+      140100080058441156
+
+      Shipping unit 140100080058325586 with Subpackage:
+      22449669/               1 Standard pallet                                                                                                              117.100 kg                133.100 kg              1,200/ 800/ 980 MM                3,834.00 USD
+      140100080058325586
+
+      Shipping unit 140100080058424869 with Subpackage:
+      22449881/               1 Standard pallet                                                                                                              168.800 kg                184.800 kg              1,200/ 800/ 980 MM                4,533.84 USD
+      140100080058424869
+
+      Shipping unit 140100080058510234 with Subpackage:
+      22449882/               1 Standard pallet                                                                                                              184.400 kg                200.400 kg              1,200/ 800/ 980 MM                5,034.96 USD
+      140100080058510234
+
+      total                                                                                                                                          ______________            ______________
+                                                                                                                                                         1,488.900 kg              1,664.900 kg
+      Standard pallet                                                                                            :    11
+
+
+      total                                                                                                          : 11
+
+
+
+
+      Robert Bosch Power Tools GmbH, Sitz: Leinfelden-Echterdingen, Amtsgericht Stuttgart HRB 756628,
+      Geschäftsführung: Michael Budde, Martin Hettich, Dr. Katharina Hartl
+      Geschäftsadresse:Max-Lang Str.40-46,70771 Leinfelden-Echterdingen.
+      BOSCH und die Bildmarke sind registrierte Marken der Robert Bosch GmbH, Stuttgart, Deutschland
+      Lieferung/Einbau erfolgt unter Eigentumsvorbehalt gemäß unseren Lieferungsbedingungen, die dem Vertragsverhältnis zugrunde liegen. Unsere aktuellen Lieferbedingen werden im Internet auf der Seite www.bosch-pt.com veröffentlicht.
+001                                                                                                                                                                                                                                          26.08.2026 - 05:19:58
+
