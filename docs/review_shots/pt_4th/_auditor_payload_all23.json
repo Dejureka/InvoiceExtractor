@@ -20,9 +20,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 1116.6,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -88,9 +93,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 134.0,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -124,9 +134,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 1600.03,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -576,9 +591,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 681.26,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -852,9 +872,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 83.6,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -896,9 +921,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 319.8,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -940,9 +970,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 52165.9,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3056,9 +3091,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 1456.0,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3092,9 +3132,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 4509.8,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3200,9 +3245,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 20053.84,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3259,10 +3309,19 @@
 },
 "meta": {
 "format_id": "pt_gloria_v1",
-"checker_verdict": "pass",
+"checker_verdict": "needs_gold",
+"checker_issues": [
+"needs_gold field(s): total_pkg (document contradicts itself; confirm manually / from BL)"
+],
 "text_backend": "pdftotext -layout",
-"notes": "soft: packing rows sum 1 != total_pkg 12 (Packing details summary kept; verify on PDF); source=combined; pkl_used=yes",
-"source": "combined"
+"notes": "needs_gold: total_pkg — no Shipping unit, Packing-details rows sum 1 != 'total : 12' (suggested 12, confirm from BL/arrival notice); source=combined; pkl_used=yes",
+"source": "combined",
+"labeled_amount": 14918.4,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": true,
+"needs_gold_fields": [
+"total_pkg"
+]
 },
 "items": [
 {
@@ -3320,9 +3379,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 14980.86,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3388,9 +3452,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 21879.36,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3496,9 +3565,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 5221.44,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3540,9 +3614,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 592.0,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3600,9 +3679,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 7150.08,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3692,9 +3776,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 3881.76,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3728,9 +3817,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 2169.6,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3804,9 +3898,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
-"notes": "soft: mixed HS digit lengths [8, 10] (as printed: 84672920); source=combined; pkl_used=yes",
-"source": "combined"
+"notes": "soft: mixed HS digit lengths [8, 10]: 84672920 printed on lines 6, 11 (2 of 11); kept as printed; source=combined; pkl_used=yes",
+"source": "combined",
+"labeled_amount": 41674.97,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3920,9 +4019,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 19981.44,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -3964,9 +4068,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 2154.0,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -4000,9 +4109,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 730.8,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {
@@ -4060,9 +4174,14 @@
 "meta": {
 "format_id": "pt_gloria_v1",
 "checker_verdict": "pass",
+"checker_issues": [],
 "text_backend": "pdftotext -layout",
 "notes": "source=combined; pkl_used=yes",
-"source": "combined"
+"source": "combined",
+"labeled_amount": 2575.68,
+"labeled_amount_label": "Net invoiced value of goods",
+"needs_gold": false,
+"needs_gold_fields": null
 },
 "items": [
 {

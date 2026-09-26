@@ -259,9 +259,9 @@
   "hsmiss": 0,
   "origins": "CN",
   "hs": "68053000",
-  "verdict": "pass",
+  "verdict": "needs_gold",
   "backend": "pdftotext -layout",
-  "soft": "soft: packing rows sum 1 != total_pkg 12 (Packing details summary kept; verify on PDF)"
+  "soft": "needs_gold: total_pkg — no Shipping unit, Packing-details rows sum 1 != 'total : 12' (suggested 12, confirm from BL/arrival notice)"
  },
  {
   "case": "90-S-26PT-410",
@@ -453,7 +453,7 @@
   "hs": "8467290000,84672920",
   "verdict": "pass",
   "backend": "pdftotext -layout",
-  "soft": "soft: mixed HS digit lengths [8, 10] (as printed: 84672920)"
+  "soft": "soft: mixed HS digit lengths [8, 10]: 84672920 printed on lines 6, 11 (2 of 11)"
  },
  {
   "case": "90-S-26PT-418",

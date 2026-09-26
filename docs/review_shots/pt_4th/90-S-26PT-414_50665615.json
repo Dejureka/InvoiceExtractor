@@ -122,8 +122,8 @@
   "needs_ocr": false,
   "needs_gold": false,
   "notes": "source=combined; pkl_used=yes",
-  "labeled_amount": null,
-  "labeled_amount_label": null,
+  "labeled_amount": 7150.08,
+  "labeled_amount_label": "Net invoiced value of goods",
   "source": "combined",
   "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-414_50665615.pdf",
   "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-414_50665615.pdf",
@@ -133,6 +133,7 @@
   "bl_format_id": null,
   "pair_status": "INV+PKL",
   "source_kind": "pdf",
+  "needs_gold_fields": null,
   "checker_verdict": "pass",
   "checker_issues": [],
   "checker_details": {
@@ -147,6 +148,13 @@
    "amount": {
     "want": 7150.08,
     "got": 7150.08
+   },
+   "labeled_amount": {
+    "label": "Net invoiced value of goods",
+    "want": 7150.08,
+    "header_amount": 7150.08,
+    "sum_items": 7150.08,
+    "item_count": 8
    },
    "missing_hs_indices": []
   }

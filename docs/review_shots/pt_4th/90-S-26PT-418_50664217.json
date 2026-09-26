@@ -157,9 +157,9 @@
   "confidence": "high",
   "needs_ocr": false,
   "needs_gold": false,
-  "notes": "soft: mixed HS digit lengths [8, 10] (as printed: 84672920); source=combined; pkl_used=yes",
-  "labeled_amount": null,
-  "labeled_amount_label": null,
+  "notes": "soft: mixed HS digit lengths [8, 10]: 84672920 printed on lines 6, 11 (2 of 11); kept as printed; source=combined; pkl_used=yes",
+  "labeled_amount": 41674.97,
+  "labeled_amount_label": "Net invoiced value of goods",
   "source": "combined",
   "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-418_50664217.pdf",
   "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-418_50664217.pdf",
@@ -169,6 +169,7 @@
   "bl_format_id": null,
   "pair_status": "INV+PKL",
   "source_kind": "pdf",
+  "needs_gold_fields": null,
   "checker_verdict": "pass",
   "checker_issues": [],
   "checker_details": {
@@ -183,6 +184,13 @@
    "amount": {
     "want": 41674.97,
     "got": 41674.97
+   },
+   "labeled_amount": {
+    "label": "Net invoiced value of goods",
+    "want": 41674.97,
+    "header_amount": 41674.97,
+    "sum_items": 41674.97,
+    "item_count": 11
    },
    "missing_hs_indices": []
   }

@@ -74,7 +74,8 @@ def test_pt4_header_lines_and_hard_check(fx, stem, inv, date, amt, gw, pkg, nlin
         assert it.origin and re.fullmatch(r"[A-Z]{2}", it.origin), it
     if origins is not None:
         assert {i.origin for i in r.items} == origins
-    assert hard_check(d)["verdict"] == "pass"
+    want = "needs_gold" if inv == "50663231" else "pass"  # Auditor: pkg contradiction
+    assert hard_check(d)["verdict"] == want
 
 
 def test_pt4_50654372_multi_origin_and_shipping_units():
@@ -90,26 +91,90 @@ def test_pt4_50654372_multi_origin_and_shipping_units():
     assert r.meta.notes is None  # consistent doc → no soft notes
 
 
-def test_pt4_soft_note_packing_rows_vs_total_50663231():
-    """Vendor inconsistency: 1 packing row (qty 1) but 'total : 12' → keep 12, soft note."""
+def test_pt4_pkg_needs_gold_rows_vs_total_50663231():
+    """Auditor PT 4th: no Shipping unit, 1 packing row vs 'total : 12' → needs_gold.
+
+    total_pkg keeps 12 as the suggested value; checker verdict = needs_gold
+    (all other hard checks still run and pass)."""
     fx = "pt4_50663231_layout.txt"
     if not (FIX / fx).is_file():
         pytest.skip("fixture missing")
     _, r, d = _run(fx, "90-S-26PT-409_50663231")
     assert r.header.total_pkg == pytest.approx(12.0)
-    assert "packing rows sum 1 != total_pkg 12" in (r.meta.notes or "")
-    assert hard_check(d)["verdict"] == "pass"  # soft only
+    assert r.meta.needs_gold is True
+    assert r.meta.confidence == "needs_gold"
+    assert r.meta.needs_gold_fields == ["total_pkg"]
+    assert "rows sum 1 != 'total : 12'" in (r.meta.notes or "")
+    hc = hard_check(d)
+    assert hc["verdict"] == "needs_gold"
+    assert any("total_pkg" in i for i in hc["issues"])
+    # other checks ran (labeled total compared)
+    assert hc["details"]["labeled_amount"]["want"] == pytest.approx(14918.40)
+
+
+def test_pt4_needs_gold_field_does_not_hide_conflict():
+    """Field-level needs_gold must not mask a real hard conflict."""
+    fx = "pt4_50663231_layout.txt"
+    if not (FIX / fx).is_file():
+        pytest.skip("fixture missing")
+    _, _, d = _run(fx, "90-S-26PT-409_50663231")
+    d["items"] = d["items"][:-1]  # drop one line → sum != labeled
+    d["header"]["item_line_count"] = len(d["items"])
+    d["header"]["total_quantity"] = sum(i["qty"] for i in d["items"])
+    assert hard_check(d)["verdict"] == "conflict"
+
+
+def test_pt4_consistent_packing_not_needs_gold():
+    """Rows sum == total (no Shipping unit) or Shipping units present → no needs_gold."""
+    for fx, stem in (
+        ("pt4_50664923_layout.txt", "50664923"),  # 3 carton rows, total : 3
+        ("pt4_50654372_layout.txt.gz", "50654372"),  # 30 Shipping units
+    ):
+        if not (FIX / fx).is_file():
+            pytest.skip("fixture missing")
+        _, r, d = _run(fx, stem)
+        assert not r.meta.needs_gold and not r.meta.needs_gold_fields
+        assert hard_check(d)["verdict"] == "pass"
+
+
+def test_pt4_labeled_amount_populated_and_checked():
+    fx = "pt4_50664923_layout.txt"
+    if not (FIX / fx).is_file():
+        pytest.skip("fixture missing")
+    _, r, d = _run(fx, "40-D-26PT-404_50664923")
+    assert r.meta.labeled_amount == pytest.approx(1116.60)
+    assert r.meta.labeled_amount_label == "Net invoiced value of goods"
+    hc = hard_check(d)
+    assert hc["details"]["labeled_amount"]["label"] == "Net invoiced value of goods"
+    # header drifting away from the printed label must fail
+    d["header"]["amount"] = 1000.00
+    assert hard_check(d)["verdict"] == "conflict"
+
+
+def test_pt4_labeled_amount_value_fallback():
+    snippet = """
+Robert Bosch Power Tools GmbH
+Invoice No. 50999998
+total:                                                 Net Weight:     1.000 KG
+                                                     Gross Weight:     2.000 KG
+                                                            Value:   123.45 USD
+"""
+    r = pt_gloria_v1.extract_from_text(snippet, source_file="x", text_backend="fixture")
+    assert r.meta.labeled_amount == pytest.approx(123.45)
+    assert r.meta.labeled_amount_label == "Value:"
 
 
 def test_pt4_soft_note_mixed_hs_lengths_50664217():
     fx = "pt4_50664217_layout.txt"
     if not (FIX / fx).is_file():
         pytest.skip("fixture missing")
-    _, r, _ = _run(fx, "90-S-26PT-418_50664217")
-    hs = {i.part_no: i.hs_code for i in r.items}
-    assert hs["0.601.9E0.0C1"] == "84672920"  # kept as printed
-    assert hs["0.601.9L6.0C0"] == "8467290000"
-    assert "mixed HS digit lengths [8, 10]" in (r.meta.notes or "")
+    _, r, d = _run(fx, "90-S-26PT-418_50664217")
+    hs = [i.hs_code for i in r.items]
+    assert [n + 1 for n, h in enumerate(hs) if h == "84672920"] == [6, 11]
+    assert all(h == "8467290000" for h in hs if h != "84672920")
+    assert "84672920 printed on lines 6, 11 (2 of 11)" in (r.meta.notes or "")
+    assert not r.meta.needs_gold
+    assert hard_check(d)["verdict"] == "pass"
 
 
 def test_pt4_pkg_fallback_vocab_without_shipping_unit():

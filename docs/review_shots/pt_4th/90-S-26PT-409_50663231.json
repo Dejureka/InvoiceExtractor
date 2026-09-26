@@ -70,12 +70,12 @@
   "source_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-409_50663231.pdf",
   "text_backend": "pdftotext -layout",
   "format_id": "pt_gloria_v1",
-  "confidence": "high",
+  "confidence": "needs_gold",
   "needs_ocr": false,
-  "needs_gold": false,
-  "notes": "soft: packing rows sum 1 != total_pkg 12 (Packing details summary kept; verify on PDF); source=combined; pkl_used=yes",
-  "labeled_amount": null,
-  "labeled_amount_label": null,
+  "needs_gold": true,
+  "notes": "needs_gold: total_pkg — no Shipping unit, Packing-details rows sum 1 != 'total : 12' (suggested 12, confirm from BL/arrival notice); source=combined; pkl_used=yes",
+  "labeled_amount": 14918.4,
+  "labeled_amount_label": "Net invoiced value of goods",
   "source": "combined",
   "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-409_50663231.pdf",
   "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/90-S-26PT-409_50663231.pdf",
@@ -85,8 +85,13 @@
   "bl_format_id": null,
   "pair_status": "INV+PKL",
   "source_kind": "pdf",
-  "checker_verdict": "pass",
-  "checker_issues": [],
+  "needs_gold_fields": [
+   "total_pkg"
+  ],
+  "checker_verdict": "needs_gold",
+  "checker_issues": [
+   "needs_gold field(s): total_pkg (document contradicts itself; confirm manually / from BL)"
+  ],
   "checker_details": {
    "item_line_count": {
     "want": 4,
@@ -100,7 +105,17 @@
     "want": 14918.4,
     "got": 14918.4
    },
-   "missing_hs_indices": []
+   "labeled_amount": {
+    "label": "Net invoiced value of goods",
+    "want": 14918.4,
+    "header_amount": 14918.4,
+    "sum_items": 14918.4,
+    "item_count": 4
+   },
+   "missing_hs_indices": [],
+   "needs_gold_fields": [
+    "total_pkg"
+   ]
   }
  }
 }

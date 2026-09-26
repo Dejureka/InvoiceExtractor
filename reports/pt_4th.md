@@ -1,4 +1,6 @@
-# PT 4th batch — FormatSOP audit report
+# PT 4th batch — FormatSOP audit report (Round 2: Auditor fixes)
+
+**Auditor verdict @029f6d2:** 22 pass · 1 needs_gold (50663231 total_pkg) · 0 conflict (`out/pt_4th_auditor_review.md`). Round 2 implements the Auditor rule + labeled total.
 
 **Date:** 2026-09-26 (Asia/Taipei) · **Branch:** `feature/pt-4th` · **Input:** `/home/box/Downloads/PT-batch-4th/4th data/` (23 PDFs, 15 cases; no .msg files present)
 
@@ -8,7 +10,7 @@
 
 ## Hard-check summary
 
-- pass 23/23 · conflict 0 · needs_gold 0
+- pass 22/23 · conflict 0 · needs_gold 1
 - HS missing lines: 0 / 429 (PT strict — every line has 8/10-digit HS + origin)
 - Independent re-parse of every material row (next-line `CC HSCODE`) matches JSON part_no/qty/amount/origin/HS for all 429 lines; header.amount = sum(lines) = `Net invoiced value of goods` = `Value:`; G.W. = `Gross Weight:` = packing footer gross; Packages = Packing `total : N` (and = unique Shipping-unit count where Shipping units are printed).
 
@@ -26,7 +28,7 @@
 | 90-C-26PT-405 | `90-C-26PT-405_50654373.pdf` | `pt_gloria_v1` (existing; **new sample**) | 50654373 | 2026-06-26 | USD | 1,456.00 | 1 | 800 | 1 | 65.000 | FCA Worms | CN | 0 | pass | — |
 | 90-S-26PT-407 | `90-S-26PT-407_50663797.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50663797 | 2026-08-24 | USD | 4,509.80 | 10 | 2740 | 5 | 239.400 | FCA Hangzhou | CN | 0 | pass | — |
 | 90-S-26PT-407 | `90-S-26PT-407_50663901.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50663901 | 2026-08-24 | USD | 20,053.84 | 4 | 208 | 4 | 895.920 | FCA Hangzhou | CN | 0 | pass | — |
-| 90-S-26PT-409 | `90-S-26PT-409_50663231.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50663231 | 2026-08-19 | USD | 14,918.40 | 4 | 20160 | 12 | 4,100.000 | FCA Shanghai | CN | 0 | pass | soft: packing rows sum 1 != total_pkg 12 (Packing details summary kept; verify on PDF) |
+| 90-S-26PT-409 | `90-S-26PT-409_50663231.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50663231 | 2026-08-19 | USD | 14,918.40 | 4 | 20160 | 12 | 4,100.000 | FCA Shanghai | CN | 0 | needs_gold | needs_gold: total_pkg — no Shipping unit, Packing-details rows sum 1 != 'total : 12' (suggested 12, confirm from BL/arrival notice) |
 | 90-S-26PT-410 | `90-S-26PT-410_50662910.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50662910 | 2026-08-17 | USD | 14,980.86 | 5 | 430 | 5 | 1,280.304 | FCA CHENGDU | CN | 0 | pass | — |
 | 90-S-26PT-411 | `90-S-26PT-411_50664363.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50664363 | 2026-08-27 | USD | 21,879.36 | 10 | 720 | 10 | 1,906.000 | FCA CHENGDU | CN | 0 | pass | — |
 | 90-S-26PT-412 | `90-S-26PT-412_50663621.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50663621 | 2026-08-21 | USD | 5,221.44 | 2 | 144 | 2 | 356.576 | FCA CHENGDU | CN | 0 | pass | — |
@@ -34,7 +36,7 @@
 | 90-S-26PT-414 | `90-S-26PT-414_50665615.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50665615 | 2026-09-03 | USD | 7,150.08 | 8 | 96 | 8 | 1,721.600 | FCA Jingshen | CN | 0 | pass | — |
 | 90-S-26PT-415 | `90-S-26PT-415_50664640.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50664640 | 2026-08-28 | USD | 3,881.76 | 1 | 48 | 1 | 132.016 | FCA Dongguan | CN | 0 | pass | — |
 | 90-S-26PT-417 | `90-S-26PT-417_50664925.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50664925 | 2026-08-31 | USD | 2,169.60 | 6 | 480 | 6 | 71.640 | FCA Tianjin | CN | 0 | pass | — |
-| 90-S-26PT-418 | `90-S-26PT-418_50664217.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50664217 | 2026-08-26 | USD | 41,674.97 | 11 | 957 | 11 | 1,664.900 | FCA Penang | MY | 0 | pass | soft: mixed HS digit lengths [8, 10] (as printed: 84672920) |
+| 90-S-26PT-418 | `90-S-26PT-418_50664217.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50664217 | 2026-08-26 | USD | 41,674.97 | 11 | 957 | 11 | 1,664.900 | FCA Penang | MY | 0 | pass | soft: mixed HS digit lengths [8, 10]: 84672920 printed on lines 6, 11 (2 of 11) |
 | 90-S-26PT-418 | `90-S-26PT-418_50664379.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50664379 | 2026-08-27 | USD | 19,981.44 | 2 | 144 | 2 | 233.700 | FCA Penang | MY | 0 | pass | — |
 | 90-S-26PT-419 | `90-S-26PT-419_50665577.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50665577 | 2026-09-03 | USD | 2,154.00 | 1 | 200 | 1 | 48.000 | FCA Hangzhou | CN | 0 | pass | — |
 | 90-S-26PT-419 | `90-S-26PT-419_50665578.pdf` | `pt_gloria_v1` (existing, identical R4 sample) | 50665578 | 2026-09-03 | USD | 730.80 | 4 | 340 | 3 | 32.300 | FCA Hangzhou | CN | 0 | pass | — |
@@ -44,19 +46,21 @@
 
 - Packing-type vocabulary for the no-Shipping-unit fallback: `Bosch-Standard-Palette (HT) …`, `Palette`, `Slip sheet 1200* 800` (seen in 50654372/50654373/50665811); `Carton X02` already covered.
 - No-Shipping-unit fallback now prefers the Packing-details grand `total : N` over a partial type sum (Shipping-unit count still wins when present — unchanged).
-- Soft (non-blocking) `meta.notes`: packing-row sum ≠ total_pkg (50663231: one row qty 1 vs `total : 12`), Shipping-unit count ≠ Packing total, mixed HS digit lengths (50664217: `84672920` among `8467290000`).
-- No extracted value changed on any of the 23 PDFs or the 14 PT round3 PDFs (diffed vs main); only the two soft notes were added.
+- **Auditor rule (Round 2):** no Shipping unit **and** Packing-details row sum ≠ `total : N` → `total_pkg` stays N as the *suggested* value but `meta.needs_gold=True`, `meta.needs_gold_fields=["total_pkg"]`, confidence `needs_gold`; `hard_check` still runs every other check and returns **needs_gold** (a real conflict still wins). Only 50663231 flips.
+- **Labeled total (Round 2):** `meta.labeled_amount` / `labeled_amount_label` = `Net invoiced value of goods` (fallback `Value:`), so `hard_check` compares header.amount and sum(lines) against the printed label. Matches on all 23 + 14 round3 PT PDFs; independent `Value:` and `Total **` also equal header.amount on all.
+- Soft (non-blocking) `meta.notes`: mixed HS digit lengths (50664217: `84672920` on lines 6 and 11, `8467290000` on the other 9); Shipping-unit count ≠ Packing total; packing rows ≠ pkg when Shipping units exist.
+- Other than 50663231's verdict and the new meta fields, no extracted value/verdict changed on the 23 PDFs or the 14 PT round3 PDFs.
 
 ## Items for human / manual verification
 
 | file | reason | tool value |
 |---|---|---|
-| `90-S-26PT-409_50663231.pdf` | Vendor inconsistency: Packing-details row lists **1** × P.13 Folding Box with Euro Pallet (3,679.2 / 4,100 kg) but summary says `P.13 Folding Box with Euro Pallet : 12` / `total : 12` | total_pkg = **12** (summary kept; soft note) |
-| `90-S-26PT-418_50664217.pdf` | Mixed HS precision: `0.601.9E0.0C1` (2 lines) printed as 8-digit `84672920`, others 10-digit `8467290000` (tariff block lists both) | kept as printed |
+| `90-S-26PT-409_50663231.pdf` | **needs_gold (Auditor)** — Packing-details row lists **1** × P.13 Folding Box with Euro Pallet (3,679.2 / 4,100 kg), no Shipping unit, but summary says `: 12` / `total : 12`. Confirm packages from BL / arrival notice (none in batch) | total_pkg = 12 (suggested only; verdict needs_gold) |
+| `90-S-26PT-418_50664217.pdf` | Mixed HS precision (Auditor pass): `0.601.9E0.0C1` on **lines 6 and 11** printed 8-digit `84672920`; other 9 lines `8467290000` (tariff block lists both). Business decision whether a 10-digit code is needed | kept as printed |
 | `90-S-26PT-414_50665615.pdf` | Incoterm place printed `FCA Jingshen` (possible vendor typo; other Chinese shipments use Hangzhou/Shanghai/Chengdu/Dongguan/Tianjin) | kept as printed `FCA Jingshen` |
-| `90-S-26PT-414_50665615.pdf` | Page-1 `Departure country` blank (not an extracted field; line origins CN present) | — |
+| `90-S-26PT-414_50665615.pdf` | Page-1 `Departure country` label not printed at all (not an extracted field; line origins CN present) | — |
 
-No needs_gold, no conflicts, no scanned PDFs.
+needs_gold: 1 (50663231 total_pkg). No conflicts, no scanned PDFs.
 
 ## Review pack
 
@@ -66,4 +70,4 @@ No needs_gold, no conflicts, no scanned PDFs.
 
 `tests/test_pt_4th.py` + fixtures `fixtures/pt4_*_layout.txt(.gz)` (50664923, 50654372, 50654373, 50663231, 50664217, 50665811).
 
-Hard pass ≠ final accept — Auditor verdict pending.
+Auditor verdict (029f6d2): 22 pass + 50663231 needs_gold; Round 2 aligns the tool with that verdict.

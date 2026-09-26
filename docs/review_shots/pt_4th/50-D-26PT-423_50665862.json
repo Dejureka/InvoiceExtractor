@@ -50,8 +50,8 @@
   "needs_ocr": false,
   "needs_gold": false,
   "notes": "source=combined; pkl_used=yes",
-  "labeled_amount": null,
-  "labeled_amount_label": null,
+  "labeled_amount": 319.8,
+  "labeled_amount_label": "Net invoiced value of goods",
   "source": "combined",
   "inv_file": "/home/box/Downloads/PT-batch-4th/4th data/50-D-26PT-423_50665862.pdf",
   "pkl_file": "/home/box/Downloads/PT-batch-4th/4th data/50-D-26PT-423_50665862.pdf",
@@ -61,6 +61,7 @@
   "bl_format_id": null,
   "pair_status": "INV+PKL",
   "source_kind": "pdf",
+  "needs_gold_fields": null,
   "checker_verdict": "pass",
   "checker_issues": [],
   "checker_details": {
@@ -75,6 +76,13 @@
    "amount": {
     "want": 319.8,
     "got": 319.8
+   },
+   "labeled_amount": {
+    "label": "Net invoiced value of goods",
+    "want": 319.8,
+    "header_amount": 319.8,
+    "sum_items": 319.8,
+    "item_count": 2
    },
    "missing_hs_indices": []
   }
