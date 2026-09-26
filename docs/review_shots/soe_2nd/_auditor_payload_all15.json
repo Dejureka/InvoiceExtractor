@@ -1,0 +1,1277 @@
+[
+ {
+  "case": "50-D-26SOE-160",
+  "file": "7369301.pdf",
+  "header": {
+   "invoice_no": "7091800640",
+   "invoice_date": "2026-08-06",
+   "total_pkg": 2.0,
+   "gross_weight_kg": 53.0,
+   "incoterm": "FCA Guadalajara",
+   "item_line_count": 1,
+   "total_quantity": 672.0,
+   "amount": 21852.9,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "ES",
+   "hs_code": "90318080",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7091800640",
+    "part_no": "0265.011.097-576",
+    "description": "Sensor; MM7.zC",
+    "qty": 672.0,
+    "unit": "PC",
+    "unit_price": 32.5192,
+    "amount": 21852.9,
+    "origin": "ES",
+    "hs_code": "90318080",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/50-D-26SOE-160/7369301.pdf",
+   "text_backend": "ocr/tesseract",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "needs_gold",
+   "needs_ocr": false,
+   "needs_gold": true,
+   "notes": "NEEDS_GOLD: OCR misread part no. separators (0265.011, 097-576); PN characters unreliable (e.g. G/6), confirm on PDF; NEEDS_GOLD: OCR readings of the same part no. disagree in this scan (line 01 0265.011.097-576: suffix readings -57G×2, -576×2); item-row value kept as read, confirm on PDF",
+   "labeled_amount": 21852.9,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": [
+    "items.part_no"
+   ]
+  },
+  "hard_check": {
+   "verdict": "needs_gold",
+   "issues": [
+    "needs_gold field(s): items.part_no (document contradicts itself; confirm manually / from BL)"
+   ],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 672.0,
+     "got": 672.0
+    },
+    "amount": {
+     "want": 21852.9,
+     "got": 21852.9
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 21852.9,
+     "header_amount": 21852.9,
+     "sum_items": 21852.9,
+     "item_count": 1
+    },
+    "missing_hs_indices": [],
+    "needs_gold_fields": [
+     "items.part_no"
+    ]
+   }
+  }
+ },
+ {
+  "case": "50-D-26SOE-167",
+  "file": "1267475174 taiwan.pdf",
+  "header": {
+   "invoice_no": "7091801544",
+   "invoice_date": "2026-08-20",
+   "total_pkg": 5.0,
+   "gross_weight_kg": 160.0,
+   "incoterm": "FCA Guadalajara",
+   "item_line_count": 1,
+   "total_quantity": 2240.0,
+   "amount": 72843.01,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "ES",
+   "hs_code": "90318080",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7091801544",
+    "part_no": "0265.011.097-57G",
+    "description": "Sensor; MM7.zC",
+    "qty": 2240.0,
+    "unit": "PC",
+    "unit_price": 32.5192,
+    "amount": 72843.01,
+    "origin": "ES",
+    "hs_code": "90318080",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/50-D-26SOE-167/1267475174 taiwan.pdf",
+   "text_backend": "ocr/tesseract",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "needs_gold",
+   "needs_ocr": false,
+   "needs_gold": true,
+   "notes": "NEEDS_GOLD: OCR readings of the same part no. disagree in this scan (line 01 0265.011.097-57G: suffix readings -576×2, -876×1, -57G×4); item-row value kept as read, confirm on PDF",
+   "labeled_amount": 72843.01,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": [
+    "items.part_no"
+   ]
+  },
+  "hard_check": {
+   "verdict": "needs_gold",
+   "issues": [
+    "needs_gold field(s): items.part_no (document contradicts itself; confirm manually / from BL)"
+   ],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 2240.0,
+     "got": 2240.0
+    },
+    "amount": {
+     "want": 72843.01,
+     "got": 72843.01
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 72843.01,
+     "header_amount": 72843.01,
+     "sum_items": 72843.01,
+     "item_count": 1
+    },
+    "missing_hs_indices": [],
+    "needs_gold_fields": [
+     "items.part_no"
+    ]
+   }
+  }
+ },
+ {
+  "case": "50-D-26SOE-167",
+  "file": "1267502206 taiwan.pdf",
+  "header": {
+   "invoice_no": "7091801668",
+   "invoice_date": "2026-08-21",
+   "total_pkg": 1.0,
+   "gross_weight_kg": 16.0,
+   "incoterm": "FCA Guadalajara",
+   "item_line_count": 1,
+   "total_quantity": 112.0,
+   "amount": 3642.15,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "ES",
+   "hs_code": "90318080",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7091801668",
+    "part_no": "0265.011.097-57G",
+    "description": "Sensor; MM7.zC",
+    "qty": 112.0,
+    "unit": "PC",
+    "unit_price": 32.5192,
+    "amount": 3642.15,
+    "origin": "ES",
+    "hs_code": "90318080",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/50-D-26SOE-167/1267502206 taiwan.pdf",
+   "text_backend": "ocr/tesseract",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": null,
+   "labeled_amount": 3642.15,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 112.0,
+     "got": 112.0
+    },
+    "amount": {
+     "want": 3642.15,
+     "got": 3642.15
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 3642.15,
+     "header_amount": 3642.15,
+     "sum_items": 3642.15,
+     "item_count": 1
+    },
+    "missing_hs_indices": []
+   }
+  }
+ },
+ {
+  "case": "50-D-26SOE-167",
+  "file": "7405713.pdf",
+  "header": {
+   "invoice_no": "7091801079",
+   "invoice_date": "2026-08-13",
+   "total_pkg": 1.0,
+   "gross_weight_kg": 16.0,
+   "incoterm": "FCA Guadalajara",
+   "item_line_count": 1,
+   "total_quantity": 112.0,
+   "amount": 3642.15,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "ES",
+   "hs_code": "90318080",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7091801079",
+    "part_no": "0265.011.097-576",
+    "description": "Sensor; MM7.zC",
+    "qty": 112.0,
+    "unit": "PC",
+    "unit_price": 32.5192,
+    "amount": 3642.15,
+    "origin": "ES",
+    "hs_code": "90318080",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/50-D-26SOE-167/7405713.pdf",
+   "text_backend": "ocr/tesseract",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "needs_gold",
+   "needs_ocr": false,
+   "needs_gold": true,
+   "notes": "NEEDS_GOLD: OCR readings of the same part no. disagree in this scan (line 01 0265.011.097-576: suffix readings -57G×1, -576×3); item-row value kept as read, confirm on PDF",
+   "labeled_amount": 3642.15,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": [
+    "items.part_no"
+   ]
+  },
+  "hard_check": {
+   "verdict": "needs_gold",
+   "issues": [
+    "needs_gold field(s): items.part_no (document contradicts itself; confirm manually / from BL)"
+   ],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 112.0,
+     "got": 112.0
+    },
+    "amount": {
+     "want": 3642.15,
+     "got": 3642.15
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 3642.15,
+     "header_amount": 3642.15,
+     "sum_items": 3642.15,
+     "item_count": 1
+    },
+    "missing_hs_indices": [],
+    "needs_gold_fields": [
+     "items.part_no"
+    ]
+   }
+  }
+ },
+ {
+  "case": "50-N-26SOE-165",
+  "file": "7077519466.pdf",
+  "header": {
+   "invoice_no": "7077519466",
+   "invoice_date": "2026-08-21",
+   "total_pkg": 1.0,
+   "gross_weight_kg": 220.5,
+   "incoterm": "FCA Bosch Plant",
+   "item_line_count": 1,
+   "total_quantity": 1440.0,
+   "amount": 11759.18,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "CN",
+   "hs_code": "90303370",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7077519466",
+    "part_no": "0199.300.151-1HX",
+    "description": "EL Control Unit",
+    "qty": 1440.0,
+    "unit": "PC",
+    "unit_price": 8.1661,
+    "amount": 11759.18,
+    "origin": "CN",
+    "hs_code": "90303370",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/50-N-26SOE-165/7077519466.pdf",
+   "text_backend": "pdftotext -layout",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": null,
+   "labeled_amount": 11759.18,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 1440.0,
+     "got": 1440.0
+    },
+    "amount": {
+     "want": 11759.18,
+     "got": 11759.18
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 11759.18,
+     "header_amount": 11759.18,
+     "sum_items": 11759.18,
+     "item_count": 1
+    },
+    "missing_hs_indices": []
+   }
+  }
+ },
+ {
+  "case": "90-S-26SOE-162",
+  "file": "7077505806.pdf",
+  "header": {
+   "invoice_no": "7077505806",
+   "invoice_date": "2026-08-10",
+   "total_pkg": 3.0,
+   "gross_weight_kg": 1002.516,
+   "incoterm": "FCA DISPATCH POINT",
+   "item_line_count": 1,
+   "total_quantity": 1440.0,
+   "amount": 76788.72,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "TH",
+   "hs_code": "90328100",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7077505806",
+    "part_no": "0265.299.799-5R9",
+    "description": "Hydraulic Unit",
+    "qty": 1440.0,
+    "unit": "PC",
+    "unit_price": 53.3255,
+    "amount": 76788.72,
+    "origin": "TH",
+    "hs_code": "90328100",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/90-S-26SOE-162/7077505806.pdf",
+   "text_backend": "pdftotext -layout",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": null,
+   "labeled_amount": 76788.72,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 1440.0,
+     "got": 1440.0
+    },
+    "amount": {
+     "want": 76788.72,
+     "got": 76788.72
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 76788.72,
+     "header_amount": 76788.72,
+     "sum_items": 76788.72,
+     "item_count": 1
+    },
+    "missing_hs_indices": []
+   }
+  }
+ },
+ {
+  "case": "90-S-26SOE-163",
+  "file": "7077505805.pdf",
+  "header": {
+   "invoice_no": "7077505805",
+   "invoice_date": "2026-08-10",
+   "total_pkg": 2.0,
+   "gross_weight_kg": 668.344,
+   "incoterm": "FCA DISPATCH POINT",
+   "item_line_count": 1,
+   "total_quantity": 960.0,
+   "amount": 49902.72,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "TH",
+   "hs_code": "90328100",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7077505805",
+    "part_no": "0265.299.986-5R9",
+    "description": "Hydraulic Unit",
+    "qty": 960.0,
+    "unit": "PC",
+    "unit_price": 51.982,
+    "amount": 49902.72,
+    "origin": "TH",
+    "hs_code": "90328100",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/90-S-26SOE-163/7077505805.pdf",
+   "text_backend": "pdftotext -layout",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": null,
+   "labeled_amount": 49902.72,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 960.0,
+     "got": 960.0
+    },
+    "amount": {
+     "want": 49902.72,
+     "got": 49902.72
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 49902.72,
+     "header_amount": 49902.72,
+     "sum_items": 49902.72,
+     "item_count": 1
+    },
+    "missing_hs_indices": []
+   }
+  }
+ },
+ {
+  "case": "90-S-26SOE-166",
+  "file": "7077515945.pdf",
+  "header": {
+   "invoice_no": "7077515945",
+   "invoice_date": "2026-08-19",
+   "total_pkg": null,
+   "gross_weight_kg": 24.0,
+   "incoterm": "FCA DISPATCH POINT",
+   "item_line_count": 3,
+   "total_quantity": 892.0,
+   "amount": 2834.18,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": null,
+   "hs_code": "8708999900",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7077515945",
+    "part_no": "0263.036.668-2U1",
+    "description": "Retainer; Gen6 Honda Taffeta White",
+    "qty": 292.0,
+    "unit": "PC",
+    "unit_price": 3.2857,
+    "amount": 959.42,
+    "origin": "DE",
+    "hs_code": "8708999900",
+    "currency": "EUR"
+   },
+   {
+    "invoice_no": "7077515945",
+    "part_no": "0263.036.669-2U1",
+    "description": "Retainer; Gen6 Honda Taffeta White",
+    "qty": 300.0,
+    "unit": "PC",
+    "unit_price": 3.2857,
+    "amount": 985.71,
+    "origin": "DE",
+    "hs_code": "8708999900",
+    "currency": "EUR"
+   },
+   {
+    "invoice_no": "7077515945",
+    "part_no": "0215.000.838-2U1",
+    "description": "Retainer; Gen6 Honda Meteoroid Gray M.",
+    "qty": 300.0,
+    "unit": "PC",
+    "unit_price": 2.9635,
+    "amount": 889.05,
+    "origin": "CN",
+    "hs_code": "8708999900",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/90-S-26SOE-166/7077515945.pdf",
+   "text_backend": "ocr/tesseract+thin_text_layer",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": "SOFT: invoice page(s) 3/3 not in PDF (fields printed only there, e.g. Marking/pallets, stay empty)",
+   "labeled_amount": 2834.18,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 3,
+     "got": 3
+    },
+    "total_quantity": {
+     "want": 892.0,
+     "got": 892.0
+    },
+    "amount": {
+     "want": 2834.18,
+     "got": 2834.18
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 2834.18,
+     "header_amount": 2834.18,
+     "sum_items": 2834.18,
+     "item_count": 3
+    },
+    "missing_hs_indices": []
+   }
+  }
+ },
+ {
+  "case": "90-S-26SOE-168",
+  "file": "7077513531.pdf",
+  "header": {
+   "invoice_no": "7077513531",
+   "invoice_date": "2026-08-17",
+   "total_pkg": 5.0,
+   "gross_weight_kg": 1526.11,
+   "incoterm": "FCA DISPATCH POINT",
+   "item_line_count": 1,
+   "total_quantity": 2400.0,
+   "amount": 124756.8,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "TH",
+   "hs_code": "90328100",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7077513531",
+    "part_no": "0265.298.014-5R9",
+    "description": "Hydraulic Unit",
+    "qty": 2400.0,
+    "unit": "PC",
+    "unit_price": 51.982,
+    "amount": 124756.8,
+    "origin": "TH",
+    "hs_code": "90328100",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/90-S-26SOE-168/7077513531.pdf",
+   "text_backend": "pdftotext -layout",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": null,
+   "labeled_amount": 124756.8,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 2400.0,
+     "got": 2400.0
+    },
+    "amount": {
+     "want": 124756.8,
+     "got": 124756.8
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 124756.8,
+     "header_amount": 124756.8,
+     "sum_items": 124756.8,
+     "item_count": 1
+    },
+    "missing_hs_indices": []
+   }
+  }
+ },
+ {
+  "case": "90-S-26SOE-169",
+  "file": "7077513532.pdf",
+  "header": {
+   "invoice_no": "7077513532",
+   "invoice_date": "2026-08-17",
+   "total_pkg": 2.0,
+   "gross_weight_kg": 668.344,
+   "incoterm": "FCA DISPATCH POINT",
+   "item_line_count": 1,
+   "total_quantity": 960.0,
+   "amount": 51192.48,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "TH",
+   "hs_code": "90328100",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7077513532",
+    "part_no": "0265.299.799-5R9",
+    "description": "Hydraulic Unit",
+    "qty": 960.0,
+    "unit": "PC",
+    "unit_price": 53.3255,
+    "amount": 51192.48,
+    "origin": "TH",
+    "hs_code": "90328100",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/90-S-26SOE-169/7077513532.pdf",
+   "text_backend": "pdftotext -layout",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": null,
+   "labeled_amount": 51192.48,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 960.0,
+     "got": 960.0
+    },
+    "amount": {
+     "want": 51192.48,
+     "got": 51192.48
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 51192.48,
+     "header_amount": 51192.48,
+     "sum_items": 51192.48,
+     "item_count": 1
+    },
+    "missing_hs_indices": []
+   }
+  }
+ },
+ {
+  "case": "90-S-26SOE-171",
+  "file": "7077520279.pdf",
+  "header": {
+   "invoice_no": "7077520279",
+   "invoice_date": "2026-08-21",
+   "total_pkg": 2.0,
+   "gross_weight_kg": 213.0,
+   "incoterm": "FCA Suzhou",
+   "item_line_count": 1,
+   "total_quantity": 3840.0,
+   "amount": 37174.27,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "CN",
+   "hs_code": "90318080",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7077520279",
+    "part_no": "0265.019.150-2CG",
+    "description": "Steerg-Wheel-Angle Sensor",
+    "qty": 3840.0,
+    "unit": "PC",
+    "unit_price": 9.6808,
+    "amount": 37174.27,
+    "origin": "CN",
+    "hs_code": "90318080",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/90-S-26SOE-171/7077520279.pdf",
+   "text_backend": "pdftotext -layout",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": null,
+   "labeled_amount": 37174.27,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 3840.0,
+     "got": 3840.0
+    },
+    "amount": {
+     "want": 37174.27,
+     "got": 37174.27
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 37174.27,
+     "header_amount": 37174.27,
+     "sum_items": 37174.27,
+     "item_count": 1
+    },
+    "missing_hs_indices": []
+   }
+  }
+ },
+ {
+  "case": "90-S-26SOE-172",
+  "file": "90-S-26SOE-172_7077517937.PDF",
+  "header": {
+   "invoice_no": "7077517937",
+   "invoice_date": "2026-08-20",
+   "total_pkg": 1.0,
+   "gross_weight_kg": 214.5,
+   "incoterm": "FCA Changzhou",
+   "item_line_count": 1,
+   "total_quantity": 750.0,
+   "amount": 83636.63,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "CN",
+   "hs_code": "85371091",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7077517937",
+    "part_no": "0203.502.743-2Y8",
+    "description": "video sensor",
+    "qty": 750.0,
+    "unit": "PC",
+    "unit_price": 111.5155,
+    "amount": 83636.63,
+    "origin": "CN",
+    "hs_code": "85371091",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/90-S-26SOE-172/90-S-26SOE-172_7077517937.PDF",
+   "text_backend": "pdftotext -layout",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": null,
+   "labeled_amount": 83636.63,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 750.0,
+     "got": 750.0
+    },
+    "amount": {
+     "want": 83636.63,
+     "got": 83636.63
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 83636.63,
+     "header_amount": 83636.63,
+     "sum_items": 83636.63,
+     "item_count": 1
+    },
+    "missing_hs_indices": []
+   }
+  }
+ },
+ {
+  "case": "90-S-26SOE-173",
+  "file": "7077518609.PDF",
+  "header": {
+   "invoice_no": "7077518609",
+   "invoice_date": "2026-08-20",
+   "total_pkg": 8.0,
+   "gross_weight_kg": 3544.0,
+   "incoterm": "FCA Suzhou",
+   "item_line_count": 1,
+   "total_quantity": 1536.0,
+   "amount": 134872.32,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "CN",
+   "hs_code": "90328100",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7077518609",
+    "part_no": "0265.298.800-2CG",
+    "description": "Hydraulic Unit",
+    "qty": 1536.0,
+    "unit": "PC",
+    "unit_price": 87.8075,
+    "amount": 134872.32,
+    "origin": "CN",
+    "hs_code": "90328100",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/90-S-26SOE-173/7077518609.PDF",
+   "text_backend": "pdftotext -layout",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": null,
+   "labeled_amount": 134872.32,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 1536.0,
+     "got": 1536.0
+    },
+    "amount": {
+     "want": 134872.32,
+     "got": 134872.32
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 134872.32,
+     "header_amount": 134872.32,
+     "sum_items": 134872.32,
+     "item_count": 1
+    },
+    "missing_hs_indices": []
+   }
+  }
+ },
+ {
+  "case": "90-S-26SOE-176",
+  "file": "7077524710.pdf",
+  "header": {
+   "invoice_no": "7077524710",
+   "invoice_date": "2026-08-25",
+   "total_pkg": 1.0,
+   "gross_weight_kg": 303.308,
+   "incoterm": "FCA DISPATCH POINT",
+   "item_line_count": 1,
+   "total_quantity": 480.0,
+   "amount": 28938.62,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "TH",
+   "hs_code": "90328100",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7077524710",
+    "part_no": "0265.311.369-5R9",
+    "description": "Hydraulic Unit",
+    "qty": 480.0,
+    "unit": "PC",
+    "unit_price": 60.2888,
+    "amount": 28938.62,
+    "origin": "TH",
+    "hs_code": "90328100",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/90-S-26SOE-176/7077524710.pdf",
+   "text_backend": "pdftotext -layout",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": null,
+   "labeled_amount": 28938.62,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 480.0,
+     "got": 480.0
+    },
+    "amount": {
+     "want": 28938.62,
+     "got": 28938.62
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 28938.62,
+     "header_amount": 28938.62,
+     "sum_items": 28938.62,
+     "item_count": 1
+    },
+    "missing_hs_indices": []
+   }
+  }
+ },
+ {
+  "case": "90-S-26SOE-177",
+  "file": "7077523112.pdf",
+  "header": {
+   "invoice_no": "7077523112",
+   "invoice_date": "2026-08-24",
+   "total_pkg": 5.0,
+   "gross_weight_kg": 547.1,
+   "incoterm": "FCA DISPATCH POINT",
+   "item_line_count": 1,
+   "total_quantity": 8000.0,
+   "amount": 30205.6,
+   "currency": "EUR",
+   "vendor": "Robert Bosch GmbH",
+   "origin": "TH",
+   "hs_code": "90318080",
+   "bl_no": null,
+   "bl_packages": null,
+   "bl_gross_weight_kg": null
+  },
+  "items": [
+   {
+    "invoice_no": "7077523112",
+    "part_no": "0265.008.770-5R9",
+    "description": "Wheel-Speed Sensor",
+    "qty": 8000.0,
+    "unit": "PC",
+    "unit_price": 3.7757,
+    "amount": 30205.6,
+    "origin": "TH",
+    "hs_code": "90318080",
+    "currency": "EUR"
+   }
+  ],
+  "meta": {
+   "source_file": "extracted/90-S-26SOE-177/7077523112.pdf",
+   "text_backend": "pdftotext -layout",
+   "format_id": "soe_rb_gmbh_v1",
+   "confidence": "rules",
+   "needs_ocr": false,
+   "needs_gold": false,
+   "notes": null,
+   "labeled_amount": 30205.6,
+   "labeled_amount_label": "Invoice amount",
+   "source": null,
+   "inv_file": null,
+   "pkl_file": null,
+   "pkl_used": null,
+   "bl_file": null,
+   "bl_used": null,
+   "bl_format_id": null,
+   "pair_status": null,
+   "source_kind": "pdf",
+   "needs_gold_fields": null
+  },
+  "hard_check": {
+   "verdict": "pass",
+   "issues": [],
+   "details": {
+    "item_line_count": {
+     "want": 1,
+     "got": 1
+    },
+    "total_quantity": {
+     "want": 8000.0,
+     "got": 8000.0
+    },
+    "amount": {
+     "want": 30205.6,
+     "got": 30205.6
+    },
+    "labeled_amount": {
+     "label": "Invoice amount",
+     "want": 30205.6,
+     "header_amount": 30205.6,
+     "sum_items": 30205.6,
+     "item_count": 1
+    },
+    "missing_hs_indices": []
+   }
+  }
+ }
+]

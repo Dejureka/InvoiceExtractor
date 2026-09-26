@@ -1,0 +1,87 @@
+{
+ "header": {
+  "invoice_no": "7091800640",
+  "invoice_date": "2026-08-06",
+  "total_pkg": 2.0,
+  "gross_weight_kg": 53.0,
+  "incoterm": "FCA Guadalajara",
+  "item_line_count": 1,
+  "total_quantity": 672.0,
+  "amount": 21852.9,
+  "currency": "EUR",
+  "vendor": "Robert Bosch GmbH",
+  "origin": "ES",
+  "hs_code": "90318080",
+  "bl_no": null,
+  "bl_packages": null,
+  "bl_gross_weight_kg": null
+ },
+ "items": [
+  {
+   "invoice_no": "7091800640",
+   "part_no": "0265.011.097-576",
+   "description": "Sensor; MM7.zC",
+   "qty": 672.0,
+   "unit": "PC",
+   "unit_price": 32.5192,
+   "amount": 21852.9,
+   "origin": "ES",
+   "hs_code": "90318080",
+   "currency": "EUR"
+  }
+ ],
+ "meta": {
+  "source_file": "extracted/50-D-26SOE-160/7369301.pdf",
+  "text_backend": "ocr/tesseract",
+  "format_id": "soe_rb_gmbh_v1",
+  "confidence": "needs_gold",
+  "needs_ocr": false,
+  "needs_gold": true,
+  "notes": "NEEDS_GOLD: OCR misread part no. separators (0265.011, 097-576); PN characters unreliable (e.g. G/6), confirm on PDF; NEEDS_GOLD: OCR readings of the same part no. disagree in this scan (line 01 0265.011.097-576: suffix readings -57G×2, -576×2); item-row value kept as read, confirm on PDF",
+  "labeled_amount": 21852.9,
+  "labeled_amount_label": "Invoice amount",
+  "source": null,
+  "inv_file": null,
+  "pkl_file": null,
+  "pkl_used": null,
+  "bl_file": null,
+  "bl_used": null,
+  "bl_format_id": null,
+  "pair_status": null,
+  "source_kind": "pdf",
+  "needs_gold_fields": [
+   "items.part_no"
+  ]
+ },
+ "hard_check": {
+  "verdict": "needs_gold",
+  "issues": [
+   "needs_gold field(s): items.part_no (document contradicts itself; confirm manually / from BL)"
+  ],
+  "details": {
+   "item_line_count": {
+    "want": 1,
+    "got": 1
+   },
+   "total_quantity": {
+    "want": 672.0,
+    "got": 672.0
+   },
+   "amount": {
+    "want": 21852.9,
+    "got": 21852.9
+   },
+   "labeled_amount": {
+    "label": "Invoice amount",
+    "want": 21852.9,
+    "header_amount": 21852.9,
+    "sum_items": 21852.9,
+    "item_count": 1
+   },
+   "missing_hs_indices": [],
+   "needs_gold_fields": [
+    "items.part_no"
+   ]
+  }
+ }
+}

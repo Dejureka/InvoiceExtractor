@@ -99,7 +99,7 @@
 | `aichi_electric_v1` | `AICHI ELECTRIC`、`AETW…`、`Total FOB Nagoya`、合訂 packing sheet；PN＝DWG No. |
 | `shanghai_nature_v1` | `SHANGHAI NATURE`、`NBT…`、`HEATING BELT`；OCR 掃描件 OK（case7） |
 | `marubeni_tetsugen_v1` | `MARUBENI TETSUGEN`、`JCH##-##M#`、`COPPER TUBE`／`FOB NAGOYA`；OCR OK（case2） |
-| `soe_rb_gmbh_v1` | SOE `Robert Bosch GmbH`、`Bosch Partnumber`、`Invoice Copy`／`Invoice and Packing List`、`Invoice amount`、`Total gross weight`、`Customs tariff no`；70775…／70918…；OCR OK |
+| `soe_rb_gmbh_v1` | SOE `Robert Bosch GmbH`、`Bosch Partnumber`、`Invoice Copy`／`Invoice and Packing List`、`Invoice amount`、`Total gross weight`、`Customs tariff no`；70775…／70918…；OCR OK（掃描 cargo list＋DN＋invoice 合檔；OCR PN 分隔符誤讀或同 PN 尾碼讀法不一 → `needs_gold_fields=[items.part_no]`）；無 Total gross weight → Marking `N Pallets` 下 Gross weight；`N cardboard pallet` 亦計 pkg；向量字型薄文字層 → rules_engine OCR 重試 |
 | `suzhou_aichi_v1` | `SUZHOU AICHI TECHNOLOGY`、`SATJG…`、ROTOR、FOB SHENZHEN；OCR OK（BHC 3rd case1；≠ `aichi_electric_v1`） |
 | `sumitronics_hk_v1` | `SUMITRONICS`、`ST########`、PCB ASSEMBLY、FOB HAIPHONG；xlsx twin OK |
 | `dunan_v1` | `ZHEJIANG DUNAN`／盾安、`DA…` slash INV nos、FOB NINGBO；xlsx OK |
@@ -131,6 +131,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-26 | SOE 2nd（**只跑 invoice**，15 份／13 case，全 `soe_rb_gmbh_v1` 擴充，無新 format_id；HBL／PL／XC PL xlsx／NCN93230104 NEC HAWB 跳過）：OCR PN 分隔符修補（純空白＝良性；`,` 代 `.`＝字形誤讀 → needs_gold）、OCR 同 PN 尾碼多讀法（57G／576）→ `items.part_no` needs_gold；Marking GW fallback；裸原產地行；`N cardboard pallet`；缺頁 soft note；`rules_engine` 薄文字層（<400 字/頁、≤10 頁）且無 format 命中 → OCR 重試（`+thin_text_layer`）；review `docs/review_shots/soe_2nd/` |
 | 2026-09-26 | PT 4th **Round 2**（Auditor 22 pass／1 needs_gold）：`pt_gloria_v1` 無 Shipping unit 且 packing 列數≠`total : N` → `needs_gold_fields=[total_pkg]`（checker 其餘硬校仍跑，過則 verdict＝needs_gold）；`labeled_amount` 由 NIV／`Value:` 填入，硬校比對標籤總額 |
 | 2026-09-26 | PT 4th（23 PDF／15 case，全 `pt_gloria_v1` 擴充，無新 format_id）：無 Shipping unit 時 pkg 取 Packing `total : N`；packing 詞彙＋`Bosch-Standard-Palette`／`Palette`／`Slip sheet`；soft `meta.notes`（50663231 列 1 vs total 12；50664217 HS 8/10 位混用）；review `docs/review_shots/pt_4th/` |
 | 2026-09-24 | BHC 3rd **Round 3**：`tvl_hbl_v1` CBM from CARTONS/KGS/CBM + 20GP≤33; ISO container+seal; all BHCWH* refs; GO.→CO. OCR

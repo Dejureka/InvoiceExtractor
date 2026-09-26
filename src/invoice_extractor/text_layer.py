@@ -52,6 +52,26 @@ def text_layer_looks_unreliable(text: str) -> bool:
     return False
 
 
+THIN_LAYER_CHARS_PER_PAGE = 400
+
+
+def text_layer_looks_thin(text: str) -> bool:
+    """True when a non-empty text layer carries very little text per page.
+
+    Typical of print-to-PDF files whose body glyphs are drawn as vector
+    outlines: only the address block survives as text (e.g. SOE 7077515945,
+    ~200 chars/page while the page visibly shows a full invoice). Used only as
+    a *retry* signal after classification fails — never to replace a layer
+    that already classifies.
+    """
+    if not (text or "").strip():
+        return False
+    pages = [pg for pg in text.split("\f")]
+    n_pages = max(1, len([pg for pg in pages if pg.strip()]) or len(pages))
+    chars = sum(1 for c in text if not c.isspace())
+    return chars / n_pages < THIN_LAYER_CHARS_PER_PAGE
+
+
 def ocr_text_looks_more_reliable(layer: str, ocr: str) -> bool:
     """Prefer OCR when it recovers packing/invoice anchors the layer lacks,
     or when the layer is garbage-heavy while OCR is mostly printable."""
@@ -166,6 +186,11 @@ def backend_warning(backend: str | None) -> str | None:
             return str(backend).split("error:", 1)[-1].strip() or "Excel read failed"
         return None
     if is_ocr_backend(backend) or (backend and "prefer_over_stale_layer" in str(backend)):
+        if backend and "thin_text_layer" in str(backend):
+            return (
+                f"OCR used ({backend}): PDF text layer was too thin (vector-outlined "
+                "glyphs) and matched no format; rules use OCR text."
+            )
         if backend and "prefer_over_stale_layer" in str(backend):
             return (
                 f"OCR preferred ({backend}): PDF text layer looked stale/corrupt "

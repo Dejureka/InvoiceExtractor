@@ -1,0 +1,83 @@
+Invoice Copy 1/ 3
+Invoice No. : 7077515945
+Date Invoice : 19.08.2026
+Supplier code : 0097474066
+Payer : 1000005984
+Robert Bosch Taiwan Co., Ltd. Customer No. : 1000041329
+6F,N°.90, Jian Guo N.Road, Secl Ship to : 1000041327
+10491 TAIPEI
+TAIWAN ee
+Contact addresses
+Sales :
+Accounting : GS/OSP-SP251 Precup-Muresan L.
+Our VAT ID No : DE811128135
+Your VAT ID No :
+Registration no. WEEE: DE92899867
+Dispatch address : Robert Bosch Taiwan Co., Ltd., C/0 Honda Logistics Taiwan Co., LTD, No.1, South 2nd Rd., TW-90093 Pingtung
+Recipient of Supply (for tax reasons, Goods/Services) :
+Robert Bosch Taiwan Co., Ltd., 6F,N°.90, Jian Guo N.Road, Secl, TW-10491 Taipei
+Correspondence : Robert Bosch GmbH, GS/OBC-EMEA1, Postfach 10 60 50, DE-70049 Stuttgart
+Company address : Robert Bosch GmbH, Robert-Bosch-Platz 1, DE-70839 Gerlingen-Schillerhoehe
+Shipping point ad. : Shanghai PFTZ GmbH warehouse, ,No. 501 Huigang Rd, Shanghai Pilot Free Trade Zone  ,CN- 201306 Shanghai
+Item N°. Bosch Partnumber Customer Partnumber Quantity Price Amount
+Material Description Unit Qty Price unit Currency
+Ctry Origin Net weight/kg Rebate
+Dispatch note : 1267459817 Date : 19.08.2026 Unloading point : E11KHLEA
+Transport no.: 25626358 Shipping point : EOAR Dispatch type : sea freight
+01 0263 .036.668-2U1 02630366682U1 292 328.57 959.42
+Retainer; Gen6 Honda Taffeta White PC 100 EUR
+DE 2.336 KG
+Customs tariff no : 8708999900
+Our order number : 25996772 Your order number : 0055958213 Date : 26.02.2025
+PO position : 1
+Date of supply (service/ goods delivery): 19.08.2026
+02 0263 .036.669-2U1 02630366692U1 300 328.57 985.71
+Retainer; Gen6 Honda Taffeta White PC 100 EUR
+DE 2.100 KG
+Customs tariff no : 8708999900
+Our order number : 25996773 Your order number : 0055958214 Date : 26.02.2025
+Amount carried : 1,945.13
+Bank Details : DEUTSCHE BANK AG, BIC DEUTDESSXXX, IBAN DE32 6007 0070 0119 0677 14
+Registered Office: Stuttgart, Registration Court: Amtsgericht Stuttgart, HRB 14000;
+Chairman of the Supervisory Board: Prof. Dr. Stefan Asenkerschbaumer ;
+Managing Directors: Dr. Christian Fischer, Dr. Markus Forschner, Stefan Grosch,
+Dr. Markus Heyn, Dr. Frank Meyer, Katja von Raven, Dr. Tanja Rueckert
+Invoice Copy 2/ 3
+Robert Bosch Taiwan Co., Ltd. Invoice No. : 7077515945
+6F,N°.90, Jian Guo N.Road, Secl Date Invoice > 19.08.2026
+10491 TAIPEI Supplier code : 0097474066
+TAIWAN Payer : 1000005984
+Customer No. : 1000041329
+Ship to : 1000041327
+Item N°. Bosch Partnumber Customer Partnumber Quantity Price Amount
+Material Description Unit Qty Price unit Currency
+Ctry Origin Net weight/kg Rebate
+Amount carried : 1,945.13
+PO position : 1
+Date of supply (service/ goods delivery): 19.08.2026
+03 0215 .000.838-2U1 02150008382U1 300 296.35 889.05
+Retainer; Gen6 Honda Meteoroid Gray M. PC 100 EUR
+CN 2.100 KG
+Customs tariff no : 8708999900
+Our order number : 26012212 Your order number : 0055963277 Date : 25.03.2025
+PO position : 1
+Date of supply (service/ goods delivery): 19.08.2026
+Value of goods: EUR 2,834.18
+Net amount: EUR 2,834.18
+Value Added Tax (VAT) : 0.000 % EUR 0.00
+Invoice amount: EUR 2,834.18
+Tax Information: non-taxable, out of the scope of Value Added Tax (VAT)
+Payment conditions :
+60 days net
+Up to 18.10.2026 without deduction
+Payment reductions can only be taken based on payment terms and conditions already agreed with you.
+Payment address :
+Incoterms 2020:FCA DISPATCH POINT
+Total net weight : 18.000 KG Total gross weight : 24.000 KG
+Customs Tarif N° Weight/Kg Amount
+8708999900 6.536 2,834.18 EUR
+Bank Details : DEUTSCHE BANK AG, BIC DEUTDESSXXX, IBAN DE32 6007 0070 0119 0677 14
+Registered Office: Stuttgart, Registration Court: Amtsgericht Stuttgart, HRB 14000;
+Chairman of the Supervisory Board: Prof. Dr. Stefan Asenkerschbaumer ;
+Managing Directors: Dr. Christian Fischer, Dr. Markus Forschner, Stefan Grosch,
+Dr. Markus Heyn, Dr. Frank Meyer, Katja von Raven, Dr. Tanja Rueckert
