@@ -1,4 +1,6 @@
-# SOE 2nd batch — audit report (invoice-only scope)
+# SOE 2nd batch — audit report (invoice-only scope) — Round 2
+
+**Auditor Round 1 @7118522:** 13 pass, 2 conflict, 0 needs_gold (`out/soe_2nd_auditor_review.md`, crops `/workspace/soe2audit/`). Conflicts: 7369301 (160) and 7405713 (167) `items[0].part_no` `-576` → print `0265.011.097-57G`. 1267475174 (167): needs_gold was a false flag, so it is pass. 168 pkg=5 was confirmed (5 HUs; the booking image says 5 PALLETS; only the email subject says 10). 166 empty pkg was accepted. **Round 2** implements Auditor's PN reconciliation rule generically in `soe_rb_gmbh_v1`.
 
 Branch `feature/soe-2nd` · input `/home/box/Downloads/SOE-batch-2nd/2nd data/` (12 .msg + 1 loose PDF) · attachments extracted to `/home/box/Downloads/SOE-batch-2nd/extracted/<case>/` (inline png/jpg/gif skipped).
 
@@ -6,11 +8,11 @@ Branch `feature/soe-2nd` · input `/home/box/Downloads/SOE-batch-2nd/2nd data/` 
 
 ## Summary
 
-- Invoices run: **15** (13 cases). Verdicts: **12 pass**, **3 needs_gold**, **0 conflict**.
+- Invoices run: **15** (13 cases). Verdicts: **15 pass**, **0 needs_gold**, **0 conflict**.
 - format_id: all `soe_rb_gmbh_v1` (**existing, extended**). No new format_id.
 - HS strictness for SOE (checker, unchanged): `soe_rb_gmbh_v1` is in `REQUIRE_LINE_HS_FORMATS` (`src/invoice_extractor/checker.py`) → any line without HS = hard conflict (same as PT/MA; BHC is soft). Result: HS present on 17/17 lines.
 - `meta.labeled_amount` (`Invoice amount`) is populated on all 15 and matches header.amount and sum(lines) on all 15.
-- OCR: 4 scanned PDFs (cargo list + transport order + delivery note + invoice in one file) and 1 PDF whose body glyphs are vector outlines (thin text layer, 7077515945) go through Tesseract. 3 of the scans are needs_gold on `items.part_no` only (OCR reads the PN suffix as 57G in some places and 576 in others). All other hard checks on them pass.
+- OCR: 4 scanned PDFs (cargo list + transport order + delivery note + invoice in one file) and 1 PDF whose body glyphs are vector outlines (thin text layer, 7077515945) go through Tesseract. Round 2: PN readings across item row / Customer PN / cargo list / transport order are reconciled. 7369301 and 7405713 now give `0265.011.097-57G`, 1267475174 stays `-57G`, and all three pass.
 
 ## Document inventory (by content)
 
@@ -43,10 +45,10 @@ Email bodies were used only as a cross-check reference, not as extraction input.
 
 | Case | File | format_id | Backend | Invoice No. | Date | Cur | Amount (= labeled) | Lines | Qty | Pkg | G.W. kg | Origin | HS | Part no. | Incoterm | Hard |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 50-D-26SOE-160 | 7369301.pdf | soe_rb_gmbh_v1 (extended) | ocr/tesseract | 7091800640 | 2026-08-06 | EUR | 21,852.90 (= 21,852.90) | 1 | 672 | 2 | 53.000 | ES | 90318080 | 0265.011.097-576 | FCA Guadalajara | **needs_gold** |
-| 50-D-26SOE-167 | 1267475174 taiwan.pdf | soe_rb_gmbh_v1 (extended) | ocr/tesseract | 7091801544 | 2026-08-20 | EUR | 72,843.01 (= 72,843.01) | 1 | 2240 | 5 | 160.000 | ES | 90318080 | 0265.011.097-57G | FCA Guadalajara | **needs_gold** |
+| 50-D-26SOE-160 | 7369301.pdf | soe_rb_gmbh_v1 (extended) | ocr/tesseract | 7091800640 | 2026-08-06 | EUR | 21,852.90 (= 21,852.90) | 1 | 672 | 2 | 53.000 | ES | 90318080 | 0265.011.097-57G | FCA Guadalajara | **pass** |
+| 50-D-26SOE-167 | 1267475174 taiwan.pdf | soe_rb_gmbh_v1 (extended) | ocr/tesseract | 7091801544 | 2026-08-20 | EUR | 72,843.01 (= 72,843.01) | 1 | 2240 | 5 | 160.000 | ES | 90318080 | 0265.011.097-57G | FCA Guadalajara | **pass** |
 | 50-D-26SOE-167 | 1267502206 taiwan.pdf | soe_rb_gmbh_v1 (extended) | ocr/tesseract | 7091801668 | 2026-08-21 | EUR | 3,642.15 (= 3,642.15) | 1 | 112 | 1 | 16.000 | ES | 90318080 | 0265.011.097-57G | FCA Guadalajara | **pass** |
-| 50-D-26SOE-167 | 7405713.pdf | soe_rb_gmbh_v1 (extended) | ocr/tesseract | 7091801079 | 2026-08-13 | EUR | 3,642.15 (= 3,642.15) | 1 | 112 | 1 | 16.000 | ES | 90318080 | 0265.011.097-576 | FCA Guadalajara | **needs_gold** |
+| 50-D-26SOE-167 | 7405713.pdf | soe_rb_gmbh_v1 (extended) | ocr/tesseract | 7091801079 | 2026-08-13 | EUR | 3,642.15 (= 3,642.15) | 1 | 112 | 1 | 16.000 | ES | 90318080 | 0265.011.097-57G | FCA Guadalajara | **pass** |
 | 50-N-26SOE-165 | 7077519466.pdf | soe_rb_gmbh_v1 (extended) | pdftotext -layout | 7077519466 | 2026-08-21 | EUR | 11,759.18 (= 11,759.18) | 1 | 1440 | 1 | 220.500 | CN | 90303370 | 0199.300.151-1HX | FCA Bosch Plant | **pass** |
 | 90-S-26SOE-162 | 7077505806.pdf | soe_rb_gmbh_v1 (extended) | pdftotext -layout | 7077505806 | 2026-08-10 | EUR | 76,788.72 (= 76,788.72) | 1 | 1440 | 3 | 1,002.516 | TH | 90328100 | 0265.299.799-5R9 | FCA DISPATCH POINT | **pass** |
 | 90-S-26SOE-163 | 7077505805.pdf | soe_rb_gmbh_v1 (extended) | pdftotext -layout | 7077505805 | 2026-08-10 | EUR | 49,902.72 (= 49,902.72) | 1 | 960 | 2 | 668.344 | TH | 90328100 | 0265.299.986-5R9 | FCA DISPATCH POINT | **pass** |
@@ -61,8 +63,10 @@ Email bodies were used only as a cross-check reference, not as extraction input.
 
 ## soe_rb_gmbh_v1 extensions (additive, v1 meaning unchanged)
 
-1. **OCR PN separator repair.** OCR splits the Bosch PN (`0263 .036.668-2U1`, `0265.011, 097-576`). Whitespace-only noise is repaired silently. A separator read as another character (`,` for `.`) means the PN token itself was misread, so `items.part_no` becomes needs_gold. The value is kept as read, never guessed.
-2. **OCR PN suffix consistency (OCR only).** Every reading of the same 10-digit PN stem in the scan (invoice item row, Customer PN column, cargo list, delivery note) must carry the same 3-char suffix. If they disagree (57G / 576 / 876), `items.part_no` becomes needs_gold via `meta.needs_gold_fields`. The checker still runs every other hard check.
+1. **OCR PN separator repair.** OCR splits the Bosch PN (`0263 .036.668-2U1`, `0265.011, 097-576`); the separators are normalised.
+2. **OCR PN reconciliation (OCR only; Round 2, Auditor rule).** Collect every reading of the 10-digit PN stem in the scan: invoice item row (dotted Bosch PN), Customer PN column (no-dot form, e.g. `026501109757G`), and cargo list / transport order / delivery note PN fields. A reading only counts when the full stem directly precedes the 3-char suffix, and lines whose text before the PN is a numeric label (Volume/cdm/weight/kg/Sum) are skipped. So `26) Volume in cdm 576` can never be a candidate. Readings that differ only by letter/digit look-alikes (G/6, S/5, B/8, O/0, Z/2, I/1) form one class. If that class is a strict majority, the **letter form** is used and outliers are ignored, with an info note in `meta.notes`. Otherwise `items.part_no` becomes needs_gold. A separator misread with no second reading to confirm it also gives needs_gold. Text-layer PDFs are never touched.
+   - Why the letter form and not 'Customer PN first': on 7369301 and 7405713 Tesseract also reads the printed Customer PN `026501109757G` as `0265011097576`. Targeted re-OCR of that crop at 300/400/600 dpi still gives `…576`. So the OCR'd Customer PN can't break the tie. What is reliable is the direction of the error: Tesseract reads this font's G as 6, never 6 as G. Letter suffixes are normal in this series (-5R9, -2CG, -1HX, -2U1, -2Y8).
+   - Pipeline candidates (from the OCR text): 7369301 -57G×2 (p2 transport order), -576×2 (p4 item row Bosch + Customer PN). 7405713 -57G×1, -576×3. 1267475174 -57G×4, -576×2, -876×1 (outlier). 1267502206 -57G only.
 3. **G.W. fallback:** when there is no `Total gross weight` line, use the Marking summary `N Pallets / Net weight … Gross weight : X KG` (7077520279 → 213.000). `Total gross weight` still wins when printed (test).
 4. **Origin fallback:** a bare country line (e.g. `CN`, no per-line Net weight) above `Customs tariff no` (7077520279).
 5. **pkg:** typed Marking summary `: 5 cardboard pallet` (OCR may read `pailet`) is used before cargo-list fallbacks (1267475174).
@@ -72,14 +76,16 @@ Email bodies were used only as a cross-check reference, not as extraction input.
 
 ## Items for human / manual verification
 
-| File | Status | Reason |
+No needs_gold and no conflict remain. Info / FYI only:
+
+| File | Status | Note |
 |---|---|---|
-| 7369301.pdf (50-D-26SOE-160) | needs_gold `items.part_no` | OCR misread part no. separators (0265.011, 097-576) / OCR readings of the same part no. disagree in this scan (line 01 0265.011.097-576: suffix readings -57G×2, -576×2). Kept value `0265.011.097-576`; the image and the email show **0265.011.097-57G** |
-| 1267475174 taiwan.pdf (50-D-26SOE-167) | needs_gold `items.part_no` | OCR readings of the same part no. disagree in this scan (line 01 0265.011.097-57G: suffix readings -576×2, -876×1, -57G×4). Kept value `0265.011.097-57G`; the image and the email show **0265.011.097-57G** |
-| 7405713.pdf (50-D-26SOE-167) | needs_gold `items.part_no` | OCR readings of the same part no. disagree in this scan (line 01 0265.011.097-576: suffix readings -57G×1, -576×3). Kept value `0265.011.097-576`; the image and the email show **0265.011.097-57G** |
-| 7077515945.pdf (90-S-26SOE-166) | pass + soft | Page 3/3 (Marking/pallets) is not in the PDF, so pkg is empty (allowed: the invoice pages provided do not print it). Email says 1 pallet. The skipped XC PL xlsx (FYI only) says 1 pallet, GW 27 kg, vs invoice Total gross weight 24.000 kg |
-| 7077513531.pdf (90-S-26SOE-168) | pass | Email subject says **10 Pallets** ('Revised 1'), but the invoice prints 5 RB pallet blocks + `5 Pallets` summary and GW 1,526.110. The tool keeps 5 (as printed) |
-| 7369301.pdf / 7405713.pdf / 1267475174 / 1267502206 | info | Scans bundle cargo list, transport order and delivery note with the invoice. Values are taken from the invoice pages (Marking pallets, Total gross weight) |
+| 7369301.pdf (50-D-26SOE-160) | pass (info) | OCR PN reconciled 0265.011.097: readings -57G×2, -576×2 — -57G/-576 differ only by letter/digit look-alikes, letter form -57G kept (item row read -576). Auditor confirmed the print shows `0265.011.097-57G` |
+| 1267475174 taiwan.pdf (50-D-26SOE-167) | pass (info) | OCR PN reconciled 0265.011.097: readings -576×2, -876×1, -57G×4 — -576/-57G differ only by letter/digit look-alikes, letter form -57G kept (outlier -876 ignored). Auditor confirmed the print shows `0265.011.097-57G` |
+| 7405713.pdf (50-D-26SOE-167) | pass (info) | OCR PN reconciled 0265.011.097: readings -57G×1, -576×3 — -57G/-576 differ only by letter/digit look-alikes, letter form -57G kept (item row read -576). Auditor confirmed the print shows `0265.011.097-57G` |
+| 7077515945.pdf (90-S-26SOE-166) | pass + soft | Page 3/3 (Marking/pallets) is not in the PDF, so pkg is empty (accepted by Auditor). **GW FYI:** the invoice prints Total gross weight 24.000 kg; the out-of-scope HBL WT20260814000087 and the XC PL xlsx say 27.000 kg / 1 pallet. If shipping GW is wanted it must come from PL/HBL (human decision) |
+| 7077513531.pdf (90-S-26SOE-168) | pass | pkg 5 confirmed by Auditor (5 RB HUs × 480 PC = 2,400; booking image 5 PALLETS). The email subject '10 Pallets' is a subject discrepancy to raise with the shipper |
+| 7077513532.pdf (90-S-26SOE-169) | pass | FYI (Auditor): the inline booking image in that email (Keelung / 5 PALLETS) does not match this KHH shipment. Reference only |
 
 ## Email pallet cross-check (reference only)
 
@@ -93,7 +99,7 @@ Email bodies were used only as a cross-check reference, not as extraction input.
 | 90-S-26SOE-162 (7077505806.pdf) | 3 Pallets (subject) | 3 | ✓ |
 | 90-S-26SOE-163 (7077505805.pdf) | 2 Pallets (subject) | 2 | ✓ |
 | 90-S-26SOE-166 (7077515945.pdf) | 1 pallet (body; 'refer to attached PL') | — | n/a (not printed) |
-| 90-S-26SOE-168 (7077513531.pdf) | 10 Pallets (subject, 'Revised 1') | 5 | **✗ mismatch** |
+| 90-S-26SOE-168 (7077513531.pdf) | 10 Pallets (subject, 'Revised 1') | 5 | **✗ email subject only** (invoice + booking image say 5; Auditor: pkg 5 correct) |
 | 90-S-26SOE-169 (7077513532.pdf) | 2 Pallets (subject) | 2 | ✓ |
 | 90-S-26SOE-171 (7077520279.pdf) | 2 pallet (body) | 2 | ✓ |
 | 90-S-26SOE-172 (90-S-26SOE-172_7077517937.PDF) | 1pallet (MPC 0203.502.743-2Y8, in 171/173 body) | 1 | ✓ |

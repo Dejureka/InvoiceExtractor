@@ -5,14 +5,17 @@ Customs tariff no, Invoice amount, Total gross weight, Marking Pallets.
 Also OCR-scanned cargo+invoice PDFs (same family; meta.text_backend=ocr/tesseract).
 
 SOE 2nd (2026-09-26) extensions — additive, v1 meaning unchanged:
-- OCR Bosch PN separator noise normalised. Whitespace-only noise
-  ("0263 .036.668-2U1") is a benign repair; a misread separator glyph
-  ("0265.011, 097-576": ',' for '.') means the PN token itself was misread
-  (57G read as 576 on the same scans), so ``items.part_no`` → needs_gold
-  (value kept as read, never guessed).
-- OCR only: every reading of the same PN stem in the scan (item row,
-  Customer PN column, cargo list, delivery note) must agree on the suffix;
-  disagreement also flags ``items.part_no`` needs_gold.
+- OCR Bosch PN separator noise normalised ("0263 .036.668-2U1",
+  "0265.011, 097-576").
+- OCR only, PN reconciliation (SOE 2nd Round 2, Auditor): collect every
+  reading of the PN stem in the scan (item row dotted PN, Customer PN
+  no-dot form, cargo list / transport order / delivery note PN fields;
+  numeric-labelled fields such as "Volume in cdm 576" never count). If the
+  readings differ only by letter/digit look-alikes (G/6, S/5, B/8, O/0, Z/2,
+  I/1) and that class is a strict majority, the letter form wins (Tesseract
+  reads G as 6, not the reverse; letter suffixes are normal: -5R9, -2CG,
+  -1HX). No majority → ``items.part_no`` needs_gold. A separator misread with
+  no second reading to corroborate → needs_gold.
 - GW fallback: Marking summary "N Pallets / Net weight … Gross weight : X KG"
   when no "Total gross weight" line is printed (7077520279).
 - Origin fallback: bare country line (no Net weight) above Customs tariff no.
@@ -56,8 +59,8 @@ NOTES = (
     "Price unit 100 → unit_price = Price/100. Samples: INV_PL_70775*, "
     "707753*, 707754*, OCR 1267620500→inv 7091802382. "
     "Not BHC MY-HUB; not MA Document No./Goods Value. "
-    "SOE 2nd: OCR PN separator repair (glyph misread → part_no needs_gold), "
-    "OCR PN-suffix readings disagree → needs_gold, Marking GW fallback, bare-origin "
+    "SOE 2nd: OCR PN separator repair; OCR PN reconciliation across item row / "
+    "Customer PN / cargo list (look-alike letter form wins, else needs_gold), Marking GW fallback, bare-origin "
     "fallback, thin-text-layer OCR retry (rules_engine)."
 )
 
@@ -397,28 +400,84 @@ def _parse_items(
     return items
 
 
-def _pn_reading_conflicts(text: str, pn_pairs: list[tuple[str, str, str]]) -> list[str]:
-    """OCR only: every reading of the same 10-digit Bosch PN stem anywhere in
-    the scan (item row, Customer PN column, cargo list, delivery note,
-    marking) must carry the same 3-char suffix. Disagreement (e.g. 57G / 576 /
-    876) means the OCR cannot be trusted for that PN."""
-    out = []
-    seen: set[str] = set()
-    for item_no, pn, _cust in pn_pairs:
-        digits = re.sub(r"[^0-9]", "", pn.split("-", 1)[0])
-        if len(digits) != 10 or digits in seen:
-            continue
-        seen.add(digits)
-        rx = re.compile(
-            rf"(?<![0-9]){digits[:4]}[ .,]*{digits[4:7]}[ .,]*{digits[7:]}[ \-]*"
-            r"(?P<suf>[A-Za-z0-9]{3})"
-        )
-        sufs = [m.group("suf").upper() for m in rx.finditer(text)]
-        uniq = list(dict.fromkeys(sufs))
-        if len(uniq) > 1:
-            readings = ", ".join(f"-{u}×{sufs.count(u)}" for u in uniq)
-            out.append(f"line {item_no} {pn}: suffix readings {readings}")
+# OCR look-alikes (letter ↔ digit). Tesseract reads the letter as the digit
+# far more often than the reverse, and Bosch 10-digit PN suffixes are
+# alphanumeric (-5R9, -2CG, -1HX, -57G), so a letter reading that other
+# part-number sources corroborate beats its digit look-alike.
+_LOOKALIKE = {"6": "G", "5": "S", "8": "B", "0": "O", "2": "Z", "1": "I"}
+# Numeric-labelled fields are never part-number evidence ("26) Volume in cdm 576").
+_NUMERIC_LABEL = re.compile(r"(?:Volume|cdm|weight|\bkg\b|Sum\b)", re.I)
+
+
+def _shape(suffix: str) -> str:
+    return "".join(_LOOKALIKE.get(c, c) for c in suffix.upper())
+
+
+def _pn_candidates(text: str, digits: str) -> list[tuple[str, str]]:
+    """All readings of one 10-digit PN stem: ``[(suffix, source), …]``.
+
+    Sources: invoice item row (dotted Bosch PN), Customer PN column (no-dot
+    form), cargo list / transport order / delivery note PN fields. A reading
+    only counts when the full stem immediately precedes the 3-char suffix, so
+    stand-alone numbers (volume, weights, sums) can never be candidates; lines
+    whose text before the PN is a numeric label are skipped as well.
+    """
+    rx = re.compile(
+        rf"(?<![0-9]){digits[:4]}[ .,]*{digits[4:7]}[ .,]*{digits[7:]}[ \-]*"
+        r"(?P<suf>[A-Za-z0-9]{3})"
+    )
+    out: list[tuple[str, str]] = []
+    for pno, page in enumerate(text.split("\f"), 1):
+        for line in page.splitlines():
+            for m in rx.finditer(line):
+                if _NUMERIC_LABEL.search(line[: m.start()]):
+                    continue
+                dotted = "." in m.group(0) or "," in m.group(0)
+                src = f"p{pno} {'dotted PN' if dotted else 'no-dot PN'}"
+                out.append((m.group("suf").upper(), src))
     return out
+
+
+def _reconcile_ocr_pn(
+    text: str, pn: str
+) -> tuple[str | None, str | None, bool]:
+    """OCR only. Returns ``(new_pn, note, unresolved)``.
+
+    - all readings agree → ``(None, None, False)`` (keep).
+    - readings split only by letter/digit look-alikes (57G / 576) and that
+      look-alike class holds a strict majority → the letter-bearing reading
+      (``new_pn`` if it differs from the item row) + an info note.
+    - otherwise → ``unresolved=True`` (caller flags needs_gold).
+    """
+    stem, _, row_suf = pn.partition("-")
+    digits = re.sub(r"[^0-9]", "", stem)
+    if len(digits) != 10:
+        return None, None, False
+    cands = _pn_candidates(text, digits)
+    sufs = [c for c, _ in cands]
+    uniq = list(dict.fromkeys(sufs))
+    if len(uniq) <= 1:
+        return None, None, False
+    classes: dict[str, list[str]] = {}
+    for sfx in sufs:
+        classes.setdefault(_shape(sfx), []).append(sfx)
+    best_key, best = max(classes.items(), key=lambda kv: len(kv[1]))
+    readings = ", ".join(f"-{u}×{sufs.count(u)}" for u in uniq)
+    if len(best) * 2 <= len(sufs):
+        return None, f"suffix readings {readings}", True
+    members = list(dict.fromkeys(best))
+    win = max(members, key=lambda x: (sum(ch.isalpha() for ch in x), best.count(x)))
+    ignored = [u for u in uniq if _shape(u) != best_key]
+    note = (
+        f"OCR PN reconciled {stem}: readings {readings} — "
+        f"-{'/-'.join(members)} differ only by letter/digit look-alikes, "
+        f"letter form -{win} kept"
+        + (f" (outlier {'/'.join('-' + u for u in ignored)} ignored)" if ignored else "")
+    )
+    new_pn = f"{stem}-{win}" if win != row_suf.upper() else None
+    if new_pn:
+        note += f" (item row read -{row_suf})"
+    return new_pn, note, False
 
 
 _PAGE_MARK = re.compile(
@@ -450,15 +509,9 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> ExtractResul
     notes: list[str] = []
     gold_fields: list[str] = []
     ocr = is_ocr_backend(backend)
+    misread: list[str] = []
     if ocr:
         text, misread = normalize_ocr_partnumbers(text)
-        if misread:
-            gold_fields.append("items.part_no")
-            notes.append(
-                "NEEDS_GOLD: OCR misread part no. separators ("
-                + ", ".join(dict.fromkeys(misread))
-                + "); PN characters unreliable (e.g. G/6), confirm on PDF"
-            )
 
     miss = _missing_pages_note(text)
     if miss:
@@ -469,15 +522,35 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> ExtractResul
     pn_pairs: list[tuple[str, str, str]] = []
     items = _parse_items(text, inv, currency, pn_pairs)
     if ocr:
-        bad = _pn_reading_conflicts(text, pn_pairs)
-        if bad:
-            if "items.part_no" not in gold_fields:
-                gold_fields.append("items.part_no")
-            notes.append(
-                "NEEDS_GOLD: OCR readings of the same part no. disagree in this scan ("
-                + "; ".join(bad)
-                + "); item-row value kept as read, confirm on PDF"
+        for it in items:
+            if not it.part_no:
+                continue
+            new_pn, note, unresolved = _reconcile_ocr_pn(text, it.part_no)
+            row_misread = any(
+                re.sub(r"[^0-9]", "", r.split("-")[0]) == re.sub(r"[^0-9]", "", it.part_no.split("-")[0])
+                for r in misread
             )
+            if unresolved:
+                if "items.part_no" not in gold_fields:
+                    gold_fields.append("items.part_no")
+                notes.append(
+                    f"NEEDS_GOLD: OCR readings of part no. {it.part_no} cannot be "
+                    f"reconciled ({note}); item-row value kept as read, confirm on PDF"
+                )
+                continue
+            if new_pn:
+                it.part_no = new_pn
+            if note:
+                notes.append(note)
+            elif row_misread:
+                # Separator misread and no second PN reading to corroborate.
+                if "items.part_no" not in gold_fields:
+                    gold_fields.append("items.part_no")
+                notes.append(
+                    f"NEEDS_GOLD: OCR misread part no. separators ({', '.join(misread)}) "
+                    "and no other PN reading in the scan to confirm it"
+                )
+
     # Fallback HS from Customs Tarif summary if line HS missing
     if items and any(not it.hs_code for it in items):
         summary_hs = re.findall(

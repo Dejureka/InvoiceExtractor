@@ -34,10 +34,10 @@
   "source_file": "extracted/50-D-26SOE-167/1267475174 taiwan.pdf",
   "text_backend": "ocr/tesseract",
   "format_id": "soe_rb_gmbh_v1",
-  "confidence": "needs_gold",
+  "confidence": "rules",
   "needs_ocr": false,
-  "needs_gold": true,
-  "notes": "NEEDS_GOLD: OCR readings of the same part no. disagree in this scan (line 01 0265.011.097-57G: suffix readings -576×2, -876×1, -57G×4); item-row value kept as read, confirm on PDF",
+  "needs_gold": false,
+  "notes": "OCR PN reconciled 0265.011.097: readings -576×2, -876×1, -57G×4 — -576/-57G differ only by letter/digit look-alikes, letter form -57G kept (outlier -876 ignored)",
   "labeled_amount": 72843.01,
   "labeled_amount_label": "Invoice amount",
   "source": null,
@@ -49,15 +49,11 @@
   "bl_format_id": null,
   "pair_status": null,
   "source_kind": "pdf",
-  "needs_gold_fields": [
-   "items.part_no"
-  ]
+  "needs_gold_fields": null
  },
  "hard_check": {
-  "verdict": "needs_gold",
-  "issues": [
-   "needs_gold field(s): items.part_no (document contradicts itself; confirm manually / from BL)"
-  ],
+  "verdict": "pass",
+  "issues": [],
   "details": {
    "item_line_count": {
     "want": 1,
@@ -78,10 +74,7 @@
     "sum_items": 72843.01,
     "item_count": 1
    },
-   "missing_hs_indices": [],
-   "needs_gold_fields": [
-    "items.part_no"
-   ]
+   "missing_hs_indices": []
   }
  }
 }

@@ -33,12 +33,13 @@ CASES = [
      2834.18, 3, 892.0, None, 24.0, None, "0263.036.668-2U1", "pass"),
     ("soe2_1267502206_ocr.txt", "ocr/tesseract", "7091801668", "2026-08-21",
      3642.15, 1, 112.0, 1.0, 16.0, "ES", "0265.011.097-57G", "pass"),
+    # Auditor Round 2: print shows -57G on all three scans → pass.
     ("soe2_1267475174_ocr.txt", "ocr/tesseract", "7091801544", "2026-08-20",
-     72843.01, 1, 2240.0, 5.0, 160.0, "ES", "0265.011.097-57G", "needs_gold"),
+     72843.01, 1, 2240.0, 5.0, 160.0, "ES", "0265.011.097-57G", "pass"),
     ("soe2_7405713_ocr.txt", "ocr/tesseract", "7091801079", "2026-08-13",
-     3642.15, 1, 112.0, 1.0, 16.0, "ES", "0265.011.097-576", "needs_gold"),
+     3642.15, 1, 112.0, 1.0, 16.0, "ES", "0265.011.097-57G", "pass"),
     ("soe2_7369301_ocr.txt", "ocr/tesseract", "7091800640", "2026-08-06",
-     21852.9, 1, 672.0, 2.0, 53.0, "ES", "0265.011.097-576", "needs_gold"),
+     21852.9, 1, 672.0, 2.0, 53.0, "ES", "0265.011.097-57G", "pass"),
 ]
 
 
@@ -167,28 +168,92 @@ def test_soe2_normalize_ocr_partnumbers():
     assert mis == ["0265.011, 097-576"]
 
 
-def test_soe2_ocr_suffix_conflict_needs_gold_7405713():
-    r, _, _ = _run("soe2_7405713_ocr.txt", "ocr/tesseract")
-    assert r.meta.needs_gold is True
-    assert r.meta.confidence == "needs_gold"
-    assert "suffix readings -57G" in r.meta.notes and "-576" in r.meta.notes
-
-
-def test_soe2_ocr_separator_misread_needs_gold_7369301():
-    r, _, _ = _run("soe2_7369301_ocr.txt", "ocr/tesseract")
-    assert "OCR misread part no. separators (0265.011, 097-576)" in r.meta.notes
-    assert r.meta.needs_gold_fields == ["items.part_no"]
-
-
-def test_soe2_suffix_rule_is_ocr_only():
-    # A text layer is exact: a second PN reading with another suffix (e.g. a
-    # different variant in a remark) must not trigger the OCR-only rule.
+def test_soe2_pn_rule_is_ocr_only():
+    # Text layers are exact: a different variant elsewhere never rewrites
+    # or flags the item row.
     t = _text("soe2_7077520279_layout.txt") + "\nRemark: replaces 0265.019.150-2CF\n"
     r = soe_rb_gmbh_v1.extract("x.pdf", t, "pdftotext -layout", False)
-    assert not r.meta.needs_gold_fields
+    assert r.items[0].part_no == "0265.019.150-2CG"
+    assert not r.meta.needs_gold_fields and not r.meta.notes
     assert hard_check(r.to_dict())["verdict"] == "pass"
+    # Under OCR: 2CG×2 (Bosch + Customer PN) vs 2CF×1 → majority, keep 2CG.
     r2 = soe_rb_gmbh_v1.extract("x.pdf", t, "ocr/tesseract", False)
-    assert r2.meta.needs_gold_fields == ["items.part_no"]
+    assert r2.items[0].part_no == "0265.019.150-2CG"
+    assert not r2.meta.needs_gold_fields
+
+
+def test_soe2_ocr_pn_reconciled_7405713_minority_letter_reading():
+    # Item row + Customer PN + one transport-order row all OCR as -576; the
+    # transport order "026501109757GEC" reads -57G. 57G/576 are look-alikes →
+    # letter form wins (print shows -57G; Auditor Round 2).
+    r, _, hc = _run("soe2_7405713_ocr.txt", "ocr/tesseract")
+    assert r.items[0].part_no == "0265.011.097-57G"
+    assert not r.meta.needs_gold_fields and r.meta.needs_gold is False
+    assert "readings -57G×1, -576×3 — " in r.meta.notes
+    assert "(item row read -576)" in r.meta.notes
+    assert hc["verdict"] == "pass"
+
+
+def test_soe2_ocr_pn_reconciled_7369301_separator_misread_corroborated():
+    r, _, hc = _run("soe2_7369301_ocr.txt", "ocr/tesseract")
+    assert r.items[0].part_no == "0265.011.097-57G"
+    assert "readings -57G×2, -576×2" in r.meta.notes
+    assert hc["verdict"] == "pass"
+
+
+def test_soe2_ocr_pn_outlier_ignored_1267475174():
+    r, _, _ = _run("soe2_1267475174_ocr.txt", "ocr/tesseract")
+    assert r.items[0].part_no == "0265.011.097-57G"
+    assert "outlier -876 ignored" in r.meta.notes
+    assert not r.meta.needs_gold_fields
+
+
+def test_soe2_pn_candidates_skip_numeric_fields():
+    from invoice_extractor.formats.soe_rb_gmbh_v1 import _pn_candidates
+
+    t = _text("soe2_7369301_ocr.txt")
+    assert "26) Volume in cdm 576" in t
+    cands = _pn_candidates(t, "0265011097")
+    assert sorted(c for c, _ in cands) == ["576", "576", "57G", "57G"]
+    # A PN-like number behind a numeric label is not part-number evidence.
+    assert _pn_candidates("26) Volume in cdm 0265011097576\n", "0265011097") == []
+
+
+def test_soe2_ocr_pn_unreconcilable_needs_gold():
+    # 57G×2 (item row + Customer PN) + 57G×1 (p2) vs 5R9×3: no strict majority.
+    t = _text("soe2_1267502206_ocr.txt") + (
+        "\n1267502206 1 Pallets 02650110975R9\n"
+        "Delivery 0265.011.097-5R9\nLabel 0265.011.097-5R9\n"
+    )
+    r = soe_rb_gmbh_v1.extract("x.pdf", t, "ocr/tesseract", False)
+    assert r.items[0].part_no == "0265.011.097-57G"  # kept as read
+    assert r.meta.needs_gold_fields == ["items.part_no"]
+    assert "cannot be reconciled" in r.meta.notes
+    assert hard_check(r.to_dict())["verdict"] == "needs_gold"
+
+
+def test_soe2_ocr_pn_all_digit_suffix_kept():
+    # No letter reading anywhere → nothing to reconcile; -576 stays.
+    t = _text("soe2_7405713_ocr.txt").replace("026501109757GEC", "0265011097576EC")
+    r = soe_rb_gmbh_v1.extract("x.pdf", t, "ocr/tesseract", False)
+    assert r.items[0].part_no == "0265.011.097-576"
+    assert not r.meta.needs_gold_fields
+
+
+def test_soe2_ocr_separator_misread_without_corroboration_needs_gold():
+    t = ("Invoice No. : 7091800640\nDate Invoice : 06.08.2026\n"
+         "01 0265.011, 097-576 X1 672 3,251.92 21,852.90\n"
+         "Sensor PC 100 EUR\nES 23.016 KG\nCustoms tariff no : 90318080\n"
+         "Invoice amount: EUR 21,852.90\n")
+    r = soe_rb_gmbh_v1.extract("x.pdf", t, "ocr/tesseract", False)
+    assert r.items[0].part_no == "0265.011.097-576"
+    assert r.meta.needs_gold_fields == ["items.part_no"]
+    assert "no other PN reading" in r.meta.notes
+
+
+def test_soe2_normalize_misread_list():
+    _t, mis = normalize_ocr_partnumbers("01 0265 .011,097-57G 026501109757G 1 2 3\n")
+    assert mis == ["0265 .011,097-57G"]
 
 
 def test_soe2_typed_pallet_summary_without_cargo_list():
