@@ -1,0 +1,4078 @@
+{
+"40-D-26PT-404_50664923": {
+"header": {
+"invoice_no": "50664923",
+"invoice_date": "2026-08-31",
+"total_pkg": 3.0,
+"gross_weight_kg": 15.1,
+"incoterm": "FCA Shanghai",
+"item_line_count": 5,
+"total_quantity": 88.0,
+"amount": 1116.6,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "2.608.901.400",
+"qty": 10.0,
+"unit_price": 8.06,
+"amount": 80.6,
+"origin": "CN",
+"hs_code": "82079071"
+},
+{
+"part_no": "2.608.901.419",
+"qty": 12.0,
+"unit_price": 13.38,
+"amount": 160.56,
+"origin": "CN",
+"hs_code": "82079071"
+},
+{
+"part_no": "2.608.901.421",
+"qty": 8.0,
+"unit_price": 12.25,
+"amount": 98.0,
+"origin": "CN",
+"hs_code": "82079071"
+},
+{
+"part_no": "2.608.901.418",
+"qty": 40.0,
+"unit_price": 10.58,
+"amount": 423.2,
+"origin": "CN",
+"hs_code": "82079071"
+},
+{
+"part_no": "2.608.901.437",
+"qty": 18.0,
+"unit_price": 19.68,
+"amount": 354.24,
+"origin": "CN",
+"hs_code": "82079071"
+}
+]
+},
+"40-D-26PT-416_50666223": {
+"header": {
+"invoice_no": "50666223",
+"invoice_date": "2026-09-08",
+"total_pkg": 1.0,
+"gross_weight_kg": 14.5,
+"incoterm": "FCA Shanghai, packaging incl",
+"item_line_count": 1,
+"total_quantity": 200.0,
+"amount": 134.0,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "2.608.603.699",
+"qty": 200.0,
+"unit_price": 0.67,
+"amount": 134.0,
+"origin": "CN",
+"hs_code": "68053000"
+}
+]
+},
+"50-D-26PT-408_50664997": {
+"header": {
+"invoice_no": "50664997",
+"invoice_date": "2026-08-31",
+"total_pkg": 2.0,
+"gross_weight_kg": 111.262,
+"incoterm": "FCA Willershausen",
+"item_line_count": 53,
+"total_quantity": 345.0,
+"amount": 1600.03,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "1.604.612.059",
+"qty": 15.0,
+"unit_price": 0.42,
+"amount": 6.3,
+"origin": "CN",
+"hs_code": "73202081"
+},
+{
+"part_no": "1.610.910.098",
+"qty": 2.0,
+"unit_price": 0.53,
+"amount": 1.06,
+"origin": "CN",
+"hs_code": "84824000"
+},
+{
+"part_no": "1.619.P17.564",
+"qty": 4.0,
+"unit_price": 9.38,
+"amount": 37.52,
+"origin": "CN",
+"hs_code": "84679900"
+},
+{
+"part_no": "2.916.080.911",
+"qty": 4.0,
+"unit_price": 0.31,
+"amount": 1.24,
+"origin": "DE",
+"hs_code": "73182400"
+},
+{
+"part_no": "1.600.A01.N64",
+"qty": 3.0,
+"unit_price": 4.21,
+"amount": 12.63,
+"origin": "MD",
+"hs_code": "85014020"
+},
+{
+"part_no": "1.600.A02.HM9",
+"qty": 2.0,
+"unit_price": 0.23,
+"amount": 0.46,
+"origin": "MY",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.607.000.CY7",
+"qty": 2.0,
+"unit_price": 6.82,
+"amount": 13.64,
+"origin": "MY",
+"hs_code": "90159000"
+},
+{
+"part_no": "1.614.601.062",
+"qty": 5.0,
+"unit_price": 0.31,
+"amount": 1.55,
+"origin": "DE",
+"hs_code": "73182400"
+},
+{
+"part_no": "1.616.325.002",
+"qty": 3.0,
+"unit_price": 1.85,
+"amount": 5.55,
+"origin": "DE",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.619.P07.742",
+"qty": 2.0,
+"unit_price": 1.26,
+"amount": 2.52,
+"origin": "CN",
+"hs_code": "73269098"
+},
+{
+"part_no": "1.619.P09.390",
+"qty": 2.0,
+"unit_price": 0.31,
+"amount": 0.62,
+"origin": "CN",
+"hs_code": "73182900"
+},
+{
+"part_no": "1.619.P10.766",
+"qty": 2.0,
+"unit_price": 14.35,
+"amount": 28.7,
+"origin": "CN",
+"hs_code": "84836080"
+},
+{
+"part_no": "1.619.P10.963",
+"qty": 1.0,
+"unit_price": 0.53,
+"amount": 0.53,
+"origin": "CN",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.619.P16.274",
+"qty": 3.0,
+"unit_price": 3.33,
+"amount": 9.99,
+"origin": "CN",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.619.PA9.085",
+"qty": 3.0,
+"unit_price": 5.71,
+"amount": 17.13,
+"origin": "CN",
+"hs_code": "85371098"
+},
+{
+"part_no": "1.619.PC1.807",
+"qty": 5.0,
+"unit_price": 1.46,
+"amount": 7.3,
+"origin": "CN",
+"hs_code": "85365080"
+},
+{
+"part_no": "1.619.PS1.115",
+"qty": 3.0,
+"unit_price": 0.36,
+"amount": 1.08,
+"origin": "CN",
+"hs_code": "84834029"
+},
+{
+"part_no": "2.604.321.904",
+"qty": 1.0,
+"unit_price": 1.46,
+"amount": 1.46,
+"origin": "CN",
+"hs_code": "85452000"
+},
+{
+"part_no": "2.609.170.185",
+"qty": 2.0,
+"unit_price": 0.42,
+"amount": 0.84,
+"origin": "CN",
+"hs_code": "39269097"
+},
+{
+"part_no": "F.016.L72.438",
+"qty": 4.0,
+"unit_price": 0.13,
+"amount": 0.52,
+"origin": "GB",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.617.000.543",
+"qty": 30.0,
+"unit_price": 13.73,
+"amount": 411.9,
+"origin": "CN",
+"hs_code": "85030098"
+},
+{
+"part_no": "1.604.220.382",
+"qty": 10.0,
+"unit_price": 10.53,
+"amount": 105.3,
+"origin": "DE",
+"hs_code": "85030098"
+},
+{
+"part_no": "1.600.A00.H7D",
+"qty": 3.0,
+"unit_price": 3.33,
+"amount": 9.99,
+"origin": "DE",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.619.PS4.851",
+"qty": 2.0,
+"unit_price": 12.58,
+"amount": 25.16,
+"origin": "CN",
+"hs_code": "85013200"
+},
+{
+"part_no": "1.619.PS4.848",
+"qty": 2.0,
+"unit_price": 10.53,
+"amount": 21.06,
+"origin": "CN",
+"hs_code": "85371098"
+},
+{
+"part_no": "1.607.000.EX3",
+"qty": 3.0,
+"unit_price": 18.59,
+"amount": 55.77,
+"origin": "DE",
+"hs_code": "85371098"
+},
+{
+"part_no": "1.619.PS1.908",
+"qty": 2.0,
+"unit_price": 3.33,
+"amount": 6.66,
+"origin": "CN",
+"hs_code": "85030098"
+},
+{
+"part_no": "1.619.PS0.661",
+"qty": 20.0,
+"unit_price": 1.46,
+"amount": 29.2,
+"origin": "CN",
+"hs_code": "84834023"
+},
+{
+"part_no": "F.016.F05.280",
+"qty": 50.0,
+"unit_price": 4.88,
+"amount": 244.0,
+"origin": "CN",
+"hs_code": "84249080"
+},
+{
+"part_no": "1.619.PA4.164",
+"qty": 2.0,
+"unit_price": 1.65,
+"amount": 3.3,
+"origin": "CN",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.600.A00.1BG",
+"qty": 3.0,
+"unit_price": 13.73,
+"amount": 41.19,
+"origin": "CN",
+"hs_code": "85371098"
+},
+{
+"part_no": "1.600.A00.89A",
+"qty": 1.0,
+"unit_price": 0.94,
+"amount": 0.94,
+"origin": "DE",
+"hs_code": "84879090"
+},
+{
+"part_no": "1.617.000.695",
+"qty": 10.0,
+"unit_price": 2.55,
+"amount": 25.5,
+"origin": "DE",
+"hs_code": "84661038"
+},
+{
+"part_no": "2.607.200.231",
+"qty": 20.0,
+"unit_price": 2.55,
+"amount": 51.0,
+"origin": "TN",
+"hs_code": "85365080"
+},
+{
+"part_no": "F.016.F04.795",
+"qty": 3.0,
+"unit_price": 0.13,
+"amount": 0.39,
+"origin": "CN",
+"hs_code": "39269097"
+},
+{
+"part_no": "F.016.F04.796",
+"qty": 50.0,
+"unit_price": 3.33,
+"amount": 166.5,
+"origin": "CN",
+"hs_code": "84249080"
+},
+{
+"part_no": "0.618.800.04W",
+"qty": 3.0,
+"unit_price": 0.13,
+"amount": 0.39,
+"origin": "MY",
+"hs_code": "73181595"
+},
+{
+"part_no": "1.604.601.037",
+"qty": 3.0,
+"unit_price": 0.13,
+"amount": 0.39,
+"origin": "MY",
+"hs_code": "73182400"
+},
+{
+"part_no": "1.619.PS0.950",
+"qty": 10.0,
+"unit_price": 4.21,
+"amount": 42.1,
+"origin": "CN",
+"hs_code": "84831095"
+},
+{
+"part_no": "2.607.202.382",
+"qty": 2.0,
+"unit_price": 2.27,
+"amount": 4.54,
+"origin": "CN",
+"hs_code": "85365011"
+},
+{
+"part_no": "2.609.100.301",
+"qty": 2.0,
+"unit_price": 0.36,
+"amount": 0.72,
+"origin": "MY",
+"hs_code": "59119099"
+},
+{
+"part_no": "2.607.200.231",
+"qty": 10.0,
+"unit_price": 2.55,
+"amount": 25.5,
+"origin": "TN",
+"hs_code": "85365080"
+},
+{
+"part_no": "1.619.P15.963",
+"qty": 5.0,
+"unit_price": 0.13,
+"amount": 0.65,
+"origin": "CN",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.600.A02.HZ9",
+"qty": 1.0,
+"unit_price": 6.2,
+"amount": 6.2,
+"origin": "CN",
+"hs_code": "84661038"
+},
+{
+"part_no": "1.607.022.69Z",
+"qty": 3.0,
+"unit_price": 16.2,
+"amount": 48.6,
+"origin": "CN",
+"hs_code": "85013200"
+},
+{
+"part_no": "1.617.000.6BG",
+"qty": 2.0,
+"unit_price": 23.73,
+"amount": 47.46,
+"origin": "DE",
+"hs_code": "85013200"
+},
+{
+"part_no": "1.617.000.889",
+"qty": 5.0,
+"unit_price": 7.56,
+"amount": 37.8,
+"origin": "DE",
+"hs_code": "85365080"
+},
+{
+"part_no": "1.617.200.048",
+"qty": 5.0,
+"unit_price": 2.93,
+"amount": 14.65,
+"origin": "CN",
+"hs_code": "85365080"
+},
+{
+"part_no": "1.619.P02.811",
+"qty": 10.0,
+"unit_price": 0.23,
+"amount": 2.3,
+"origin": "CN",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.619.P13.456",
+"qty": 1.0,
+"unit_price": 2.93,
+"amount": 2.93,
+"origin": "CN",
+"hs_code": "84834029"
+},
+{
+"part_no": "1.605.108.2G8",
+"qty": 1.0,
+"unit_price": 3.33,
+"amount": 3.33,
+"origin": "DE",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.605.A00.0FL",
+"qty": 2.0,
+"unit_price": 5.71,
+"amount": 11.42,
+"origin": "US",
+"hs_code": "85013100"
+},
+{
+"part_no": "1.619.P03.740",
+"qty": 1.0,
+"unit_price": 2.55,
+"amount": 2.55,
+"origin": "CN",
+"hs_code": "84669360"
+}
+]
+},
+"50-D-26PT-421_50666072": {
+"header": {
+"invoice_no": "50666072",
+"invoice_date": "2026-09-07",
+"total_pkg": 2.0,
+"gross_weight_kg": 31.177,
+"incoterm": "FCA Willershausen",
+"item_line_count": 31,
+"total_quantity": 196.0,
+"amount": 681.26,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "1.619.PS4.644",
+"qty": 2.0,
+"unit_price": 14.35,
+"amount": 28.7,
+"origin": "CN",
+"hs_code": "85030098"
+},
+{
+"part_no": "1.619.PA8.659",
+"qty": 1.0,
+"unit_price": 0.83,
+"amount": 0.83,
+"origin": "TW",
+"hs_code": "85299096"
+},
+{
+"part_no": "1.619.P01.959",
+"qty": 1.0,
+"unit_price": 3.33,
+"amount": 3.33,
+"origin": "CN",
+"hs_code": "85030098"
+},
+{
+"part_no": "F.016.F06.035",
+"qty": 4.0,
+"unit_price": 14.35,
+"amount": 57.4,
+"origin": "CN",
+"hs_code": "85371098"
+},
+{
+"part_no": "1.619.P09.590",
+"qty": 2.0,
+"unit_price": 11.43,
+"amount": 22.86,
+"origin": "HK",
+"hs_code": "85371098"
+},
+{
+"part_no": "2.610.013.850",
+"qty": 10.0,
+"unit_price": 4.88,
+"amount": 48.8,
+"origin": "MX",
+"hs_code": "85030098"
+},
+{
+"part_no": "1.619.P08.612",
+"qty": 1.0,
+"unit_price": 0.23,
+"amount": 0.23,
+"origin": "CN",
+"hs_code": "73182400"
+},
+{
+"part_no": "1.600.A02.2DU",
+"qty": 1.0,
+"unit_price": 2.55,
+"amount": 2.55,
+"origin": "CN",
+"hs_code": "84669280"
+},
+{
+"part_no": "1.619.X03.193",
+"qty": 10.0,
+"unit_price": 0.75,
+"amount": 7.5,
+"origin": "CN",
+"hs_code": "85452000"
+},
+{
+"part_no": "1.618.597.135",
+"qty": 10.0,
+"unit_price": 8.51,
+"amount": 85.1,
+"origin": "DE",
+"hs_code": "84661038"
+},
+{
+"part_no": "1.618.597.135",
+"qty": 10.0,
+"unit_price": 8.51,
+"amount": 85.1,
+"origin": "DE",
+"hs_code": "84661038"
+},
+{
+"part_no": "1.600.A00.NR9",
+"qty": 5.0,
+"unit_price": 0.36,
+"amount": 1.8,
+"origin": "CN",
+"hs_code": "73269098"
+},
+{
+"part_no": "1.614.336.061",
+"qty": 50.0,
+"unit_price": 2.93,
+"amount": 146.5,
+"origin": "CZ",
+"hs_code": "85030098"
+},
+{
+"part_no": "1.600.A02.2D8",
+"qty": 1.0,
+"unit_price": 0.61,
+"amount": 0.61,
+"origin": "CN",
+"hs_code": "84669280"
+},
+{
+"part_no": "1.600.A01.1RN",
+"qty": 3.0,
+"unit_price": 0.75,
+"amount": 2.25,
+"origin": "DE",
+"hs_code": "39174000"
+},
+{
+"part_no": "2.916.540.015",
+"qty": 10.0,
+"unit_price": 0.23,
+"amount": 2.3,
+"origin": "DE",
+"hs_code": "73182400"
+},
+{
+"part_no": "2.607.200.699",
+"qty": 1.0,
+"unit_price": 4.21,
+"amount": 4.21,
+"origin": "CN",
+"hs_code": "85365080"
+},
+{
+"part_no": "2.609.110.788",
+"qty": 2.0,
+"unit_price": 2.06,
+"amount": 4.12,
+"origin": "CN",
+"hs_code": "84661038"
+},
+{
+"part_no": "1.619.P04.839",
+"qty": 24.0,
+"unit_price": 0.13,
+"amount": 3.12,
+"origin": "CN",
+"hs_code": "73170080"
+},
+{
+"part_no": "1.614.460.052",
+"qty": 2.0,
+"unit_price": 4.21,
+"amount": 8.42,
+"origin": "DE",
+"hs_code": "85444290"
+},
+{
+"part_no": "1.616.312.004",
+"qty": 10.0,
+"unit_price": 1.85,
+"amount": 18.5,
+"origin": "DE",
+"hs_code": "84839089"
+},
+{
+"part_no": "1.600.A00.1E5",
+"qty": 3.0,
+"unit_price": 0.13,
+"amount": 0.39,
+"origin": "SI",
+"hs_code": "84679900"
+},
+{
+"part_no": "2.607.202.511",
+"qty": 2.0,
+"unit_price": 7.56,
+"amount": 15.12,
+"origin": "CN",
+"hs_code": "85371098"
+},
+{
+"part_no": "1.619.X03.049",
+"qty": 1.0,
+"unit_price": 2.06,
+"amount": 2.06,
+"origin": "CN",
+"hs_code": "85030098"
+},
+{
+"part_no": "1.612.001.041",
+"qty": 3.0,
+"unit_price": 2.27,
+"amount": 6.81,
+"origin": "DE",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.607.031.244",
+"qty": 10.0,
+"unit_price": 1.73,
+"amount": 17.3,
+"origin": "DE",
+"hs_code": "85452000"
+},
+{
+"part_no": "1.600.A01.1PN",
+"qty": 2.0,
+"unit_price": 13.73,
+"amount": 27.46,
+"origin": "CN",
+"hs_code": "84834029"
+},
+{
+"part_no": "1.619.P16.883",
+"qty": 1.0,
+"unit_price": 4.21,
+"amount": 4.21,
+"origin": "CN",
+"hs_code": "84679900"
+},
+{
+"part_no": "1.619.P08.652",
+"qty": 10.0,
+"unit_price": 4.88,
+"amount": 48.8,
+"origin": "CN",
+"hs_code": "85013100"
+},
+{
+"part_no": "1.619.PS4.937",
+"qty": 2.0,
+"unit_price": 7.56,
+"amount": 15.12,
+"origin": "CN",
+"hs_code": "85030098"
+},
+{
+"part_no": "1.619.PS4.850",
+"qty": 2.0,
+"unit_price": 4.88,
+"amount": 9.76,
+"origin": "CN",
+"hs_code": "85389091"
+}
+]
+},
+"50-D-26PT-422_50665593": {
+"header": {
+"invoice_no": "50665593",
+"invoice_date": "2026-09-03",
+"total_pkg": 1.0,
+"gross_weight_kg": 7.68,
+"incoterm": "FCA Worms",
+"item_line_count": 2,
+"total_quantity": 13.0,
+"amount": 83.6,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "1.600.A03.3BN",
+"qty": 10.0,
+"unit_price": 1.34,
+"amount": 13.4,
+"origin": "CN",
+"hs_code": "85051910"
+},
+{
+"part_no": "1.600.A02.Z9L",
+"qty": 3.0,
+"unit_price": 23.4,
+"amount": 70.2,
+"origin": "CN",
+"hs_code": "82054000"
+}
+]
+},
+"50-D-26PT-423_50665862": {
+"header": {
+"invoice_no": "50665862",
+"invoice_date": "2026-09-04",
+"total_pkg": 1.0,
+"gross_weight_kg": 18.88,
+"incoterm": "FCA Worms",
+"item_line_count": 2,
+"total_quantity": 98.0,
+"amount": 319.8,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "1.600.A03.9HW",
+"qty": 50.0,
+"unit_price": 2.46,
+"amount": 123.0,
+"origin": "CN",
+"hs_code": "96035000"
+},
+{
+"part_no": "1.600.A03.2UY",
+"qty": 48.0,
+"unit_price": 4.1,
+"amount": 196.8,
+"origin": "CN",
+"hs_code": "82054000"
+}
+]
+},
+"90-C-26PT-405_50654372": {
+"header": {
+"invoice_no": "50654372",
+"invoice_date": "2026-06-26",
+"total_pkg": 30.0,
+"gross_weight_kg": 2712.86,
+"incoterm": "FCA Worms",
+"item_line_count": 261,
+"total_quantity": 7116.0,
+"amount": 52165.9,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "0.603.B05.200",
+"qty": 8.0,
+"unit_price": 67.14,
+"amount": 537.12,
+"origin": "IN",
+"hs_code": "76169990"
+},
+{
+"part_no": "0.601.2A6.2C0",
+"qty": 73.0,
+"unit_price": 48.61,
+"amount": 3548.53,
+"origin": "MD",
+"hs_code": "84198998"
+},
+{
+"part_no": "0.601.2A6.2C0",
+"qty": 29.0,
+"unit_price": 48.61,
+"amount": 1409.69,
+"origin": "MD",
+"hs_code": "84198998"
+},
+{
+"part_no": "1.600.A03.7E3",
+"qty": 4.0,
+"unit_price": 90.0,
+"amount": 360.0,
+"origin": "SI",
+"hs_code": "39269097"
+},
+{
+"part_no": "0.603.B05.200",
+"qty": 8.0,
+"unit_price": 67.14,
+"amount": 537.12,
+"origin": "IN",
+"hs_code": "76169990"
+},
+{
+"part_no": "1.600.A03.7E3",
+"qty": 4.0,
+"unit_price": 90.0,
+"amount": 360.0,
+"origin": "SI",
+"hs_code": "39269097"
+},
+{
+"part_no": "1.600.A03.7E3",
+"qty": 4.0,
+"unit_price": 90.0,
+"amount": 360.0,
+"origin": "SI",
+"hs_code": "39269097"
+},
+{
+"part_no": "1.600.A03.7E3",
+"qty": 4.0,
+"unit_price": 90.0,
+"amount": 360.0,
+"origin": "SI",
+"hs_code": "39269097"
+},
+{
+"part_no": "1.600.A03.7E3",
+"qty": 2.0,
+"unit_price": 90.0,
+"amount": 180.0,
+"origin": "SI",
+"hs_code": "39269097"
+},
+{
+"part_no": "F.016.800.462",
+"qty": 24.0,
+"unit_price": 2.65,
+"amount": 63.6,
+"origin": "FR",
+"hs_code": "39269097"
+},
+{
+"part_no": "1.600.A00.2WY",
+"qty": 4.0,
+"unit_price": 1.79,
+"amount": 7.16,
+"origin": "DE",
+"hs_code": "39239000"
+},
+{
+"part_no": "0.603.3E0.050",
+"qty": 318.0,
+"unit_price": 20.59,
+"amount": 6547.62,
+"origin": "HU",
+"hs_code": "84672920"
+},
+{
+"part_no": "0.601.2A6.2C0",
+"qty": 73.0,
+"unit_price": 48.61,
+"amount": 3548.53,
+"origin": "MD",
+"hs_code": "84198998"
+},
+{
+"part_no": "2.607.019.330",
+"qty": 72.0,
+"unit_price": 19.31,
+"amount": 1390.32,
+"origin": "CN",
+"hs_code": "82079030"
+},
+{
+"part_no": "2.608.706.875",
+"qty": 10.0,
+"unit_price": 1.12,
+"amount": 11.2,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.690.554",
+"qty": 1.0,
+"unit_price": 5.91,
+"amount": 5.91,
+"origin": "IT",
+"hs_code": "82079099"
+},
+{
+"part_no": "2.608.578.495",
+"qty": 5.0,
+"unit_price": 2.9,
+"amount": 14.5,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "1.600.A03.AA7",
+"qty": 24.0,
+"unit_price": 18.06,
+"amount": 433.44,
+"origin": "CN",
+"hs_code": "82055980"
+},
+{
+"part_no": "1.600.A03.AA7",
+"qty": 12.0,
+"unit_price": 18.06,
+"amount": 216.72,
+"origin": "CN",
+"hs_code": "82055980"
+},
+{
+"part_no": "1.600.A03.AA7",
+"qty": 12.0,
+"unit_price": 18.06,
+"amount": 216.72,
+"origin": "CN",
+"hs_code": "82055980"
+},
+{
+"part_no": "2.608.900.241",
+"qty": 8.0,
+"unit_price": 23.78,
+"amount": 190.24,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.900.216",
+"qty": 12.0,
+"unit_price": 13.78,
+"amount": 165.36,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "1.600.A03.AL0",
+"qty": 20.0,
+"unit_price": 2.43,
+"amount": 48.6,
+"origin": "CN",
+"hs_code": "82029100"
+},
+{
+"part_no": "1.600.A03.DN4",
+"qty": 6.0,
+"unit_price": 6.21,
+"amount": 37.26,
+"origin": "CN",
+"hs_code": "82032000"
+},
+{
+"part_no": "1.600.A03.AX7",
+"qty": 10.0,
+"unit_price": 2.04,
+"amount": 20.4,
+"origin": "CN",
+"hs_code": "82119400"
+},
+{
+"part_no": "1.600.A03.AH6",
+"qty": 6.0,
+"unit_price": 1.22,
+"amount": 7.32,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AH2",
+"qty": 6.0,
+"unit_price": 3.81,
+"amount": 22.86,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AG7",
+"qty": 6.0,
+"unit_price": 2.56,
+"amount": 15.36,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.9TC",
+"qty": 6.0,
+"unit_price": 2.3,
+"amount": 13.8,
+"origin": "CN",
+"hs_code": "82054000"
+},
+{
+"part_no": "1.600.A03.AL4",
+"qty": 60.0,
+"unit_price": 1.07,
+"amount": 64.2,
+"origin": "CN",
+"hs_code": "96092000"
+},
+{
+"part_no": "1.600.A03.AX7",
+"qty": 230.0,
+"unit_price": 2.04,
+"amount": 469.2,
+"origin": "CN",
+"hs_code": "82119400"
+},
+{
+"part_no": "1.600.A03.AK0",
+"qty": 108.0,
+"unit_price": 2.55,
+"amount": 275.4,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AJ4",
+"qty": 108.0,
+"unit_price": 1.64,
+"amount": 177.12,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AH6",
+"qty": 108.0,
+"unit_price": 1.22,
+"amount": 131.76,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AC9",
+"qty": 20.0,
+"unit_price": 1.61,
+"amount": 32.2,
+"origin": "CN",
+"hs_code": "82029100"
+},
+{
+"part_no": "1.600.A03.9TC",
+"qty": 78.0,
+"unit_price": 2.3,
+"amount": 179.4,
+"origin": "CN",
+"hs_code": "82054000"
+},
+{
+"part_no": "1.600.A03.A7Z",
+"qty": 20.0,
+"unit_price": 2.43,
+"amount": 48.6,
+"origin": "CN",
+"hs_code": "82029980"
+},
+{
+"part_no": "1.600.A03.9TB",
+"qty": 78.0,
+"unit_price": 2.3,
+"amount": 179.4,
+"origin": "CN",
+"hs_code": "82054000"
+},
+{
+"part_no": "1.600.A03.9R5",
+"qty": 12.0,
+"unit_price": 6.64,
+"amount": 79.68,
+"origin": "CN",
+"hs_code": "82021000"
+},
+{
+"part_no": "2.608.621.831",
+"qty": 2.0,
+"unit_price": 57.41,
+"amount": 114.82,
+"origin": "US",
+"hs_code": "68053000"
+},
+{
+"part_no": "1.600.A03.AG6",
+"qty": 96.0,
+"unit_price": 2.42,
+"amount": 232.32,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "2.608.900.317",
+"qty": 120.0,
+"unit_price": 1.07,
+"amount": 128.4,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.535",
+"qty": 1.0,
+"unit_price": 11.48,
+"amount": 11.48,
+"origin": "KR",
+"hs_code": "68042100"
+},
+{
+"part_no": "2.608.522.565",
+"qty": 40.0,
+"unit_price": 1.1,
+"amount": 44.0,
+"origin": "CN",
+"hs_code": "39239000"
+},
+{
+"part_no": "2.608.900.447",
+"qty": 1.0,
+"unit_price": 113.85,
+"amount": 113.85,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.642.211",
+"qty": 10.0,
+"unit_price": 21.0,
+"amount": 210.0,
+"origin": "CN",
+"hs_code": "82023900"
+},
+{
+"part_no": "2.608.900.447",
+"qty": 1.0,
+"unit_price": 113.85,
+"amount": 113.85,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "1.600.A03.B64",
+"qty": 6.0,
+"unit_price": 2.38,
+"amount": 14.28,
+"origin": "CN",
+"hs_code": "96084000"
+},
+{
+"part_no": "1.600.A03.AK2",
+"qty": 6.0,
+"unit_price": 3.6,
+"amount": 21.6,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AH7",
+"qty": 6.0,
+"unit_price": 1.22,
+"amount": 7.32,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "2.608.901.957",
+"qty": 2.0,
+"unit_price": 10.25,
+"amount": 20.5,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "1.600.A03.9TE",
+"qty": 5.0,
+"unit_price": 2.73,
+"amount": 13.65,
+"origin": "CN",
+"hs_code": "82054000"
+},
+{
+"part_no": "2.608.590.091",
+"qty": 120.0,
+"unit_price": 2.96,
+"amount": 355.2,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.901.957",
+"qty": 1.0,
+"unit_price": 10.25,
+"amount": 10.25,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "1.600.A03.9R3",
+"qty": 30.0,
+"unit_price": 3.01,
+"amount": 90.3,
+"origin": "CN",
+"hs_code": "82021000"
+},
+{
+"part_no": "1.600.A03.AH7",
+"qty": 108.0,
+"unit_price": 1.22,
+"amount": 131.76,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AJ2",
+"qty": 96.0,
+"unit_price": 1.46,
+"amount": 140.16,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AJ5",
+"qty": 108.0,
+"unit_price": 1.77,
+"amount": 191.16,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AJ9",
+"qty": 108.0,
+"unit_price": 2.19,
+"amount": 236.52,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AL5",
+"qty": 60.0,
+"unit_price": 1.15,
+"amount": 69.0,
+"origin": "CN",
+"hs_code": "96092000"
+},
+{
+"part_no": "1.600.A03.B64",
+"qty": 138.0,
+"unit_price": 2.38,
+"amount": 328.44,
+"origin": "CN",
+"hs_code": "96084000"
+},
+{
+"part_no": "2.608.901.957",
+"qty": 2.0,
+"unit_price": 10.25,
+"amount": 20.5,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.957",
+"qty": 3.0,
+"unit_price": 10.25,
+"amount": 30.75,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.957",
+"qty": 2.0,
+"unit_price": 10.25,
+"amount": 20.5,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.595.422",
+"qty": 7.0,
+"unit_price": 1.89,
+"amount": 13.23,
+"origin": "CN",
+"hs_code": "82079099"
+},
+{
+"part_no": "2.608.578.516",
+"qty": 40.0,
+"unit_price": 1.23,
+"amount": 49.2,
+"origin": "CN",
+"hs_code": "82079099"
+},
+{
+"part_no": "2.608.628.462",
+"qty": 6.0,
+"unit_price": 1.47,
+"amount": 8.82,
+"origin": "CN",
+"hs_code": "82079099"
+},
+{
+"part_no": "2.608.577.055",
+"qty": 35.0,
+"unit_price": 1.1,
+"amount": 38.5,
+"origin": "CN",
+"hs_code": "82075060"
+},
+{
+"part_no": "2.608.595.423",
+"qty": 7.0,
+"unit_price": 2.06,
+"amount": 14.42,
+"origin": "CN",
+"hs_code": "82079099"
+},
+{
+"part_no": "2.608.642.602",
+"qty": 8.0,
+"unit_price": 6.91,
+"amount": 55.28,
+"origin": "CN",
+"hs_code": "82023900"
+},
+{
+"part_no": "2.608.585.846",
+"qty": 70.0,
+"unit_price": 0.87,
+"amount": 60.9,
+"origin": "CN",
+"hs_code": "82075060"
+},
+{
+"part_no": "2.608.628.458",
+"qty": 6.0,
+"unit_price": 2.74,
+"amount": 16.44,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "1.618.596.238",
+"qty": 1.0,
+"unit_price": 18.76,
+"amount": 18.76,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.601.115",
+"qty": 6.0,
+"unit_price": 8.22,
+"amount": 49.32,
+"origin": "CZ",
+"hs_code": "84661038"
+},
+{
+"part_no": "2.608.596.186",
+"qty": 5.0,
+"unit_price": 4.95,
+"amount": 24.75,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "1.618.596.167",
+"qty": 30.0,
+"unit_price": 1.5,
+"amount": 45.0,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "1.602.025.024",
+"qty": 50.0,
+"unit_price": 0.84,
+"amount": 42.0,
+"origin": "DE",
+"hs_code": "39269097"
+},
+{
+"part_no": "2.608.596.118",
+"qty": 1.0,
+"unit_price": 10.09,
+"amount": 10.09,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.577.349",
+"qty": 2.0,
+"unit_price": 5.18,
+"amount": 10.36,
+"origin": "CN",
+"hs_code": "82075060"
+},
+{
+"part_no": "2.608.901.189",
+"qty": 1.0,
+"unit_price": 3.74,
+"amount": 3.74,
+"origin": "CH",
+"hs_code": "68042290"
+},
+{
+"part_no": "2.608.900.565",
+"qty": 1.0,
+"unit_price": 13.81,
+"amount": 13.81,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.900.595",
+"qty": 2.0,
+"unit_price": 6.19,
+"amount": 12.38,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.901.201",
+"qty": 1.0,
+"unit_price": 3.37,
+"amount": 3.37,
+"origin": "CH",
+"hs_code": "68042290"
+},
+{
+"part_no": "2.608.599.049",
+"qty": 10.0,
+"unit_price": 3.9,
+"amount": 39.0,
+"origin": "CN",
+"hs_code": "68042100"
+},
+{
+"part_no": "2.608.003.032",
+"qty": 1.0,
+"unit_price": 6.81,
+"amount": 6.81,
+"origin": "CN",
+"hs_code": "82042000"
+},
+{
+"part_no": "2.608.900.662",
+"qty": 3.0,
+"unit_price": 12.8,
+"amount": 38.4,
+"origin": "VN",
+"hs_code": "68042100"
+},
+{
+"part_no": "2.608.901.189",
+"qty": 7.0,
+"unit_price": 3.74,
+"amount": 26.18,
+"origin": "CH",
+"hs_code": "68042290"
+},
+{
+"part_no": "2.600.100.222",
+"qty": 1.0,
+"unit_price": 0.35,
+"amount": 0.35,
+"origin": "CN",
+"hs_code": "73269098"
+},
+{
+"part_no": "2.608.599.049",
+"qty": 5.0,
+"unit_price": 3.9,
+"amount": 19.5,
+"origin": "CN",
+"hs_code": "68042100"
+},
+{
+"part_no": "2.608.900.014",
+"qty": 3.0,
+"unit_price": 9.36,
+"amount": 28.08,
+"origin": "CH",
+"hs_code": "82029920"
+},
+{
+"part_no": "2.608.900.045",
+"qty": 3.0,
+"unit_price": 12.94,
+"amount": 38.82,
+"origin": "CH",
+"hs_code": "68053000"
+},
+{
+"part_no": "2.608.900.238",
+"qty": 1.0,
+"unit_price": 15.64,
+"amount": 15.64,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.900.247",
+"qty": 3.0,
+"unit_price": 25.76,
+"amount": 77.28,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.900.315",
+"qty": 45.0,
+"unit_price": 1.07,
+"amount": 48.15,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.319",
+"qty": 15.0,
+"unit_price": 1.08,
+"amount": 16.2,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.323",
+"qty": 5.0,
+"unit_price": 1.2,
+"amount": 6.0,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.322",
+"qty": 30.0,
+"unit_price": 1.21,
+"amount": 36.3,
+"origin": "CN",
+"hs_code": "82077090"
+},
+{
+"part_no": "2.608.900.423",
+"qty": 2.0,
+"unit_price": 7.71,
+"amount": 15.42,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.900.563",
+"qty": 3.0,
+"unit_price": 10.12,
+"amount": 30.36,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.900.625",
+"qty": 25.0,
+"unit_price": 2.21,
+"amount": 55.25,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.562",
+"qty": 2.0,
+"unit_price": 9.79,
+"amount": 19.58,
+"origin": "CH",
+"hs_code": "82029100"
+},
+{
+"part_no": "2.608.669.136",
+"qty": 2.0,
+"unit_price": 6.51,
+"amount": 13.02,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.706.910",
+"qty": 1.0,
+"unit_price": 1.96,
+"amount": 1.96,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "1.600.A03.9PP",
+"qty": 112.0,
+"unit_price": 7.45,
+"amount": 834.4,
+"origin": "CN",
+"hs_code": "82054000"
+},
+{
+"part_no": "2.608.000.332",
+"qty": 8.0,
+"unit_price": 9.12,
+"amount": 72.96,
+"origin": "MX",
+"hs_code": "84679900"
+},
+{
+"part_no": "2.608.657.409",
+"qty": 25.0,
+"unit_price": 14.82,
+"amount": 370.5,
+"origin": "CH",
+"hs_code": "82029100"
+},
+{
+"part_no": "2.608.654.404",
+"qty": 100.0,
+"unit_price": 7.18,
+"amount": 718.0,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "1.600.A03.AA4",
+"qty": 75.0,
+"unit_price": 6.06,
+"amount": 454.5,
+"origin": "CN",
+"hs_code": "90318020"
+},
+{
+"part_no": "1.600.A03.AA4",
+"qty": 5.0,
+"unit_price": 6.06,
+"amount": 30.3,
+"origin": "CN",
+"hs_code": "90318020"
+},
+{
+"part_no": "2.608.900.330",
+"qty": 20.0,
+"unit_price": 1.96,
+"amount": 39.2,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.330",
+"qty": 10.0,
+"unit_price": 1.96,
+"amount": 19.6,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.330",
+"qty": 15.0,
+"unit_price": 1.96,
+"amount": 29.4,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.439",
+"qty": 2.0,
+"unit_price": 13.64,
+"amount": 27.28,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.900.527",
+"qty": 1.0,
+"unit_price": 6.52,
+"amount": 6.52,
+"origin": "CN",
+"hs_code": "84661038"
+},
+{
+"part_no": "2.608.900.330",
+"qty": 5.0,
+"unit_price": 1.96,
+"amount": 9.8,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.527",
+"qty": 1.0,
+"unit_price": 6.52,
+"amount": 6.52,
+"origin": "CN",
+"hs_code": "84661038"
+},
+{
+"part_no": "2.608.654.404",
+"qty": 100.0,
+"unit_price": 7.18,
+"amount": 718.0,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.706.910",
+"qty": 1.0,
+"unit_price": 1.96,
+"amount": 1.96,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.594.070",
+"qty": 1.0,
+"unit_price": 15.01,
+"amount": 15.01,
+"origin": "CN",
+"hs_code": "82075060"
+},
+{
+"part_no": "2.608.900.563",
+"qty": 2.0,
+"unit_price": 10.12,
+"amount": 20.24,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.594.070",
+"qty": 1.0,
+"unit_price": 15.01,
+"amount": 15.01,
+"origin": "CN",
+"hs_code": "82075060"
+},
+{
+"part_no": "2.608.900.045",
+"qty": 2.0,
+"unit_price": 12.94,
+"amount": 25.88,
+"origin": "CH",
+"hs_code": "68053000"
+},
+{
+"part_no": "2.608.900.527",
+"qty": 2.0,
+"unit_price": 6.52,
+"amount": 13.04,
+"origin": "CN",
+"hs_code": "84661038"
+},
+{
+"part_no": "2.608.900.527",
+"qty": 2.0,
+"unit_price": 6.52,
+"amount": 13.04,
+"origin": "CN",
+"hs_code": "84661038"
+},
+{
+"part_no": "2.608.643.071",
+"qty": 80.0,
+"unit_price": 4.88,
+"amount": 390.4,
+"origin": "CN",
+"hs_code": "82023900"
+},
+{
+"part_no": "2.608.630.032",
+"qty": 30.0,
+"unit_price": 1.47,
+"amount": 44.1,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.900.423",
+"qty": 11.0,
+"unit_price": 7.71,
+"amount": 84.81,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.609.200.233",
+"qty": 4.0,
+"unit_price": 1.38,
+"amount": 5.52,
+"origin": "AT",
+"hs_code": "83052000"
+},
+{
+"part_no": "2.608.604.495",
+"qty": 5.0,
+"unit_price": 2.16,
+"amount": 10.8,
+"origin": "CH",
+"hs_code": "68053000"
+},
+{
+"part_no": "2.608.656.014",
+"qty": 950.0,
+"unit_price": 3.83,
+"amount": 3638.5,
+"origin": "CH",
+"hs_code": "82029100"
+},
+{
+"part_no": "2.608.577.349",
+"qty": 1.0,
+"unit_price": 5.18,
+"amount": 5.18,
+"origin": "CN",
+"hs_code": "82075060"
+},
+{
+"part_no": "2.608.900.427",
+"qty": 1.0,
+"unit_price": 8.91,
+"amount": 8.91,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.189",
+"qty": 4.0,
+"unit_price": 3.74,
+"amount": 14.96,
+"origin": "CH",
+"hs_code": "68042290"
+},
+{
+"part_no": "2.608.900.563",
+"qty": 1.0,
+"unit_price": 10.12,
+"amount": 10.12,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.900.563",
+"qty": 4.0,
+"unit_price": 10.12,
+"amount": 40.48,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.669.125",
+"qty": 1.0,
+"unit_price": 3.85,
+"amount": 3.85,
+"origin": "CN",
+"hs_code": "84661038"
+},
+{
+"part_no": "2.608.900.380",
+"qty": 1.0,
+"unit_price": 8.61,
+"amount": 8.61,
+"origin": "CH",
+"hs_code": "82029100"
+},
+{
+"part_no": "2.608.577.349",
+"qty": 3.0,
+"unit_price": 5.18,
+"amount": 15.54,
+"origin": "CN",
+"hs_code": "82075060"
+},
+{
+"part_no": "2.608.596.186",
+"qty": 10.0,
+"unit_price": 4.95,
+"amount": 49.5,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.900.562",
+"qty": 10.0,
+"unit_price": 9.79,
+"amount": 97.9,
+"origin": "CH",
+"hs_code": "82029100"
+},
+{
+"part_no": "2.608.900.587",
+"qty": 20.0,
+"unit_price": 1.76,
+"amount": 35.2,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.527",
+"qty": 1.0,
+"unit_price": 6.52,
+"amount": 6.52,
+"origin": "CN",
+"hs_code": "84661038"
+},
+{
+"part_no": "2.608.900.419",
+"qty": 10.0,
+"unit_price": 4.58,
+"amount": 45.8,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.900.427",
+"qty": 11.0,
+"unit_price": 8.91,
+"amount": 98.01,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "1.600.A03.AK8",
+"qty": 165.0,
+"unit_price": 4.95,
+"amount": 816.75,
+"origin": "CN",
+"hs_code": "82052000"
+},
+{
+"part_no": "1.600.A03.9PP",
+"qty": 4.0,
+"unit_price": 7.45,
+"amount": 29.8,
+"origin": "CN",
+"hs_code": "82054000"
+},
+{
+"part_no": "1.600.A03.9PP",
+"qty": 136.0,
+"unit_price": 7.45,
+"amount": 1013.2,
+"origin": "CN",
+"hs_code": "82054000"
+},
+{
+"part_no": "1.600.A03.9PP",
+"qty": 4.0,
+"unit_price": 7.45,
+"amount": 29.8,
+"origin": "CN",
+"hs_code": "82054000"
+},
+{
+"part_no": "1.600.A03.AJ7",
+"qty": 6.0,
+"unit_price": 1.94,
+"amount": 11.64,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AJ7",
+"qty": 108.0,
+"unit_price": 1.94,
+"amount": 209.52,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "2.608.901.953",
+"qty": 1.0,
+"unit_price": 9.76,
+"amount": 9.76,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.900.371",
+"qty": 2.0,
+"unit_price": 10.13,
+"amount": 20.26,
+"origin": "CH",
+"hs_code": "82029100"
+},
+{
+"part_no": "2.608.901.455",
+"qty": 15.0,
+"unit_price": 8.97,
+"amount": 134.55,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "1.600.A03.AG8",
+"qty": 6.0,
+"unit_price": 2.99,
+"amount": 17.94,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AA6",
+"qty": 20.0,
+"unit_price": 10.7,
+"amount": 214.0,
+"origin": "CN",
+"hs_code": "90318020"
+},
+{
+"part_no": "2.608.900.245",
+"qty": 1.0,
+"unit_price": 20.36,
+"amount": 20.36,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.900.241",
+"qty": 1.0,
+"unit_price": 23.78,
+"amount": 23.78,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.901.962",
+"qty": 1.0,
+"unit_price": 15.71,
+"amount": 15.71,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.958",
+"qty": 1.0,
+"unit_price": 10.71,
+"amount": 10.71,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.957",
+"qty": 1.0,
+"unit_price": 10.25,
+"amount": 10.25,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.952",
+"qty": 1.0,
+"unit_price": 9.55,
+"amount": 9.55,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.900.535",
+"qty": 1.0,
+"unit_price": 11.48,
+"amount": 11.48,
+"origin": "KR",
+"hs_code": "68042100"
+},
+{
+"part_no": "2.608.690.565",
+"qty": 1.0,
+"unit_price": 6.61,
+"amount": 6.61,
+"origin": "IT",
+"hs_code": "82079099"
+},
+{
+"part_no": "2.608.690.570",
+"qty": 1.0,
+"unit_price": 12.05,
+"amount": 12.05,
+"origin": "IT",
+"hs_code": "82079099"
+},
+{
+"part_no": "1.600.A03.AJ1",
+"qty": 6.0,
+"unit_price": 1.43,
+"amount": 8.58,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "2.608.901.455",
+"qty": 2.0,
+"unit_price": 8.97,
+"amount": 17.94,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "1.600.A03.BZ5",
+"qty": 3.0,
+"unit_price": 5.6,
+"amount": 16.8,
+"origin": "CN",
+"hs_code": "82021000"
+},
+{
+"part_no": "1.600.A03.AJ4",
+"qty": 6.0,
+"unit_price": 1.64,
+"amount": 9.84,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.9TB",
+"qty": 6.0,
+"unit_price": 2.3,
+"amount": 13.8,
+"origin": "CN",
+"hs_code": "82054000"
+},
+{
+"part_no": "1.600.A03.9PP",
+"qty": 4.0,
+"unit_price": 7.45,
+"amount": 29.8,
+"origin": "CN",
+"hs_code": "82054000"
+},
+{
+"part_no": "1.600.A03.DP0",
+"qty": 35.0,
+"unit_price": 2.38,
+"amount": 83.3,
+"origin": "CN",
+"hs_code": "82031000"
+},
+{
+"part_no": "1.600.A03.BZ5",
+"qty": 69.0,
+"unit_price": 5.6,
+"amount": 386.4,
+"origin": "CN",
+"hs_code": "82021000"
+},
+{
+"part_no": "1.600.A03.AH8",
+"qty": 108.0,
+"unit_price": 1.22,
+"amount": 131.76,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.600.A03.AG6",
+"qty": 12.0,
+"unit_price": 2.42,
+"amount": 29.04,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "1.619.P06.514",
+"qty": 10.0,
+"unit_price": 11.8,
+"amount": 118.0,
+"origin": "CN",
+"hs_code": "84798997"
+},
+{
+"part_no": "2.608.900.340",
+"qty": 5.0,
+"unit_price": 1.3,
+"amount": 6.5,
+"origin": "CN",
+"hs_code": "82077090"
+},
+{
+"part_no": "2.608.900.318",
+"qty": 5.0,
+"unit_price": 1.06,
+"amount": 5.3,
+"origin": "CN",
+"hs_code": "82077090"
+},
+{
+"part_no": "2.608.900.315",
+"qty": 5.0,
+"unit_price": 1.07,
+"amount": 5.35,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.038",
+"qty": 1.0,
+"unit_price": 9.97,
+"amount": 9.97,
+"origin": "TW",
+"hs_code": "68042100"
+},
+{
+"part_no": "2.608.900.043",
+"qty": 1.0,
+"unit_price": 11.91,
+"amount": 11.91,
+"origin": "CH",
+"hs_code": "68053000"
+},
+{
+"part_no": "2.608.900.019",
+"qty": 1.0,
+"unit_price": 9.81,
+"amount": 9.81,
+"origin": "CH",
+"hs_code": "82029920"
+},
+{
+"part_no": "2.600.100.222",
+"qty": 1.0,
+"unit_price": 0.35,
+"amount": 0.35,
+"origin": "CN",
+"hs_code": "73269098"
+},
+{
+"part_no": "2.608.589.577",
+"qty": 1.0,
+"unit_price": 4.19,
+"amount": 4.19,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.901.961",
+"qty": 1.0,
+"unit_price": 13.33,
+"amount": 13.33,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.960",
+"qty": 1.0,
+"unit_price": 11.14,
+"amount": 11.14,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.959",
+"qty": 1.0,
+"unit_price": 10.74,
+"amount": 10.74,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.956",
+"qty": 1.0,
+"unit_price": 10.25,
+"amount": 10.25,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.955",
+"qty": 1.0,
+"unit_price": 10.25,
+"amount": 10.25,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.954",
+"qty": 1.0,
+"unit_price": 9.62,
+"amount": 9.62,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.189",
+"qty": 1.0,
+"unit_price": 3.74,
+"amount": 3.74,
+"origin": "CH",
+"hs_code": "68042290"
+},
+{
+"part_no": "2.608.003.032",
+"qty": 1.0,
+"unit_price": 6.81,
+"amount": 6.81,
+"origin": "CN",
+"hs_code": "82042000"
+},
+{
+"part_no": "2.608.900.324",
+"qty": 5.0,
+"unit_price": 1.53,
+"amount": 7.65,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.442",
+"qty": 1.0,
+"unit_price": 13.89,
+"amount": 13.89,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.900.544",
+"qty": 10.0,
+"unit_price": 5.29,
+"amount": 52.9,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.900.562",
+"qty": 3.0,
+"unit_price": 9.79,
+"amount": 29.37,
+"origin": "CH",
+"hs_code": "82029100"
+},
+{
+"part_no": "2.608.901.201",
+"qty": 10.0,
+"unit_price": 3.37,
+"amount": 33.7,
+"origin": "CH",
+"hs_code": "68042290"
+},
+{
+"part_no": "2.608.669.078",
+"qty": 8.0,
+"unit_price": 5.43,
+"amount": 43.44,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.669.136",
+"qty": 1.0,
+"unit_price": 6.51,
+"amount": 6.51,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.669.128",
+"qty": 1.0,
+"unit_price": 5.58,
+"amount": 5.58,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.669.066",
+"qty": 4.0,
+"unit_price": 5.12,
+"amount": 20.48,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.669.125",
+"qty": 1.0,
+"unit_price": 3.85,
+"amount": 3.85,
+"origin": "CN",
+"hs_code": "84661038"
+},
+{
+"part_no": "2.608.599.049",
+"qty": 5.0,
+"unit_price": 3.9,
+"amount": 19.5,
+"origin": "CN",
+"hs_code": "68042100"
+},
+{
+"part_no": "2.608.900.429",
+"qty": 1.0,
+"unit_price": 12.96,
+"amount": 12.96,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.201",
+"qty": 2.0,
+"unit_price": 3.37,
+"amount": 6.74,
+"origin": "CH",
+"hs_code": "68042290"
+},
+{
+"part_no": "2.608.656.014",
+"qty": 100.0,
+"unit_price": 3.83,
+"amount": 383.0,
+"origin": "CH",
+"hs_code": "82029100"
+},
+{
+"part_no": "2.608.654.981",
+"qty": 100.0,
+"unit_price": 5.88,
+"amount": 588.0,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "1.609.201.795",
+"qty": 10.0,
+"unit_price": 1.36,
+"amount": 13.6,
+"origin": "CN",
+"hs_code": "84199085"
+},
+{
+"part_no": "2.608.706.910",
+"qty": 1.0,
+"unit_price": 1.96,
+"amount": 1.96,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.607.019.506",
+"qty": 54.0,
+"unit_price": 6.15,
+"amount": 332.1,
+"origin": "CN",
+"hs_code": "82060000"
+},
+{
+"part_no": "2.608.900.240",
+"qty": 12.0,
+"unit_price": 17.68,
+"amount": 212.16,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.607.019.506",
+"qty": 72.0,
+"unit_price": 6.15,
+"amount": 442.8,
+"origin": "CN",
+"hs_code": "82060000"
+},
+{
+"part_no": "2.608.900.371",
+"qty": 6.0,
+"unit_price": 10.13,
+"amount": 60.78,
+"origin": "CH",
+"hs_code": "82029100"
+},
+{
+"part_no": "2.608.577.049",
+"qty": 240.0,
+"unit_price": 1.15,
+"amount": 276.0,
+"origin": "CN",
+"hs_code": "82075060"
+},
+{
+"part_no": "2.608.900.544",
+"qty": 10.0,
+"unit_price": 5.29,
+"amount": 52.9,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.900.014",
+"qty": 40.0,
+"unit_price": 9.36,
+"amount": 374.4,
+"origin": "CH",
+"hs_code": "82029920"
+},
+{
+"part_no": "2.608.900.322",
+"qty": 10.0,
+"unit_price": 1.21,
+"amount": 12.1,
+"origin": "CN",
+"hs_code": "82077090"
+},
+{
+"part_no": "2.608.900.595",
+"qty": 1.0,
+"unit_price": 6.19,
+"amount": 6.19,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.323",
+"qty": 5.0,
+"unit_price": 1.2,
+"amount": 6.0,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.561",
+"qty": 2.0,
+"unit_price": 9.76,
+"amount": 19.52,
+"origin": "CH",
+"hs_code": "82029100"
+},
+{
+"part_no": "2.608.003.038",
+"qty": 4.0,
+"unit_price": 13.01,
+"amount": 52.04,
+"origin": "CN",
+"hs_code": "82042000"
+},
+{
+"part_no": "2.608.669.066",
+"qty": 4.0,
+"unit_price": 5.12,
+"amount": 20.48,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.661.696",
+"qty": 20.0,
+"unit_price": 12.09,
+"amount": 241.8,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.662.561",
+"qty": 10.0,
+"unit_price": 4.59,
+"amount": 45.9,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.900.019",
+"qty": 2.0,
+"unit_price": 9.81,
+"amount": 19.62,
+"origin": "CH",
+"hs_code": "82029920"
+},
+{
+"part_no": "2.608.900.322",
+"qty": 5.0,
+"unit_price": 1.21,
+"amount": 6.05,
+"origin": "CN",
+"hs_code": "82077090"
+},
+{
+"part_no": "2.608.901.201",
+"qty": 3.0,
+"unit_price": 3.37,
+"amount": 10.11,
+"origin": "CH",
+"hs_code": "68042290"
+},
+{
+"part_no": "2.608.669.128",
+"qty": 5.0,
+"unit_price": 5.58,
+"amount": 27.9,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.669.131",
+"qty": 9.0,
+"unit_price": 5.64,
+"amount": 50.76,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.669.120",
+"qty": 6.0,
+"unit_price": 10.32,
+"amount": 61.92,
+"origin": "CH",
+"hs_code": "68042290"
+},
+{
+"part_no": "2.608.669.123",
+"qty": 6.0,
+"unit_price": 16.47,
+"amount": 98.82,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.522.320",
+"qty": 5.0,
+"unit_price": 2.6,
+"amount": 13.0,
+"origin": "CN",
+"hs_code": "84661038"
+},
+{
+"part_no": "2.608.522.351",
+"qty": 5.0,
+"unit_price": 1.52,
+"amount": 7.6,
+"origin": "CN",
+"hs_code": "82042000"
+},
+{
+"part_no": "2.608.596.118",
+"qty": 1.0,
+"unit_price": 10.09,
+"amount": 10.09,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.680.277",
+"qty": 20.0,
+"unit_price": 0.64,
+"amount": 12.8,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.607.019.613",
+"qty": 10.0,
+"unit_price": 9.18,
+"amount": 91.8,
+"origin": "CN",
+"hs_code": "82079030"
+},
+{
+"part_no": "2.608.661.643",
+"qty": 25.0,
+"unit_price": 5.2,
+"amount": 130.0,
+"origin": "CH",
+"hs_code": "82029980"
+},
+{
+"part_no": "2.608.578.516",
+"qty": 10.0,
+"unit_price": 1.23,
+"amount": 12.3,
+"origin": "CN",
+"hs_code": "82079099"
+},
+{
+"part_no": "2.608.596.186",
+"qty": 5.0,
+"unit_price": 4.95,
+"amount": 24.75,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "1.618.596.238",
+"qty": 1.0,
+"unit_price": 18.76,
+"amount": 18.76,
+"origin": "DE",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.551.108",
+"qty": 20.0,
+"unit_price": 1.87,
+"amount": 37.4,
+"origin": "CN",
+"hs_code": "84661038"
+},
+{
+"part_no": "2.608.900.336",
+"qty": 5.0,
+"unit_price": 12.11,
+"amount": 60.55,
+"origin": "CN",
+"hs_code": "82077090"
+},
+{
+"part_no": "2.608.900.336",
+"qty": 15.0,
+"unit_price": 12.11,
+"amount": 181.65,
+"origin": "CN",
+"hs_code": "82077090"
+},
+{
+"part_no": "0.603.3E0.050",
+"qty": 336.0,
+"unit_price": 20.59,
+"amount": 6918.24,
+"origin": "HU",
+"hs_code": "84672920"
+},
+{
+"part_no": "F.016.800.577",
+"qty": 60.0,
+"unit_price": 3.05,
+"amount": 183.0,
+"origin": "CN",
+"hs_code": "84212100"
+},
+{
+"part_no": "0.611.23A.0C0",
+"qty": 10.0,
+"unit_price": 122.69,
+"amount": 1226.9,
+"origin": "HU",
+"hs_code": "84672191"
+},
+{
+"part_no": "0.601.9B2.901",
+"qty": 10.0,
+"unit_price": 51.92,
+"amount": 519.2,
+"origin": "CN",
+"hs_code": "84672920"
+},
+{
+"part_no": "0.603.3E0.050",
+"qty": 18.0,
+"unit_price": 20.59,
+"amount": 370.62,
+"origin": "HU",
+"hs_code": "84672920"
+},
+{
+"part_no": "2.608.901.953",
+"qty": 1.0,
+"unit_price": 9.76,
+"amount": 9.76,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "1.600.A03.AG8",
+"qty": 108.0,
+"unit_price": 2.99,
+"amount": 322.92,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "2.608.901.953",
+"qty": 2.0,
+"unit_price": 9.76,
+"amount": 19.52,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.953",
+"qty": 3.0,
+"unit_price": 9.76,
+"amount": 29.28,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.953",
+"qty": 2.0,
+"unit_price": 9.76,
+"amount": 19.52,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "2.608.901.953",
+"qty": 2.0,
+"unit_price": 9.76,
+"amount": 19.52,
+"origin": "CN",
+"hs_code": "82079078"
+},
+{
+"part_no": "1.600.A03.AJ8",
+"qty": 6.0,
+"unit_price": 2.15,
+"amount": 12.9,
+"origin": "CN",
+"hs_code": "82041100"
+},
+{
+"part_no": "2.608.900.319",
+"qty": 10.0,
+"unit_price": 1.08,
+"amount": 10.8,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.900.319",
+"qty": 10.0,
+"unit_price": 1.08,
+"amount": 10.8,
+"origin": "CN",
+"hs_code": "82075090"
+},
+{
+"part_no": "2.608.901.405",
+"qty": 5.0,
+"unit_price": 8.77,
+"amount": 43.85,
+"origin": "CN",
+"hs_code": "82079071"
+},
+{
+"part_no": "2.608.901.405",
+"qty": 10.0,
+"unit_price": 8.77,
+"amount": 87.7,
+"origin": "CN",
+"hs_code": "82079071"
+},
+{
+"part_no": "2.607.017.195",
+"qty": 12.0,
+"unit_price": 17.37,
+"amount": 208.44,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.607.017.195",
+"qty": 6.0,
+"unit_price": 17.37,
+"amount": 104.22,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.609.390.133",
+"qty": 70.0,
+"unit_price": 2.24,
+"amount": 156.8,
+"origin": "DE",
+"hs_code": "82075030"
+}
+]
+},
+"90-C-26PT-405_50654373": {
+"header": {
+"invoice_no": "50654373",
+"invoice_date": "2026-06-26",
+"total_pkg": 1.0,
+"gross_weight_kg": 65.0,
+"incoterm": "FCA Worms",
+"item_line_count": 1,
+"total_quantity": 800.0,
+"amount": 1456.0,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "1.619.M01.4EG",
+"qty": 800.0,
+"unit_price": 1.82,
+"amount": 1456.0,
+"origin": "CN",
+"hs_code": "61159500"
+}
+]
+},
+"90-S-26PT-407_50663797": {
+"header": {
+"invoice_no": "50663797",
+"invoice_date": "2026-08-24",
+"total_pkg": 5.0,
+"gross_weight_kg": 239.4,
+"incoterm": "FCA Hangzhou",
+"item_line_count": 10,
+"total_quantity": 2740.0,
+"amount": 4509.8,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "2.608.588.417",
+"qty": 100.0,
+"unit_price": 1.44,
+"amount": 144.0,
+"origin": "CN",
+"hs_code": "82075060"
+},
+{
+"part_no": "2.608.682.157",
+"qty": 100.0,
+"unit_price": 1.56,
+"amount": 156.0,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.706.902",
+"qty": 300.0,
+"unit_price": 1.51,
+"amount": 453.0,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.706.902",
+"qty": 800.0,
+"unit_price": 1.51,
+"amount": 1208.0,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.706.940",
+"qty": 40.0,
+"unit_price": 3.42,
+"amount": 136.8,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.682.157",
+"qty": 100.0,
+"unit_price": 1.56,
+"amount": 156.0,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.706.919",
+"qty": 600.0,
+"unit_price": 2.36,
+"amount": 1416.0,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.706.881",
+"qty": 300.0,
+"unit_price": 1.2,
+"amount": 360.0,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.706.881",
+"qty": 100.0,
+"unit_price": 1.2,
+"amount": 120.0,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.706.881",
+"qty": 300.0,
+"unit_price": 1.2,
+"amount": 360.0,
+"origin": "CN",
+"hs_code": "82075030"
+}
+]
+},
+"90-S-26PT-407_50663901": {
+"header": {
+"invoice_no": "50663901",
+"invoice_date": "2026-08-24",
+"total_pkg": 4.0,
+"gross_weight_kg": 895.92,
+"incoterm": "FCA Hangzhou",
+"item_line_count": 4,
+"total_quantity": 208.0,
+"amount": 20053.84,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "0.611.279.0C0",
+"qty": 24.0,
+"unit_price": 213.0,
+"amount": 5112.0,
+"origin": "CN",
+"hs_code": "8467299000"
+},
+{
+"part_no": "0.601.9C5.0K1",
+"qty": 120.0,
+"unit_price": 31.47,
+"amount": 3776.4,
+"origin": "CN",
+"hs_code": "8467299000"
+},
+{
+"part_no": "0.611.332.1C0",
+"qty": 32.0,
+"unit_price": 174.46,
+"amount": 5582.72,
+"origin": "CN",
+"hs_code": "8467299000"
+},
+{
+"part_no": "0.611.332.1C0",
+"qty": 32.0,
+"unit_price": 174.46,
+"amount": 5582.72,
+"origin": "CN",
+"hs_code": "8467299000"
+}
+]
+},
+"90-S-26PT-409_50663231": {
+"header": {
+"invoice_no": "50663231",
+"invoice_date": "2026-08-19",
+"total_pkg": 12.0,
+"gross_weight_kg": 4100.0,
+"incoterm": "FCA Shanghai",
+"item_line_count": 4,
+"total_quantity": 20160.0,
+"amount": 14918.4,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "soft: packing rows sum 1 != total_pkg 12 (Packing details summary kept; verify on PDF); source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "2.608.626.199",
+"qty": 5040.0,
+"unit_price": 0.74,
+"amount": 3729.6,
+"origin": "CN",
+"hs_code": "68053000"
+},
+{
+"part_no": "2.608.626.200",
+"qty": 5040.0,
+"unit_price": 0.74,
+"amount": 3729.6,
+"origin": "CN",
+"hs_code": "68053000"
+},
+{
+"part_no": "2.608.626.201",
+"qty": 5040.0,
+"unit_price": 0.74,
+"amount": 3729.6,
+"origin": "CN",
+"hs_code": "68053000"
+},
+{
+"part_no": "2.608.626.202",
+"qty": 5040.0,
+"unit_price": 0.74,
+"amount": 3729.6,
+"origin": "CN",
+"hs_code": "68053000"
+}
+]
+},
+"90-S-26PT-410_50662910": {
+"header": {
+"invoice_no": "50662910",
+"invoice_date": "2026-08-17",
+"total_pkg": 5.0,
+"gross_weight_kg": 1280.304,
+"incoterm": "FCA CHENGDU",
+"item_line_count": 5,
+"total_quantity": 430.0,
+"amount": 14980.86,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "0.601.228.1C0",
+"qty": 72.0,
+"unit_price": 40.79,
+"amount": 2936.88,
+"origin": "CN",
+"hs_code": "8467210000"
+},
+{
+"part_no": "0.601.228.1C0",
+"qty": 72.0,
+"unit_price": 40.79,
+"amount": 2936.88,
+"origin": "CN",
+"hs_code": "8467210000"
+},
+{
+"part_no": "0.601.228.1C0",
+"qty": 72.0,
+"unit_price": 40.79,
+"amount": 2936.88,
+"origin": "CN",
+"hs_code": "8467210000"
+},
+{
+"part_no": "0.601.228.1C0",
+"qty": 72.0,
+"unit_price": 40.79,
+"amount": 2936.88,
+"origin": "CN",
+"hs_code": "8467210000"
+},
+{
+"part_no": "0.601.473.5C0",
+"qty": 142.0,
+"unit_price": 22.77,
+"amount": 3233.34,
+"origin": "CN",
+"hs_code": "8467210000"
+}
+]
+},
+"90-S-26PT-411_50664363": {
+"header": {
+"invoice_no": "50664363",
+"invoice_date": "2026-08-27",
+"total_pkg": 10.0,
+"gross_weight_kg": 1906.0,
+"incoterm": "FCA CHENGDU",
+"item_line_count": 10,
+"total_quantity": 720.0,
+"amount": 21879.36,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "0.601.388.5C0",
+"qty": 72.0,
+"unit_price": 34.72,
+"amount": 2499.84,
+"origin": "CN",
+"hs_code": "8467291000"
+},
+{
+"part_no": "0.601.388.5C0",
+"qty": 72.0,
+"unit_price": 34.72,
+"amount": 2499.84,
+"origin": "CN",
+"hs_code": "8467291000"
+},
+{
+"part_no": "0.601.388.0C0",
+"qty": 72.0,
+"unit_price": 27.5,
+"amount": 1980.0,
+"origin": "CN",
+"hs_code": "8467291000"
+},
+{
+"part_no": "0.601.388.0C0",
+"qty": 72.0,
+"unit_price": 27.5,
+"amount": 1980.0,
+"origin": "CN",
+"hs_code": "8467291000"
+},
+{
+"part_no": "0.601.388.0C0",
+"qty": 72.0,
+"unit_price": 27.5,
+"amount": 1980.0,
+"origin": "CN",
+"hs_code": "8467291000"
+},
+{
+"part_no": "0.601.388.0C0",
+"qty": 72.0,
+"unit_price": 27.5,
+"amount": 1980.0,
+"origin": "CN",
+"hs_code": "8467291000"
+},
+{
+"part_no": "0.601.388.0C0",
+"qty": 72.0,
+"unit_price": 27.5,
+"amount": 1980.0,
+"origin": "CN",
+"hs_code": "8467291000"
+},
+{
+"part_no": "0.601.388.5C0",
+"qty": 72.0,
+"unit_price": 34.72,
+"amount": 2499.84,
+"origin": "CN",
+"hs_code": "8467291000"
+},
+{
+"part_no": "0.601.388.0C0",
+"qty": 72.0,
+"unit_price": 27.5,
+"amount": 1980.0,
+"origin": "CN",
+"hs_code": "8467291000"
+},
+{
+"part_no": "0.601.388.5C0",
+"qty": 72.0,
+"unit_price": 34.72,
+"amount": 2499.84,
+"origin": "CN",
+"hs_code": "8467291000"
+}
+]
+},
+"90-S-26PT-412_50663621": {
+"header": {
+"invoice_no": "50663621",
+"invoice_date": "2026-08-21",
+"total_pkg": 2.0,
+"gross_weight_kg": 356.576,
+"incoterm": "FCA CHENGDU",
+"item_line_count": 2,
+"total_quantity": 144.0,
+"amount": 5221.44,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "0.601.394.1C0",
+"qty": 72.0,
+"unit_price": 36.26,
+"amount": 2610.72,
+"origin": "CN",
+"hs_code": "8467291000"
+},
+{
+"part_no": "0.601.394.1C0",
+"qty": 72.0,
+"unit_price": 36.26,
+"amount": 2610.72,
+"origin": "CN",
+"hs_code": "8467291000"
+}
+]
+},
+"90-S-26PT-413_50664949": {
+"header": {
+"invoice_no": "50664949",
+"invoice_date": "2026-08-31",
+"total_pkg": 2.0,
+"gross_weight_kg": 46.8,
+"incoterm": "FCA Hangzhou",
+"item_line_count": 4,
+"total_quantity": 500.0,
+"amount": 592.0,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "2.608.690.119",
+"qty": 300.0,
+"unit_price": 0.98,
+"amount": 294.0,
+"origin": "CN",
+"hs_code": "82079099"
+},
+{
+"part_no": "2.608.706.902",
+"qty": 20.0,
+"unit_price": 1.51,
+"amount": 30.2,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.706.902",
+"qty": 80.0,
+"unit_price": 1.51,
+"amount": 120.8,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.588.424",
+"qty": 100.0,
+"unit_price": 1.47,
+"amount": 147.0,
+"origin": "CN",
+"hs_code": "82075060"
+}
+]
+},
+"90-S-26PT-414_50665615": {
+"header": {
+"invoice_no": "50665615",
+"invoice_date": "2026-09-03",
+"total_pkg": 8.0,
+"gross_weight_kg": 1721.6,
+"incoterm": "FCA Jingshen",
+"item_line_count": 8,
+"total_quantity": 96.0,
+"amount": 7150.08,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "0.601.B56.0C0",
+"qty": 12.0,
+"unit_price": 74.48,
+"amount": 893.76,
+"origin": "CN",
+"hs_code": "84615000"
+},
+{
+"part_no": "0.601.B56.0C0",
+"qty": 12.0,
+"unit_price": 74.48,
+"amount": 893.76,
+"origin": "CN",
+"hs_code": "84615000"
+},
+{
+"part_no": "0.601.B56.0C0",
+"qty": 12.0,
+"unit_price": 74.48,
+"amount": 893.76,
+"origin": "CN",
+"hs_code": "84615000"
+},
+{
+"part_no": "0.601.B56.0C0",
+"qty": 12.0,
+"unit_price": 74.48,
+"amount": 893.76,
+"origin": "CN",
+"hs_code": "84615000"
+},
+{
+"part_no": "0.601.B56.0C0",
+"qty": 12.0,
+"unit_price": 74.48,
+"amount": 893.76,
+"origin": "CN",
+"hs_code": "84615000"
+},
+{
+"part_no": "0.601.B56.0C0",
+"qty": 12.0,
+"unit_price": 74.48,
+"amount": 893.76,
+"origin": "CN",
+"hs_code": "84615000"
+},
+{
+"part_no": "0.601.B56.0C0",
+"qty": 12.0,
+"unit_price": 74.48,
+"amount": 893.76,
+"origin": "CN",
+"hs_code": "84615000"
+},
+{
+"part_no": "0.601.B56.0C0",
+"qty": 12.0,
+"unit_price": 74.48,
+"amount": 893.76,
+"origin": "CN",
+"hs_code": "84615000"
+}
+]
+},
+"90-S-26PT-415_50664640": {
+"header": {
+"invoice_no": "50664640",
+"invoice_date": "2026-08-28",
+"total_pkg": 1.0,
+"gross_weight_kg": 132.016,
+"incoterm": "FCA Dongguan",
+"item_line_count": 1,
+"total_quantity": 48.0,
+"amount": 3881.76,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "0.601.065.7K1",
+"qty": 48.0,
+"unit_price": 80.87,
+"amount": 3881.76,
+"origin": "CN",
+"hs_code": "9031809090"
+}
+]
+},
+"90-S-26PT-417_50664925": {
+"header": {
+"invoice_no": "50664925",
+"invoice_date": "2026-08-31",
+"total_pkg": 6.0,
+"gross_weight_kg": 71.64,
+"incoterm": "FCA Tianjin",
+"item_line_count": 6,
+"total_quantity": 480.0,
+"amount": 2169.6,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "2.608.522.405",
+"qty": 80.0,
+"unit_price": 4.52,
+"amount": 361.6,
+"origin": "CN",
+"hs_code": "82079030"
+},
+{
+"part_no": "2.608.522.405",
+"qty": 80.0,
+"unit_price": 4.52,
+"amount": 361.6,
+"origin": "CN",
+"hs_code": "82079030"
+},
+{
+"part_no": "2.608.522.405",
+"qty": 80.0,
+"unit_price": 4.52,
+"amount": 361.6,
+"origin": "CN",
+"hs_code": "82079030"
+},
+{
+"part_no": "2.608.522.405",
+"qty": 80.0,
+"unit_price": 4.52,
+"amount": 361.6,
+"origin": "CN",
+"hs_code": "82079030"
+},
+{
+"part_no": "2.608.522.405",
+"qty": 80.0,
+"unit_price": 4.52,
+"amount": 361.6,
+"origin": "CN",
+"hs_code": "82079030"
+},
+{
+"part_no": "2.608.522.405",
+"qty": 80.0,
+"unit_price": 4.52,
+"amount": 361.6,
+"origin": "CN",
+"hs_code": "82079030"
+}
+]
+},
+"90-S-26PT-418_50664217": {
+"header": {
+"invoice_no": "50664217",
+"invoice_date": "2026-08-26",
+"total_pkg": 11.0,
+"gross_weight_kg": 1664.9,
+"incoterm": "FCA Penang",
+"item_line_count": 11,
+"total_quantity": 957.0,
+"amount": 41674.97,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "soft: mixed HS digit lengths [8, 10] (as printed: 84672920); source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "0.601.9L6.0C0",
+"qty": 22.0,
+"unit_price": 76.7,
+"amount": 1687.4,
+"origin": "MY",
+"hs_code": "8467290000"
+},
+{
+"part_no": "0.601.9J9.180",
+"qty": 103.0,
+"unit_price": 46.19,
+"amount": 4757.57,
+"origin": "MY",
+"hs_code": "8467290000"
+},
+{
+"part_no": "0.601.9G8.0C1",
+"qty": 88.0,
+"unit_price": 45.0,
+"amount": 3960.0,
+"origin": "MY",
+"hs_code": "8467290000"
+},
+{
+"part_no": "0.601.9S0.1C0",
+"qty": 60.0,
+"unit_price": 63.9,
+"amount": 3834.0,
+"origin": "MY",
+"hs_code": "8467290000"
+},
+{
+"part_no": "0.601.9L6.0C0",
+"qty": 22.0,
+"unit_price": 76.7,
+"amount": 1687.4,
+"origin": "MY",
+"hs_code": "8467290000"
+},
+{
+"part_no": "0.601.9E0.0C1",
+"qty": 60.0,
+"unit_price": 87.77,
+"amount": 5266.2,
+"origin": "MY",
+"hs_code": "84672920"
+},
+{
+"part_no": "0.601.9G8.0C1",
+"qty": 88.0,
+"unit_price": 45.0,
+"amount": 3960.0,
+"origin": "MY",
+"hs_code": "8467290000"
+},
+{
+"part_no": "0.601.9H2.281",
+"qty": 216.0,
+"unit_price": 20.99,
+"amount": 4533.84,
+"origin": "MY",
+"hs_code": "8467290000"
+},
+{
+"part_no": "0.601.9H2.282",
+"qty": 216.0,
+"unit_price": 23.31,
+"amount": 5034.96,
+"origin": "MY",
+"hs_code": "8467290000"
+},
+{
+"part_no": "0.601.9L6.0C0",
+"qty": 22.0,
+"unit_price": 76.7,
+"amount": 1687.4,
+"origin": "MY",
+"hs_code": "8467290000"
+},
+{
+"part_no": "0.601.9E0.0C1",
+"qty": 60.0,
+"unit_price": 87.77,
+"amount": 5266.2,
+"origin": "MY",
+"hs_code": "84672920"
+}
+]
+},
+"90-S-26PT-418_50664379": {
+"header": {
+"invoice_no": "50664379",
+"invoice_date": "2026-08-27",
+"total_pkg": 2.0,
+"gross_weight_kg": 233.7,
+"incoterm": "FCA Penang",
+"item_line_count": 2,
+"total_quantity": 144.0,
+"amount": 19981.44,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "0.601.081.3K0",
+"qty": 72.0,
+"unit_price": 138.76,
+"amount": 9990.72,
+"origin": "MY",
+"hs_code": "8543709000"
+},
+{
+"part_no": "0.601.081.3K0",
+"qty": 72.0,
+"unit_price": 138.76,
+"amount": 9990.72,
+"origin": "MY",
+"hs_code": "8543709000"
+}
+]
+},
+"90-S-26PT-419_50665577": {
+"header": {
+"invoice_no": "50665577",
+"invoice_date": "2026-09-03",
+"total_pkg": 1.0,
+"gross_weight_kg": 48.0,
+"incoterm": "FCA Hangzhou",
+"item_line_count": 1,
+"total_quantity": 200.0,
+"amount": 2154.0,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "2.608.847.416",
+"qty": 200.0,
+"unit_price": 10.77,
+"amount": 2154.0,
+"origin": "CN",
+"hs_code": "82023900"
+}
+]
+},
+"90-S-26PT-419_50665578": {
+"header": {
+"invoice_no": "50665578",
+"invoice_date": "2026-09-03",
+"total_pkg": 3.0,
+"gross_weight_kg": 32.3,
+"incoterm": "FCA Hangzhou",
+"item_line_count": 4,
+"total_quantity": 340.0,
+"amount": 730.8,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "2.608.832.791",
+"qty": 100.0,
+"unit_price": 1.96,
+"amount": 196.0,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.706.940",
+"qty": 40.0,
+"unit_price": 3.42,
+"amount": 136.8,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.578.083",
+"qty": 100.0,
+"unit_price": 1.96,
+"amount": 196.0,
+"origin": "CN",
+"hs_code": "82075030"
+},
+{
+"part_no": "2.608.578.084",
+"qty": 100.0,
+"unit_price": 2.02,
+"amount": 202.0,
+"origin": "CN",
+"hs_code": "82075030"
+}
+]
+},
+"90-S-26PT-419_50665811": {
+"header": {
+"invoice_no": "50665811",
+"invoice_date": "2026-09-04",
+"total_pkg": 1.0,
+"gross_weight_kg": 82.336,
+"incoterm": "FCA Hangzhou",
+"item_line_count": 1,
+"total_quantity": 48.0,
+"amount": 2575.68,
+"currency": "USD",
+"vendor": "Robert Bosch Power Tools GmbH",
+"origin": null,
+"hs_code": null,
+"bl_no": null,
+"bl_packages": null,
+"bl_gross_weight_kg": null
+},
+"meta": {
+"format_id": "pt_gloria_v1",
+"checker_verdict": "pass",
+"text_backend": "pdftotext -layout",
+"notes": "source=combined; pkl_used=yes",
+"source": "combined"
+},
+"items": [
+{
+"part_no": "0.601.6A1.0C0",
+"qty": 48.0,
+"unit_price": 53.66,
+"amount": 2575.68,
+"origin": "CN",
+"hs_code": "8467229000"
+}
+]
+}
+}
