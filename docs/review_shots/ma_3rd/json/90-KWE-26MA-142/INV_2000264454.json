@@ -1,0 +1,234 @@
+{
+  "header": {
+    "invoice_no": "2000264454",
+    "invoice_date": "2026-02-13",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 131.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 14,
+    "total_quantity": 896.0,
+    "amount": 394774.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040108220",
+    "bl_packages": 3.0,
+    "bl_gross_weight_kg": 240.0
+  },
+  "items": [
+    {
+      "invoice_no": "2000264454",
+      "part_no": "94136105873CA",
+      "description": "Pump element",
+      "qty": 120.0,
+      "unit": "EA",
+      "unit_price": 376.0,
+      "amount": 45120.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "94216208303CA",
+      "description": "Actuator",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 11499.0,
+      "amount": 22998.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "94116103623CA",
+      "description": "Hollow Bolt",
+      "qty": 121.0,
+      "unit": "EA",
+      "unit_price": 95.0,
+      "amount": 11495.0,
+      "origin": "Japan",
+      "hs_code": "8481809000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "94216127393CA",
+      "description": "Sealing Plate",
+      "qty": 186.0,
+      "unit": "EA",
+      "unit_price": 15.0,
+      "amount": 2790.0,
+      "origin": "Japan",
+      "hs_code": "6815990005",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "94216127383CA",
+      "description": "Sealing Plate",
+      "qty": 207.0,
+      "unit": "EA",
+      "unit_price": 15.0,
+      "amount": 3105.0,
+      "origin": "Japan",
+      "hs_code": "4016930002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "94436107043CA",
+      "description": "Pump element",
+      "qty": 40.0,
+      "unit": "EA",
+      "unit_price": 295.0,
+      "amount": 11800.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "94136141943CA",
+      "description": "Pump element",
+      "qty": 3.0,
+      "unit": "EA",
+      "unit_price": 299.0,
+      "amount": 897.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "94436107043CA",
+      "description": "Pump element",
+      "qty": 60.0,
+      "unit": "EA",
+      "unit_price": 295.0,
+      "amount": 17700.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "0986435633KYB",
+      "description": "Injector",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 3499.0,
+      "amount": 41988.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "94436100483CA",
+      "description": "Pump element",
+      "qty": 30.0,
+      "unit": "EA",
+      "unit_price": 295.0,
+      "amount": 8850.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "0445120058KUH",
+      "description": "Injector",
+      "qty": 8.0,
+      "unit": "EA",
+      "unit_price": 4279.0,
+      "amount": 34232.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "0445120058KUH",
+      "description": "Injector",
+      "qty": 40.0,
+      "unit": "EA",
+      "unit_price": 4279.0,
+      "amount": 171160.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "94436118533CA",
+      "description": "Pump element",
+      "qty": 47.0,
+      "unit": "EA",
+      "unit_price": 397.0,
+      "amount": 18659.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264454",
+      "part_no": "H159205371TT1",
+      "description": "Shaft",
+      "qty": 20.0,
+      "unit": "EA",
+      "unit_price": 199.0,
+      "amount": 3980.0,
+      "origin": "Japan",
+      "hs_code": "8483100006",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-142/0011539923_2000264454_RBTW_20260213.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 394774.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-142/0011539923_2000264454_RBTW_20260213.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-142/0011539923_2000264454_RBTW_20260213.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-142/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 14,
+        "got": 14
+      },
+      "total_quantity": {
+        "want": 896.0,
+        "got": 896.0
+      },
+      "amount": {
+        "want": 394774.0,
+        "got": 394774.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 394774.0,
+        "header_amount": 394774.0,
+        "sum_items": 394774.0,
+        "item_count": 14
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

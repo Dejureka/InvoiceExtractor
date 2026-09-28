@@ -1,0 +1,46 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "122040103342",
+    "hbl_no": "122040103342",
+    "mbl_no": null,
+    "vessel": "YM IMMENSE",
+    "voyage": "401S",
+    "etd": "2026-01-30",
+    "eta": null,
+    "pol": "YOKOHAMA",
+    "pod": "KEELUNG",
+    "packages": 2.0,
+    "package_unit": "PACKAGES",
+    "gross_weight_kg": 69.0,
+    "measurement_cbm": 0.267,
+    "load_type": "LCL",
+    "shipper": "BOSCH CORPORATION",
+    "consignee": "ROBERT BOSCH TAIWAN CO., LTD.",
+    "notify": null,
+    "invoice_refs": "2000263620, 2000263621",
+    "container_nos": null,
+    "forwarder": "Kintetsu World Express, Inc. (D/B/A APL Logistics)"
+  },
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-081/ROBERT BOSCH.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": "kwe_sea_waybill_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "pkg reads: nos_of_pkgs=2, pallet+carton=2, page2_pcs=2; GW reads: row=69, total_row=69, page2_kg=69",
+    "doc_kind": "sea_waybill",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "anchors": {
+        "bl_no": "122040103342",
+        "packages": 2.0,
+        "gross_weight_kg": 69.0,
+        "eta": null
+      }
+    },
+    "text_backend_warning": "OCR used (ocr/tesseract): PDF text layer was empty. Column layout may be imperfect vs pdftotext; rules still apply."
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "122040146602",
+    "hbl_no": "122040146602",
+    "mbl_no": null,
+    "vessel": null,
+    "voyage": null,
+    "etd": "2026-09-11",
+    "eta": null,
+    "pol": "YOKOHAMA",
+    "pod": "KEELUNG",
+    "packages": 8.0,
+    "package_unit": "PACKAGES",
+    "gross_weight_kg": 320.8,
+    "measurement_cbm": 1.582,
+    "load_type": "LCL",
+    "shipper": "BOSCH CORPORATION",
+    "consignee": "ROBERT BOSCH TAIWAN CO., LTD.",
+    "notify": null,
+    "invoice_refs": "2000272206, 2000272207, 2000272208, 2000272209, 2000272210, 2000272211, 2000272212, 2000272213",
+    "container_nos": null,
+    "forwarder": "Kintetsu World Express, Inc. (D/B/A APL Logistics)"
+  },
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-721/2986_001 (1).pdf",
+    "text_backend": "ocr/tesseract+prefer_over_stale_layer",
+    "format_id": "kwe_sea_waybill_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "pkg reads: nos_of_pkgs=8, body=8, pallet+carton=2, total_words=8, page2_pcs=8; GW reads: row=320.8, total_row=320.8, page2_kg=320.8",
+    "doc_kind": "sea_waybill",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "anchors": {
+        "bl_no": "122040146602",
+        "packages": 8.0,
+        "gross_weight_kg": 320.8,
+        "eta": null
+      }
+    },
+    "text_backend_warning": "OCR preferred (ocr/tesseract+prefer_over_stale_layer): PDF text layer looked stale/corrupt or contradicted visible packing anchors; rules use OCR text."
+  }
+}

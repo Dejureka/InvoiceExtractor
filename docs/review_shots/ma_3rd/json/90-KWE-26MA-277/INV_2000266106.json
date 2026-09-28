@@ -1,0 +1,186 @@
+{
+  "header": {
+    "invoice_no": "2000266106",
+    "invoice_date": "2026-04-01",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 45.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 10,
+    "total_quantity": 889.0,
+    "amount": 213367.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040116093",
+    "bl_packages": 20.0,
+    "bl_gross_weight_kg": 1437.0
+  },
+  "items": [
+    {
+      "invoice_no": "2000266106",
+      "part_no": "H105017276KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 264.0,
+      "unit": "EA",
+      "unit_price": 278.0,
+      "amount": 73392.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266106",
+      "part_no": "94436118533CA",
+      "description": "Pump element",
+      "qty": 22.0,
+      "unit": "EA",
+      "unit_price": 397.0,
+      "amount": 8734.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266106",
+      "part_no": "94436118533CA",
+      "description": "Pump element",
+      "qty": 81.0,
+      "unit": "EA",
+      "unit_price": 397.0,
+      "amount": 32157.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266106",
+      "part_no": "H105017104KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 395.0,
+      "amount": 9480.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266106",
+      "part_no": "94216127383CA",
+      "description": "Sealing Plate",
+      "qty": 250.0,
+      "unit": "EA",
+      "unit_price": 15.0,
+      "amount": 3750.0,
+      "origin": "Japan",
+      "hs_code": "4016930002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266106",
+      "part_no": "H105025325KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 86.0,
+      "unit": "EA",
+      "unit_price": 306.0,
+      "amount": 26316.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266106",
+      "part_no": "H105017104KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 395.0,
+      "amount": 9480.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266106",
+      "part_no": "H105017363KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 123.0,
+      "unit": "EA",
+      "unit_price": 365.0,
+      "amount": 44895.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266106",
+      "part_no": "H105025278KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 347.0,
+      "amount": 4164.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266106",
+      "part_no": "H105017269KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 3.0,
+      "unit": "EA",
+      "unit_price": 333.0,
+      "amount": 999.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022044_2000266106_RBTW_20260401.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=ROBERT BOSCH.pdf",
+    "labeled_amount": 213367.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022044_2000266106_RBTW_20260401.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022044_2000266106_RBTW_20260401.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/ROBERT BOSCH.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 10,
+        "got": 10
+      },
+      "total_quantity": {
+        "want": 889.0,
+        "got": 889.0
+      },
+      "amount": {
+        "want": 213367.0,
+        "got": 213367.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 213367.0,
+        "header_amount": 213367.0,
+        "sum_items": 213367.0,
+        "item_count": 10
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

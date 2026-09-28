@@ -1,0 +1,114 @@
+{
+  "header": {
+    "invoice_no": "2000266102",
+    "invoice_date": "2026-04-01",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 21.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 4,
+    "total_quantity": 492.0,
+    "amount": 52132.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040116093",
+    "bl_packages": 20.0,
+    "bl_gross_weight_kg": 1437.0
+  },
+  "items": [
+    {
+      "invoice_no": "2000266102",
+      "part_no": "94216130143CA",
+      "description": "Sealing Plate",
+      "qty": 250.0,
+      "unit": "EA",
+      "unit_price": 22.0,
+      "amount": 5500.0,
+      "origin": "Japan",
+      "hs_code": "8484100004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266102",
+      "part_no": "H146601070TT1",
+      "description": "Shaft Seal",
+      "qty": 200.0,
+      "unit": "EA",
+      "unit_price": 18.0,
+      "amount": 3600.0,
+      "origin": "Japan",
+      "hs_code": "8487900002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266102",
+      "part_no": "H146601070TT1",
+      "description": "Shaft Seal",
+      "qty": 30.0,
+      "unit": "EA",
+      "unit_price": 18.0,
+      "amount": 540.0,
+      "origin": "Japan",
+      "hs_code": "8487900002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266102",
+      "part_no": "0445120216KUH",
+      "description": "Injector",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 3541.0,
+      "amount": 42492.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022039_2000266102_RBTW_20260401.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=ROBERT BOSCH.pdf",
+    "labeled_amount": 52132.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022039_2000266102_RBTW_20260401.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022039_2000266102_RBTW_20260401.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/ROBERT BOSCH.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 4,
+        "got": 4
+      },
+      "total_quantity": {
+        "want": 492.0,
+        "got": 492.0
+      },
+      "amount": {
+        "want": 52132.0,
+        "got": 52132.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 52132.0,
+        "header_amount": 52132.0,
+        "sum_items": 52132.0,
+        "item_count": 4
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

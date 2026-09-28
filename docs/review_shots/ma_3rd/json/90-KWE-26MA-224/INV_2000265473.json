@@ -1,0 +1,174 @@
+{
+  "header": {
+    "invoice_no": "2000265473",
+    "invoice_date": "2026-03-16",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 14.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 9,
+    "total_quantity": 355.0,
+    "amount": 25137.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040113525",
+    "bl_packages": 6.0,
+    "bl_gross_weight_kg": 510.0
+  },
+  "items": [
+    {
+      "invoice_no": "2000265473",
+      "part_no": "H154000470TT1",
+      "description": "Housing",
+      "qty": 14.0,
+      "unit": "EA",
+      "unit_price": 483.0,
+      "amount": 6762.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000265473",
+      "part_no": "H154101260TT1",
+      "description": "Damper",
+      "qty": 45.0,
+      "unit": "EA",
+      "unit_price": 37.0,
+      "amount": 1665.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000265473",
+      "part_no": "H154154080TT1",
+      "description": "Spring",
+      "qty": 5.0,
+      "unit": "EA",
+      "unit_price": 18.0,
+      "amount": 90.0,
+      "origin": "Japan",
+      "hs_code": "7320200005",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000265473",
+      "part_no": "H105F60240TT1",
+      "description": "Pressure Spindle",
+      "qty": 10.0,
+      "unit": "EA",
+      "unit_price": 52.0,
+      "amount": 520.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000265473",
+      "part_no": "H154200570TT1",
+      "description": "Swivelling Lever",
+      "qty": 15.0,
+      "unit": "EA",
+      "unit_price": 812.0,
+      "amount": 12180.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000265473",
+      "part_no": "H105F62430TT1",
+      "description": "Nozzle Spring",
+      "qty": 25.0,
+      "unit": "EA",
+      "unit_price": 18.0,
+      "amount": 450.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000265473",
+      "part_no": "H131112560TT1",
+      "description": "Spring",
+      "qty": 20.0,
+      "unit": "EA",
+      "unit_price": 18.0,
+      "amount": 360.0,
+      "origin": "Japan",
+      "hs_code": "7320200005",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000265473",
+      "part_no": "H131115160TT1",
+      "description": "mat seal",
+      "qty": 220.0,
+      "unit": "EA",
+      "unit_price": 13.0,
+      "amount": 2860.0,
+      "origin": "Japan",
+      "hs_code": "7419809003",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000265473",
+      "part_no": "H154324310TT1",
+      "description": "Shaft",
+      "qty": 1.0,
+      "unit": "EA",
+      "unit_price": 250.0,
+      "amount": 250.0,
+      "origin": "Japan",
+      "hs_code": "8483100006",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-224/0011844236_2000265473_RBTW_20260316.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosh.pdf",
+    "labeled_amount": 25137.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-224/0011844236_2000265473_RBTW_20260316.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-224/0011844236_2000265473_RBTW_20260316.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-224/robert bosh.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 9,
+        "got": 9
+      },
+      "total_quantity": {
+        "want": 355.0,
+        "got": 355.0
+      },
+      "amount": {
+        "want": 25137.0,
+        "got": 25137.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 25137.0,
+        "header_amount": 25137.0,
+        "sum_items": 25137.0,
+        "item_count": 9
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

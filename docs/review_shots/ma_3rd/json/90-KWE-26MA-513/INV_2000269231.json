@@ -1,0 +1,234 @@
+{
+  "header": {
+    "invoice_no": "2000269231",
+    "invoice_date": "2026-06-15",
+    "total_pkg": 2.0,
+    "gross_weight_kg": 85.7,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 14,
+    "total_quantity": 330.0,
+    "amount": 264434.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040131283",
+    "bl_packages": 14.0,
+    "bl_gross_weight_kg": 1252.0
+  },
+  "items": [
+    {
+      "invoice_no": "2000269231",
+      "part_no": "H105210622TT1",
+      "description": "Feed Pump",
+      "qty": 1.0,
+      "unit": "EA",
+      "unit_price": 878.0,
+      "amount": 878.0,
+      "origin": "Japan",
+      "hs_code": "8413300000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "H105210654TT1",
+      "description": "Feed Pump",
+      "qty": 7.0,
+      "unit": "EA",
+      "unit_price": 1229.0,
+      "amount": 8603.0,
+      "origin": "Japan",
+      "hs_code": "8413300000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "H105019017TT1",
+      "description": "Nozzle Set",
+      "qty": 10.0,
+      "unit": "EA",
+      "unit_price": 606.0,
+      "amount": 6060.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "H105019017TT1",
+      "description": "Nozzle Set",
+      "qty": 36.0,
+      "unit": "EA",
+      "unit_price": 606.0,
+      "amount": 21816.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "94216128813CA",
+      "description": "Control Housing",
+      "qty": 4.0,
+      "unit": "EA",
+      "unit_price": 470.0,
+      "amount": 1880.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "H105015361KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 323.0,
+      "amount": 1938.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "94216170803CA",
+      "description": "Bushing",
+      "qty": 8.0,
+      "unit": "EA",
+      "unit_price": 33.0,
+      "amount": 264.0,
+      "origin": "Japan",
+      "hs_code": "8483302004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "0986435633998",
+      "description": "Injector",
+      "qty": 18.0,
+      "unit": "EA",
+      "unit_price": 3840.0,
+      "amount": 69120.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "94116103283CA",
+      "description": "Pump element",
+      "qty": 100.0,
+      "unit": "EA",
+      "unit_price": 521.0,
+      "amount": 52100.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "0986435633998",
+      "description": "Injector",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 3840.0,
+      "amount": 46080.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "94616101243CA",
+      "description": "Sliding Disc",
+      "qty": 5.0,
+      "unit": "EA",
+      "unit_price": 24.0,
+      "amount": 120.0,
+      "origin": "Japan",
+      "hs_code": "7326900000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "94116103283CA",
+      "description": "Pump element",
+      "qty": 100.0,
+      "unit": "EA",
+      "unit_price": 521.0,
+      "amount": 52100.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "94116106383CA",
+      "description": "Flange Bushing",
+      "qty": 14.0,
+      "unit": "EA",
+      "unit_price": 200.0,
+      "amount": 2800.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000269231",
+      "part_no": "94316102613CA",
+      "description": "Pressure Spindle",
+      "qty": 9.0,
+      "unit": "EA",
+      "unit_price": 75.0,
+      "amount": 675.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-513/0012656898_2000269231_RBTW_20260615.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 264434.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-513/0012656898_2000269231_RBTW_20260615.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-513/0012656898_2000269231_RBTW_20260615.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-513/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 14,
+        "got": 14
+      },
+      "total_quantity": {
+        "want": 330.0,
+        "got": 330.0
+      },
+      "amount": {
+        "want": 264434.0,
+        "got": 264434.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 264434.0,
+        "header_amount": 264434.0,
+        "sum_items": 264434.0,
+        "item_count": 14
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

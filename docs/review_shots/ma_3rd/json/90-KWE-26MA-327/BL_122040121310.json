@@ -1,0 +1,46 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "122040121310",
+    "hbl_no": "122040121310",
+    "mbl_no": null,
+    "vessel": "HORAI BRIDGE",
+    "voyage": "2235S",
+    "etd": "2026-05-01",
+    "eta": null,
+    "pol": "YOKOHAMA",
+    "pod": "KEELUNG",
+    "packages": 9.0,
+    "package_unit": "PACKAGES",
+    "gross_weight_kg": 804.8,
+    "measurement_cbm": 4.471,
+    "load_type": "LCL",
+    "shipper": "BOSCH CORPORATION",
+    "consignee": "ROBERT BOSCH TAIWAN CO., LTD.",
+    "notify": null,
+    "invoice_refs": "2000267006, 2000267007, 2000267008, 2000267009, 2000267010, 2000267011, 2000267012, 2000267013",
+    "container_nos": null,
+    "forwarder": "Kintetsu World Express, Inc. (D/B/A APL Logistics)"
+  },
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-327/robert bosch.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": "kwe_sea_waybill_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "pkg reads: nos_of_pkgs=9, body=9, pallet+carton=9, total_words=9, page2_pcs=9; GW reads: row=804.8, total_row=804.8, page2_kg=804.8",
+    "doc_kind": "sea_waybill",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "anchors": {
+        "bl_no": "122040121310",
+        "packages": 9.0,
+        "gross_weight_kg": 804.8,
+        "eta": null
+      }
+    },
+    "text_backend_warning": "OCR used (ocr/tesseract): PDF text layer was empty. Column layout may be imperfect vs pdftotext; rules still apply."
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "header": {
+    "invoice_no": "2000268684",
+    "invoice_date": "2026-06-01",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 30.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 3,
+    "total_quantity": 2024.0,
+    "amount": 168600.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040128973",
+    "bl_packages": 18.0,
+    "bl_gross_weight_kg": 1651.9
+  },
+  "items": [
+    {
+      "invoice_no": "2000268684",
+      "part_no": "F01G0601CN0ST",
+      "description": "Valve",
+      "qty": 1532.0,
+      "unit": "EA",
+      "unit_price": 36.0,
+      "amount": 55152.0,
+      "origin": "Japan",
+      "hs_code": "8481300004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000268684",
+      "part_no": "F01G0601CN0ST",
+      "description": "Valve",
+      "qty": 468.0,
+      "unit": "EA",
+      "unit_price": 36.0,
+      "amount": 16848.0,
+      "origin": "Japan",
+      "hs_code": "8481300004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000268684",
+      "part_no": "0445120093CGZ",
+      "description": "Injector",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 4025.0,
+      "amount": 96600.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-463/0012554977_2000268684_RBTW_20260601.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 168600.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-463/0012554977_2000268684_RBTW_20260601.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-463/0012554977_2000268684_RBTW_20260601.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-463/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 3,
+        "got": 3
+      },
+      "total_quantity": {
+        "want": 2024.0,
+        "got": 2024.0
+      },
+      "amount": {
+        "want": 168600.0,
+        "got": 168600.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 168600.0,
+        "header_amount": 168600.0,
+        "sum_items": 168600.0,
+        "item_count": 3
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

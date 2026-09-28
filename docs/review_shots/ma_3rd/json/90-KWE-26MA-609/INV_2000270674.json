@@ -1,0 +1,78 @@
+{
+  "header": {
+    "invoice_no": "2000270674",
+    "invoice_date": "2026-07-15",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 8.5,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 1,
+    "total_quantity": 2000.0,
+    "amount": 72000.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040137793",
+    "bl_packages": 9.0,
+    "bl_gross_weight_kg": 1104.3
+  },
+  "items": [
+    {
+      "invoice_no": "2000270674",
+      "part_no": "F01G0601CN0ST",
+      "description": "Valve",
+      "qty": 2000.0,
+      "unit": "EA",
+      "unit_price": 36.0,
+      "amount": 72000.0,
+      "origin": "Japan",
+      "hs_code": "8481300004",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-609/0012931453_2000270674_RBTW_20260715.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 72000.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-609/0012931453_2000270674_RBTW_20260715.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-609/0012931453_2000270674_RBTW_20260715.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-609/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 2000.0,
+        "got": 2000.0
+      },
+      "amount": {
+        "want": 72000.0,
+        "got": 72000.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 72000.0,
+        "header_amount": 72000.0,
+        "sum_items": 72000.0,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

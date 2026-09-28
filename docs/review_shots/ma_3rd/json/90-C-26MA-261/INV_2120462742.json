@@ -1,0 +1,114 @@
+{
+  "header": {
+    "invoice_no": "2120462742",
+    "invoice_date": "2026-03-17",
+    "total_pkg": 9.0,
+    "gross_weight_kg": 7762.0,
+    "incoterm": "FCA Kandel",
+    "item_line_count": 4,
+    "total_quantity": 324.0,
+    "amount": 1165500.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "COSU6447418930",
+    "bl_packages": 10.0,
+    "bl_gross_weight_kg": 8763.0
+  },
+  "items": [
+    {
+      "invoice_no": "2120462742",
+      "part_no": "0.092.PA0.080.FZC",
+      "description": "Starter battery Pb",
+      "qty": 102.0,
+      "unit": "EA",
+      "unit_price": 2980.0,
+      "amount": 303960.0,
+      "origin": "Spain",
+      "hs_code": "85071020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120462742",
+      "part_no": "0.092.PA0.110.C4U",
+      "description": "Starter battery Pb",
+      "qty": 126.0,
+      "unit": "EA",
+      "unit_price": 3442.0,
+      "amount": 433692.0,
+      "origin": "Poland",
+      "hs_code": "85071020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120462742",
+      "part_no": "0.092.PA0.130.C4U",
+      "description": "Starter battery Pb",
+      "qty": 72.0,
+      "unit": "EA",
+      "unit_price": 4505.0,
+      "amount": 324360.0,
+      "origin": "Poland",
+      "hs_code": "85071020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120462742",
+      "part_no": "0.092.PA0.150.FAD",
+      "description": "Starter battery Pb",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 4312.0,
+      "amount": 103488.0,
+      "origin": "Italy",
+      "hs_code": "85071020",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-261/INVOICE 2120462742.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_with_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6447418930.PDF",
+    "labeled_amount": 1165500.0,
+    "labeled_amount_label": "Goods value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-261/INVOICE 2120462742.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-261/INVOICE 2120462742.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-261/BL6447418930.PDF",
+    "bl_used": true,
+    "bl_format_id": "cosco_arrival_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 4,
+        "got": 4
+      },
+      "total_quantity": {
+        "want": 324.0,
+        "got": 324.0
+      },
+      "amount": {
+        "want": 1165500.0,
+        "got": 1165500.0
+      },
+      "labeled_amount": {
+        "label": "Goods value",
+        "want": 1165500.0,
+        "header_amount": 1165500.0,
+        "sum_items": 1165500.0,
+        "item_count": 4
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

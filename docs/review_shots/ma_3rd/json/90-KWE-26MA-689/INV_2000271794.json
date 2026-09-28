@@ -1,0 +1,78 @@
+{
+  "header": {
+    "invoice_no": "2000271794",
+    "invoice_date": "2026-08-17",
+    "total_pkg": 2.0,
+    "gross_weight_kg": 27.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 1,
+    "total_quantity": 10.0,
+    "amount": 19600.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040143706",
+    "bl_packages": 4.0,
+    "bl_gross_weight_kg": 216.9
+  },
+  "items": [
+    {
+      "invoice_no": "2000271794",
+      "part_no": "0265311473G3V",
+      "description": "Hydraulic Unit",
+      "qty": 10.0,
+      "unit": "EA",
+      "unit_price": 1960.0,
+      "amount": 19600.0,
+      "origin": "Japan",
+      "hs_code": "9032891000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-689/0013253261_2000271794_RBTW_20260817.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 19600.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-689/0013253261_2000271794_RBTW_20260817.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-689/0013253261_2000271794_RBTW_20260817.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-689/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 10.0,
+        "got": 10.0
+      },
+      "amount": {
+        "want": 19600.0,
+        "got": 19600.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 19600.0,
+        "header_amount": 19600.0,
+        "sum_items": 19600.0,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

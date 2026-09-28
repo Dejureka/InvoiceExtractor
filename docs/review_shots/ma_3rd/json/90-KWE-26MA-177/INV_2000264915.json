@@ -1,0 +1,162 @@
+{
+  "header": {
+    "invoice_no": "2000264915",
+    "invoice_date": "2026-03-02",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 125.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 8,
+    "total_quantity": 366.0,
+    "amount": 447467.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040110434",
+    "bl_packages": 8.0,
+    "bl_gross_weight_kg": 976.0
+  },
+  "items": [
+    {
+      "invoice_no": "2000264915",
+      "part_no": "H105017937KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 376.0,
+      "amount": 4512.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264915",
+      "part_no": "94216208303CA",
+      "description": "Actuator",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 11499.0,
+      "amount": 22998.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264915",
+      "part_no": "94436114093CA",
+      "description": "Delivery Valve",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 8326.0,
+      "amount": 99912.0,
+      "origin": "Japan",
+      "hs_code": "8481900000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264915",
+      "part_no": "H101H33020TT1",
+      "description": "Seal Ring",
+      "qty": 170.0,
+      "unit": "EA",
+      "unit_price": 951.0,
+      "amount": 161670.0,
+      "origin": "Japan",
+      "hs_code": "3926909000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264915",
+      "part_no": "H105118830TT1",
+      "description": "Nozzle And Holder Assy",
+      "qty": 80.0,
+      "unit": "EA",
+      "unit_price": 913.0,
+      "amount": 73040.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264915",
+      "part_no": "H105019069TT1",
+      "description": "Nozzle Set",
+      "qty": 55.0,
+      "unit": "EA",
+      "unit_price": 713.0,
+      "amount": 39215.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264915",
+      "part_no": "9461615032HRV",
+      "description": "Hydraulic Head",
+      "qty": 20.0,
+      "unit": "EA",
+      "unit_price": 1310.0,
+      "amount": 26200.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264915",
+      "part_no": "F01G0V3000TT1",
+      "description": "Supply Pump",
+      "qty": 15.0,
+      "unit": "EA",
+      "unit_price": 1328.0,
+      "amount": 19920.0,
+      "origin": "Japan",
+      "hs_code": "8413300000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-177/0011728832_2000264915_RBTW_20260302.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 447467.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-177/0011728832_2000264915_RBTW_20260302.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-177/0011728832_2000264915_RBTW_20260302.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-177/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 8,
+        "got": 8
+      },
+      "total_quantity": {
+        "want": 366.0,
+        "got": 366.0
+      },
+      "amount": {
+        "want": 447467.0,
+        "got": 447467.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 447467.0,
+        "header_amount": 447467.0,
+        "sum_items": 447467.0,
+        "item_count": 8
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

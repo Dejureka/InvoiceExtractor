@@ -1,0 +1,78 @@
+{
+  "header": {
+    "invoice_no": "2000269227",
+    "invoice_date": "2026-06-15",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 6.2,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 1,
+    "total_quantity": 4.0,
+    "amount": 11772.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040131283",
+    "bl_packages": 14.0,
+    "bl_gross_weight_kg": 1252.0
+  },
+  "items": [
+    {
+      "invoice_no": "2000269227",
+      "part_no": "H105235158TT1",
+      "description": "Feed Pump",
+      "qty": 4.0,
+      "unit": "EA",
+      "unit_price": 2943.0,
+      "amount": 11772.0,
+      "origin": "Japan",
+      "hs_code": "8413300000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-513/0012656866_2000269227_RBTW_20260615.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 11772.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-513/0012656866_2000269227_RBTW_20260615.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-513/0012656866_2000269227_RBTW_20260615.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-513/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 4.0,
+        "got": 4.0
+      },
+      "amount": {
+        "want": 11772.0,
+        "got": 11772.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 11772.0,
+        "header_amount": 11772.0,
+        "sum_items": 11772.0,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "header": {
+    "invoice_no": "2000266113",
+    "invoice_date": "2026-04-01",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 83.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 15,
+    "total_quantity": 291.0,
+    "amount": 214078.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040116093",
+    "bl_packages": 20.0,
+    "bl_gross_weight_kg": 1437.0
+  },
+  "items": [
+    {
+      "invoice_no": "2000266113",
+      "part_no": "94136104413CA",
+      "description": "Delivery Valve",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 136.0,
+      "amount": 816.0,
+      "origin": "Japan",
+      "hs_code": "8481900000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "94136101113CA",
+      "description": "Pump element",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 295.0,
+      "amount": 1770.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "94136103033CA",
+      "description": "Delivery Valve",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 122.0,
+      "amount": 2928.0,
+      "origin": "Japan",
+      "hs_code": "8481900000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "H105025450KMH",
+      "description": "Nozzle",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 295.0,
+      "amount": 590.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "H105017104KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 43.0,
+      "unit": "EA",
+      "unit_price": 395.0,
+      "amount": 16985.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "H105017376KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 72.0,
+      "unit": "EA",
+      "unit_price": 325.0,
+      "amount": 23400.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "H105237473TT1",
+      "description": "Feed Pump",
+      "qty": 20.0,
+      "unit": "EA",
+      "unit_price": 876.0,
+      "amount": 17520.0,
+      "origin": "Japan",
+      "hs_code": "8413300000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "H105F24410TT1",
+      "description": "Spacer",
+      "qty": 1.0,
+      "unit": "EA",
+      "unit_price": 74.0,
+      "amount": 74.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "0445120236KUH",
+      "description": "Injector",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 3374.0,
+      "amount": 20244.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "0445120236KUH",
+      "description": "Injector",
+      "qty": 30.0,
+      "unit": "EA",
+      "unit_price": 3374.0,
+      "amount": 101220.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "H154200712TT1",
+      "description": "Swivelling Lever",
+      "qty": 10.0,
+      "unit": "EA",
+      "unit_price": 460.0,
+      "amount": 4600.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "H105017182KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 13.0,
+      "unit": "EA",
+      "unit_price": 321.0,
+      "amount": 4173.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "H105017104KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 29.0,
+      "unit": "EA",
+      "unit_price": 395.0,
+      "amount": 11455.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "94136101703CA",
+      "description": "Delivery Valve",
+      "qty": 21.0,
+      "unit": "EA",
+      "unit_price": 155.0,
+      "amount": 3255.0,
+      "origin": "Japan",
+      "hs_code": "8481900000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266113",
+      "part_no": "043317224975N",
+      "description": "Hole-Type Nozzle",
+      "qty": 8.0,
+      "unit": "EA",
+      "unit_price": 631.0,
+      "amount": 5048.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022049_2000266113_RBTW_20260401.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=ROBERT BOSCH.pdf",
+    "labeled_amount": 214078.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022049_2000266113_RBTW_20260401.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022049_2000266113_RBTW_20260401.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/ROBERT BOSCH.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 15,
+        "got": 15
+      },
+      "total_quantity": {
+        "want": 291.0,
+        "got": 291.0
+      },
+      "amount": {
+        "want": 214078.0,
+        "got": 214078.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 214078.0,
+        "header_amount": 214078.0,
+        "sum_items": 214078.0,
+        "item_count": 15
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

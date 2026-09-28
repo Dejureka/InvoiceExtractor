@@ -1,0 +1,90 @@
+{
+  "header": {
+    "invoice_no": "2120470936",
+    "invoice_date": "2026-04-02",
+    "total_pkg": 2.0,
+    "gross_weight_kg": 1730.0,
+    "incoterm": "FCA Karlsruhe",
+    "item_line_count": 2,
+    "total_quantity": 91.0,
+    "amount": 175696.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "COSU6449088340",
+    "bl_packages": 24.0,
+    "bl_gross_weight_kg": 21119.0
+  },
+  "items": [
+    {
+      "invoice_no": "2120470936",
+      "part_no": "0.092.PE0.050.FZC",
+      "description": "Starter battery Pb",
+      "qty": 40.0,
+      "unit": "EA",
+      "unit_price": 1771.0,
+      "amount": 70840.0,
+      "origin": "Spain",
+      "hs_code": "85071020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120470936",
+      "part_no": "0.092.PE0.080.FZC",
+      "description": "Starter battery Pb",
+      "qty": 51.0,
+      "unit": "EA",
+      "unit_price": 2056.0,
+      "amount": 104856.0,
+      "origin": "Spain",
+      "hs_code": "85071020",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-264/INVOICE 2120470936.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_with_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6449088340.PDF",
+    "labeled_amount": 175696.0,
+    "labeled_amount_label": "Goods value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-264/INVOICE 2120470936.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-264/INVOICE 2120470936.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-264/BL6449088340.PDF",
+    "bl_used": true,
+    "bl_format_id": "cosco_arrival_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 2,
+        "got": 2
+      },
+      "total_quantity": {
+        "want": 91.0,
+        "got": 91.0
+      },
+      "amount": {
+        "want": 175696.0,
+        "got": 175696.0
+      },
+      "labeled_amount": {
+        "label": "Goods value",
+        "want": 175696.0,
+        "header_amount": 175696.0,
+        "sum_items": 175696.0,
+        "item_count": 2
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

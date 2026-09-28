@@ -1,0 +1,90 @@
+{
+  "header": {
+    "invoice_no": "2000266648",
+    "invoice_date": "2026-04-15",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 246.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 2,
+    "total_quantity": 26.0,
+    "amount": 173058.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040119501",
+    "bl_packages": 12.0,
+    "bl_gross_weight_kg": 1649.0
+  },
+  "items": [
+    {
+      "invoice_no": "2000266648",
+      "part_no": "0445020042H9F",
+      "description": "Banked-Piston-Pump",
+      "qty": 8.0,
+      "unit": "EA",
+      "unit_price": 21558.0,
+      "amount": 172464.0,
+      "origin": "Japan",
+      "hs_code": "8413300000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266648",
+      "part_no": "F01G0601CN0ST",
+      "description": "Valve",
+      "qty": 18.0,
+      "unit": "EA",
+      "unit_price": 33.0,
+      "amount": 594.0,
+      "origin": "Japan",
+      "hs_code": "8481300004",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-312/0012118328_2000266648_RBTW_20260415.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=ROBERT BOSCH.pdf",
+    "labeled_amount": 173058.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-312/0012118328_2000266648_RBTW_20260415.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-312/0012118328_2000266648_RBTW_20260415.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-312/ROBERT BOSCH.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 2,
+        "got": 2
+      },
+      "total_quantity": {
+        "want": 26.0,
+        "got": 26.0
+      },
+      "amount": {
+        "want": 173058.0,
+        "got": 173058.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 173058.0,
+        "header_amount": 173058.0,
+        "sum_items": 173058.0,
+        "item_count": 2
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

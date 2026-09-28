@@ -1,0 +1,282 @@
+{
+  "header": {
+    "invoice_no": "2000262944",
+    "invoice_date": "2026-01-05",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 136.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 18,
+    "total_quantity": 682.0,
+    "amount": 332944.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040099422",
+    "bl_packages": 5.0,
+    "bl_gross_weight_kg": 431.0
+  },
+  "items": [
+    {
+      "invoice_no": "2000262944",
+      "part_no": "9461617094HRV",
+      "description": "Hydraulic Head",
+      "qty": 26.0,
+      "unit": "EA",
+      "unit_price": 1125.0,
+      "amount": 29250.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "94216207593CA",
+      "description": "Actuator",
+      "qty": 1.0,
+      "unit": "EA",
+      "unit_price": 9853.0,
+      "amount": 9853.0,
+      "origin": "Japan",
+      "hs_code": "8484100004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "94216207593CA",
+      "description": "Actuator",
+      "qty": 1.0,
+      "unit": "EA",
+      "unit_price": 9853.0,
+      "amount": 9853.0,
+      "origin": "Japan",
+      "hs_code": "8484100004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "H105015624KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 18.0,
+      "unit": "EA",
+      "unit_price": 322.0,
+      "amount": 5796.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "H105018095TT1",
+      "description": "Nozzle",
+      "qty": 30.0,
+      "unit": "EA",
+      "unit_price": 976.0,
+      "amount": 29280.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "F01G2051WUTT1",
+      "description": "Hand pump",
+      "qty": 239.0,
+      "unit": "EA",
+      "unit_price": 182.0,
+      "amount": 43498.0,
+      "origin": "Japan",
+      "hs_code": "8413200003",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "H105025400KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 310.0,
+      "amount": 3720.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "H131424152TT1",
+      "description": "Overflow Valve",
+      "qty": 85.0,
+      "unit": "EA",
+      "unit_price": 102.0,
+      "amount": 8670.0,
+      "origin": "Japan",
+      "hs_code": "8481809000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "H105025257KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 298.0,
+      "amount": 596.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "94136104453CA",
+      "description": "Pump element",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 572.0,
+      "amount": 6864.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "94216101133CA",
+      "description": "Coiled Spring",
+      "qty": 30.0,
+      "unit": "EA",
+      "unit_price": 17.0,
+      "amount": 510.0,
+      "origin": "Japan",
+      "hs_code": "7320200005",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "2469403119751",
+      "description": "Sealing Flange",
+      "qty": 100.0,
+      "unit": "EA",
+      "unit_price": 14.0,
+      "amount": 1400.0,
+      "origin": "Japan",
+      "hs_code": "7419809003",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "0445120126KUH",
+      "description": "Injector",
+      "qty": 36.0,
+      "unit": "EA",
+      "unit_price": 3980.0,
+      "amount": 143280.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "H101G50000TT1",
+      "description": "Seal Ring",
+      "qty": 10.0,
+      "unit": "EA",
+      "unit_price": 175.0,
+      "amount": 1750.0,
+      "origin": "Japan",
+      "hs_code": "4016930002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "H105019017TT1",
+      "description": "Nozzle Set",
+      "qty": 9.0,
+      "unit": "EA",
+      "unit_price": 475.0,
+      "amount": 4275.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "H101F12000TT1",
+      "description": "mat seal",
+      "qty": 50.0,
+      "unit": "EA",
+      "unit_price": 25.0,
+      "amount": 1250.0,
+      "origin": "Japan",
+      "hs_code": "8484100004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "0986435633KYB",
+      "description": "Injector",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 3084.0,
+      "amount": 18504.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262944",
+      "part_no": "H154200570TT1",
+      "description": "Swivelling Lever",
+      "qty": 15.0,
+      "unit": "EA",
+      "unit_price": 973.0,
+      "amount": 14595.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-041/0011191496_2000262944_RBTW_20260105.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 332944.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-041/0011191496_2000262944_RBTW_20260105.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-041/0011191496_2000262944_RBTW_20260105.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-041/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 18,
+        "got": 18
+      },
+      "total_quantity": {
+        "want": 682.0,
+        "got": 682.0
+      },
+      "amount": {
+        "want": 332944.0,
+        "got": 332944.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 332944.0,
+        "header_amount": 332944.0,
+        "sum_items": 332944.0,
+        "item_count": 18
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "header": {
+    "invoice_no": "2000262633",
+    "invoice_date": "2025-12-18",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 15.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 2,
+    "total_quantity": 216.0,
+    "amount": 47952.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040099094",
+    "bl_packages": 15.0,
+    "bl_gross_weight_kg": 2962.0
+  },
+  "items": [
+    {
+      "invoice_no": "2000262633",
+      "part_no": "H105025058KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 144.0,
+      "unit": "EA",
+      "unit_price": 221.0,
+      "amount": 31824.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262633",
+      "part_no": "H105015623KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 72.0,
+      "unit": "EA",
+      "unit_price": 224.0,
+      "amount": 16128.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-012/0010889188_2000262633_RBTW_20251218.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 47952.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-012/0010889188_2000262633_RBTW_20251218.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-012/0010889188_2000262633_RBTW_20251218.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-012/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 2,
+        "got": 2
+      },
+      "total_quantity": {
+        "want": 216.0,
+        "got": 216.0
+      },
+      "amount": {
+        "want": 47952.0,
+        "got": 47952.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 47952.0,
+        "header_amount": 47952.0,
+        "sum_items": 47952.0,
+        "item_count": 2
+      },
+      "missing_hs_indices": []
+    }
+  }
+}
