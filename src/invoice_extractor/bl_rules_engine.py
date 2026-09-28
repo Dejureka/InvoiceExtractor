@@ -7,9 +7,11 @@ from typing import Callable, Optional
 
 from invoice_extractor.formats.bl import (
     kwe_air_waybill_v1,
+    kwe_sea_waybill_v1,
     maersk_air_waybill_v1,
     ceva_pyramid_arrival_v1,
     china_progress_bl_v1,
+    cosco_arrival_v1,
     dhl_danmar_bl_v1,
     dhl_lcl_arrival_v1,
     hippopo_arrival_v1,
@@ -34,6 +36,8 @@ BUILTIN_BL: list[tuple[str, Callable[[str, str], float], BLExtractor]] = [
     ("tvl_hbl_v1", tvl_hbl_v1.match_score, tvl_hbl_v1.extract),
     ("kwe_air_waybill_v1", kwe_air_waybill_v1.match_score, kwe_air_waybill_v1.extract),
     ("maersk_air_waybill_v1", maersk_air_waybill_v1.match_score, maersk_air_waybill_v1.extract),
+    ("cosco_arrival_v1", cosco_arrival_v1.match_score, cosco_arrival_v1.extract),
+    ("kwe_sea_waybill_v1", kwe_sea_waybill_v1.match_score, kwe_sea_waybill_v1.extract),
 ]
 
 
@@ -88,6 +92,9 @@ def looks_like_bl_filename(name: str) -> bool:
     if re.search(r"\bQU\d{8,}\b", nu):
         return True
     if re.search(r"\b1220\d{8}\b", nu):
+        return True
+    # COSCO arrival notice saved as BL + 10-digit B/L no (MA 3rd RBDEsea BL6437826540.PDF)
+    if re.match(r"^BL\d{10}\b", nu):
         return True
     return False
 

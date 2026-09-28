@@ -31,6 +31,68 @@ def _garbage_char_ratio(s: str) -> float:
     return (weird / n) if n else 0.0
 
 
+_CJKISH = (
+    "\u2E80-\u9FFF\uF900-\uFAFF\uFE10-\uFE4F\uFF00-\uFFEF"
+    "\u2500-\u259F\u3000-\u303F"
+)
+_CJKISH_RE = None
+_CJK_ADJ_RE = None
+
+
+def _odd_form_ratio(s: str) -> float:
+    """Share of vertical-form / box-drawing / CJK-bracket / fullwidth-punct chars."""
+    chars = [c for c in s if not c.isspace()]
+    if not chars:
+        return 0.0
+    odd = 0
+    for c in chars:
+        o = ord(c)
+        if (
+            0xFE10 <= o <= 0xFE4F
+            or 0x2500 <= o <= 0x259F
+            or 0x3000 <= o <= 0x303F
+            or 0xFF00 <= o <= 0xFF20
+            or 0xFF3B <= o <= 0xFF40
+            or 0xFF5B <= o <= 0xFF65
+        ):
+            odd += 1
+    return odd / len(chars)
+
+
+def text_layer_looks_mojibake(text: str) -> bool:
+    """True for a scanner's CJK-mode OCR layer over a Latin-script page.
+
+    Typical of copier "scan to searchable PDF" with a Chinese OCR profile
+    (MA 3rd KWE sea waybills ``robert bosch.pdf`` 513/569/609/660/689/721):
+    ``BOSCH CORPORA下 工ON``, ``SH︳ PPER``. Signals (all required):
+
+    - ≥ 200 CJK-ish chars, and
+    - ≥ 45 % of them sit directly against an ASCII letter/digit
+      (real Chinese text — COSCO 到貨通知 ≈ 7 %, Hangji GDHJ invoice ≈ 37 % —
+      is mostly runs of ideographs), and
+    - ≥ 3 % of all non-space chars are vertical-form / box-drawing /
+      CJK-bracket glyphs used as lookalikes for ``I`` ``L`` ``|``
+      (clean docs ≤ 1.3 %; MA packing labels ≈ 7 % but have no ideographs).
+    """
+    import re
+
+    global _CJKISH_RE, _CJK_ADJ_RE
+    if _CJKISH_RE is None:
+        _CJKISH_RE = re.compile(f"[{_CJKISH}]")
+        _CJK_ADJ_RE = re.compile(
+            f"(?<=[A-Za-z0-9])[{_CJKISH}]|[{_CJKISH}](?=[A-Za-z0-9])"
+        )
+    if not (text or "").strip():
+        return False
+    n_cjk = len(_CJKISH_RE.findall(text))
+    if n_cjk < 200:
+        return False
+    n_adj = len(_CJK_ADJ_RE.findall(text))
+    if n_adj / n_cjk < 0.45:
+        return False
+    return _odd_form_ratio(text) >= 0.03
+
+
 def text_layer_looks_unreliable(text: str) -> bool:
     """True when the PDF text layer looks stale/corrupt vs a visible scan page.
 
@@ -38,10 +100,13 @@ def text_layer_looks_unreliable(text: str) -> bool:
     - High overall ratio of control / private-use characters
     - Any page after the first that is mostly binary garbage (common when an
       image page still carries leftover text objects from another document)
+    - Scanner CJK-mode OCR mojibake over a Latin page (:func:`text_layer_looks_mojibake`)
     """
     if not (text or "").strip():
         return True
     if _garbage_char_ratio(text) > 0.08 and len(text) > 200:
+        return True
+    if text_layer_looks_mojibake(text):
         return True
     pages = text.split("\f")
     for page in pages[1:]:

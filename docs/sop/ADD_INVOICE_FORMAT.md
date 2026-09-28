@@ -108,7 +108,8 @@
 | `hitachi_asia_hitt_v1` | `Hitachi Asia Ltd`、`USDI…`、HITT NO／BHC NO；≠ `hitachi_gls_v1` (MEH) |
 | `bhc_manual_inv_v1` | `TW-MANUAL-…`、no commercial value；≠ MY-HUB `TOTALS:` table |
 
-**MA**：WithPeriod／NoPeriod 已進規則庫（Round4）。其他變體（USA／Wiper／Sebang）尚未做。
+**MA**：WithPeriod／NoPeriod 已進規則庫（Round4）。其他變體（USA／Wiper／Sebang）尚未做。  
+**MA 3rd（最後一批 MA）**：RBDEsea `90-C-26MA-*`（`INVOICE 2120xxxxxx.PDF`）＝`ma_with_period_v1`（HS 8 位＝發票印的 `HS CODE`）；RBJPsea `90-KWE-26MA-*`（`00…_2000…_RBTW_….PDF`）＝`ma_no_period_v1`（HS 10 位）。兩者規則**未改**，原樣 184/184 硬校 pass。RB 唯一鍵本批皆單段（DE 9 位、JP 13 位 `9843…001`），無兩段接合案例。**跨發票同一 RB**（同一實體包裝同時列在兩張 INV，例 008 RB 110936597、036 RB 111292965）：每張 INV 各自計入（規則以單一 PDF 為範圍），BL 只算一次 → 資料夾 INV 加總比 BL 多 1 件；屬人工確認，不自動改發票件數。
 
 ---
 
@@ -131,6 +132,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-27 | MA 3rd（最後一批 MA；38 資料夾／223 PDF：184 INV＋38 提單＋0 缺 BL）：INV 沿用 `ma_with_period_v1`（RBDEsea 90-C）／`ma_no_period_v1`（RBJPsea 90-KWE），未改規則；新 BL family `cosco_arrival_v1`（COSCO 到貨通知，文字層）＋`kwe_sea_waybill_v1`（KWE／APL SEA WAYBILL 掃描，OCR 投票：件數／毛重需 ≥2 讀法一致且過半，否則 needs_gold）；`looks_like_bl_filename` 認 `BL##########`；`text_layer_looks_mojibake`（影印機中文 OCR 疊在英文頁的亂碼層 → 視同不可靠，改 OCR）；提單 needs_gold 會帶到 INV 列（`needs_gold_fields` += `bl_*`）；配對時同一提單只抽一次（快取）；review `docs/review_shots/ma_3rd/` |
 | 2026-09-26 | SOE 2nd **Round 2b**（Auditor 15/15 pass＋規則風險）：字母優先只限 G/6；其他字形相似對逐位嚴格過半（數字或字母），平手 → needs_gold；真數字尾碼（-2U1、-501）不再被翻成字母 |
 | 2026-09-26 | SOE 2nd **Round 2**（Auditor 13 pass／2 conflict）：`soe_rb_gmbh_v1` OCR PN 對帳取代「尾碼不一即 needs_gold」：候選＝品項列點號 PN、Customer PN 無點形、cargo list／transport order／DN 料號欄（數值標籤欄如 `Volume in cdm` 排除）；字形相似類過半 → 字母形（7369301、7405713 → `-57G`；1267475174 保持 `-57G`）；無過半 → needs_gold；分隔符誤讀且無第二讀法 → needs_gold |
 | 2026-09-26 | SOE 2nd（**只跑 invoice**，15 份／13 case，全 `soe_rb_gmbh_v1` 擴充，無新 format_id；HBL／PL／XC PL xlsx／NCN93230104 NEC HAWB 跳過）：OCR PN 分隔符修補（純空白＝良性；`,` 代 `.`＝字形誤讀 → needs_gold）、OCR 同 PN 尾碼多讀法（57G／576）→ `items.part_no` needs_gold；Marking GW fallback；裸原產地行；`N cardboard pallet`；缺頁 soft note；`rules_engine` 薄文字層（<400 字/頁、≤10 頁）且無 format 命中 → OCR 重試（`+thin_text_layer`）；review `docs/review_shots/soe_2nd/` |
@@ -182,6 +184,10 @@
 | `hippopo_arrival_v1` | Hippopo **到貨通知書**、`B/L NO :` CPSE／P076…（≠ HBL draft `hippopo_hbl_v1`） |
 | `dhl_danmar_bl_v1` | `Danmar Lines`／DHL GF Japan ocean B/L、`NGOA…`（≠ `dhl_lcl_arrival_v1`） |
 | `china_progress_bl_v1` | `CHINA PROGRESS`／中进国际、`NBSE…` 提单 |
+| `cosco_arrival_v1` | COSCO SHIPPING（中國遠洋）`到貨通知`／`ARRIVAL NOTICE`、`B/L Number: COSU##########`、檔名 `BL##########.PDF`；件數／毛重＝附頁 `Total: N … X KG`（與首頁櫃列 箱型/毛重/總件數 交叉比對，不一 → needs_gold）；ETA＝`ETA AT POD`＋`ON: …`；MA 3rd RBDEsea 90-C |
+| `kwe_sea_waybill_v1` | KWE／APL Logistics `SEA WAYBILL NON-NEGOTIABLE`、`WAYBILL NO. 1220########`（12 位；≠ 空運 `kwe_air_waybill_v1`）；掃描件 → OCR；件數讀法：`N SAID TO CONTAIN`、內文 `N PACKAGES`、`(P PALLETS(=C CARTONS), L CARTONS)`、`(N) PACKAGES ONLY`、第 2 頁 `N PCS`；毛重：`SAID TO CONTAIN: X`、TOTAL 列、第 2 頁 `X KG`；≥2 一致且過半才採用，否則 needs_gold（保留建議值）；無 ETA（只有 LADEN ON BOARD＝ETD）；MA 3rd RBJPsea 90-KWE |
+
+**掃描提單文字層**：文字層空 → OCR（照舊）。文字層非空但為影印機「中文 OCR 疊在英文頁」的亂碼（`BOSCH CORPORA下 工ON`、`SH︳ PPER`）→ `text_layer_looks_mojibake` 判不可靠，改用 Tesseract（backend `…+prefer_over_stale_layer`）；判準：CJK 類字元 ≥200、其中 ≥45% 緊貼英數、直排／框線／全形括號類 ≥3%（COSCO 到貨通知≈7% 貼英數、Hangji 發票≈37%、MA Label≈0 CJK，皆不觸發）。
 
 **Multi-INV same BL（同資料夾）**：一張到貨通知對多張 INV（例 548／616）時，每個 INV Summary 列都帶同一組 `BL No.`／`BL Packages`／`BL G.W.`（不覆寫發票 Packages／G.W.）。
 

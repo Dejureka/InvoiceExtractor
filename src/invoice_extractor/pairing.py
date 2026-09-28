@@ -710,10 +710,15 @@ def merge_bl_onto_inv(
     bl_header: dict[str, Any] | None,
     bl_path: Path | str | None,
     bl_format_id: str | None = None,
+    bl_meta: dict[str, Any] | None = None,
 ) -> ExtractResult:
     """Overlay BL No. / BL Packages / BL G.W. onto invoice header.
 
     Never overwrites invoice ``total_pkg`` / ``gross_weight_kg``.
+    When the BL extract itself is ``needs_gold`` (e.g. OCR reads of a scanned
+    waybill disagree), the Summary BL columns carry the suggested value and the
+    INV row is flagged field-level (``needs_gold_fields`` += ``bl_*``) so the
+    uncertainty is not hidden behind an INV pass.
     """
     header = replace(inv_result.header)
     meta = replace(inv_result.meta)
@@ -744,8 +749,53 @@ def merge_bl_onto_inv(
     extra = f"bl_used={'yes' if bl_used else 'no'}"
     if bl_p:
         extra += f"; bl_file={Path(bl_p).name}"
+    bm = dict(bl_meta or {})
+    if bl_used and bm.get("needs_gold"):
+        flds = list(meta.needs_gold_fields or [])
+        bl_note = str(bm.get("notes") or "")
+        want = []
+        if "bl_no" in bl_note or not bl_no:
+            want.append("bl_no")
+        if "packages" in bl_note:
+            want.append("bl_packages")
+        if "gross_weight" in bl_note:
+            want.append("bl_gross_weight_kg")
+        if not want:
+            want = ["bl_packages", "bl_gross_weight_kg"]
+        for f in want:
+            if f not in flds:
+                flds.append(f)
+        meta.needs_gold_fields = flds
+        extra += f"; bl_needs_gold ({bl_note[:160]})" if bl_note else "; bl_needs_gold"
     meta.notes = f"{note}; {extra}".strip("; ") if note else extra
     return ExtractResult(header=header, items=list(inv_result.items), meta=meta)
+
+
+_BL_CACHE: dict[tuple[str, int, int], dict[str, Any]] = {}
+
+
+def _extract_bl_cached(bl_path: Path) -> dict[str, Any]:
+    """``extract_bl(path).to_dict()`` memoised per file (path, mtime, size).
+
+    One scanned waybill is shared by up to 18 INV rows in an MA 90-KWE folder;
+    without the cache every row re-OCRs the same PDF.
+    """
+    import copy
+
+    from invoice_extractor.bl_rules_engine import extract_bl
+
+    try:
+        st = bl_path.stat()
+        key = (str(bl_path.resolve()), st.st_mtime_ns, st.st_size)
+    except OSError:
+        return extract_bl(bl_path).to_dict()
+    hit = _BL_CACHE.get(key)
+    if hit is None:
+        hit = extract_bl(bl_path).to_dict()
+        if len(_BL_CACHE) > 256:
+            _BL_CACHE.clear()
+        _BL_CACHE[key] = hit
+    return copy.deepcopy(hit)
 
 
 def bl_only_extract(
@@ -869,8 +919,7 @@ def extract_pair_row(
     # BL-only → Summary BL columns, no Lines
     if (row.status == STATUS_BL_ONLY or (row.bl_path and not row.inv_path)) and row.bl_path:
         bl_path = Path(row.bl_path)
-        bl_result = extract_bl(bl_path)
-        bl_data = bl_result.to_dict()
+        bl_data = _extract_bl_cached(bl_path)
         bl_hard = hard_check_bl(bl_data)
         result = bl_only_extract(
             bl_header=bl_data.get("header"),
@@ -943,13 +992,13 @@ def extract_pair_row(
     # Optional BL overlay (does not touch invoice Packages / G.W.)
     if row.bl_path:
         bl_path = Path(row.bl_path)
-        bl_result = extract_bl(bl_path)
-        bl_data = bl_result.to_dict()
+        bl_data = _extract_bl_cached(bl_path)
         result = merge_bl_onto_inv(
             result,
             bl_header=bl_data.get("header"),
             bl_path=bl_path,
             bl_format_id=(bl_data.get("meta") or {}).get("format_id"),
+            bl_meta=bl_data.get("meta"),
         )
 
     data = result.to_dict()

@@ -113,6 +113,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-09-27 | MA 3rd：INV＋提單配對；逐資料夾比對 INV 件數／毛重加總 vs 提單（件數須相等；毛重差 ≤0.5 kg 視為四捨五入 FYI）；跨發票同一 RB 包裝 → 人工確認（BL 只算一次）；KWE 掃描提單 OCR 值須看圖確認；截圖只附 needs-check 項 |
 | 2026-09-26 | SOE 2nd Round 2：圖清楚時 OCR 料號分歧屬 conflict 非 needs_gold；工具改為字形相似過半取字母形（7369301、7405713 → -57G） |
 | 2026-09-26 | SOE 2nd：只審 invoice；OCR 掃描 PN 尾碼讀法不一／分隔符誤讀 → `items.part_no` needs_gold；缺頁（印 k/M 但 PDF 無）只 soft，不擋 |
 | 2026-09-26 | PT 4th：Gloria 無 Shipping unit＋列數≠`total : N` → needs_gold（50663231）；欄位級 `needs_gold_fields` |
