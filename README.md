@@ -112,11 +112,12 @@ Excel 工作簿採 **PDFextract.xlsm 風格欄位**（範本：`data/templates/I
 
 優先用 **poppler `pdftotext -layout`**（可攜包內 `poppler/bin/pdftotext.exe`，不必另裝）。若找不到，才退到 pymupdf / pdfminer；GUI 與 `meta.text_backend_warning` 會明確警告，不會默默降級而不告知。BITZER 規則已能在無 pdftotext 時從 Final amount + 多行明細抽出 5 列／37041.41，但 PT 等格式仍以 pdftotext 佈局為準。
 
-### OCR 後備（掃描件／文字層空）
+### OCR 後備（掃描件／文字層空或不可靠）
 
 當 `pdftotext`／後備文字層為空（`needs_ocr`）時，會離線呼叫 **Tesseract** 把頁面光柵化後 OCR，再把文字送進**同一套** `rules_engine`（**沒有**獨立的 OCR `format_id`）。
 
-- `meta.text_backend` = `ocr/tesseract` 表示走了 OCR
+- 規則：OCR when the text layer is empty or unreliable（殘留／亂碼文字層視為不可靠）
+- `meta.text_backend` = `ocr/tesseract` 表示走了 OCR；`+prefer_over_stale_layer` ＝文字層不可靠改用 OCR；`+mojibake_layer` ＝影印機中文 OCR 亂碼層
 - GUI Summary 會顯示 `OCR used: ocr/tesseract`；啟動時會探測 tesseract 是否可用
 - 開發機：`apt install tesseract-ocr tesseract-ocr-eng`（或 Windows 安裝 [UB Mannheim Tesseract](https://github.com/UB-Mannheim/tesseract/wiki)），並確保 `tesseract` 在 PATH；也可用環境變數 `TESSERACT_CMD` / `TESSDATA_PREFIX`
 - **Windows 實驗包**：見 Release tag [`portable-ocr-test`](https://github.com/Dejureka/InvoiceExtractor/releases/tag/portable-ocr-test)（**不是** `portable-latest`）。該 zip 在 poppler 之外另含 `tesseract/`（`tesseract.exe` + `tessdata`）。日常正式包 `portable-latest` **不含** OCR。

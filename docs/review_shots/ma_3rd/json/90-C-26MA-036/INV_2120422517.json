@@ -2,8 +2,8 @@
   "header": {
     "invoice_no": "2120422517",
     "invoice_date": "2025-12-11",
-    "total_pkg": 1.0,
-    "gross_weight_kg": 83.5,
+    "total_pkg": 32.0,
+    "gross_weight_kg": 2801.031,
     "incoterm": "FCA Karlsruhe",
     "item_line_count": 1,
     "total_quantity": 2.0,
@@ -14,7 +14,8 @@
     "hs_code": null,
     "bl_no": "COSU6438665680",
     "bl_packages": 32.0,
-    "bl_gross_weight_kg": 2801.033
+    "bl_gross_weight_kg": 2801.033,
+    "summary_note": "shipment pkg/GW (deduped) 32 / 2801.031 on this first invoice (3 invoices, shared RB 111292965); printed pkg/GW 1 / 83.5"
   },
   "items": [
     {
@@ -37,7 +38,7 @@
     "confidence": "high",
     "needs_ocr": false,
     "needs_gold": false,
-    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6438665680.PDF",
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6438665680.PDF; shipment pkg/GW (deduped) 32 / 2801.031 on this first invoice (3 invoices, shared RB 111292965); printed pkg/GW 1 / 83.5",
     "labeled_amount": 5574.0,
     "labeled_amount_label": "Goods value",
     "source": "combined",
@@ -50,6 +51,10 @@
     "pair_status": "INV+PKL",
     "source_kind": "pdf",
     "needs_gold_fields": null,
+    "packing_units": {
+      "111292965": 83.5
+    },
+    "packing_units_zeroed": null,
     "checker_verdict": "pass",
     "checker_issues": [],
     "checker_details": {
@@ -73,6 +78,20 @@
         "item_count": 1
       },
       "missing_hs_indices": []
+    },
+    "shipment_packing": {
+      "mode": "shipment_first",
+      "first_invoice": "2120422517",
+      "total_pkg": 32.0,
+      "gross_weight_kg": 2801.031,
+      "shared_rb": [
+        "111292965"
+      ],
+      "invoices": [
+        "2120422517",
+        "2120422518",
+        "2120422519"
+      ]
     }
   }
 }

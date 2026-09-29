@@ -1,5 +1,7 @@
 # MA 3rd (last MA batch): FormatSOP audit pack
 
+> **Round 2 (2026-09-29):** see `round2/round2_summary.md`. BL formats now output only the Result columns (BL No. / BL Packages / BL G.W.); vessel / voyage / ETA / ETD / CBM etc. in the tables below are Round 1 and no longer extracted. 008/036 shared RB: deduped shipment pkg/GW on the first invoice, others 0 (008: 2120394532 = 26 / 1989.836; 036: 2120422517 = 32 / 2801.031). Excel/JSON in this folder are the Round 2 output.
+
 **Date:** 2026-09-29 (Asia/Taipei)  
 **Root:** `/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/`: **39 folders** (RBDEsea 19 + RBJPsea 20), 223 PDFs = 184 INV + 39 BL  
 **Branch:** `feature/ma-3rd` (not merged to main)  

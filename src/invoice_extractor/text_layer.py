@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 
 from invoice_extractor.excel_text import (
@@ -10,6 +11,8 @@ from invoice_extractor.excel_text import (
     workbook_to_text,
 )
 from invoice_extractor.ocr import OCR_BACKEND, is_ocr_backend, try_ocr_pdf
+
+log = logging.getLogger(__name__)
 
 # Backends that preserve BITZER/PT column layout best.
 PREFERRED_BACKEND_PREFIX = "pdftotext"
@@ -221,6 +224,10 @@ def extract_text(
     stale = (not needs_ocr) and text_layer_looks_unreliable(text)
     if not needs_ocr and not stale:
         return text, backend, needs_ocr
+    # OCR policy: "OCR when the text layer is empty or unreliable". A garbled
+    # scanner OCR layer (mojibake) is tagged separately so the backend used is
+    # visible in meta.text_backend, the CLI warning and the log.
+    mojibake = stale and text_layer_looks_mojibake(text)
 
     ocr_text, ocr_backend, err = try_ocr_pdf(path)
     if ocr_text is not None and ocr_text.strip():
@@ -229,8 +236,16 @@ def extract_text(
             # Only swap when OCR is clearly better; otherwise keep layer
             if ocr_text_looks_more_reliable(text, ocr_text) or needs_ocr:
                 tag = f"{tag}+prefer_over_stale_layer" if stale else tag
+                if mojibake:
+                    tag = f"{tag}+mojibake_layer"
+                log.info(
+                    "OCR backend %s used for %s (text layer %s)",
+                    tag, path.name, "mojibake" if mojibake else "unreliable",
+                )
                 return ocr_text, tag, False
+            log.info("text layer kept for %s (OCR not better); backend %s", path.name, backend)
             return text, backend, False
+        log.info("OCR backend %s used for %s (text layer empty)", tag, path.name)
         return ocr_text, tag, False
 
     # Keep empty/stale text; annotate backend so callers can surface the OCR error.
@@ -255,6 +270,11 @@ def backend_warning(backend: str | None) -> str | None:
             return (
                 f"OCR used ({backend}): PDF text layer was too thin (vector-outlined "
                 "glyphs) and matched no format; rules use OCR text."
+            )
+        if backend and "mojibake_layer" in str(backend):
+            return (
+                f"OCR used ({backend}): PDF text layer is unreliable (garbled "
+                "scanner CJK-mode OCR over a Latin page); rules use OCR text."
             )
         if backend and "prefer_over_stale_layer" in str(backend):
             return (

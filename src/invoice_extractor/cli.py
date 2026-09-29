@@ -246,6 +246,12 @@ def cmd_extract(args: argparse.Namespace) -> int:
         print(f"All {len(failures)} file(s) failed; no workbook written.", file=sys.stderr)
         return 1
 
+    # Shipment-level: an RB shared by several invoices of one folder/BL counts once
+    from invoice_extractor.pairing import dedupe_shared_packing_units
+
+    for msg in dedupe_shared_packing_units(successes):
+        print(f"NOTE {msg}", file=sys.stderr)
+
     # Default Excel: always InvoiceExtract_Result.xlsx at tool root (unless --out)
     if args.out:
         out = Path(args.out)

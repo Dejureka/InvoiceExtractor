@@ -3,24 +3,24 @@
   "header": {
     "bl_no": "COSU6447417770",
     "hbl_no": null,
-    "mbl_no": "COSU6447417770",
-    "vessel": "EVER ACE",
-    "voyage": "1384-017E",
+    "mbl_no": null,
+    "vessel": null,
+    "voyage": null,
     "etd": null,
-    "eta": "2026-05-07",
-    "pol": "Rotterdam",
-    "pod": "Kaohsiung",
+    "eta": null,
+    "pol": null,
+    "pod": null,
     "packages": 22.0,
-    "package_unit": "PACKAGES",
+    "package_unit": null,
     "gross_weight_kg": 18410.0,
-    "measurement_cbm": 7.914,
-    "load_type": "FCL",
-    "shipper": "COSCO SHIPPING LOGISTICS (EUROPE) GmbH",
-    "consignee": "Robert Bosch Taiwan Co., Ltd",
-    "notify": "Robert Bosch GmbH",
-    "invoice_refs": "2120462728, 2120462729",
-    "container_nos": "TGBU8778220/PY314071",
-    "forwarder": "COSCO SHIPPING Lines (中國遠洋 Taiwan)"
+    "measurement_cbm": null,
+    "load_type": null,
+    "shipper": null,
+    "consignee": null,
+    "notify": null,
+    "invoice_refs": null,
+    "container_nos": null,
+    "forwarder": null
   },
   "meta": {
     "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-260/BL6447417770.PDF",
@@ -33,12 +33,13 @@
     "doc_kind": "arrival_notice",
     "checker_verdict": "pass",
     "checker_issues": [],
+    "needs_gold_fields": null,
     "checker_details": {
       "anchors": {
         "bl_no": "COSU6447417770",
         "packages": 22.0,
         "gross_weight_kg": 18410.0,
-        "eta": "2026-05-07"
+        "eta": null
       }
     }
   }

@@ -8,6 +8,9 @@ invoice (請求書, B/L No. / PCS / KG / M3) or an ATTACHED SHEET (marks + INV#)
 Text layer is empty (14) or scanner CJK-mode mojibake (6) → Tesseract OCR.
 
 ≠ ``kwe_air_waybill_v1`` (IATA air waybill 1220-########, SOE HAWC).
+
+Rule (user, 2026-09-29): only fields present in ``InvoiceExtract_Result`` are
+extracted — for a BL that is BL No. / BL Packages / BL G.W.
 """
 
 from __future__ import annotations
@@ -16,7 +19,7 @@ import re
 from collections import Counter
 
 from invoice_extractor.schema import us_float
-from invoice_extractor.schema_bl import BLExtractResult, BLHeader, BLMeta, loose_date_to_iso
+from invoice_extractor.schema_bl import BLExtractResult, BLHeader, BLMeta
 
 MATCH_HINTS = {
     "filename_regex": r"robert bos|bosch bosch|^\d{4}_\d{3}",
@@ -32,19 +35,25 @@ MATCH_HINTS = {
 
 NOTES = (
     "KWE / APL Logistics sea waybill (MA RB JP 90-KWE, BOSCH CORPORATION → "
-    "ROBERT BOSCH TAIWAN, Yokohama → Keelung). Scanned: OCR text. "
+    "ROBERT BOSCH TAIWAN, Yokohama → Keelung). Scanned: OCR text. Output = "
+    "InvoiceExtract_Result BL columns only: BL No. / BL Packages / BL G.W. "
     "BL no = WAYBILL NO. 1220######## (12 digits; majority of face/footer/page-2 "
     "B/L No. reads). Packages and GW are OCR-voted: packages from NOS. OF PKGS "
     "('N SAID TO CONTAIN'), 'N PACKAGES/PALLETS' body, pallet+carton breakdown "
     "'(P PALLETS(= C CARTONS), L CARTONS)', TOTAL words '(N) PACKAGES ONLY' and "
     "page-2 'N PCS'; GW from 'SAID TO CONTAIN: X', TOTAL row and page-2 'X KG'. "
     "A value needs ≥2 agreeing reads and a strict majority, else needs_gold "
-    "(suggested value kept). ETD = LADEN ON BOARD date; no ETA on this document."
+    "(suggested value kept). Vessel / voyage / ETD / ports / CBM / invoice refs "
+    "are NOT extracted (not Result columns)."
 )
+
+# Only fields that exist in InvoiceExtract_Result (Summary BL columns).
+RESULT_FIELDS = ("bl_no", "packages", "gross_weight_kg")
 
 RULES_JSON = {
     "id": "kwe_sea_waybill_v1",
     "doc_kind": "sea_waybill",
+    "result_fields": list(RESULT_FIELDS),
     "header": {
         "bl_no": r"1220\d{8}(?!\d)",
         "packages_votes": [
@@ -59,7 +68,6 @@ RULES_JSON = {
             r"(?:IN WORDS|ONLY)[^\n]*?([\d,]+\.\s?\d{2})\s+[\d.,%]+\s*$",
             r"PC[Ss]\s+([\d,]+\.\d{2})\s*KG",
         ],
-        "etd": r"LADEN ON BOARD THE VESSEL[^\n]*\n\s*([A-Z]{3}/\d{1,2}/\d{4})",
     },
 }
 
@@ -114,7 +122,7 @@ def _num(s: str) -> float | None:
 
 
 def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractResult:
-    h = BLHeader(forwarder="Kintetsu World Express, Inc. (D/B/A APL Logistics)", load_type="LCL")
+    h = BLHeader()
     notes: list[str] = []
     needs_gold_fields: list[str] = []
 
@@ -124,7 +132,6 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
         c = Counter(nos)
         (best, n), *rest = c.most_common()
         h.bl_no = best
-        h.hbl_no = best
         if rest and rest[0][1] == n or n < 2:
             needs_gold_fields.append("bl_no")
             notes.append(f"waybill no reads {dict(c)}")
@@ -167,7 +174,6 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
         pk.append(("page2_pcs", float(m.group(1))))
     pkg, pkg_ok, pkg_detail = _vote(pk)
     h.packages = pkg
-    h.package_unit = "PALLETS" if re.search(r"\(\s*\w+\s*\)\s*PALLETS\s+ONLY", text) else "PACKAGES"
     if not pkg_ok:
         needs_gold_fields.append("packages")
     notes.append(f"pkg reads: {pkg_detail}")
@@ -192,43 +198,6 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
         needs_gold_fields.append("gross_weight_kg")
     notes.append(f"GW reads: {gw_detail}")
 
-    # --- measurement ---
-    m = re.search(r"SAID TO CONTAIN:?\s+[\d,]+\.\s?\d{2}\s+([\d.,]+)", text)
-    if m:
-        h.measurement_cbm = us_float(m.group(1).replace(",", "."))
-
-    # --- vessel / voyage / ETD ---
-    m = re.search(r"AT YOKOHAMA[^\n]*\n\s*([A-Z][A-Z0-9 .]+?)\s*/\s*([0-9A-Za-z]+)", text)
-    if m:
-        h.vessel = m.group(1).strip()
-        h.voyage = m.group(2).upper()
-    if not h.vessel:
-        lines = text.splitlines()
-        for i, ln in enumerate(lines):
-            if re.search(r"Vessel Name\s+Voyage No", ln) and i + 1 < len(lines):
-                mm = re.match(r"\s*([A-Z][A-Z0-9 .]+?)\s+(\d{3,5}[A-Z]?)\b", lines[i + 1])
-                if mm:
-                    h.vessel, h.voyage = mm.group(1).strip(), mm.group(2)
-                break
-    m = re.search(r"LADEN ON BOARD THE VESSEL[^\n]*\n\s*([A-Z]{3})/(\d{1,2})/(\d{4})", text)
-    if m:
-        h.etd = loose_date_to_iso(f"{m.group(1)} {m.group(2)}, {m.group(3)}")
-    if "YOKOHAMA" in text:
-        h.pol = "YOKOHAMA"
-    if "KEELUNG" in text or "CHILUNG" in text:
-        h.pod = "KEELUNG"
-
-    invs = []
-    for tok in re.findall(r"(?<!\d)(2000\d{6})(?!\d)", text):
-        if tok not in invs:
-            invs.append(tok)
-    if invs:
-        h.invoice_refs = ", ".join(invs)
-    if "BOSCH CORPORATION" in text:
-        h.shipper = "BOSCH CORPORATION"
-    if re.search(r"ROBERT BOSCH TAIWAN", text):
-        h.consignee = "ROBERT BOSCH TAIWAN CO., LTD."
-
     needs_gold = bool(needs_gold_fields)
     if needs_gold:
         notes.insert(0, "needs_gold: " + ", ".join(needs_gold_fields) + " (OCR reads disagree / too few)")
@@ -241,6 +210,7 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
             confidence="needs_gold" if needs_gold else "rules",
             needs_ocr=needs_ocr,
             needs_gold=needs_gold,
+            needs_gold_fields=needs_gold_fields or None,
             notes="; ".join(notes),
             doc_kind="sea_waybill",
         ),

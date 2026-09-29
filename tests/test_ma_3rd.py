@@ -27,18 +27,22 @@ def _t(name: str) -> str:
 
 # ---------------------------------------------------------------- COSCO (DE)
 
+RESULT_BL_FIELDS = {"bl_no", "packages", "gross_weight_kg"}
+
+
+def _non_result_fields(header) -> dict:
+    """Header fields set beyond InvoiceExtract_Result's BL No. / BL Packages / BL G.W."""
+    return {k: v for k, v in header.to_dict().items() if v is not None and k not in RESULT_BL_FIELDS}
+
+
 @pytest.mark.parametrize(
-    "fx,fn,bl,pkg,gw,eta,vessel,voy,pod,cont,refs",
+    "fx,fn,bl,pkg,gw",
     [
-        ("ma3_cosco_BL6437826540_layout.txt", "BL6437826540.PDF", "COSU6437826540", 33.0,
-         2457.362, "2026-02-21", "EVER AEON", "1372-006E", "Taipei Port",
-         "CSNU1608356/RC306452", "2120419937, 2120419938"),
-        ("ma3_cosco_BL6447417770_layout.txt", "BL6447417770.PDF", "COSU6447417770", 22.0,
-         18410.0, "2026-05-07", "EVER ACE", "1384-017E", "Kaohsiung",
-         "TGBU8778220/PY314071", "2120462728, 2120462729"),
+        ("ma3_cosco_BL6437826540_layout.txt", "BL6437826540.PDF", "COSU6437826540", 33.0, 2457.362),
+        ("ma3_cosco_BL6447417770_layout.txt", "BL6447417770.PDF", "COSU6447417770", 22.0, 18410.0),
     ],
 )
-def test_cosco_arrival_extract(fx, fn, bl, pkg, gw, eta, vessel, voy, pod, cont, refs):
+def test_cosco_arrival_extract(fx, fn, bl, pkg, gw):
     text = _t(fx)
     fid, score = classify_bl(text, fn)
     assert fid == "cosco_arrival_v1" and score >= 0.9
@@ -47,11 +51,8 @@ def test_cosco_arrival_extract(fx, fn, bl, pkg, gw, eta, vessel, voy, pod, cont,
     assert h.bl_no == bl
     assert h.packages == pkg
     assert h.gross_weight_kg == pytest.approx(gw)
-    assert h.eta == eta
-    assert (h.vessel, h.voyage, h.pod) == (vessel, voy, pod)
-    assert h.container_nos == cont
-    assert h.load_type == "FCL"
-    assert h.invoice_refs == refs
+    # only InvoiceExtract_Result BL columns (no vessel / voyage / ETA / CBM / refs …)
+    assert _non_result_fields(h) == {}
     assert r.meta.needs_gold is False
     assert hard_check_bl(r.to_dict())["verdict"] == "pass"
 
@@ -75,16 +76,16 @@ def test_bl_plus_ten_digit_filename_is_bl():
 # ---------------------------------------------------------- KWE sea (JP scans)
 
 @pytest.mark.parametrize(
-    "fx,bl,pkg,gw,etd",
+    "fx,bl,pkg,gw",
     [
-        ("ma3_kwe_sea_041_ocr.txt", "122040099422", 5.0, 431.0, "2026-01-13"),
+        ("ma3_kwe_sea_041_ocr.txt", "122040099422", 5.0, 431.0),
         # page 2 = ATTACHED SHEET (no freight-invoice PCS/KG line)
-        ("ma3_kwe_sea_277_ocr.txt", "122040116093", 20.0, 1437.0, "2026-04-13"),
+        ("ma3_kwe_sea_277_ocr.txt", "122040116093", 20.0, 1437.0),
         # OCR glued a stray '4' in front of WAYBILL NO. (4122040119501)
-        ("ma3_kwe_sea_312_ocr.txt", "122040119501", 12.0, 1649.0, "2026-04-24"),
+        ("ma3_kwe_sea_312_ocr.txt", "122040119501", 12.0, 1649.0),
     ],
 )
-def test_kwe_sea_waybill_ocr_votes(fx, bl, pkg, gw, etd):
+def test_kwe_sea_waybill_ocr_votes(fx, bl, pkg, gw):
     text = _t(fx)
     fid, _ = classify_bl(text, "robert bosch.pdf")
     assert fid == "kwe_sea_waybill_v1"
@@ -93,8 +94,8 @@ def test_kwe_sea_waybill_ocr_votes(fx, bl, pkg, gw, etd):
     )
     r = kwe_sea_waybill_v1.extract("robert bosch.pdf", text, "ocr/tesseract", False)
     h = r.header
-    assert (h.bl_no, h.packages, h.gross_weight_kg, h.etd) == (bl, pkg, gw, etd)
-    assert h.pol == "YOKOHAMA" and h.pod == "KEELUNG"
+    assert (h.bl_no, h.packages, h.gross_weight_kg) == (bl, pkg, gw)
+    assert _non_result_fields(h) == {}
     assert r.meta.needs_gold is False
     assert hard_check_bl(r.to_dict())["verdict"] == "pass"
 

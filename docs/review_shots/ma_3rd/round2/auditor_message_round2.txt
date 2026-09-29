@@ -1,0 +1,17 @@
+MA 3rd Round 2 — please re-check (feature/ma-3rd @ COMMIT)
+
+Scope as agreed: shared RB counted once per shipment (008/036), ETD 177/689, CBM 3 decimals 312/513, garbled-layer OCR conditions. Vessel/voyage not in scope.
+
+1. Shared RB (user rule): within one shipment (same folder/BL) a repeated RB counts once; the first invoice by number keeps it, later invoices get that RB's pkg/GW zeroed; lines untouched; Summary note on the Packages/G.W. cells.
+   - 008: RB 110936597 kept on 2120394532 (1 / 11.604); 2120394533 26 / 1989.836 → 25 / 1978.232. Folder 26 / 1989.836 (BL 26 / 1989.837).
+   - 036: RB 111292965 kept on 2120422517 (1 / 83.5); 2120422518 3 / 313 → 2 / 229.5. Folder 32 / 2801.031 (BL 32 / 2801.033).
+   - No other invoice changed (184 compared vs Round 1; items identical; all pass). Implemented generically (meta.packing_units + pairing.dedupe_shared_packing_units), SOPs rewritten.
+2. KWE ETD/CBM (voted across p1 LADEN ON BOARD / MEASUREMENT+TOTAL and the p2 KWE header; no winner → null + needs_gold):
+   - 177 ETD null → 2026-03-13; 689 ETD null → 2026-08-29; 312 CBM null → 7.347; 513 CBM 6.0 → 6.005. Other 16 unchanged.
+3. Garbled-layer OCR: detection unchanged (same 6 files); backend now logged as ocr/tesseract+prefer_over_stale_layer+mojibake_layer (meta, CLI warning, log); SOP/README say "OCR when the text layer is empty or unreliable".
+
+Pack: docs/review_shots/ma_3rd/round2/round2_summary.md (before/after), InvoiceExtract_Result.xlsx + BLExtract_Result.xlsx + json/<folder>/ in docs/review_shots/ma_3rd/ (Round 2 output).
+Shots: shots/008_* and shots/036_* (shared RB); round2/177_KWE_etd_2026-03-13.png, round2/689_KWE_etd_2026-08-29.png, round2/312_KWE_cbm_7.347.png, round2/513_KWE_cbm_6.005.png.
+pytest: PYTEST
+
+Please reply per item: pass | conflict | needs_gold.

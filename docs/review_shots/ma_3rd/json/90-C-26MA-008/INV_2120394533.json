@@ -2,8 +2,8 @@
   "header": {
     "invoice_no": "2120394533",
     "invoice_date": "2025-09-26",
-    "total_pkg": 26.0,
-    "gross_weight_kg": 1989.836,
+    "total_pkg": 0.0,
+    "gross_weight_kg": 0.0,
     "incoterm": "FCA Karlsruhe",
     "item_line_count": 82,
     "total_quantity": 4057.0,
@@ -14,7 +14,8 @@
     "hs_code": null,
     "bl_no": "COSU6431163410",
     "bl_packages": 26.0,
-    "bl_gross_weight_kg": 1989.837
+    "bl_gross_weight_kg": 1989.837,
+    "summary_note": "shipment pkg/GW (deduped) on 2120394532; printed pkg/GW 26 / 1989.836"
   },
   "items": [
     {
@@ -1009,7 +1010,7 @@
     "confidence": "high",
     "needs_ocr": false,
     "needs_gold": false,
-    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6431163410.PDF",
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6431163410.PDF; shipment pkg/GW (deduped) on 2120394532; printed pkg/GW 26 / 1989.836",
     "labeled_amount": 1191026.0,
     "labeled_amount_label": "Goods value",
     "source": "combined",
@@ -1022,6 +1023,62 @@
     "pair_status": "INV+PKL",
     "source_kind": "pdf",
     "needs_gold_fields": null,
+    "packing_units": {
+      "110933355": 45.5,
+      "110933899": 70.5,
+      "110933918": 78.0,
+      "110933932": 62.0,
+      "110933944": 76.0,
+      "110934135": 66.0,
+      "110934160": 52.5,
+      "110934262": 75.5,
+      "110934304": 93.0,
+      "110934309": 65.0,
+      "110934599": 65.5,
+      "110934686": 64.5,
+      "110934979": 34.0,
+      "110935763": 87.0,
+      "110935812": 5.072,
+      "110936124": 4.16,
+      "110936597": 11.604,
+      "110938189": 42.0,
+      "110938197": 212.0,
+      "110938198": 169.0,
+      "110938245": 92.5,
+      "110938271": 189.0,
+      "110938342": 103.5,
+      "110938427": 50.0,
+      "110938757": 51.5,
+      "110938806": 124.5
+    },
+    "packing_units_zeroed": {
+      "110933355": 45.5,
+      "110933899": 70.5,
+      "110933918": 78.0,
+      "110933932": 62.0,
+      "110933944": 76.0,
+      "110934135": 66.0,
+      "110934160": 52.5,
+      "110934262": 75.5,
+      "110934304": 93.0,
+      "110934309": 65.0,
+      "110934599": 65.5,
+      "110934686": 64.5,
+      "110934979": 34.0,
+      "110935763": 87.0,
+      "110935812": 5.072,
+      "110936124": 4.16,
+      "110936597": 11.604,
+      "110938189": 42.0,
+      "110938197": 212.0,
+      "110938198": 169.0,
+      "110938245": 92.5,
+      "110938271": 189.0,
+      "110938342": 103.5,
+      "110938427": 50.0,
+      "110938757": 51.5,
+      "110938806": 124.5
+    },
     "checker_verdict": "pass",
     "checker_issues": [],
     "checker_details": {
@@ -1045,6 +1102,19 @@
         "item_count": 82
       },
       "missing_hs_indices": []
+    },
+    "shipment_packing": {
+      "mode": "shipment_first",
+      "first_invoice": "2120394532",
+      "total_pkg": 26.0,
+      "gross_weight_kg": 1989.836,
+      "shared_rb": [
+        "110936597"
+      ],
+      "invoices": [
+        "2120394532",
+        "2120394533"
+      ]
     }
   }
 }

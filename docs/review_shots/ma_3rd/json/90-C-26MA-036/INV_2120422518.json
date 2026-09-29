@@ -2,8 +2,8 @@
   "header": {
     "invoice_no": "2120422518",
     "invoice_date": "2025-12-11",
-    "total_pkg": 3.0,
-    "gross_weight_kg": 313.0,
+    "total_pkg": 0.0,
+    "gross_weight_kg": 0.0,
     "incoterm": "FCA Karlsruhe",
     "item_line_count": 12,
     "total_quantity": 275.0,
@@ -14,7 +14,8 @@
     "hs_code": null,
     "bl_no": "COSU6438665680",
     "bl_packages": 32.0,
-    "bl_gross_weight_kg": 2801.033
+    "bl_gross_weight_kg": 2801.033,
+    "summary_note": "shipment pkg/GW (deduped) on 2120422517; printed pkg/GW 3 / 313"
   },
   "items": [
     {
@@ -169,7 +170,7 @@
     "confidence": "high",
     "needs_ocr": false,
     "needs_gold": false,
-    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6438665680.PDF",
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6438665680.PDF; shipment pkg/GW (deduped) on 2120422517; printed pkg/GW 3 / 313",
     "labeled_amount": 598040.0,
     "labeled_amount_label": "Goods value",
     "source": "combined",
@@ -182,6 +183,16 @@
     "pair_status": "INV+PKL",
     "source_kind": "pdf",
     "needs_gold_fields": null,
+    "packing_units": {
+      "111292560": 72.0,
+      "111292837": 157.5,
+      "111292965": 83.5
+    },
+    "packing_units_zeroed": {
+      "111292560": 72.0,
+      "111292837": 157.5,
+      "111292965": 83.5
+    },
     "checker_verdict": "pass",
     "checker_issues": [],
     "checker_details": {
@@ -205,6 +216,20 @@
         "item_count": 12
       },
       "missing_hs_indices": []
+    },
+    "shipment_packing": {
+      "mode": "shipment_first",
+      "first_invoice": "2120422517",
+      "total_pkg": 32.0,
+      "gross_weight_kg": 2801.031,
+      "shared_rb": [
+        "111292965"
+      ],
+      "invoices": [
+        "2120422517",
+        "2120422518",
+        "2120422519"
+      ]
     }
   }
 }

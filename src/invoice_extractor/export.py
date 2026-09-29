@@ -178,6 +178,21 @@ def _summary_row(header: dict[str, Any]) -> list[Any]:
     ]
 
 
+def _add_summary_note(ws, header: dict[str, Any]) -> None:
+    """Attach ``header.summary_note`` as an Excel note on the last Summary row's
+    Packages and G.W. cells (column layout unchanged)."""
+    note = header.get("summary_note")
+    if not note:
+        return
+    from openpyxl.comments import Comment
+
+    r = ws.max_row
+    for col in (SUMMARY_COLS.index("Packages") + 1, SUMMARY_COLS.index("G.W. (kgs)-Air DIM. (CBM)-Sea") + 1):
+        c = Comment(str(note), "InvoiceExtractor")
+        c.width, c.height = 420, 120
+        ws.cell(r, col).comment = c
+
+
 def _lines_row(item: dict[str, Any], header: dict[str, Any]) -> list[Any]:
     """Map internal item → PDFextract Lines columns."""
     inv = item.get("invoice_no") or header.get("invoice_no")
@@ -378,6 +393,7 @@ def write_xlsx_many(
         items = list(data.get("items") or [])
         meta = dict(data.get("meta") or {})
         ws_s.append([_cell(v) for v in _summary_row(header)])
+        _add_summary_note(ws_s, header)
         for it in items:
             ws_l.append([_cell(v) for v in _lines_row(it or {}, header)])
         ws_m.append(_meta_row(meta, status="ok", error=None))

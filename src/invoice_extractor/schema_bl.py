@@ -49,6 +49,9 @@ class BLMeta:
     doc_kind: str = "bl"  # bl | arrival_notice | hbl
     checker_verdict: Optional[str] = None
     checker_issues: Optional[list[str]] = None
+    # Field-level needs_gold (header field names, e.g. ``packages``, ``voyage``).
+    # Optional; formats that set it let pairing flag exactly those BL fields.
+    needs_gold_fields: Optional[list[str]] = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

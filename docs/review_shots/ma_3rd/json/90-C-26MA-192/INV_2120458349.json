@@ -14,7 +14,8 @@
     "hs_code": null,
     "bl_no": "COSU6446621010",
     "bl_packages": 42.0,
-    "bl_gross_weight_kg": 3846.432
+    "bl_gross_weight_kg": 3846.432,
+    "summary_note": null
   },
   "items": [
     {
@@ -134,6 +135,14 @@
     "pair_status": "INV+PKL",
     "source_kind": "pdf",
     "needs_gold_fields": null,
+    "packing_units": {
+      "111616035": 7.46,
+      "111616112": 11.74,
+      "111616156": 16.219,
+      "111616202": 10.38,
+      "111622257": 104.5
+    },
+    "packing_units_zeroed": null,
     "checker_verdict": "pass",
     "checker_issues": [],
     "checker_details": {

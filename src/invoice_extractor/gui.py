@@ -194,6 +194,12 @@ def _extract_pairs(rows: list[PairRow], out: Path | None) -> dict[str, Any]:
                 }
             )
 
+    if successes:
+        # Shipment-level: an RB shared by several invoices of one folder/BL counts once
+        from invoice_extractor.pairing import dedupe_shared_packing_units
+
+        dedupe_shared_packing_units(successes)
+
     if not successes:
         return {
             "ok": False,

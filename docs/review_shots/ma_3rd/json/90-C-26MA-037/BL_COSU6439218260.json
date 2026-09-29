@@ -3,24 +3,24 @@
   "header": {
     "bl_no": "COSU6439218260",
     "hbl_no": null,
-    "mbl_no": "COSU6439218260",
-    "vessel": "EVER AEON",
-    "voyage": "1372-006E",
+    "mbl_no": null,
+    "vessel": null,
+    "voyage": null,
     "etd": null,
-    "eta": "2026-02-21",
-    "pol": "Rotterdam",
-    "pod": "Taipei Port",
+    "eta": null,
+    "pol": null,
+    "pod": null,
     "packages": 28.0,
-    "package_unit": "PACKAGES",
+    "package_unit": null,
     "gross_weight_kg": 2236.896,
-    "measurement_cbm": 23.363,
-    "load_type": "FCL",
-    "shipper": "COSCO SHIPPING LOGISTICS (EUROPE) GmbH",
+    "measurement_cbm": null,
+    "load_type": null,
+    "shipper": null,
     "consignee": null,
     "notify": null,
-    "invoice_refs": "2120426240, 2120426241",
-    "container_nos": "TCLU6841950/RC306489",
-    "forwarder": "COSCO SHIPPING Lines (中國遠洋 Taiwan)"
+    "invoice_refs": null,
+    "container_nos": null,
+    "forwarder": null
   },
   "meta": {
     "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-037/BL6439218260.PDF",
@@ -33,12 +33,13 @@
     "doc_kind": "arrival_notice",
     "checker_verdict": "pass",
     "checker_issues": [],
+    "needs_gold_fields": null,
     "checker_details": {
       "anchors": {
         "bl_no": "COSU6439218260",
         "packages": 28.0,
         "gross_weight_kg": 2236.896,
-        "eta": "2026-02-21"
+        "eta": null
       }
     }
   }

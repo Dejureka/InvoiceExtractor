@@ -27,6 +27,9 @@ class Header:
     bl_no: Optional[str] = None
     bl_packages: Optional[float] = None
     bl_gross_weight_kg: Optional[float] = None
+    # Shipment-level note for the Summary row (e.g. shared RB zeroed); written
+    # as an Excel note on the Packages / G.W. cells.
+    summary_note: Optional[str] = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -76,6 +79,12 @@ class Meta:
     # because the document contradicts itself. Other hard checks still run; if
     # they pass, checker verdict = needs_gold (manual check), not pass.
     needs_gold_fields: Optional[list[str]] = None
+    # Packing units behind total_pkg / gross_weight_kg ({unit key: Gross KG}),
+    # e.g. MA RB keys. Used for shipment-level dedupe across invoices.
+    packing_units: Optional[dict[str, float]] = None
+    # Units zeroed on this invoice because an earlier invoice of the same
+    # shipment already counts them ({unit key: Gross KG}).
+    packing_units_zeroed: Optional[dict[str, float]] = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

@@ -14,7 +14,8 @@
     "hs_code": null,
     "bl_no": "122040121310",
     "bl_packages": 9.0,
-    "bl_gross_weight_kg": 804.8
+    "bl_gross_weight_kg": 804.8,
+    "summary_note": null
   },
   "items": [
     {
@@ -62,6 +63,10 @@
     "pair_status": "INV+PKL",
     "source_kind": "pdf",
     "needs_gold_fields": null,
+    "packing_units": {
+      "9843344908001": 128.0
+    },
+    "packing_units_zeroed": null,
     "checker_verdict": "pass",
     "checker_issues": [],
     "checker_details": {

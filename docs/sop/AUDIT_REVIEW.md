@@ -80,6 +80,9 @@
 - **MA／PT**：`hard_check` **要求每列明細都有非空 HS code**；缺一列即 `conflict`（不是軟提醒）。審核時對照圖面／JSON 的 HS。
 - **PT Gloria（`pt_gloria_v1`）`total_pkg`**：圖面／PDF 若有 Packing details、**Shipping unit** 列、或其他清楚件數，但 JSON `header.total_pkg` 為空 → **`conflict`**（不是 soft-missing）。Soft-miss 僅限文件**完全沒有** packing／件數區段。（已廢止「gloria pkg soft-missing OK」。）
 - **PT Gloria 件數自相矛盾**：無 Shipping unit 且 Packing details 列數加總≠`total : N` → `total_pkg` **needs_gold**（值僅為建議，需 BL／到貨通知佐證）；工具以 `meta.needs_gold_fields` 標示，checker verdict＝needs_gold。
+- **OCR 規則**：**OCR when the text layer is empty or unreliable**（文字層空，或殘留／亂碼層判不可靠）。審核時看 `meta.text_backend`：`ocr/tesseract`＝層空；`…+prefer_over_stale_layer`＝層不可靠；`…+mojibake_layer`＝影印機中文 OCR 亂碼層（2026-09-29 核准；判準不得放寬）。OCR 值一律對圖。
+- **只審 Result 有的欄位（2026-09-29）**：不在 `InvoiceExtract_Result.xlsx` 的欄位不抽也不審。提單只審 **BL No.／BL Packages／BL G.W.**；船名、航次、ETA／ETD、CBM、港口、櫃號等不列 conflict／needs_gold（MA 3rd 起的 `cosco_arrival_v1`／`kwe_sea_waybill_v1` 已不輸出這些欄）。
+- **跨發票同一 RB（shipment 整體計、第一張承擔）**：MA 同一 shipment（同資料夾／同 BL）多張 INV 且 RB 唯一鍵重複 → 件數／毛重以 shipment 整體（RB 只算一次）全部放在發票號最小的那張，其他各張＝0；品項 qty／金額不動；各張 Summary 儲存格有附註（含 printed pkg/GW，可還原印刷值）。沒有 RB 重複的 shipment 各張照印刷值。審核：核對重複 RB 判斷正確、第一張＝發票號最小、第一張的數字＝資料夾去重加總≈BL、其他張為 0 且附註的 printed 值＝印刷。這不是 conflict，也不是人工確認項。
 - **SOE OCR 料號**：掃描檔（cargo list＋DN＋invoice）同一 Bosch PN 尾碼多種讀法時，工具對帳（品項列／Customer PN／cargo list／transport order；數值欄如 `Volume in cdm` 不算）；字形相似類過半後逐位判定：僅 G/6 字母優先（57G／576 → 57G），其他相似對取該位過半、平手 → `items.part_no` needs_gold；工具寫 info note，審核仍須對圖（不要以 email 內容代填）。
 - 僅缺 origin／date 等非擋項，或 **BHC** 等本來就常缺 HS 的版式 → 記待辦，可不擋批次，但要寫進 summary
 
@@ -113,7 +116,8 @@
 
 | 日期 | 說明 |
 |------|------|
-| 2026-09-27 | MA 3rd：INV＋提單配對；逐資料夾比對 INV 件數／毛重加總 vs 提單（件數須相等；毛重差 ≤0.5 kg 視為四捨五入 FYI）；跨發票同一 RB 包裝 → 人工確認（BL 只算一次）；KWE 掃描提單 OCR 值須看圖確認；截圖只附 needs-check 項 |
+| 2026-09-29 | MA 3rd Round 2：只審 Result 有的欄位（提單＝BL No.／Packages／G.W.）；OCR 用語改「OCR when the text layer is empty or unreliable」＋ backend 標示（`+mojibake_layer`）；跨發票同一 RB：shipment 整體去重後放第一張、其他張 0（附註），審核改為核對，不再列為人工確認 |
+| 2026-09-27 | MA 3rd：INV＋提單配對；逐資料夾比對 INV 件數／毛重加總 vs 提單（件數須相等；毛重差 ≤0.5 kg 視為四捨五入 FYI）；跨發票同一 RB 包裝 → 人工確認（BL 只算一次；**2026-09-29 起改為工具自動只算一次，見下列規則**）；KWE 掃描提單 OCR 值須看圖確認；截圖只附 needs-check 項 |
 | 2026-09-26 | SOE 2nd Round 2：圖清楚時 OCR 料號分歧屬 conflict 非 needs_gold；工具改為字形相似過半取字母形（7369301、7405713 → -57G） |
 | 2026-09-26 | SOE 2nd：只審 invoice；OCR 掃描 PN 尾碼讀法不一／分隔符誤讀 → `items.part_no` needs_gold；缺頁（印 k/M 但 PDF 無）只 soft，不擋 |
 | 2026-09-26 | PT 4th：Gloria 無 Shipping unit＋列數≠`total : N` → needs_gold（50663231）；欄位級 `needs_gold_fields` |
