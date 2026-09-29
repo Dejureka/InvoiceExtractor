@@ -1,0 +1,100 @@
+{
+  "header": {
+    "invoice_no": "2120462729",
+    "invoice_date": "2026-03-17",
+    "total_pkg": 6.0,
+    "gross_weight_kg": 4842.0,
+    "incoterm": "FCA Kandel",
+    "item_line_count": 2,
+    "total_quantity": 262.0,
+    "amount": 493072.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "COSU6447417770",
+    "bl_packages": 22.0,
+    "bl_gross_weight_kg": 18410.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2120462729",
+      "part_no": "0.092.PE0.050.FZC",
+      "description": "Starter battery Pb",
+      "qty": 160.0,
+      "unit": "EA",
+      "unit_price": 1771.0,
+      "amount": 283360.0,
+      "origin": "Spain",
+      "hs_code": "85071020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120462729",
+      "part_no": "0.092.PE0.080.FZC",
+      "description": "Starter battery Pb",
+      "qty": 102.0,
+      "unit": "EA",
+      "unit_price": 2056.0,
+      "amount": 209712.0,
+      "origin": "Spain",
+      "hs_code": "85071020",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-260/INVOICE 2120462729.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_with_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6447417770.PDF",
+    "labeled_amount": 493072.0,
+    "labeled_amount_label": "Goods value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-260/INVOICE 2120462729.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-260/INVOICE 2120462729.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-260/BL6447417770.PDF",
+    "bl_used": true,
+    "bl_format_id": "cosco_arrival_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "200289969": 705.0,
+      "200290191": 705.0,
+      "200290193": 705.0,
+      "200290194": 705.0,
+      "200290421": 1012.0,
+      "200290423": 1010.0
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 2,
+        "got": 2
+      },
+      "total_quantity": {
+        "want": 262.0,
+        "got": 262.0
+      },
+      "amount": {
+        "want": 493072.0,
+        "got": 493072.0
+      },
+      "labeled_amount": {
+        "label": "Goods value",
+        "want": 493072.0,
+        "header_amount": 493072.0,
+        "sum_items": 493072.0,
+        "item_count": 2
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

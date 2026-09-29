@@ -1,0 +1,96 @@
+{
+  "header": {
+    "invoice_no": "2120394532",
+    "invoice_date": "2025-09-26",
+    "total_pkg": 26.0,
+    "gross_weight_kg": 1989.836,
+    "incoterm": "FCA Karlsruhe",
+    "item_line_count": 1,
+    "total_quantity": 20.0,
+    "amount": 15720.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "COSU6431163410",
+    "bl_packages": 26.0,
+    "bl_gross_weight_kg": 1989.837,
+    "summary_note": "shipment pkg/GW (deduped) 26 / 1989.836 on this first invoice (2 invoices, shared RB 110936597); printed pkg/GW 1 / 11.604"
+  },
+  "items": [
+    {
+      "invoice_no": "2120394532",
+      "part_no": "1.418.415.075.8GA",
+      "description": "Pump element",
+      "qty": 20.0,
+      "unit": "EA",
+      "unit_price": 786.0,
+      "amount": 15720.0,
+      "origin": "Brazil",
+      "hs_code": "84139100",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-008/INVOICE 2120394532.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_with_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6431163410.PDF; shipment pkg/GW (deduped) 26 / 1989.836 on this first invoice (2 invoices, shared RB 110936597); printed pkg/GW 1 / 11.604",
+    "labeled_amount": 15720.0,
+    "labeled_amount_label": "Goods value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-008/INVOICE 2120394532.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-008/INVOICE 2120394532.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-008/BL6431163410.PDF",
+    "bl_used": true,
+    "bl_format_id": "cosco_arrival_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "110936597": 11.604
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 20.0,
+        "got": 20.0
+      },
+      "amount": {
+        "want": 15720.0,
+        "got": 15720.0
+      },
+      "labeled_amount": {
+        "label": "Goods value",
+        "want": 15720.0,
+        "header_amount": 15720.0,
+        "sum_items": 15720.0,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    },
+    "shipment_packing": {
+      "mode": "shipment_first",
+      "first_invoice": "2120394532",
+      "total_pkg": 26.0,
+      "gross_weight_kg": 1989.836,
+      "shared_rb": [
+        "110936597"
+      ],
+      "invoices": [
+        "2120394532",
+        "2120394533"
+      ]
+    }
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "header": {
+    "invoice_no": "2000262640",
+    "invoice_date": "2025-12-18",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 191.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 20,
+    "total_quantity": 399.0,
+    "amount": 572745.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040099094",
+    "bl_packages": 15.0,
+    "bl_gross_weight_kg": 2962.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2000262640",
+      "part_no": "94216207593CA",
+      "description": "Actuator",
+      "qty": 3.0,
+      "unit": "EA",
+      "unit_price": 9853.0,
+      "amount": 29559.0,
+      "origin": "Japan",
+      "hs_code": "8484100004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "94216207593CA",
+      "description": "Actuator",
+      "qty": 3.0,
+      "unit": "EA",
+      "unit_price": 9853.0,
+      "amount": 29559.0,
+      "origin": "Japan",
+      "hs_code": "8484100004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "94436121853CA",
+      "description": "Compensator",
+      "qty": 5.0,
+      "unit": "EA",
+      "unit_price": 3521.0,
+      "amount": 17605.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "F01G2051WUTT1",
+      "description": "Hand pump",
+      "qty": 9.0,
+      "unit": "EA",
+      "unit_price": 182.0,
+      "amount": 1638.0,
+      "origin": "Japan",
+      "hs_code": "8413200003",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "94136104163CA",
+      "description": "Pump element",
+      "qty": 30.0,
+      "unit": "EA",
+      "unit_price": 586.0,
+      "amount": 17580.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "94116103623CA",
+      "description": "Hollow Bolt",
+      "qty": 124.0,
+      "unit": "EA",
+      "unit_price": 95.0,
+      "amount": 11780.0,
+      "origin": "Japan",
+      "hs_code": "8481809000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "0261230318750",
+      "description": "Pressure Sensor",
+      "qty": 5.0,
+      "unit": "EA",
+      "unit_price": 81.0,
+      "amount": 405.0,
+      "origin": "Japan",
+      "hs_code": "9026201203",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "0445120058KUH",
+      "description": "Injector",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 3852.0,
+      "amount": 23112.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "0445120058KUH",
+      "description": "Injector",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 3852.0,
+      "amount": 23112.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "0986435597998",
+      "description": "Injector",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 2574.0,
+      "amount": 5148.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "0445120093KUH",
+      "description": "Injector",
+      "qty": 36.0,
+      "unit": "EA",
+      "unit_price": 3067.0,
+      "amount": 110412.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "0445120093KUH",
+      "description": "Injector",
+      "qty": 42.0,
+      "unit": "EA",
+      "unit_price": 3067.0,
+      "amount": 128814.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "0986435597998",
+      "description": "Injector",
+      "qty": 10.0,
+      "unit": "EA",
+      "unit_price": 2574.0,
+      "amount": 25740.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "0986435597998",
+      "description": "Injector",
+      "qty": 5.0,
+      "unit": "EA",
+      "unit_price": 2574.0,
+      "amount": 12870.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "H156605432TT1",
+      "description": "Plate",
+      "qty": 9.0,
+      "unit": "EA",
+      "unit_price": 420.0,
+      "amount": 3780.0,
+      "origin": "Japan",
+      "hs_code": "8483904004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "0445120126KUH",
+      "description": "Injector",
+      "qty": 18.0,
+      "unit": "EA",
+      "unit_price": 3980.0,
+      "amount": 71640.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "0986435633KYB",
+      "description": "Injector",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 3084.0,
+      "amount": 37008.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "H107C04000TT1",
+      "description": "Roller",
+      "qty": 61.0,
+      "unit": "EA",
+      "unit_price": 94.0,
+      "amount": 5734.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "H131425162TT1",
+      "description": "Overflow Valve",
+      "qty": 9.0,
+      "unit": "EA",
+      "unit_price": 581.0,
+      "amount": 5229.0,
+      "origin": "Japan",
+      "hs_code": "8481809000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262640",
+      "part_no": "0445110464KUH",
+      "description": "Injector",
+      "qty": 4.0,
+      "unit": "EA",
+      "unit_price": 3005.0,
+      "amount": 12020.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-012/0010889195_2000262640_RBTW_20251218.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 572745.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-012/0010889195_2000262640_RBTW_20251218.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-012/0010889195_2000262640_RBTW_20251218.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-012/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "9843104450001": 191.0
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 20,
+        "got": 20
+      },
+      "total_quantity": {
+        "want": 399.0,
+        "got": 399.0
+      },
+      "amount": {
+        "want": 572745.0,
+        "got": 572745.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 572745.0,
+        "header_amount": 572745.0,
+        "sum_items": 572745.0,
+        "item_count": 20
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

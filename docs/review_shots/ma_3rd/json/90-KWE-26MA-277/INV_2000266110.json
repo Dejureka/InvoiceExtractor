@@ -1,0 +1,275 @@
+{
+  "header": {
+    "invoice_no": "2000266110",
+    "invoice_date": "2026-04-01",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 126.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 17,
+    "total_quantity": 1214.0,
+    "amount": 451202.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040116093",
+    "bl_packages": 20.0,
+    "bl_gross_weight_kg": 1437.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2000266110",
+      "part_no": "94216207593CA",
+      "description": "Actuator",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 12089.0,
+      "amount": 24178.0,
+      "origin": "Japan",
+      "hs_code": "8484100004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "9461616142HRV",
+      "description": "Hydraulic Head",
+      "qty": 5.0,
+      "unit": "EA",
+      "unit_price": 1383.0,
+      "amount": 6915.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "H105017089KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 350.0,
+      "amount": 4200.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "043317224975N",
+      "description": "Hole-Type Nozzle",
+      "qty": 54.0,
+      "unit": "EA",
+      "unit_price": 631.0,
+      "amount": 34074.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "0445110777KUH",
+      "description": "Injector",
+      "qty": 30.0,
+      "unit": "EA",
+      "unit_price": 3726.0,
+      "amount": 111780.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "H105019300TT1",
+      "description": "Nozzle Set",
+      "qty": 16.0,
+      "unit": "EA",
+      "unit_price": 491.0,
+      "amount": 7856.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "94116104553CA",
+      "description": "Hollow Bolt",
+      "qty": 29.0,
+      "unit": "EA",
+      "unit_price": 114.0,
+      "amount": 3306.0,
+      "origin": "Japan",
+      "hs_code": "8481801101",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "2469403094751",
+      "description": "Sealing disk",
+      "qty": 520.0,
+      "unit": "EA",
+      "unit_price": 16.0,
+      "amount": 8320.0,
+      "origin": "Japan",
+      "hs_code": "8484100004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "94116110853CA",
+      "description": "Hollow Bolt",
+      "qty": 1.0,
+      "unit": "EA",
+      "unit_price": 334.0,
+      "amount": 334.0,
+      "origin": "Japan",
+      "hs_code": "8481809000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "F01G1055URTT1",
+      "description": "Filter",
+      "qty": 50.0,
+      "unit": "EA",
+      "unit_price": 42.0,
+      "amount": 2100.0,
+      "origin": "Japan",
+      "hs_code": "8421230005",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "H105210606TT1",
+      "description": "Feed Pump",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 1085.0,
+      "amount": 2170.0,
+      "origin": "Japan",
+      "hs_code": "8413300000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "H134034000TT1",
+      "description": "Plug",
+      "qty": 100.0,
+      "unit": "EA",
+      "unit_price": 52.0,
+      "amount": 5200.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "H146650072TT1",
+      "description": "Pulling Electromagnet",
+      "qty": 11.0,
+      "unit": "EA",
+      "unit_price": 115.0,
+      "amount": 1265.0,
+      "origin": "Japan",
+      "hs_code": "8505901003",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "H154000470TT1",
+      "description": "Housing",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 483.0,
+      "amount": 966.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "H154101260TT1",
+      "description": "Damper",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 37.0,
+      "amount": 74.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "0986435522998",
+      "description": "Injector",
+      "qty": 78.0,
+      "unit": "EA",
+      "unit_price": 2988.0,
+      "amount": 233064.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266110",
+      "part_no": "H146601070TT1",
+      "description": "Shaft Seal",
+      "qty": 300.0,
+      "unit": "EA",
+      "unit_price": 18.0,
+      "amount": 5400.0,
+      "origin": "Japan",
+      "hs_code": "8487900002",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022052_2000266110_RBTW_20260401.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=ROBERT BOSCH.pdf",
+    "labeled_amount": 451202.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022052_2000266110_RBTW_20260401.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022052_2000266110_RBTW_20260401.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/ROBERT BOSCH.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "9843303861001": 126.0
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 17,
+        "got": 17
+      },
+      "total_quantity": {
+        "want": 1214.0,
+        "got": 1214.0
+      },
+      "amount": {
+        "want": 451202.0,
+        "got": 451202.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 451202.0,
+        "header_amount": 451202.0,
+        "sum_items": 451202.0,
+        "item_count": 17
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

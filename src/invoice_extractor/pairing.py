@@ -710,10 +710,15 @@ def merge_bl_onto_inv(
     bl_header: dict[str, Any] | None,
     bl_path: Path | str | None,
     bl_format_id: str | None = None,
+    bl_meta: dict[str, Any] | None = None,
 ) -> ExtractResult:
     """Overlay BL No. / BL Packages / BL G.W. onto invoice header.
 
     Never overwrites invoice ``total_pkg`` / ``gross_weight_kg``.
+    When the BL extract itself is ``needs_gold`` (e.g. OCR reads of a scanned
+    waybill disagree), the Summary BL columns carry the suggested value and the
+    INV row is flagged field-level (``needs_gold_fields`` += ``bl_*``) so the
+    uncertainty is not hidden behind an INV pass.
     """
     header = replace(inv_result.header)
     meta = replace(inv_result.meta)
@@ -744,8 +749,60 @@ def merge_bl_onto_inv(
     extra = f"bl_used={'yes' if bl_used else 'no'}"
     if bl_p:
         extra += f"; bl_file={Path(bl_p).name}"
+    bm = dict(bl_meta or {})
+    if bl_used and bm.get("needs_gold"):
+        flds = list(meta.needs_gold_fields or [])
+        bl_note = str(bm.get("notes") or "")
+        want = []
+        explicit = bm.get("needs_gold_fields") or []
+        if explicit:
+            # field-level list from the BL format (e.g. kwe_sea_waybill_v1)
+            for f in explicit:
+                want.append(f if f.startswith("bl_") else f"bl_{f}")
+            if not bl_no and "bl_no" not in want:
+                want.append("bl_no")
+        elif "bl_no" in bl_note or not bl_no:
+            want.append("bl_no")
+        if not explicit and "packages" in bl_note:
+            want.append("bl_packages")
+        if not explicit and "gross_weight" in bl_note:
+            want.append("bl_gross_weight_kg")
+        if not want:
+            want = ["bl_packages", "bl_gross_weight_kg"]
+        for f in want:
+            if f not in flds:
+                flds.append(f)
+        meta.needs_gold_fields = flds
+        extra += f"; bl_needs_gold ({bl_note[:160]})" if bl_note else "; bl_needs_gold"
     meta.notes = f"{note}; {extra}".strip("; ") if note else extra
     return ExtractResult(header=header, items=list(inv_result.items), meta=meta)
+
+
+_BL_CACHE: dict[tuple[str, int, int], dict[str, Any]] = {}
+
+
+def _extract_bl_cached(bl_path: Path) -> dict[str, Any]:
+    """``extract_bl(path).to_dict()`` memoised per file (path, mtime, size).
+
+    One scanned waybill is shared by up to 18 INV rows in an MA 90-KWE folder;
+    without the cache every row re-OCRs the same PDF.
+    """
+    import copy
+
+    from invoice_extractor.bl_rules_engine import extract_bl
+
+    try:
+        st = bl_path.stat()
+        key = (str(bl_path.resolve()), st.st_mtime_ns, st.st_size)
+    except OSError:
+        return extract_bl(bl_path).to_dict()
+    hit = _BL_CACHE.get(key)
+    if hit is None:
+        hit = extract_bl(bl_path).to_dict()
+        if len(_BL_CACHE) > 256:
+            _BL_CACHE.clear()
+        _BL_CACHE[key] = hit
+    return copy.deepcopy(hit)
 
 
 def bl_only_extract(
@@ -869,8 +926,7 @@ def extract_pair_row(
     # BL-only → Summary BL columns, no Lines
     if (row.status == STATUS_BL_ONLY or (row.bl_path and not row.inv_path)) and row.bl_path:
         bl_path = Path(row.bl_path)
-        bl_result = extract_bl(bl_path)
-        bl_data = bl_result.to_dict()
+        bl_data = _extract_bl_cached(bl_path)
         bl_hard = hard_check_bl(bl_data)
         result = bl_only_extract(
             bl_header=bl_data.get("header"),
@@ -943,13 +999,13 @@ def extract_pair_row(
     # Optional BL overlay (does not touch invoice Packages / G.W.)
     if row.bl_path:
         bl_path = Path(row.bl_path)
-        bl_result = extract_bl(bl_path)
-        bl_data = bl_result.to_dict()
+        bl_data = _extract_bl_cached(bl_path)
         result = merge_bl_onto_inv(
             result,
             bl_header=bl_data.get("header"),
             bl_path=bl_path,
             bl_format_id=(bl_data.get("meta") or {}).get("format_id"),
+            bl_meta=bl_data.get("meta"),
         )
 
     data = result.to_dict()
@@ -968,3 +1024,194 @@ def extract_pair_row(
     data["_pair_status"] = data["meta"].get("pair_status") or row.status
     data["_pair_id"] = row.pair_id
     return data
+
+
+# --------------------------------------------------------------------------
+# Shipment-level packing dedupe (MA 3rd, user decision 2026-09-29)
+# --------------------------------------------------------------------------
+
+def _shipment_key(data: dict[str, Any]) -> tuple[str, str]:
+    """Same folder + same BL No. = one shipment (BL No. blank → folder only)."""
+    m = data.get("meta") or {}
+    h = data.get("header") or {}
+    src = m.get("inv_file") or m.get("source_file") or ""
+    return (str(Path(src).parent), str(h.get("bl_no") or ""))
+
+
+def _fmt_num(x: float | None) -> str:
+    if x is None:
+        return "?"
+    return f"{x:.3f}".rstrip("0").rstrip(".")
+
+
+# Which rule applies when an RB key repeats across invoices of one shipment.
+#   "duplicate_only"  (A): first invoice (by invoice no.) keeps the RB; on each
+#                         later invoice only that RB's pkg (1) / Gross KG is zeroed.
+#   "shipment_first"  (B): the shipment's RB-deduped pkg / GW total is put on the
+#                         first invoice; every other invoice gets pkg / GW 0.
+# Only shipments where an RB key actually repeats are touched in either mode.
+SHARED_RB_MODES = ("duplicate_only", "shipment_first")
+SHARED_RB_MODE = "shipment_first"  # user decision 2026-09-29 (mode B)
+
+
+def _units_match_totals(d: dict[str, Any]) -> bool:
+    h, m = d["header"], d["meta"]
+    units: dict[str, float] = m.get("packing_units") or {}
+    pkg0, gw0 = h.get("total_pkg"), h.get("gross_weight_kg")
+    return (
+        bool(units) and pkg0 is not None and gw0 is not None
+        and float(pkg0) == float(len(units)) and abs(float(gw0) - sum(units.values())) <= 0.001
+    )
+
+
+def _add_note(d: dict[str, Any], note: str) -> None:
+    h, m = d["header"], d["meta"]
+    h["summary_note"] = f"{h['summary_note']}; {note}" if h.get("summary_note") else note
+    m["notes"] = f"{m['notes']}; {note}" if m.get("notes") else note
+
+
+def _flag_not_from_units(d: dict[str, Any], shared: list[tuple[str, str]]) -> str:
+    """Totals did not come from the RB units (e.g. PKL override): flag, don't guess."""
+    note = "; ".join(f"shared RB {k} with {first}, NOT zeroed (pkg/GW not from RB units)" for k, first in shared)
+    flds = list(d["meta"].get("needs_gold_fields") or [])
+    for f in ("total_pkg", "gross_weight_kg"):
+        if f not in flds:
+            flds.append(f)
+    d["meta"]["needs_gold_fields"] = flds
+    _add_note(d, note)
+    return note
+
+
+def _inv_label(d: dict[str, Any]) -> str:
+    return str(d["header"].get("invoice_no") or Path(str(d["meta"].get("source_file") or "")).name)
+
+
+def _apply_duplicate_only(ds: list[dict[str, Any]]) -> list[tuple[dict[str, Any], str]]:
+    """Mode A: zero only the repeated RB on each later invoice."""
+    out = []
+    owner: dict[str, str] = {}
+    for d in ds:
+        h, m = d["header"], d["meta"]
+        inv = _inv_label(d)
+        units: dict[str, float] = m.get("packing_units") or {}
+        shared = [(k, gw, owner[k]) for k, gw in units.items() if k in owner]
+        for k in units:
+            owner.setdefault(k, inv)
+        if not shared:
+            continue
+        if not _units_match_totals(d):
+            out.append((d, _flag_not_from_units(d, [(k, f) for k, _, f in shared])))
+            continue
+        pkg0, gw0 = float(h["total_pkg"]), float(h["gross_weight_kg"])
+        h["total_pkg"] = pkg0 - len(shared)
+        h["gross_weight_kg"] = round(gw0 - sum(gw for _, gw, _ in shared), 3)
+        m["packing_units_zeroed"] = {k: gw for k, gw, _ in shared}
+        note = "; ".join(
+            f"shared RB {k} with {first}, zeroed (RB pkg/GW 1 / {_fmt_num(gw)}); "
+            f"printed pkg/GW {_fmt_num(pkg0)} / {_fmt_num(gw0)}"
+            for k, gw, first in shared
+        )
+        _add_note(d, note)
+        out.append((d, note))
+    return out
+
+
+def _apply_shipment_first(ds: list[dict[str, Any]]) -> list[tuple[dict[str, Any], str]]:
+    """Mode B: shipment RB-deduped total on the first invoice, 0 on the others."""
+    first = ds[0]
+    first_inv = _inv_label(first)
+    union: dict[str, float] = {}
+    shared_keys: list[str] = []
+    for d in ds:
+        for k, gw in (d["meta"].get("packing_units") or {}).items():
+            if k in union:
+                if k not in shared_keys:
+                    shared_keys.append(k)
+            else:
+                union[k] = gw
+    bad = [d for d in ds if not _units_match_totals(d)]
+    if bad:
+        out = []
+        for d in ds:
+            out.append((d, _flag_not_from_units(d, [(k, first_inv) for k in shared_keys])))
+        return out
+    tot_pkg = float(len(union))
+    tot_gw = round(sum(union.values()), 3)
+    shared_s = ", ".join(shared_keys)
+    info = {"mode": "shipment_first", "first_invoice": first_inv, "total_pkg": tot_pkg,
+            "gross_weight_kg": tot_gw, "shared_rb": shared_keys, "invoices": [_inv_label(d) for d in ds]}
+    out = []
+    for d in ds:
+        h, m = d["header"], d["meta"]
+        pkg0, gw0 = float(h["total_pkg"]), float(h["gross_weight_kg"])
+        m["shipment_packing"] = dict(info)
+        if d is first:
+            h["total_pkg"], h["gross_weight_kg"] = tot_pkg, tot_gw
+            note = (
+                f"shipment pkg/GW (deduped) {_fmt_num(tot_pkg)} / {_fmt_num(tot_gw)} on this first "
+                f"invoice ({len(ds)} invoices, shared RB {shared_s}); "
+                f"printed pkg/GW {_fmt_num(pkg0)} / {_fmt_num(gw0)}"
+            )
+        else:
+            h["total_pkg"], h["gross_weight_kg"] = 0.0, 0.0
+            m["packing_units_zeroed"] = dict(m.get("packing_units") or {})
+            note = (
+                f"shipment pkg/GW (deduped) on {first_inv}; "
+                f"printed pkg/GW {_fmt_num(pkg0)} / {_fmt_num(gw0)}"
+            )
+        _add_note(d, note)
+        out.append((d, note))
+    return out
+
+
+def dedupe_shared_packing_units(
+    extracts: list[dict[str, Any]], mode: str | None = None
+) -> list[str]:
+    """Shipment-level handling of packing units (MA RB keys) repeated across
+    invoices of one shipment (same folder + same BL No.).
+
+    ``mode`` (default :data:`SHARED_RB_MODE`): ``"duplicate_only"`` (A) or
+    ``"shipment_first"`` (B) — see :data:`SHARED_RB_MODES`. Invoices are
+    ordered by invoice number; "first" = lowest. Line qty / amounts are never
+    touched. Changed invoices get ``header.summary_note`` (Excel note on the
+    Summary Packages / G.W. cells) and a ``meta.notes`` entry. If an invoice's
+    pkg / GW did not come from its RB units, nothing is moved and
+    ``total_pkg`` / ``gross_weight_kg`` are flagged needs_gold instead.
+
+    Needs ``meta.packing_units`` (set by the MA formats). Mutates the dicts in
+    place and returns the notes written (for logging).
+    """
+    from invoice_extractor.checker import hard_check
+
+    mode = mode or SHARED_RB_MODE
+    if mode not in SHARED_RB_MODES:
+        raise ValueError(f"unknown shared RB mode {mode!r}; expected one of {SHARED_RB_MODES}")
+
+    groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for d in extracts:
+        if (d.get("meta") or {}).get("packing_units"):
+            groups.setdefault(_shipment_key(d), []).append(d)
+
+    written: list[str] = []
+    for ds in groups.values():
+        if len(ds) < 2:
+            continue
+        ds.sort(key=lambda d: (str((d.get("header") or {}).get("invoice_no") or ""),
+                               str((d.get("meta") or {}).get("source_file") or "")))
+        seen: set[str] = set()
+        repeats = False
+        for d in ds:
+            ks = set(d["meta"]["packing_units"])
+            if ks & seen:
+                repeats = True
+            seen |= ks
+        if not repeats:
+            continue
+        changed = _apply_duplicate_only(ds) if mode == "duplicate_only" else _apply_shipment_first(ds)
+        for d, note in changed:
+            hard = hard_check(d)
+            d["meta"]["checker_verdict"] = hard["verdict"]
+            d["meta"]["checker_issues"] = hard.get("issues")
+            d["meta"]["checker_details"] = hard.get("details")
+            written.append(f"{_inv_label(d)}: {note}")
+    return written

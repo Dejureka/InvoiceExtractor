@@ -1,0 +1,17 @@
+MA 3rd (last MA batch), FormatSOP: please audit
+
+Scope: /home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/. 39 folders (RBDEsea 19 + RBJPsea 20), 184 INV + 39 BL. No folder is missing a BL.
+INV: ma_with_period_v1 (DE, 35 INV, HS 8-digit) and ma_no_period_v1 (JP, 149 INV, HS 10-digit). Rules unchanged. 184/184 hard pass; HS on all 4739 lines; HS sequence and pkg/GW match the printed values.
+BL: two new families. cosco_arrival_v1 (COSCO 到貨通知, text layer, 19/19 pass) and kwe_sea_waybill_v1 (KWE/APL Sea Waybill scans, OCR voting, 20/20 pass). Each INV Summary row carries its folder's shared BL No./pkg/GW; invoice Packages/G.W. are untouched.
+Other changes: BL##########.PDF is recognised as a BL; a garbled (scanner CJK-OCR) text layer is treated as unreliable and the file is OCR'd; a BL needs_gold propagates to its INV rows.
+
+Needs your decision:
+1. 008 and 036: the same RB is listed on two invoices (008: RB 110936597 on 2120394532 and 2120394533; 036: RB 111292965 on 2120422517 and 2120422518). The INV sum is 1 pkg more than the BL; with the duplicate removed it equals the BL (26/1989.836 vs 26/1989.837; 32/2801.031 vs 32/2801.033). Invoice values were left as printed. Should the duplicate be zeroed?
+2. OCR rule: 6 JP waybills (513, 569, 609, 660, 689, 721) have a non-empty but garbled text layer and were OCR'd anyway. All 6 equal the INV sums exactly. Please approve or reject this exception to "OCR only when the text layer is empty".
+3. All 20 JP BL values are OCR-derived. They match the INV sums and INV refs exactly.
+FYI: DE GW rounding ≤0.013 kg (12 folders); COSCO skip-Taipei notice (192/193 ETA 2026-05-13 TBP; 260/261/262 ETA 2026-05-07 KHH); KWE waybills carry no ETA.
+
+Pack: docs/review_shots/ma_3rd/ (auditor_batch_summary.md, InvoiceExtract_Result.xlsx, BLExtract_Result.xlsx, json/<folder>/, reconcile.json, verify_inv.json, shots/ for needs-check items only)
+Branch: feature/ma-3rd (not merged).
+
+Please reply per batch / invoice: pass | conflict | needs_gold.

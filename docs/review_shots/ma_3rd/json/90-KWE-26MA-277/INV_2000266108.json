@@ -1,0 +1,227 @@
+{
+  "header": {
+    "invoice_no": "2000266108",
+    "invoice_date": "2026-04-01",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 129.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 13,
+    "total_quantity": 935.0,
+    "amount": 472623.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040116093",
+    "bl_packages": 20.0,
+    "bl_gross_weight_kg": 1437.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2000266108",
+      "part_no": "0445110307KUH",
+      "description": "Injector",
+      "qty": 30.0,
+      "unit": "EA",
+      "unit_price": 3475.0,
+      "amount": 104250.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "H105007155KMH",
+      "description": "Pintle Nozzle",
+      "qty": 16.0,
+      "unit": "EA",
+      "unit_price": 162.0,
+      "amount": 2592.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "94436118533CA",
+      "description": "Pump element",
+      "qty": 703.0,
+      "unit": "EA",
+      "unit_price": 397.0,
+      "amount": 279091.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "H105017351KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 428.0,
+      "amount": 2568.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "94136104363CA",
+      "description": "Delivery Valve",
+      "qty": 28.0,
+      "unit": "EA",
+      "unit_price": 133.0,
+      "amount": 3724.0,
+      "origin": "Japan",
+      "hs_code": "8481900000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "H105000165KMH",
+      "description": "Pintle Nozzle",
+      "qty": 72.0,
+      "unit": "EA",
+      "unit_price": 295.0,
+      "amount": 21240.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "94136107393CA",
+      "description": "Pump element",
+      "qty": 4.0,
+      "unit": "EA",
+      "unit_price": 671.0,
+      "amount": 2684.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "H105017104KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 5.0,
+      "unit": "EA",
+      "unit_price": 395.0,
+      "amount": 1975.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "H105015914KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 8.0,
+      "unit": "EA",
+      "unit_price": 376.0,
+      "amount": 3008.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "H105000165KMH",
+      "description": "Pintle Nozzle",
+      "qty": 17.0,
+      "unit": "EA",
+      "unit_price": 295.0,
+      "amount": 5015.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "H105015736KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 257.0,
+      "amount": 6168.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "F01G00905GKMH",
+      "description": "Nozzle And Holder Assy",
+      "qty": 16.0,
+      "unit": "EA",
+      "unit_price": 1254.0,
+      "amount": 20064.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000266108",
+      "part_no": "0445120236KUH",
+      "description": "Injector",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 3374.0,
+      "amount": 20244.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022046_2000266108_RBTW_20260401.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=ROBERT BOSCH.pdf",
+    "labeled_amount": 472623.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022046_2000266108_RBTW_20260401.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/0012022046_2000266108_RBTW_20260401.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-277/ROBERT BOSCH.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "9843292981001": 129.0
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 13,
+        "got": 13
+      },
+      "total_quantity": {
+        "want": 935.0,
+        "got": 935.0
+      },
+      "amount": {
+        "want": 472623.0,
+        "got": 472623.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 472623.0,
+        "header_amount": 472623.0,
+        "sum_items": 472623.0,
+        "item_count": 13
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "header": {
+    "invoice_no": "2000267008",
+    "invoice_date": "2026-04-22",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 69.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 9,
+    "total_quantity": 306.0,
+    "amount": 210224.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040121310",
+    "bl_packages": 9.0,
+    "bl_gross_weight_kg": 804.8,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2000267008",
+      "part_no": "043317192775N",
+      "description": "Hole-Type Nozzle",
+      "qty": 96.0,
+      "unit": "EA",
+      "unit_price": 542.0,
+      "amount": 52032.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000267008",
+      "part_no": "0445020200751",
+      "description": "Banked-Piston-Pump",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 11657.0,
+      "amount": 23314.0,
+      "origin": "Japan",
+      "hs_code": "8413300000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000267008",
+      "part_no": "94106180883CA",
+      "description": "Pump element",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 456.0,
+      "amount": 5472.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000267008",
+      "part_no": "2469403479751",
+      "description": "Overflow Valve",
+      "qty": 50.0,
+      "unit": "EA",
+      "unit_price": 336.0,
+      "amount": 16800.0,
+      "origin": "Japan",
+      "hs_code": "8481809000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000267008",
+      "part_no": "F01G008021TT1",
+      "description": "Fuel-Injection Pump",
+      "qty": 8.0,
+      "unit": "EA",
+      "unit_price": 7899.0,
+      "amount": 63192.0,
+      "origin": "Japan",
+      "hs_code": "8413300000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000267008",
+      "part_no": "F01G008021TT1",
+      "description": "Fuel-Injection Pump",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 7899.0,
+      "amount": 15798.0,
+      "origin": "Japan",
+      "hs_code": "8413300000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000267008",
+      "part_no": "043317192775N",
+      "description": "Hole-Type Nozzle",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 542.0,
+      "amount": 13008.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000267008",
+      "part_no": "H105019287TT1",
+      "description": "Nozzle Set",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 609.0,
+      "amount": 7308.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000267008",
+      "part_no": "H131424492TT1",
+      "description": "Overflow Valve",
+      "qty": 100.0,
+      "unit": "EA",
+      "unit_price": 133.0,
+      "amount": 13300.0,
+      "origin": "Japan",
+      "hs_code": "8481809000",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-327/0012183521_2000267008_RBTW_20260422.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 210224.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-327/0012183521_2000267008_RBTW_20260422.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-327/0012183521_2000267008_RBTW_20260422.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-327/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "9843344909001": 69.0
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 9,
+        "got": 9
+      },
+      "total_quantity": {
+        "want": 306.0,
+        "got": 306.0
+      },
+      "amount": {
+        "want": 210224.0,
+        "got": 210224.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 210224.0,
+        "header_amount": 210224.0,
+        "sum_items": 210224.0,
+        "item_count": 9
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

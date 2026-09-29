@@ -1,0 +1,311 @@
+{
+  "header": {
+    "invoice_no": "2000264920",
+    "invoice_date": "2026-03-02",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 73.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 20,
+    "total_quantity": 862.0,
+    "amount": 207203.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040110434",
+    "bl_packages": 8.0,
+    "bl_gross_weight_kg": 976.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94136105873CA",
+      "description": "Pump element",
+      "qty": 30.0,
+      "unit": "EA",
+      "unit_price": 376.0,
+      "amount": 11280.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94216121523CA",
+      "description": "Sealing Plate",
+      "qty": 375.0,
+      "unit": "EA",
+      "unit_price": 18.0,
+      "amount": 6750.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94436100743CA",
+      "description": "Pump element",
+      "qty": 140.0,
+      "unit": "EA",
+      "unit_price": 306.0,
+      "amount": 42840.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94436100743CA",
+      "description": "Pump element",
+      "qty": 40.0,
+      "unit": "EA",
+      "unit_price": 306.0,
+      "amount": 12240.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "H105025273KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 48.0,
+      "unit": "EA",
+      "unit_price": 488.0,
+      "amount": 23424.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "H105015783KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 332.0,
+      "amount": 3984.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94436100403CA",
+      "description": "Pump element",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 679.0,
+      "amount": 4074.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94436104593CA",
+      "description": "Pump element",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 1479.0,
+      "amount": 35496.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94436101973CA",
+      "description": "Pump element",
+      "qty": 20.0,
+      "unit": "EA",
+      "unit_price": 646.0,
+      "amount": 12920.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94436105593CA",
+      "description": "Pump element",
+      "qty": 20.0,
+      "unit": "EA",
+      "unit_price": 690.0,
+      "amount": 13800.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94216190583CA",
+      "description": "Seal Ring",
+      "qty": 20.0,
+      "unit": "EA",
+      "unit_price": 52.0,
+      "amount": 1040.0,
+      "origin": "Japan",
+      "hs_code": "4016930002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94216175383CA",
+      "description": "Actuator",
+      "qty": 1.0,
+      "unit": "EA",
+      "unit_price": 11550.0,
+      "amount": 11550.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94216114573CA",
+      "description": "Lever Shaft",
+      "qty": 22.0,
+      "unit": "EA",
+      "unit_price": 128.0,
+      "amount": 2816.0,
+      "origin": "Japan",
+      "hs_code": "8483100006",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94216114853CA",
+      "description": "Bearing cover",
+      "qty": 9.0,
+      "unit": "EA",
+      "unit_price": 59.0,
+      "amount": 531.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "H105015545KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 279.0,
+      "amount": 3348.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94216170803CA",
+      "description": "Bushing",
+      "qty": 15.0,
+      "unit": "EA",
+      "unit_price": 30.0,
+      "amount": 450.0,
+      "origin": "Japan",
+      "hs_code": "8483302004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "H105015955KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 347.0,
+      "amount": 4164.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "H105017206KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 402.0,
+      "amount": 4824.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94436105843CA",
+      "description": "Pump element",
+      "qty": 24.0,
+      "unit": "EA",
+      "unit_price": 443.0,
+      "amount": 10632.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264920",
+      "part_no": "94216190593CA",
+      "description": "Seal Ring",
+      "qty": 20.0,
+      "unit": "EA",
+      "unit_price": 52.0,
+      "amount": 1040.0,
+      "origin": "Japan",
+      "hs_code": "4016930002",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-177/0011728837_2000264920_RBTW_20260302.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 207203.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-177/0011728837_2000264920_RBTW_20260302.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-177/0011728837_2000264920_RBTW_20260302.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-177/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "9843237693001": 73.0
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 20,
+        "got": 20
+      },
+      "total_quantity": {
+        "want": 862.0,
+        "got": 862.0
+      },
+      "amount": {
+        "want": 207203.0,
+        "got": 207203.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 207203.0,
+        "header_amount": 207203.0,
+        "sum_items": 207203.0,
+        "item_count": 20
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

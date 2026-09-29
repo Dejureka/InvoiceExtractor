@@ -205,9 +205,11 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
     )
     from invoice_extractor.formats.bl import (
         kwe_air_waybill_v1,
+        kwe_sea_waybill_v1,
         maersk_air_waybill_v1,
         ceva_pyramid_arrival_v1,
         china_progress_bl_v1,
+        cosco_arrival_v1,
         dhl_danmar_bl_v1,
         dhl_lcl_arrival_v1,
         hippopo_arrival_v1,
@@ -408,6 +410,16 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 "Shenzhen China Progress International",
                 ["China Progress", "中进国际", "NBSE", "提单"],
                 china_progress_bl_v1,
+            ),
+            (
+                "COSCO SHIPPING Lines (中國遠洋 Taiwan) Arrival Notice",
+                ["COSCO", "中國遠洋", "COSU", "到貨通知 COSCO"],
+                cosco_arrival_v1,
+            ),
+            (
+                "Kintetsu World Express (KWE) Sea Waybill",
+                ["KWE sea", "APL Logistics", "SEA WAYBILL", "1220 sea waybill"],
+                kwe_sea_waybill_v1,
             ),
         ]
         for name, aliases, mod in bl_extras:

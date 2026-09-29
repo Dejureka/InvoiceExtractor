@@ -1,0 +1,191 @@
+{
+  "header": {
+    "invoice_no": "2000262949",
+    "invoice_date": "2026-01-05",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 36.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 10,
+    "total_quantity": 321.0,
+    "amount": 91809.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040099422",
+    "bl_packages": 5.0,
+    "bl_gross_weight_kg": 431.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2000262949",
+      "part_no": "H154200722TT1",
+      "description": "Swivelling Lever",
+      "qty": 18.0,
+      "unit": "EA",
+      "unit_price": 578.0,
+      "amount": 10404.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262949",
+      "part_no": "H105118830TT1",
+      "description": "Nozzle And Holder Assy",
+      "qty": 8.0,
+      "unit": "EA",
+      "unit_price": 913.0,
+      "amount": 7304.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262949",
+      "part_no": "94436102343CA",
+      "description": "Pump element",
+      "qty": 46.0,
+      "unit": "EA",
+      "unit_price": 463.0,
+      "amount": 21298.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262949",
+      "part_no": "94236173613CA",
+      "description": "Clamping Jaw",
+      "qty": 10.0,
+      "unit": "EA",
+      "unit_price": 399.0,
+      "amount": 3990.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262949",
+      "part_no": "94436107063CA",
+      "description": "Pump element",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 444.0,
+      "amount": 5328.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262949",
+      "part_no": "94136103963CA",
+      "description": "Delivery Valve",
+      "qty": 120.0,
+      "unit": "EA",
+      "unit_price": 133.0,
+      "amount": 15960.0,
+      "origin": "Japan",
+      "hs_code": "8481900000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262949",
+      "part_no": "94136103583CA",
+      "description": "Pump element",
+      "qty": 12.0,
+      "unit": "EA",
+      "unit_price": 418.0,
+      "amount": 5016.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262949",
+      "part_no": "94116106353CA",
+      "description": "Hollow Bolt",
+      "qty": 30.0,
+      "unit": "EA",
+      "unit_price": 120.0,
+      "amount": 3600.0,
+      "origin": "Japan",
+      "hs_code": "8481809000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262949",
+      "part_no": "H105007117KMH",
+      "description": "Pintle Nozzle",
+      "qty": 48.0,
+      "unit": "EA",
+      "unit_price": 174.0,
+      "amount": 8352.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000262949",
+      "part_no": "H105019069TT1",
+      "description": "Nozzle Set",
+      "qty": 17.0,
+      "unit": "EA",
+      "unit_price": 621.0,
+      "amount": 10557.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-041/0011191500_2000262949_RBTW_20260105.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 91809.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-041/0011191500_2000262949_RBTW_20260105.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-041/0011191500_2000262949_RBTW_20260105.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-041/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "9843121824001": 36.0
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 10,
+        "got": 10
+      },
+      "total_quantity": {
+        "want": 321.0,
+        "got": 321.0
+      },
+      "amount": {
+        "want": 91809.0,
+        "got": 91809.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 91809.0,
+        "header_amount": 91809.0,
+        "sum_items": 91809.0,
+        "item_count": 10
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

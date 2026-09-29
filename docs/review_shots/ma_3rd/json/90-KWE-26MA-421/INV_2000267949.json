@@ -1,0 +1,83 @@
+{
+  "header": {
+    "invoice_no": "2000267949",
+    "invoice_date": "2026-05-15",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 40.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 1,
+    "total_quantity": 996.0,
+    "amount": 317724.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040125241",
+    "bl_packages": 4.0,
+    "bl_gross_weight_kg": 529.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2000267949",
+      "part_no": "H105017185KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 996.0,
+      "unit": "EA",
+      "unit_price": 319.0,
+      "amount": 317724.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-421/0012377876_2000267949_RBTW_20260515.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 317724.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-421/0012377876_2000267949_RBTW_20260515.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-421/0012377876_2000267949_RBTW_20260515.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-421/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "9843383698001": 40.0
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 996.0,
+        "got": 996.0
+      },
+      "amount": {
+        "want": 317724.0,
+        "got": 317724.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 317724.0,
+        "header_amount": 317724.0,
+        "sum_items": 317724.0,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

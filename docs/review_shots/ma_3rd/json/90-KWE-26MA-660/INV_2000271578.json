@@ -1,0 +1,83 @@
+{
+  "header": {
+    "invoice_no": "2000271578",
+    "invoice_date": "2026-08-04",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 17.9,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 1,
+    "total_quantity": 18.0,
+    "amount": 72450.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040141142",
+    "bl_packages": 12.0,
+    "bl_gross_weight_kg": 1126.4,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2000271578",
+      "part_no": "0445120093CGZ",
+      "description": "Injector",
+      "qty": 18.0,
+      "unit": "EA",
+      "unit_price": 4025.0,
+      "amount": 72450.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-660/0013091858_2000271578_RBTW_20260804.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=2018_001.pdf",
+    "labeled_amount": 72450.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-660/0013091858_2000271578_RBTW_20260804.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-660/0013091858_2000271578_RBTW_20260804.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-660/2018_001.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "9843535113001": 17.9
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 18.0,
+        "got": 18.0
+      },
+      "amount": {
+        "want": 72450.0,
+        "got": 72450.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 72450.0,
+        "header_amount": 72450.0,
+        "sum_items": 72450.0,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

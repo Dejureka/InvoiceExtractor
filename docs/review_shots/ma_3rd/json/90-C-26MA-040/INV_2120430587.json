@@ -1,0 +1,171 @@
+{
+  "header": {
+    "invoice_no": "2120430587",
+    "invoice_date": "2026-01-08",
+    "total_pkg": 5.0,
+    "gross_weight_kg": 152.48,
+    "incoterm": "FCA Karlsruhe",
+    "item_line_count": 8,
+    "total_quantity": 142.0,
+    "amount": 346537.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "COSU6440883030",
+    "bl_packages": 26.0,
+    "bl_gross_weight_kg": 2403.434,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2120430587",
+      "part_no": "0.261.520.405.000",
+      "description": "High Pressure Pump",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 5381.0,
+      "amount": 32286.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120430587",
+      "part_no": "0.261.520.215.000",
+      "description": "High Pressure Pump",
+      "qty": 93.0,
+      "unit": "EA",
+      "unit_price": 2235.0,
+      "amount": 207855.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120430587",
+      "part_no": "0.261.520.472.000",
+      "description": "High Pressure Pump",
+      "qty": 14.0,
+      "unit": "EA",
+      "unit_price": 1558.0,
+      "amount": 21812.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120430587",
+      "part_no": "0.261.520.248.000",
+      "description": "High Pressure Pump",
+      "qty": 5.0,
+      "unit": "EA",
+      "unit_price": 4702.0,
+      "amount": 23510.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120430587",
+      "part_no": "0.261.520.287.000",
+      "description": "High Pressure Pump",
+      "qty": 8.0,
+      "unit": "EA",
+      "unit_price": 2360.0,
+      "amount": 18880.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120430587",
+      "part_no": "0.261.520.484.000",
+      "description": "High Pressure Pump",
+      "qty": 2.0,
+      "unit": "EA",
+      "unit_price": 2752.0,
+      "amount": 5504.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120430587",
+      "part_no": "0.261.520.143.001",
+      "description": "High Pressure Pump",
+      "qty": 3.0,
+      "unit": "EA",
+      "unit_price": 4035.0,
+      "amount": 12105.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120430587",
+      "part_no": "0.261.520.215.000",
+      "description": "High Pressure Pump",
+      "qty": 11.0,
+      "unit": "EA",
+      "unit_price": 2235.0,
+      "amount": 24585.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-040/INVOICE 2120430587.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_with_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6440883030.PDF",
+    "labeled_amount": 346537.0,
+    "labeled_amount_label": "Goods value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-040/INVOICE 2120430587.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-040/INVOICE 2120430587.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-040/BL6440883030.PDF",
+    "bl_used": true,
+    "bl_format_id": "cosco_arrival_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "111364138": 112.5,
+      "111368498": 16.02,
+      "111368531": 6.42,
+      "111368627": 15.72,
+      "111368648": 1.82
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 8,
+        "got": 8
+      },
+      "total_quantity": {
+        "want": 142.0,
+        "got": 142.0
+      },
+      "amount": {
+        "want": 346537.0,
+        "got": 346537.0
+      },
+      "labeled_amount": {
+        "label": "Goods value",
+        "want": 346537.0,
+        "header_amount": 346537.0,
+        "sum_items": 346537.0,
+        "item_count": 8
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

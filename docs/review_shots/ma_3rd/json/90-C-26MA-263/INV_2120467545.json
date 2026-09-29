@@ -1,0 +1,121 @@
+{
+  "header": {
+    "invoice_no": "2120467545",
+    "invoice_date": "2026-03-26",
+    "total_pkg": 3.0,
+    "gross_weight_kg": 35.98,
+    "incoterm": "FCA Karlsruhe",
+    "item_line_count": 4,
+    "total_quantity": 33.0,
+    "amount": 92772.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "COSU6448344810",
+    "bl_packages": 37.0,
+    "bl_gross_weight_kg": 2909.47,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2120467545",
+      "part_no": "0.261.520.289.000",
+      "description": "High Pressure Pump",
+      "qty": 3.0,
+      "unit": "EA",
+      "unit_price": 2594.0,
+      "amount": 7782.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120467545",
+      "part_no": "0.261.520.281.000",
+      "description": "High Pressure Pump",
+      "qty": 21.0,
+      "unit": "EA",
+      "unit_price": 2143.0,
+      "amount": 45003.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120467545",
+      "part_no": "0.261.520.287.000",
+      "description": "High Pressure Pump",
+      "qty": 3.0,
+      "unit": "EA",
+      "unit_price": 2939.0,
+      "amount": 8817.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2120467545",
+      "part_no": "0.261.520.520.000",
+      "description": "High Pressure Pump",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 5195.0,
+      "amount": 31170.0,
+      "origin": "Germany",
+      "hs_code": "84133020",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-263/INVOICE 2120467545.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_with_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6448344810.PDF",
+    "labeled_amount": 92772.0,
+    "labeled_amount_label": "Goods value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-263/INVOICE 2120467545.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-263/INVOICE 2120467545.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-263/BL6448344810.PDF",
+    "bl_used": true,
+    "bl_format_id": "cosco_arrival_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "111714069": 16.98,
+      "111714170": 3.64,
+      "111714185": 15.36
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 4,
+        "got": 4
+      },
+      "total_quantity": {
+        "want": 33.0,
+        "got": 33.0
+      },
+      "amount": {
+        "want": 92772.0,
+        "got": 92772.0
+      },
+      "labeled_amount": {
+        "label": "Goods value",
+        "want": 92772.0,
+        "header_amount": 92772.0,
+        "sum_items": 92772.0,
+        "item_count": 4
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

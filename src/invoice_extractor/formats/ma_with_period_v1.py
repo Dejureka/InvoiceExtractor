@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import re
 
-from invoice_extractor.formats.ma_common import find_hs_after_item, parse_rb_packages
+from invoice_extractor.formats.ma_common import find_hs_after_item, parse_rb_packages, parse_rb_units
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -211,6 +211,7 @@ def extract_from_text(
     items = _parse_items(text, invoice_no, currency)
     total_qty = sum(it.qty or 0.0 for it in items) if items else None
     pkg, gw = parse_rb_packages(text)
+    rb_units = parse_rb_units(text)
     header = Header(
         invoice_no=invoice_no,
         invoice_date=invoice_date,
@@ -231,6 +232,7 @@ def extract_from_text(
         needs_ocr=needs_ocr,
         labeled_amount=amount,
         labeled_amount_label="Goods value",
+        packing_units=rb_units or None,
     )
     if needs_ocr or not invoice_no or amount is None or not items:
         meta.confidence = "needs_gold"

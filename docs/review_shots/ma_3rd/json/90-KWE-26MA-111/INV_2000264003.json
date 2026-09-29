@@ -1,0 +1,179 @@
+{
+  "header": {
+    "invoice_no": "2000264003",
+    "invoice_date": "2026-02-02",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 169.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 9,
+    "total_quantity": 468.0,
+    "amount": 601403.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040105313",
+    "bl_packages": 8.0,
+    "bl_gross_weight_kg": 846.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2000264003",
+      "part_no": "0445120236KUH",
+      "description": "Injector",
+      "qty": 96.0,
+      "unit": "EA",
+      "unit_price": 3374.0,
+      "amount": 323904.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264003",
+      "part_no": "9461616142HRV",
+      "description": "Hydraulic Head",
+      "qty": 14.0,
+      "unit": "EA",
+      "unit_price": 1383.0,
+      "amount": 19362.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264003",
+      "part_no": "0445120126KUH",
+      "description": "Injector",
+      "qty": 21.0,
+      "unit": "EA",
+      "unit_price": 4574.0,
+      "amount": 96054.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264003",
+      "part_no": "0445120278KUH",
+      "description": "Injector",
+      "qty": 7.0,
+      "unit": "EA",
+      "unit_price": 4195.0,
+      "amount": 29365.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264003",
+      "part_no": "H105017359KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 127.0,
+      "unit": "EA",
+      "unit_price": 248.0,
+      "amount": 31496.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264003",
+      "part_no": "H154321200TT1",
+      "description": "Bushing",
+      "qty": 25.0,
+      "unit": "EA",
+      "unit_price": 100.0,
+      "amount": 2500.0,
+      "origin": "Japan",
+      "hs_code": "8483302004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264003",
+      "part_no": "0445120278KUH",
+      "description": "Injector",
+      "qty": 22.0,
+      "unit": "EA",
+      "unit_price": 4195.0,
+      "amount": 92290.0,
+      "origin": "Japan",
+      "hs_code": "8409991004",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264003",
+      "part_no": "H105015643KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 6.0,
+      "unit": "EA",
+      "unit_price": 247.0,
+      "amount": 1482.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000264003",
+      "part_no": "94216121513CA",
+      "description": "Sealing Plate",
+      "qty": 150.0,
+      "unit": "EA",
+      "unit_price": 33.0,
+      "amount": 4950.0,
+      "origin": "Japan",
+      "hs_code": "6815990005",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-111/0011434595_2000264003_RBTW_20260202.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=bosch bosch.pdf",
+    "labeled_amount": 601403.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-111/0011434595_2000264003_RBTW_20260202.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-111/0011434595_2000264003_RBTW_20260202.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-111/bosch bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "9843195078001": 169.0
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 9,
+        "got": 9
+      },
+      "total_quantity": {
+        "want": 468.0,
+        "got": 468.0
+      },
+      "amount": {
+        "want": 601403.0,
+        "got": 601403.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 601403.0,
+        "header_amount": 601403.0,
+        "sum_items": 601403.0,
+        "item_count": 9
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

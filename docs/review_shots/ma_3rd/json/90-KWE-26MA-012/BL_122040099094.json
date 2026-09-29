@@ -1,0 +1,47 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "122040099094",
+    "hbl_no": null,
+    "mbl_no": null,
+    "vessel": null,
+    "voyage": null,
+    "etd": null,
+    "eta": null,
+    "pol": null,
+    "pod": null,
+    "packages": 15.0,
+    "package_unit": null,
+    "gross_weight_kg": 2962.0,
+    "measurement_cbm": null,
+    "load_type": null,
+    "shipper": null,
+    "consignee": null,
+    "notify": null,
+    "invoice_refs": null,
+    "container_nos": null,
+    "forwarder": null
+  },
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-012/robert bosch.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": "kwe_sea_waybill_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "pkg reads: nos_of_pkgs=15, pallet+carton=15, total_words=15, page2_pcs=15; GW reads: row=2962, total_row=2962, page2_kg=2962",
+    "doc_kind": "sea_waybill",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "needs_gold_fields": null,
+    "checker_details": {
+      "anchors": {
+        "bl_no": "122040099094",
+        "packages": 15.0,
+        "gross_weight_kg": 2962.0,
+        "eta": null
+      }
+    },
+    "text_backend_warning": "OCR used (ocr/tesseract): PDF text layer was empty. Column layout may be imperfect vs pdftotext; rules still apply."
+  }
+}

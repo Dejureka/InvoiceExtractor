@@ -1,0 +1,83 @@
+{
+  "header": {
+    "invoice_no": "2120462787",
+    "invoice_date": "2026-03-17",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 705.0,
+    "incoterm": "FCA Kandel",
+    "item_line_count": 1,
+    "total_quantity": 40.0,
+    "amount": 70840.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "COSU6447427150",
+    "bl_packages": 24.0,
+    "bl_gross_weight_kg": 20264.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2120462787",
+      "part_no": "0.092.PE0.050.FZC",
+      "description": "Starter battery Pb",
+      "qty": 40.0,
+      "unit": "EA",
+      "unit_price": 1771.0,
+      "amount": 70840.0,
+      "origin": "Spain",
+      "hs_code": "85071020",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-262/INVOICE 2120462787.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_with_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL6447427150.PDF",
+    "labeled_amount": 70840.0,
+    "labeled_amount_label": "Goods value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-262/INVOICE 2120462787.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-262/INVOICE 2120462787.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBDEsea/90-C-26MA-262/BL6447427150.PDF",
+    "bl_used": true,
+    "bl_format_id": "cosco_arrival_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "200289960": 705.0
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 40.0,
+        "got": 40.0
+      },
+      "amount": {
+        "want": 70840.0,
+        "got": 70840.0
+      },
+      "labeled_amount": {
+        "label": "Goods value",
+        "want": 70840.0,
+        "header_amount": 70840.0,
+        "sum_items": 70840.0,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    }
+  }
+}

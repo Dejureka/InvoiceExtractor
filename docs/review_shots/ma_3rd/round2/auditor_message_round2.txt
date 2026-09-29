@@ -1,0 +1,18 @@
+MA 3rd Round 2: please re-check (feature/ma-3rd @ 009597c, not merged to main)
+
+What's in scope: (1) a new rule that we only extract Result fields; (2) shared RB on 008/036, following the user's rule (mode B); (3) the conditions you set for OCR on garbled text layers.
+
+1. We only extract Result fields (user rule 2026-09-29). I checked InvoiceExtract_Result.xlsx and it has no vessel / voyage / ETA / ETD / CBM column. The only BL columns are BL No. / BL Packages / BL G.W.
+   - cosco_arrival_v1 (19 DE) and kwe_sea_waybill_v1 (20 JP) now output just bl_no, packages and gross_weight_kg. The Round 1 voyage/ETD/CBM/vessel items on 069/177/312/327/381/513/569/689/721 have been removed, not fixed, and the earlier ETD/CBM fixes were dropped along with them.
+   - The three kept values have not changed for any of the 39 BLs, so they still match what you verified (DE 19/19, JP 20/20). Older audited BL formats have not been touched. The rule is now in both SOPs.
+2. Shared RB, mode B (user rule): in an MA shipment (same folder/BL) with several invoices where an RB repeats, the shipment's deduped pkg/GW goes on the first invoice by invoice number and every other invoice gets 0. Line qty/amounts are unchanged. Summary Packages/G.W. cells carry an Excel note that keeps the printed values.
+   - 008: 2120394532 1 / 11.604 → 26 / 1989.836; 2120394533 26 / 1989.836 → 0 / 0 (shared RB 110936597). Folder 26 / 1989.836 vs BL 26 / 1989.837.
+   - 036: 2120422517 1 / 83.5 → 32 / 2801.031; 2120422518 3 / 313 → 0 / 0; 2120422519 29 / 2488.031 → 0 / 0 (shared RB 111292965). Folder 32 / 2801.031 vs BL 32 / 2801.033.
+   - No other invoice changed. I compared all 184 invoices field by field against Round 1: items are identical and all 184 still hard pass (HS present). Every folder's INV pkg sum now equals its BL.
+3. OCR on garbled layers: detection is unchanged (the same 6 KWE BLs: 513/569/609/660/689/721). The backend is now recorded as ocr/tesseract+prefer_over_stale_layer+mojibake_layer in meta, in the CLI warning and in the log. SOP/README now say "OCR when the text layer is empty or unreliable".
+
+Pack: docs/review_shots/ma_3rd/round2/round2_summary.md (before/after), plus InvoiceExtract_Result.xlsx, BLExtract_Result.xlsx, reconcile.json and json/<folder>/ in docs/review_shots/ma_3rd/ (Round 2 output).
+Shots (shared RB evidence): docs/review_shots/ma_3rd/shots/008_* and 036_*.
+pytest: 231 passed, 3 skipped (the 3 pre-existing test_pt_dremel fixture skips).
+
+Please reply per item: pass | conflict | needs_gold.

@@ -35,6 +35,16 @@ def find_hs_after_item(lines: list[str], item_idx: int, *, max_ahead: int = 55) 
     return None
 
 
+def parse_rb_units(text: str) -> dict[str, float]:
+    """``{RB unique key: Gross KG}`` in document order (first Gross wins).
+
+    Same key rules as :func:`parse_rb_packages`. Stored on ``meta.packing_units``
+    so pairing can count an RB shared by several invoices of one shipment only
+    once (:func:`invoice_extractor.pairing.dedupe_shared_packing_units`).
+    """
+    return _rb_units(text)
+
+
 def parse_rb_packages(text: str) -> tuple[float | None, float | None]:
     """Packages + gross weight from unique RB packing markers within one PDF.
 
@@ -46,6 +56,13 @@ def parse_rb_packages(text: str) -> tuple[float | None, float | None]:
     - ``gross_weight_kg`` = sum of Gross KG for those keys (first Gross wins;
       duplicate keys ignore repeat weight).
     """
+    rb_gw = _rb_units(text)
+    if not rb_gw:
+        return None, None
+    return float(len(rb_gw)), round(sum(rb_gw.values()), 3)
+
+
+def _rb_units(text: str) -> dict[str, float]:
     lines = text.splitlines()
     rb_gw: dict[str, float] = {}
     for i, line in enumerate(lines):
@@ -68,9 +85,7 @@ def parse_rb_packages(text: str) -> tuple[float | None, float | None]:
             # same unique key again: count once (whether weight matches or not)
             continue
         rb_gw[rb] = gw
-    if not rb_gw:
-        return None, None
-    return float(len(rb_gw)), round(sum(rb_gw.values()), 3)
+    return rb_gw
 
 
 

@@ -1,0 +1,47 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "122040131283",
+    "hbl_no": null,
+    "mbl_no": null,
+    "vessel": null,
+    "voyage": null,
+    "etd": null,
+    "eta": null,
+    "pol": null,
+    "pod": null,
+    "packages": 14.0,
+    "package_unit": null,
+    "gross_weight_kg": 1252.0,
+    "measurement_cbm": null,
+    "load_type": null,
+    "shipper": null,
+    "consignee": null,
+    "notify": null,
+    "invoice_refs": null,
+    "container_nos": null,
+    "forwarder": null
+  },
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-513/robert bosch.pdf",
+    "text_backend": "ocr/tesseract+prefer_over_stale_layer+mojibake_layer",
+    "format_id": "kwe_sea_waybill_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "pkg reads: nos_of_pkgs=14, pallet+carton=14, total_words=14, page2_pcs=14; GW reads: row=1252, total_row=1252, page2_kg=1252",
+    "doc_kind": "sea_waybill",
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "needs_gold_fields": null,
+    "checker_details": {
+      "anchors": {
+        "bl_no": "122040131283",
+        "packages": 14.0,
+        "gross_weight_kg": 1252.0,
+        "eta": null
+      }
+    },
+    "text_backend_warning": "OCR used (ocr/tesseract+prefer_over_stale_layer+mojibake_layer): PDF text layer is unreliable (garbled scanner CJK-mode OCR over a Latin page); rules use OCR text."
+  }
+}

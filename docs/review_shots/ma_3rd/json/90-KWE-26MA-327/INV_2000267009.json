@@ -1,0 +1,119 @@
+{
+  "header": {
+    "invoice_no": "2000267009",
+    "invoice_date": "2026-04-22",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 118.0,
+    "incoterm": "FCA Tokyo",
+    "item_line_count": 4,
+    "total_quantity": 654.0,
+    "amount": 464230.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "122040121310",
+    "bl_packages": 9.0,
+    "bl_gross_weight_kg": 804.8,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2000267009",
+      "part_no": "94116112453CA",
+      "description": "Sealing Plate",
+      "qty": 375.0,
+      "unit": "EA",
+      "unit_price": 10.0,
+      "amount": 3750.0,
+      "origin": "Japan",
+      "hs_code": "4823909005",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000267009",
+      "part_no": "94216127393CA",
+      "description": "Sealing Plate",
+      "qty": 250.0,
+      "unit": "EA",
+      "unit_price": 15.0,
+      "amount": 3750.0,
+      "origin": "Japan",
+      "hs_code": "6815990005",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000267009",
+      "part_no": "H105866538TT1",
+      "description": "Hydraulic Governor",
+      "qty": 9.0,
+      "unit": "EA",
+      "unit_price": 50050.0,
+      "amount": 450450.0,
+      "origin": "Japan",
+      "hs_code": "8413910002",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "2000267009",
+      "part_no": "H105017122KMH",
+      "description": "Hole-Type Nozzle",
+      "qty": 20.0,
+      "unit": "EA",
+      "unit_price": 314.0,
+      "amount": 6280.0,
+      "origin": "Japan",
+      "hs_code": "8409992006",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-327/0012183522_2000267009_RBTW_20260422.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_no_period_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=robert bosch.pdf",
+    "labeled_amount": 464230.0,
+    "labeled_amount_label": "Goods Value",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-327/0012183522_2000267009_RBTW_20260422.PDF",
+    "pkl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-327/0012183522_2000267009_RBTW_20260422.PDF",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data/RBJPsea/90-KWE-26MA-327/robert bosch.pdf",
+    "bl_used": true,
+    "bl_format_id": "kwe_sea_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "9843345541001": 118.0
+    },
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 4,
+        "got": 4
+      },
+      "total_quantity": {
+        "want": 654.0,
+        "got": 654.0
+      },
+      "amount": {
+        "want": 464230.0,
+        "got": 464230.0
+      },
+      "labeled_amount": {
+        "label": "Goods Value",
+        "want": 464230.0,
+        "header_amount": 464230.0,
+        "sum_items": 464230.0,
+        "item_count": 4
+      },
+      "missing_hs_indices": []
+    }
+  }
+}
