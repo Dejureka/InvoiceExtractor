@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-26",
+  "updated": "2026-09-29",
   "notes": "Formats that passed AuditSOP (Auditor final pass after conflict fixes). GUI mapping_status uses this registry; BL-only rows also use meta.format_id → same path.",
   "formats": {
     "bitzer_v1": {
@@ -35,13 +35,13 @@
     },
     "ma_with_period_v1": {
       "audited": true,
-      "date": "2026-09-11",
-      "note": "Round4 + Round4b currency TWD fix (Auditor pass)"
+      "date": "2026-09-29",
+      "note": "Round4 + Round4b currency TWD fix (Auditor pass); MA 3rd Auditor pass"
     },
     "ma_no_period_v1": {
       "audited": true,
-      "date": "2026-09-10",
-      "note": "Round4 MA NoPeriod; ma_inv_bl_6 reconfirm"
+      "date": "2026-09-29",
+      "note": "Round4 MA NoPeriod; ma_inv_bl_6 reconfirm; MA 3rd Auditor pass"
     },
     "bhc_my_hub_v1": {
       "audited": true,
@@ -172,6 +172,16 @@
       "audited": true,
       "date": "2026-09-24",
       "note": "BHC 3rd Auditor pass"
+    },
+    "cosco_arrival_v1": {
+      "audited": true,
+      "date": "2026-09-29",
+      "note": "MA 3rd Auditor pass (new BL family, RBDEsea COSCO arrival notice; Result fields only: BL No./Packages/G.W.)"
+    },
+    "kwe_sea_waybill_v1": {
+      "audited": true,
+      "date": "2026-09-29",
+      "note": "MA 3rd Auditor pass (new BL family, RBJPsea KWE sea waybill OCR; Result fields only: BL No./Packages/G.W.)"
     }
   }
 }
