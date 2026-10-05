@@ -1,0 +1,133 @@
+{
+  "header": {
+    "invoice_no": "121-BHCTW-26K-37",
+    "invoice_date": "2026-09-07",
+    "total_pkg": 0.0,
+    "gross_weight_kg": 0.0,
+    "incoterm": "FOB",
+    "item_line_count": 1,
+    "total_quantity": 1000.0,
+    "amount": 15300.0,
+    "currency": "JPY",
+    "vendor": "HIPUS Co., Ltd.",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "260918KEE102",
+    "bl_packages": 10.0,
+    "bl_gross_weight_kg": 3084.5,
+    "summary_note": "shipment pkg/GW (deduped) on 117-BHCTW-26K-41; printed pkg/GW 10 / 3084.5"
+  },
+  "items": [
+    {
+      "invoice_no": "121-BHCTW-26K-37",
+      "part_no": "3BS37439A",
+      "description": "MAGNET SHEET",
+      "qty": 1000.0,
+      "unit": "PCS",
+      "unit_price": 15.3,
+      "amount": 15300.0,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "JPY"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 8/IV_121-BHCTW-26K-37.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "bhc_vendor_ci_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "profile=hipus; source=split; pkl_used=yes; pkl_parser=bhc_vendor_ci_v1; pkl_note=one PL for 117-BHCTW-26K-41, 121-BHCTW-26K-37; bl_used=yes; bl_file=WAYBILL.pdf; bl_needs_gold (needs_gold: packages, gross_weight_kg (OCR reads disagree / too few; anti-counterfeit background); pkg reads: container<pallets=10; GW reads: said_to_contain=30); shared PKL PL_117-BHCTW-26K-41, 121-BHCTW-26K-37.xlsx (4 INV files); duplicate BL copy 20260921195744-0001.pdf (same BL no 260918KEE102) not used; shipment pkg/GW (deduped) on 117-BHCTW-26K-41; printed pkg/GW 10 / 3084.5",
+    "labeled_amount": 15300.0,
+    "labeled_amount_label": "TOTAL",
+    "source": "split",
+    "inv_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 8/IV_121-BHCTW-26K-37.PDF",
+    "pkl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 8/PL_117-BHCTW-26K-41, 121-BHCTW-26K-37.xlsx",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 8/WAYBILL.pdf",
+    "bl_used": true,
+    "bl_format_id": "jif_cosmo_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": [
+      "bl_packages",
+      "bl_gross_weight_kg"
+    ],
+    "packing_units": {
+      "PALLET-1": 335.5,
+      "PALLET-2": 275.5,
+      "PALLET-3": 384.5,
+      "PALLET-4": 697.5,
+      "PALLET-5": 109.5,
+      "PALLET-6": 106.5,
+      "PALLET-7": 392.0,
+      "PALLET-8": 390.0,
+      "PALLET-9": 343.5,
+      "PALLET-10": 50.0
+    },
+    "packing_units_zeroed": {
+      "PALLET-1": 335.5,
+      "PALLET-2": 275.5,
+      "PALLET-3": 384.5,
+      "PALLET-4": 697.5,
+      "PALLET-5": 109.5,
+      "PALLET-6": 106.5,
+      "PALLET-7": 392.0,
+      "PALLET-8": 390.0,
+      "PALLET-9": 343.5,
+      "PALLET-10": 50.0
+    },
+    "checker_verdict": "needs_gold",
+    "checker_issues": [
+      "needs_gold field(s): bl_packages, bl_gross_weight_kg (document contradicts itself; confirm manually / from BL)"
+    ],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 1000.0,
+        "got": 1000.0
+      },
+      "amount": {
+        "want": 15300.0,
+        "got": 15300.0
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 15300.0,
+        "header_amount": 15300.0,
+        "sum_items": 15300.0,
+        "item_count": 1
+      },
+      "needs_gold_fields": [
+        "bl_packages",
+        "bl_gross_weight_kg"
+      ]
+    },
+    "shipment_packing": {
+      "mode": "shipment_first",
+      "first_invoice": "117-BHCTW-26K-41",
+      "total_pkg": 10.0,
+      "gross_weight_kg": 3084.5,
+      "shared_rb": [
+        "PALLET-1",
+        "PALLET-2",
+        "PALLET-3",
+        "PALLET-4",
+        "PALLET-5",
+        "PALLET-6",
+        "PALLET-7",
+        "PALLET-8",
+        "PALLET-9",
+        "PALLET-10"
+      ],
+      "invoices": [
+        "117-BHCTW-26K-41",
+        "121-BHCTW-26K-37"
+      ]
+    }
+  }
+}

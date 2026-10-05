@@ -182,6 +182,7 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         aichi_electric_v1,
         bhc_my_hub_v1,
         bhc_manual_inv_v1,
+        bhc_vendor_ci_v1,
         marubeni_tetsugen_v1,
         shanghai_nature_v1,
         bitzer_v1,
@@ -214,6 +215,7 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         dhl_lcl_arrival_v1,
         hippopo_arrival_v1,
         hippopo_hbl_v1,
+        jif_cosmo_waybill_v1,
         milestone_arrival_v1,
         nippon_express_awb_v1,
         tvl_hbl_v1,
@@ -343,6 +345,12 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 ["TW-MANUAL", "BHCWHQA", "no commercial value"],
                 bhc_manual_inv_v1,
             ),
+            (
+                "BHC vendor CI family (Sanhua / Welling / Broad-Ocean / HIPUS / Hailiang)",
+                ["三花", "SHC/THT", "Welling", "MDBWH", "Broad-Ocean", "大洋", "HIPUS",
+                 "BHCTW-26K", "Hailiang", "海亮", "HLHK"],
+                bhc_vendor_ci_v1,
+            ),
         ]
         for name, aliases, mod in extras:
             vid = upsert_vendor(conn, name, aliases=aliases)
@@ -420,6 +428,11 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 "Kintetsu World Express (KWE) Sea Waybill",
                 ["KWE sea", "APL Logistics", "SEA WAYBILL", "1220 sea waybill"],
                 kwe_sea_waybill_v1,
+            ),
+            (
+                "Japan International Freight Forwarders / Cosmo Trans Line Waybill",
+                ["JIFFA", "COSMO TRANS LINE", "KEE waybill", "Japan International"],
+                jif_cosmo_waybill_v1,
             ),
         ]
         for name, aliases, mod in bl_extras:

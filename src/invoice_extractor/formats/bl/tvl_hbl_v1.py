@@ -47,7 +47,7 @@ def match_score(text: str, filename: str = "") -> float:
     tu = text.upper()
     if "T.V.L" in tu or "TVL GLOBAL" in tu or "TRANS VAN LINKS" in tu:
         score += 0.45
-    if re.search(r"SHAKEL\d+", tu):
+    if re.search(r"SHAKEL\d+", tu) or _QDEX.search(text):
         score += 0.35
     if "BILL OF LADING" in tu:
         score += 0.1
@@ -58,6 +58,171 @@ def match_score(text: str, filename: str = "") -> float:
     if "DHL GLOBAL FORWARDING" in tu:
         score -= 0.4
     return max(0.0, min(score, 1.0))
+
+
+# TVL Qingdao office B/L no (BHC 3rd/4th case 3 photo ``QDEX2609096.jpg``);
+# OCR reads D as b / p / B / O.
+_QDEX = re.compile(r"(?<![A-Za-z0-9])Q[DdbpBO0]EX\s?(\d{7})(?!\d)")
+
+_WORDS = {
+    "ONE": 1, "TWO": 2, "THREE": 3, "FOUR": 4, "FIVE": 5, "SIX": 6, "SEVEN": 7,
+    "EIGHT": 8, "NINE": 9, "TEN": 10, "ELEVEN": 11, "TWELVE": 12, "THIRTEEN": 13,
+    "FOURTEEN": 14, "FIFTEEN": 15, "SIXTEEN": 16, "SEVENTEEN": 17, "EIGHTEEN": 18,
+    "NINETEEN": 19, "TWENTY": 20, "THIRTY": 30, "FORTY": 40, "FIFTY": 50,
+    "SIXTY": 60, "SEVENTY": 70, "EIGHTY": 80, "NINETY": 90,
+}
+_UNIT = r"(?:PLYWOOD\s+|WOODEN\s+)?(?:PALLETS?|PACKAGES?|CARTONS?|PKGS|PLTS|CASES?|CRATES?)"
+_DIGIT_FIX = str.maketrans({"O": "0", "o": "0", "T": "1", "I": "1", "l": "1", "|": "1",
+                            "Z": "2", "z": "2", "S": "5", "B": "8"})
+
+
+def _words_to_int(w: str) -> int | None:
+    total, cur, seen = 0, 0, False
+    for tok in re.split(r"[\s\-]+", w.upper().strip()):
+        if not tok:
+            continue
+        if tok in _WORDS:
+            cur += _WORDS[tok]
+            seen = True
+        elif tok == "HUNDRED" and seen:
+            cur = max(cur, 1) * 100
+        elif tok == "THOUSAND" and seen:
+            total += max(cur, 1) * 1000
+            cur = 0
+        elif tok in ("AND",):
+            continue
+        else:
+            return None
+    return total + cur if seen else None
+
+
+def _wnum(raw: str) -> float | None:
+    """OCR weight token → float ("3612. 000", "7290,00", "21,690.00")."""
+    t = re.sub(r"\s", "", raw)
+    head_dec = re.match(r"^(.*[.,])([\dOo]{3})$", t)
+    if head_dec:
+        t = head_dec.group(1) + head_dec.group(2).replace("O", "0").replace("o", "0")
+    if "," in t and "." in t:
+        t = t.replace(",", "")
+    elif "," in t:
+        head, _, tail = t.rpartition(",")
+        t = f"{head.replace(',', '')}.{tail}" if len(tail) in (2, 3) else t.replace(",", "")
+    try:
+        return float(t)
+    except ValueError:
+        return None
+
+
+_ROW_RX = re.compile(
+    r"(?<![A-Za-z0-9])([0-9OoTIlZzSB]{1,4})?\s*([CG]\s*ARTONS?|PACKAGES|PALLETS?|PLTS|PKGS)"
+    r"\s*([/I!|,])\s*([\d,]+[.,]\s?\d{2,3})\s*K[GeE6][S53s]",
+    re.I,
+)
+# face total weight; OCR may read the 3 decimals "000" as "OOO"
+_FACE_GW_RX = re.compile(r"(?<![\d,.])(\d{1,3}(?:,?\d{3})*[.,]\s?[\dOo]{3})\s*K[GeE6][S53s]")
+
+
+def _read_votes(text: str) -> dict:
+    """One OCR pass → candidate reads for BL no / packages / GW (Result fields only)."""
+    out: dict = {"bl_no": None, "say": [], "face_pkg": [], "rows": [], "face_gw": None}
+    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL\d+)", text, re.I) or re.search(r"\b(SHAKEL\d{8})\b", text, re.I)
+    if m:
+        out["bl_no"] = m.group(1).upper()
+    else:
+        q = _QDEX.search(text)
+        if q:
+            out["bl_no"] = f"QDEX{q.group(1)}"
+    # SAY TOTAL: EIGHT (8) PALLETS / THIRTY PACKAGES (containers excluded)
+    for sm in re.finditer(
+        r"SAY\s*TOTAL\s*:?\s*([A-Z][A-Z\s\-]*?)\s*(?:[({]\s*(\d{1,4})\s*[)}]\s*)?(" + _UNIT + r")\b",
+        text, re.I,
+    ):
+        if re.search(r"CONTAINER|\bGP\b|\bHC\b", sm.group(0), re.I):
+            continue
+        w = _words_to_int(sm.group(1))
+        if w:
+            out["say"].append(("say_words", float(w)))
+        if sm.group(2):
+            out["say"].append(("say_digits", float(sm.group(2))))
+        break
+    # per-container rows "30CARTONS/7290.00KGS" ("!" = "/1", "I" = "/")
+    row_spans = []
+    for rm in _ROW_RX.finditer(text):
+        cnt_raw = rm.group(1)
+        cnt = None
+        if cnt_raw:
+            fixed = cnt_raw.translate(_DIGIT_FIX)
+            if fixed.isdigit():
+                cnt = float(int(fixed))
+        wraw = rm.group(4)
+        if rm.group(3) == "!":
+            wraw = "1" + wraw
+        out["rows"].append((cnt, _wnum(wraw)))
+        row_spans.append(rm.span())
+    # face total weight: first 3-dp KGS that is not a container row
+    for fm in _FACE_GW_RX.finditer(text):
+        if any(a <= fm.start() < b for a, b in row_spans):
+            continue
+        # a container row the row regex missed ("14PACKAGES ¢ 3448.000KGS / 25.450CBM")
+        if re.match(r"\s*/\s*[\d.,\s]+C", text[fm.end():fm.end() + 20]) or re.search(
+            r"(?:PACKAGES|CARTONS|PALLETS)\s*[^\w\s]?\s*$", text[max(0, fm.start() - 20):fm.start()], re.I
+        ):
+            continue
+        out["face_gw"] = _wnum(fm.group(1))
+        break
+    # face package count under "No. of pkgs" ("(8 PALLETS", "190 CARTON" = "(90", "154 PKGS")
+    hm = re.search(r"No[.,]?\s*of\s*pkgs", text, re.I)
+    if hm:
+        tail = "\n".join(text[hm.end():].splitlines()[:4])
+        fm = re.search(r"[(|‘'\s]([0-9OoBZ]{1,4})\s*(" + _UNIT + r"|CARTON)\b(?!\s*[/I!|¢]\s*\d)", tail, re.I)
+        if fm:
+            fx = fm.group(1).translate(_DIGIT_FIX)
+            if fx.isdigit():
+                out["face_pkg"].append(int(fx))
+    return out
+
+
+def _second_read(path: str, backend: str) -> str | None:
+    """Second OCR pass at a different resolution (scans only), for voting."""
+    from pathlib import Path as _P
+
+    from invoice_extractor.ocr import is_image_path, is_ocr_backend
+
+    if not is_ocr_backend(backend):
+        return None
+    p = _P(path)
+    if not p.is_file():
+        return None
+    try:
+        if is_image_path(p):
+            from invoice_extractor import ocr as _ocr
+            import tempfile
+
+            tess = _ocr.find_tesseract()
+            if tess is None:
+                return None
+            with tempfile.TemporaryDirectory(prefix="tvl2_") as td:
+                img = _ocr._prepare_image(p, _P(td), min_width=3000)
+                return _ocr._run_tesseract(img, _P(td) / "o", lang=_ocr.DEFAULT_LANG, tess_bin=tess)
+        from invoice_extractor.ocr import ocr_pdf
+
+        text, _b = ocr_pdf(p, dpi=300)
+        return text
+    except Exception:
+        return None
+
+
+def _vote(reads: list[tuple[str, float]]) -> tuple[float | None, bool, str]:
+    from collections import Counter
+
+    vals = [v for _, v in reads if v is not None]
+    detail = ", ".join(f"{s}={v:g}" for s, v in reads if v is not None) or "no reads"
+    if not vals:
+        return None, False, detail
+    c = Counter(vals)
+    (best, n), *rest = c.most_common()
+    ok = n >= 2 and n * 2 > len(vals) and not (rest and rest[0][1] == n)
+    return best, ok, detail
 
 
 def _snip(s: str | None, n: int = 90) -> str | None:
@@ -108,6 +273,11 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
     if m:
         h.bl_no = m.group(1).upper()
         h.hbl_no = h.bl_no
+    else:
+        q = _QDEX.search(text)
+        if q:
+            h.bl_no = f"QDEX{q.group(1)}"
+            h.hbl_no = h.bl_no
 
     # Shipper: first company-like line after Shipper
     m = re.search(
@@ -324,12 +494,98 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
     if refs:
         h.invoice_refs = ", ".join(dict.fromkeys(refs))
 
+    # ---- BHC 4th: vote BL no / packages / GW over two OCR passes ---------
+    # (per-container breakdown sums, SAY TOTAL words+digits, face total) so a
+    # single misread (3488 vs 3185, 190 vs 90 CARTON, container count as pkg)
+    # is either outvoted or flagged needs_gold instead of passing silently.
+    ng: list[str] = []
+    vnotes: list[str] = []
+    passes = [("r1", text)]
+    t2 = _second_read(path, backend)
+    if t2:
+        passes.append(("r2", t2))
+    reads = [(tag, _read_votes(t)) for tag, t in passes]
+
+    # BL no
+    from pathlib import Path as _P
+
+    fn = _P(path).stem.upper()
+    nos = [(tag, r["bl_no"]) for tag, r in reads if r["bl_no"]]
+    uniq = list(dict.fromkeys(n for _, n in nos))
+    if len(uniq) > 1:
+        pick = next((n for n in uniq if n in fn), None)
+        if pick is None:
+            pick = nos[-1][1]  # higher-resolution pass
+            ng.append("bl_no")
+        h.bl_no = h.hbl_no = pick
+        vnotes.append("bl_no reads " + ", ".join(f"{t}={n}" for t, n in nos))
+    elif uniq and not h.bl_no:
+        h.bl_no = h.hbl_no = uniq[0]
+
+    face_gws = [r["face_gw"] for _, r in reads if r["face_gw"] is not None]
+    gw_reads: list[tuple[str, float]] = [(f"face_{t}", r["face_gw"]) for t, r in reads if r["face_gw"] is not None]
+    pkg_reads: list[tuple[str, float]] = []
+    for t, r in reads:
+        pkg_reads += [(f"{k}_{t}", v) for k, v in r["say"]]
+        rows = r["rows"]
+        if rows and all(w is not None for _, w in rows):
+            wsum = round(sum(w for _, w in rows), 3)
+            # rows must add up to a face total read (else a row was lost /
+            # misread); a lone row counts on its own only when no face read exists
+            if any(abs(wsum - f) <= 1.0 for f in face_gws) or (len(rows) == 1 and not face_gws):
+                gw_reads.append((f"rows_{t}", wsum))
+                if all(c is not None for c, _ in rows):
+                    pkg_reads.append((f"rows_{t}", float(sum(c for c, _ in rows))))
+    others = {v for _, v in pkg_reads}
+    for t, r in reads:
+        for fp in r["face_pkg"]:
+            v = float(fp)
+            s_fp = str(fp)
+            # leading "(" often OCRs as "1": 190 CARTON → 90, 154 PKGS → 54
+            if v not in others and len(s_fp) >= 2 and s_fp[0] == "1" and float(s_fp[1:]) in others:
+                v = float(s_fp[1:])
+            pkg_reads.append((f"face_{t}", v))
+
+    pv, pok, pdetail = _vote(pkg_reads)
+    if pok:
+        if h.packages != pv:
+            vnotes.append(f"pkg {pv:g} by vote (legacy {h.packages})")
+        h.packages = pv
+    elif pkg_reads and pv is not None and (pv != h.packages or "bl_no" in ng):
+        ng.append("packages")
+        h.packages = pv if h.packages in (None, 1.0) else h.packages
+    gv, gok, gdetail = _vote(gw_reads)
+    if gok:
+        h.gross_weight_kg = gv
+    elif len({v for _, v in gw_reads}) > 1 or (gw_reads and "bl_no" in ng):
+        # reads disagree, or the face is unreliable (BL no reads disagree) and
+        # the single GW read is uncorroborated → needs_gold (suggested value kept)
+        ng.append("gross_weight_kg")
+    if h.gross_weight_kg is None and gv is not None:
+        h.gross_weight_kg = gv  # suggested (needs_gold below)
+    if len(passes) > 1:
+        # scanned face with no usable read at all → value is missing, flag it
+        if h.packages is None and "packages" not in ng:
+            ng.append("packages")
+        if h.gross_weight_kg is None and "gross_weight_kg" not in ng:
+            ng.append("gross_weight_kg")
+    vnotes.append(f"pkg reads: {pdetail}")
+    vnotes.append(f"GW reads: {gdetail}")
+
     conf = "rules"
     needs_gold = False
     if not h.bl_no:
         conf = "needs_gold"
         needs_gold = True
+        if "bl_no" not in ng:
+            ng.append("bl_no")
+    if ng:
+        conf = "needs_gold"
+        needs_gold = True
 
+    base_note = NOTES if conf == "rules" else "TVL HBL partial"
+    if ng:
+        base_note = "needs_gold: " + ", ".join(ng) + " (OCR reads disagree / too few); " + base_note
     return BLExtractResult(
         header=h,
         meta=BLMeta(
@@ -339,7 +595,8 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
             confidence=conf,
             needs_ocr=needs_ocr,
             needs_gold=needs_gold,
+            needs_gold_fields=ng or None,
             doc_kind="hbl",
-            notes=NOTES if conf == "rules" else "TVL HBL partial",
+            notes=base_note + "; " + "; ".join(vnotes),
         ),
     )

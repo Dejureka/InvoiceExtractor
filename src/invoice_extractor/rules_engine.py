@@ -11,6 +11,7 @@ from invoice_extractor.formats import (
     aichi_electric_v1,
     bhc_my_hub_v1,
     bhc_manual_inv_v1,
+    bhc_vendor_ci_v1,
     marubeni_tetsugen_v1,
     shanghai_nature_v1,
     bitzer_v1,
@@ -61,6 +62,7 @@ BUILTIN: list[tuple[str, Callable[[str, str], float], Extractor]] = [
     ("oukai_v1", oukai_v1.match_score, oukai_v1.extract),
     ("hitachi_asia_hitt_v1", hitachi_asia_hitt_v1.match_score, hitachi_asia_hitt_v1.extract),
     ("bhc_manual_inv_v1", bhc_manual_inv_v1.match_score, bhc_manual_inv_v1.extract),
+    ("bhc_vendor_ci_v1", bhc_vendor_ci_v1.match_score, bhc_vendor_ci_v1.extract),
 ]
 
 
@@ -133,11 +135,13 @@ def extract_invoice(
     from invoice_extractor.text_layer import extract_text
 
     path = Path(pdf_path)
-    kind = "excel" if is_excel_path(path) else "pdf"
+    from invoice_extractor.ocr import is_image_path
+
+    kind = "excel" if is_excel_path(path) else ("image" if is_image_path(path) else "pdf")
     text_from_file = text is None
     if text is None:
         # Excel: never OCR. PDF: allow OCR fallback when text layer empty.
-        text, backend2, needs_ocr2 = extract_text(path, allow_ocr=(kind == "pdf"))
+        text, backend2, needs_ocr2 = extract_text(path, allow_ocr=(kind in ("pdf", "image")))
         backend = backend or backend2
         needs_ocr = needs_ocr2 if needs_ocr is None else needs_ocr
     else:

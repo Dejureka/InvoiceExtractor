@@ -1,0 +1,32 @@
+=== Sheet: Header ===
+INVOICE
+No.	121-BHCTW-26K-37	Shipping Marks	N/M
+Date.	2026/09/07
+Messrs.	Bosch Home Comfort Taiwan Co., Ltd.
+63, Nanking E.Road, Sec.3, Taipei, Taiwan, R.O.C.
+
+
+Attn.
+Tel.	(88-6)3-324-4711
+Fax.
+Consignee.	Bosch Home Comfort Taiwan Co., Ltd.
+63, Nanking E.Road, Sec.3, Taipei, Taiwan, R.O.C.	Currency	JPY
+
+
+Attn.
+Tel.	(88-6)3-324-4711
+Fax
+Shipped Per	WAN HAI 322 S062
+On or about
+From	Shimizu, Japan
+To	Keelung, Taiwan
+Payment.	TTR within 60 days at monthly-end after BL date
+
+L/C No.
+TradeTerms	FOB
+Attn.	ＹＩＮ　ＪＵＮ
+
+=== Sheet: Detail ===
+INVOICE
+作番	商品コード	顧客図番	品名１	品名２	品名３	品名４	品名５	品名６	品名７	品名８	品名９	品名１０	数 量	単位	単価数量	単価	金額	税額	課税対象額	商品グループ	グループ名１	グループ名２	客先注文番号	CUSTOMER PO NO.	MAKER PO NO.	REMARK	輸送注意事項	使用機種名	原産国	HS-CODE	Rohs対応可否	発注Lot	製造元情報	商品名3(補足情報)	商品名4(補足情報)	見積依頼番号	見積依頼行	見積番号	見積行	受注番号	受注行	発注番号	発注行	仕入番号	仕入行	売上番号	売上行	連番
+3BS37439A	MAGNET SHEET	1000	PC	1	15.3	15300	0	15300	3BS37439A	特になし	台日	Japan	1	多賀製作所	0	0	TW260611	105	3BS37439A-001	1	117SUZUYO260827-02	1	0	1

@@ -27,7 +27,8 @@ STATUS_UNMATCHED = "未配對／需確認"
 
 # BHC-first filename role markers (tokenized on _ - . space).
 _FN_COMBINED_HINT = re.compile(r"合訂|combined|inv.?pkl|invoice.?pack", re.I)
-_INV_TOKENS = frozenset({"INV", "INVOICE", "IV"})  # IV = invoice abbr (e.g. "IV PL.pdf")
+# IV = invoice abbr (e.g. "IV PL.pdf"); CI = commercial invoice (BHC 4th "CI PL MDBWH….pdf")
+_INV_TOKENS = frozenset({"INV", "INVOICE", "IV", "CI"})
 _PKL_TOKENS = frozenset({"PKL", "PL", "PACKING", "PACK", "PACKLIST"})
 
 
@@ -79,6 +80,8 @@ class PairRow:
     skipped: bool = False
     # User override flag (manual rematch / split)
     manual: bool = False
+    # Pairing notes copied into meta.notes (shared PKL, duplicate BL copy, empty template)
+    notes: str = ""
 
     @property
     def display_inv(self) -> str:
@@ -251,6 +254,132 @@ def _shared_match_score(a: set[str], b: set[str], *, same_dir: bool) -> float:
     return score
 
 
+_EXCEL_SUFFIXES = (".xls", ".xlsx", ".xlsm")
+_NUM_CELL = re.compile(r"^-?[\d,]*\d(?:\.\d+)?$")
+
+
+def excel_looks_empty(path: Path) -> bool:
+    """True for a blank Excel form (labels only, < 3 numeric cells).
+
+    BHC vendors sometimes send the empty invoice/packing template next to the
+    real file (4th case 6 ``SSLJP0023526  MEH6J044.xls``; mega
+    ``DF_SFA006358 MEH6A036 IV PL.xls``). Form codes like ``SHGDL0219`` are
+    not numeric cells. Real invoices in all BHC batches have ≥ 5.
+    """
+    if Path(path).suffix.lower() not in _EXCEL_SUFFIXES:
+        return False
+    from invoice_extractor.text_layer import extract_text
+
+    if not Path(path).is_file():
+        return False
+    try:
+        text, _b, _o = extract_text(Path(path))
+    except Exception:
+        return False
+    if str(_b or "").startswith("excel/error"):
+        return False  # unreadable ≠ empty; let the extractor report the error
+    n = 0
+    for line in text.splitlines():
+        if line.startswith("==="):
+            continue
+        for c in line.split("\t"):
+            if _NUM_CELL.match(c.strip()):
+                n += 1
+                if n >= 3:
+                    return False
+    return True
+
+
+def _ident(path: Path) -> str:
+    """Alnum-only upper stem without role tokens (``IV_117-BHCTW-26K-41`` → ``117BHCTW26K41``)."""
+    parts = [t for t in re.split(r"[_\-\s.,+&]+", path.stem.upper()) if t]
+    parts = [t for t in parts if t not in (_INV_TOKENS | _PKL_TOKENS)]
+    return re.sub(r"[^0-9A-Z]", "", "".join(parts))
+
+
+def _same_dir(a: Path, b: Path) -> bool:
+    try:
+        return a.parent.resolve() == b.parent.resolve()
+    except Exception:
+        return a.parent == b.parent
+
+
+def _attach_shared_pkl(rows: list[PairRow], pkls: list[FileRole]) -> list[PairRow]:
+    """One PKL file named after ≥2 invoices of its folder → attach to all of them.
+
+    BHC 4th case 8: ``PL_117-BHCTW-26K-41, 121-BHCTW-26K-37.xlsx`` covers
+    ``IV_117…`` and ``IV_121…`` (PDF + .xlsx twins). Each INV row then reads the
+    same packing list; ``dedupe_shared_packing_units`` (shipment_first) keeps
+    the shipment total on the first invoice and 0 on the others.
+    """
+    for pr in pkls:
+        pid = re.sub(r"[^0-9A-Z]", "", pr.path.stem.upper())
+        hits = [
+            r for r in rows
+            if r.inv_path is not None and _same_dir(r.inv_path, pr.path)
+            and len(_ident(r.inv_path)) >= 6 and _ident(r.inv_path) in pid
+        ]
+        if len({_ident(r.inv_path) for r in hits}) < 2:  # type: ignore[arg-type]
+            continue
+        for r in hits:
+            if r.pkl_path is not None and r.pkl_path != pr.path:
+                continue
+            r.pkl_path = pr.path
+            r.recompute_status()
+            note = f"shared PKL {pr.path.name} ({len(hits)} INV files)"
+            r.notes = f"{r.notes}; {note}".strip("; ")
+        rows = [r for r in rows if not (r.status == STATUS_PKL_ONLY and r.pkl_path == pr.path)]
+    return rows
+
+
+def _bl_rank(bl_path: Path) -> tuple[int, int]:
+    d = _extract_bl_cached(bl_path)
+    h = d.get("header") or {}
+    m = d.get("meta") or {}
+    filled = sum(1 for k in ("packages", "gross_weight_kg") if h.get(k) is not None)
+    ng = len(m.get("needs_gold_fields") or []) if m.get("needs_gold") else 0
+    return (-filled, ng)
+
+
+def _collapse_duplicate_bls(bls: list[FileRole], inv_dirs: set[str]) -> tuple[list[FileRole], dict[Path, str]]:
+    """Folder with ≥2 BL files of the SAME BL no (original + scanned copy) → keep one.
+
+    BHC 4th case 8: ``WAYBILL.pdf`` and scan ``20260921195744-0001.pdf`` are
+    both waybill 260918KEE102. The copy with more readable BL pkg / GW (then
+    fewer needs_gold fields) is kept; the others are marked as duplicates so
+    every INV row of the folder gets the same BL columns.
+    """
+    by_dir: dict[str, list[FileRole]] = {}
+    for br in bls:
+        try:
+            d = str(br.path.parent.resolve())
+        except Exception:
+            d = str(br.path.parent)
+        by_dir.setdefault(d, []).append(br)
+    keep: list[FileRole] = []
+    dup_notes: dict[Path, str] = {}
+    for d, group in by_dir.items():
+        if len(group) < 2 or d not in inv_dirs:
+            keep.extend(group)
+            continue
+        nos = {}
+        for br in group:
+            try:
+                h = _extract_bl_cached(br.path).get("header") or {}
+            except Exception:
+                h = {}
+            nos[br.path] = str(h.get("bl_no") or h.get("hbl_no") or "")
+        uniq = {v for v in nos.values()}
+        if len(uniq) != 1 or "" in uniq:
+            keep.extend(group)
+            continue
+        group = sorted(group, key=lambda br: (_bl_rank(br.path), br.path.name))
+        keep.append(group[0])
+        dups = ", ".join(br.path.name for br in group[1:])
+        dup_notes[group[0].path] = f"duplicate BL copy {dups} (same BL no {next(iter(uniq))}) not used"
+    return keep, dup_notes
+
+
 def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> list[PairRow]:
     """Build pair rows from selected PDFs (filename roles; no PDF I/O).
 
@@ -281,6 +410,18 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
                     r = classify_role(r.path, text)
             refined.append(r)
         roles = refined
+    # Blank Excel forms (template sent next to the real invoice) → skipped rows
+    empty_rows: list[PairRow] = []
+    kept_roles: list[FileRole] = []
+    for r in roles:
+        if r.role in ("inv", "pkl", "combined", "unknown") and excel_looks_empty(r.path):
+            empty_rows.append(
+                PairRow(pair_id="", inv_path=r.path, status=STATUS_UNMATCHED, skipped=True,
+                        notes="empty Excel template (no values) — skipped")
+            )
+        else:
+            kept_roles.append(r)
+    roles = kept_roles
     by_path = {r.path.resolve(): r for r in roles}
 
     invs = [r for r in roles if r.role in ("inv",)]
@@ -396,9 +537,27 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
                 )
             )
 
+    rows = _attach_shared_pkl(rows, pkls)
+
     # --- Attach BL to INV-bearing rows, then leftover → 僅 提單 ---
     used_bl: set[Path] = set()
     inv_rows = [r for r in rows if r.inv_path]
+    inv_dirs: set[str] = set()
+    for r in inv_rows:
+        try:
+            inv_dirs.add(str(r.inv_path.parent.resolve()))  # type: ignore[union-attr]
+        except Exception:
+            inv_dirs.add(str(r.inv_path.parent))  # type: ignore[union-attr]
+    all_bls = list(bls)
+    dup_notes: dict[Path, str] = {}
+    if len(bls) >= 2:
+        try:
+            bls, dup_notes = _collapse_duplicate_bls(bls, inv_dirs)
+        except Exception:
+            bls, dup_notes = all_bls, {}
+        dropped = [b for b in all_bls if b not in bls]
+        for b in dropped:
+            used_bl.add(b.path)
     bl_roles = {r.path.resolve(): r for r in bls}
 
     # Score BL ↔ INV-row (keys from INV and optional PKL paths)
@@ -494,7 +653,12 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
                 status=STATUS_BL_ONLY,
             )
         )
+    if dup_notes:
+        for row in rows:
+            if row.bl_path is not None and row.bl_path in dup_notes:
+                row.notes = f"{row.notes}; {dup_notes[row.bl_path]}".strip("; ")
 
+    rows.extend(empty_rows)
     rows.sort(
         key=lambda r: (
             r.status not in (STATUS_INV_PKL, STATUS_INV_ONLY),
@@ -676,8 +840,25 @@ def merge_pkl_onto_inv(
     inv_path: Path | str | None = None,
     source: str = "split",
 ) -> ExtractResult:
-    """Copy INV extract; overlay total_pkg / gross_weight_kg from PKL text."""
-    pkg, gw = parse_packing_pkg_gw(pkl_text)
+    """Copy INV extract; overlay total_pkg / gross_weight_kg from PKL text.
+
+    If the INV's format module exposes ``parse_packing(text)`` (vendor-aware
+    PKL parser, e.g. ``bhc_vendor_ci_v1``) its pkg / GW win over the generic
+    :func:`parse_packing_pkg_gw`; its ``units`` (pallet → GW) become
+    ``meta.packing_units`` so a PKL shared by several invoices is deduped at
+    shipment level.
+    """
+    fmt_pack = _format_packing(inv_result.meta.format_id, pkl_text)
+    units: dict[str, float] | None = None
+    fmt_note = ""
+    if fmt_pack and (fmt_pack.get("pkg") is not None or fmt_pack.get("gw") is not None):
+        pkg, gw = fmt_pack.get("pkg"), fmt_pack.get("gw")
+        units = fmt_pack.get("units") or None
+        fmt_note = f"pkl_parser={inv_result.meta.format_id}"
+        if fmt_pack.get("note"):
+            fmt_note += f"; pkl_note={fmt_pack['note']}"
+    else:
+        pkg, gw = parse_packing_pkg_gw(pkl_text)
     header = replace(inv_result.header)
     pkl_used = False
     if pkg is not None:
@@ -689,6 +870,8 @@ def merge_pkl_onto_inv(
 
     meta = replace(inv_result.meta)
     meta.source = source
+    if units:
+        meta.packing_units = dict(units)
     inv_p = str(inv_path or meta.source_file or "")
     pkl_p = str(pkl_path or "")
     meta.inv_file = inv_p or None
@@ -699,9 +882,30 @@ def merge_pkl_onto_inv(
         meta.source_file = inv_p
     note = (meta.notes or "").strip()
     extra = f"source={source}; pkl_used={'yes' if pkl_used else 'no'}"
+    if fmt_note:
+        extra += f"; {fmt_note}"
     meta.notes = f"{note}; {extra}".strip("; ") if note else extra
 
     return ExtractResult(header=header, items=list(inv_result.items), meta=meta)
+
+
+def _format_packing(format_id: str | None, pkl_text: str) -> dict[str, Any] | None:
+    """Call ``formats.<format_id>.parse_packing`` when the module has one."""
+    if not format_id or not re.fullmatch(r"[a-z0-9_]+", format_id):
+        return None
+    import importlib
+
+    try:
+        mod = importlib.import_module(f"invoice_extractor.formats.{format_id}")
+    except Exception:
+        return None
+    fn = getattr(mod, "parse_packing", None)
+    if not callable(fn):
+        return None
+    try:
+        return fn(pkl_text)
+    except Exception:
+        return None
 
 
 def merge_bl_onto_inv(
@@ -1009,6 +1213,8 @@ def extract_pair_row(
         )
 
     data = result.to_dict()
+    if row.notes:
+        data["meta"]["notes"] = f"{data['meta'].get('notes') or ''}; {row.notes}".strip("; ")
     hard = hard_check(data)
     data["meta"]["checker_verdict"] = hard["verdict"]
     if hard["verdict"] == "pass" and data["meta"].get("confidence") == "rules":
@@ -1138,18 +1344,25 @@ def _apply_shipment_first(ds: list[dict[str, Any]]) -> list[tuple[dict[str, Any]
     tot_pkg = float(len(union))
     tot_gw = round(sum(union.values()), 3)
     shared_s = ", ".join(shared_keys)
+    shared_lbl = f"shared RB {shared_s}"
+    if shared_keys and all(k.upper().startswith("PALLET") for k in shared_keys):
+        # BHC shared packing list (one PL for several invoices): name it plainly
+        rng = f"{shared_keys[0]}…{shared_keys[-1]}" if len(shared_keys) > 2 else shared_s
+        shared_lbl = f"one shared PL, pallets {rng}"
+    labels = list(dict.fromkeys(_inv_label(d) for d in ds))
     info = {"mode": "shipment_first", "first_invoice": first_inv, "total_pkg": tot_pkg,
-            "gross_weight_kg": tot_gw, "shared_rb": shared_keys, "invoices": [_inv_label(d) for d in ds]}
+            "gross_weight_kg": tot_gw, "shared_rb": shared_keys, "invoices": labels}
     out = []
     for d in ds:
         h, m = d["header"], d["meta"]
         pkg0, gw0 = float(h["total_pkg"]), float(h["gross_weight_kg"])
         m["shipment_packing"] = dict(info)
-        if d is first:
+        # ``is first`` or a twin file of the same invoice (PDF + .xlsx, BHC 4th case 8)
+        if d is first or _inv_label(d) == first_inv:
             h["total_pkg"], h["gross_weight_kg"] = tot_pkg, tot_gw
             note = (
                 f"shipment pkg/GW (deduped) {_fmt_num(tot_pkg)} / {_fmt_num(tot_gw)} on this first "
-                f"invoice ({len(ds)} invoices, shared RB {shared_s}); "
+                f"invoice ({len(labels)} invoices, {shared_lbl}); "
                 f"printed pkg/GW {_fmt_num(pkg0)} / {_fmt_num(gw0)}"
             )
         else:

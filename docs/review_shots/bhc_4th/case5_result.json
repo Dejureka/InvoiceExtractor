@@ -1,0 +1,80 @@
+{
+  "header": {
+    "invoice_no": "26HLHK01Q10009B",
+    "invoice_date": "2026-09-12",
+    "total_pkg": 54.0,
+    "gross_weight_kg": 54288.0,
+    "incoterm": "FOB SHANGHAI",
+    "item_line_count": 1,
+    "total_quantity": 49841.8,
+    "amount": 770025.9,
+    "currency": "USD",
+    "vendor": "HONGKONG HAILIANG METAL TRADING LIMITED",
+    "origin": "China",
+    "hs_code": null,
+    "bl_no": "SHAKEL26971161",
+    "bl_packages": 54.0,
+    "bl_gross_weight_kg": 54288.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "26HLHK01Q10009B",
+      "part_no": "P100592670060",
+      "description": "REFINED COPPER COIL 7*0.25+0.12",
+      "qty": 49841.8,
+      "unit": "KGS",
+      "unit_price": 15.4494,
+      "amount": 770025.9,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 5/26HLHK01Q10009B-发票箱单.xlsx",
+    "text_backend": "excel/openpyxl",
+    "format_id": "bhc_vendor_ci_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "profile=hailiang; invoice no 26HLHK01Q10009B (invoice sheet / PL header / filename); PL also prints 'INVOICE NO.: 10HLHK01A0313' (looks like template residue) — confirm; PN = PO NO (no Bosch PN printed; copper priced per KG); PL TOTAL row has two counts: 22 (under a stale column, labeled PACKAGES below) and 54 (PACKAGES column header / PKGS) → pkg = 54; source=combined; pkl_used=yes; bl_used=yes; bl_file=20260922194949-0001.pdf",
+    "labeled_amount": 770025.9,
+    "labeled_amount_label": "TOTAL",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 5/26HLHK01Q10009B-发票箱单.xlsx",
+    "pkl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 5/26HLHK01Q10009B-发票箱单.xlsx",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 5/20260922194949-0001.pdf",
+    "bl_used": true,
+    "bl_format_id": "tvl_hbl_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "excel",
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 49841.8,
+        "got": 49841.8
+      },
+      "amount": {
+        "want": 770025.9,
+        "got": 770025.9
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 770025.9,
+        "header_amount": 770025.9,
+        "sum_items": 770025.9,
+        "item_count": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "header": {
+    "invoice_no": "MEH6J044",
+    "invoice_date": "2026-09-23",
+    "total_pkg": 16.0,
+    "gross_weight_kg": 1998.0,
+    "incoterm": "F.O.B. SHIMIZU, JAPAN",
+    "item_line_count": 7,
+    "total_quantity": 4815.0,
+    "amount": 18143405.0,
+    "currency": "JPY",
+    "vendor": "Hitachi Global Life Solutions, Inc.",
+    "origin": "JP",
+    "hs_code": null,
+    "bl_no": "260918KEE103",
+    "bl_packages": 16.0,
+    "bl_gross_weight_kg": null,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "MEH6J044",
+      "part_no": "PC-ALHZ1",
+      "description": "ACCESSORY: RECEIVER KIT",
+      "qty": 1000.0,
+      "unit": "PCS",
+      "unit_price": 4302.0,
+      "amount": 4302000.0,
+      "origin": "JP",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "MEH6J044",
+      "part_no": "PC-AWR",
+      "description": "ACCESSORY: REMOTE CONTROLLER",
+      "qty": 1000.0,
+      "unit": "PCS",
+      "unit_price": 877.0,
+      "amount": 877000.0,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "MEH6J044",
+      "part_no": "PC-ARFG2-T",
+      "description": "ACCESSORY: WIRED REMOTE CONTROLLER",
+      "qty": 2400.0,
+      "unit": "PCS",
+      "unit_price": 4590.0,
+      "amount": 11016000.0,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "MEH6J044",
+      "part_no": "PC-ARFG2-T",
+      "description": "ACCESSORY: WIRED REMOTE CONTROLLER",
+      "qty": 360.0,
+      "unit": "PCS",
+      "unit_price": 4590.0,
+      "amount": 1652400.0,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "MEH6J044",
+      "part_no": "PSC-6RAD",
+      "description": "ACCESSORY : RAC ADAPTOR",
+      "qty": 20.0,
+      "unit": "PCS",
+      "unit_price": 3588.0,
+      "amount": 71760.0,
+      "origin": "JP",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "MEH6J044",
+      "part_no": "TRF-NP160U1",
+      "description": "ACCESSORY: RENEWAL KIT",
+      "qty": 5.0,
+      "unit": "PCS",
+      "unit_price": 6407.0,
+      "amount": 32035.0,
+      "origin": "JP",
+      "hs_code": null,
+      "currency": "JPY"
+    },
+    {
+      "invoice_no": "MEH6J044",
+      "part_no": "TRF-NP160U1",
+      "description": "ACCESSORY: RENEWAL KIT",
+      "qty": 30.0,
+      "unit": "PCS",
+      "unit_price": 6407.0,
+      "amount": 192210.0,
+      "origin": "JP",
+      "hs_code": null,
+      "currency": "JPY"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 6/20260923_MEH6J044(TX14,TX17,TX21,TY06,TY27,TY41).pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "hitachi_gls_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL.pdf; bl_needs_gold (needs_gold: packages, gross_weight_kg (OCR reads disagree / too few; anti-counterfeit background); pkg reads: attached_sheet_last_case_no=16; GW reads: no reads)",
+    "labeled_amount": 18143405.0,
+    "labeled_amount_label": "GRAND TOTAL",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 6/20260923_MEH6J044(TX14,TX17,TX21,TY06,TY27,TY41).pdf",
+    "pkl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 6/20260923_MEH6J044(TX14,TX17,TX21,TY06,TY27,TY41).pdf",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 6/BL.pdf",
+    "bl_used": true,
+    "bl_format_id": "jif_cosmo_waybill_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": [
+      "bl_packages",
+      "bl_gross_weight_kg"
+    ],
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "needs_gold",
+    "checker_issues": [
+      "needs_gold field(s): bl_packages, bl_gross_weight_kg (document contradicts itself; confirm manually / from BL)"
+    ],
+    "checker_details": {
+      "item_line_count": {
+        "want": 7,
+        "got": 7
+      },
+      "total_quantity": {
+        "want": 4815.0,
+        "got": 4815.0
+      },
+      "amount": {
+        "want": 18143405.0,
+        "got": 18143405.0
+      },
+      "labeled_amount": {
+        "label": "GRAND TOTAL",
+        "want": 18143405.0,
+        "header_amount": 18143405.0,
+        "sum_items": 18143405.0,
+        "item_count": 7
+      },
+      "needs_gold_fields": [
+        "bl_packages",
+        "bl_gross_weight_kg"
+      ]
+    }
+  }
+}

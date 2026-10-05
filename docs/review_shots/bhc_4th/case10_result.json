@@ -1,0 +1,104 @@
+{
+  "header": {
+    "invoice_no": "MDBWHTWJCH260915",
+    "invoice_date": "15/Sep/26",
+    "total_pkg": 63.0,
+    "gross_weight_kg": 28972.8,
+    "incoterm": "FOB BEIJIAO",
+    "item_line_count": 3,
+    "total_quantity": 18108.0,
+    "amount": 126756.0,
+    "currency": "USD",
+    "vendor": "WELLING INTERNATIONAL HONG KONG LIMITED",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "CPSE26090124",
+    "bl_packages": 63.0,
+    "bl_gross_weight_kg": 28972.8,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "MDBWHTWJCH260915",
+      "part_no": "2NA09101Z",
+      "description": "DC MOTOR",
+      "qty": 12960.0,
+      "unit": "PCS",
+      "unit_price": 7.0,
+      "amount": 90720.0,
+      "origin": null,
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "MDBWHTWJCH260915",
+      "part_no": "2NA09101Z",
+      "description": "DC MOTOR",
+      "qty": 4896.0,
+      "unit": "PCS",
+      "unit_price": 7.0,
+      "amount": 34272.0,
+      "origin": null,
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "MDBWHTWJCH260915",
+      "part_no": "2NA09101Z",
+      "description": "DC MOTOR",
+      "qty": 252.0,
+      "unit": "PCS",
+      "unit_price": 7.0,
+      "amount": 1764.0,
+      "origin": null,
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 10/CI PL MDBWHTWJCH260915.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "bhc_vendor_ci_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "profile=welling; origin not printed on CI (exporter Guangdong, CN) — Co left blank; source=combined; pkl_used=yes; bl_used=yes; bl_file=到貨通知.pdf",
+    "labeled_amount": 126756.0,
+    "labeled_amount_label": "TOTAL",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 10/CI PL MDBWHTWJCH260915.pdf",
+    "pkl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 10/CI PL MDBWHTWJCH260915.pdf",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 10/到貨通知.pdf",
+    "bl_used": true,
+    "bl_format_id": "hippopo_arrival_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 3,
+        "got": 3
+      },
+      "total_quantity": {
+        "want": 18108.0,
+        "got": 18108.0
+      },
+      "amount": {
+        "want": 126756.0,
+        "got": 126756.0
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 126756.0,
+        "header_amount": 126756.0,
+        "sum_items": 126756.0,
+        "item_count": 3
+      }
+    }
+  }
+}

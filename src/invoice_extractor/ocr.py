@@ -17,8 +17,15 @@ import tempfile
 from pathlib import Path
 
 OCR_BACKEND = "ocr/tesseract"
+IMAGE_OCR_BACKEND = "ocr/tesseract+image"
 DEFAULT_DPI = 200
 DEFAULT_LANG = "eng"
+# Phone photos / scanner images of a BL or invoice (BHC 3rd/4th QDEX….jpg)
+IMAGE_SUFFIXES = frozenset({".jpg", ".jpeg", ".png", ".tif", ".tiff"})
+
+
+def is_image_path(path: str | Path) -> bool:
+    return Path(path).suffix.lower() in IMAGE_SUFFIXES
 
 
 def is_ocr_backend(backend: str | None) -> bool:
@@ -222,6 +229,53 @@ def try_ocr_pdf(
         text, backend = ocr_pdf(pdf_path, lang=lang, dpi=dpi)
         return text, backend, None
     except Exception as exc:  # noqa: BLE001 — surface to meta.notes
+        return None, None, str(exc)
+
+
+def _prepare_image(src: Path, out_dir: Path, min_width: int = 2000) -> Path:
+    """Copy an image to an ASCII temp name (Tesseract + CJK paths on Windows),
+    upscaling small photos (e.g. 801 px wide) so 7-pt print is readable."""
+    dest = out_dir / "image_0000.png"
+    try:
+        import pymupdf
+
+        doc = pymupdf.open(src)
+        try:
+            page = doc[0]
+            w = page.rect.width or 1
+            zoom = max(1.0, min(4.0, min_width / w))
+            pix = page.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom), alpha=False)
+            pix.save(str(dest))
+        finally:
+            doc.close()
+        return dest
+    except Exception:
+        dest = out_dir / ("image_0000" + src.suffix.lower())
+        shutil.copyfile(src, dest)
+        return dest
+
+
+def ocr_image(path: str | Path, *, lang: str = DEFAULT_LANG) -> tuple[str, str]:
+    """OCR a single image file (.jpg/.png/.tif). Returns ``(text, backend)``."""
+    src = Path(path)
+    tess = find_tesseract()
+    if tess is None:
+        raise RuntimeError(
+            "tesseract not found (install Tesseract OCR, set TESSERACT_CMD, "
+            "or place portable tesseract/ next to the app)"
+        )
+    with tempfile.TemporaryDirectory(prefix="inv_ocr_img_") as td:
+        tdir = Path(td)
+        img = _prepare_image(src, tdir)
+        text = _run_tesseract(img, tdir / "ocr_0000", lang=lang, tess_bin=tess)
+    return text, IMAGE_OCR_BACKEND
+
+
+def try_ocr_image(path: str | Path, *, lang: str = DEFAULT_LANG) -> tuple[str | None, str | None, str | None]:
+    try:
+        text, backend = ocr_image(path, lang=lang)
+        return text, backend, None
+    except Exception as exc:  # noqa: BLE001
         return None, None, str(exc)
 
 

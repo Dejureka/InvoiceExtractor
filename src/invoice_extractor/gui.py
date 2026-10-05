@@ -574,7 +574,7 @@ def run_gui() -> None:
             inv_key = str(row.inv_path.resolve()) if row.inv_path.exists() else str(row.inv_path)
             path = filedialog.askopenfilename(
                 title="選擇要配給此 INV 的 PKL 檔",
-                filetypes=[("PDF/Excel", "*.pdf *.PDF *.xlsx *.xlsm *.xls"), ("PDF", "*.pdf *.PDF"), ("Excel", "*.xlsx *.xlsm *.xls"), ("All", "*.*")],
+                filetypes=[("PDF/Excel/Image", "*.pdf *.PDF *.xlsx *.xlsm *.xls *.jpg *.jpeg *.png *.tif *.tiff"), ("PDF", "*.pdf *.PDF"), ("Excel", "*.xlsx *.xlsm *.xls"), ("All", "*.*")],
                 initialdir=str(row.inv_path.parent) if row.inv_path else None,
             )
             if not path:
@@ -633,7 +633,7 @@ def run_gui() -> None:
             inv_key = str(row.inv_path.resolve()) if row.inv_path.exists() else str(row.inv_path)
             path = filedialog.askopenfilename(
                 title="選擇要配給此 INV 的提單檔",
-                filetypes=[("PDF/Excel", "*.pdf *.PDF *.xlsx *.xlsm *.xls"), ("PDF", "*.pdf *.PDF"), ("Excel", "*.xlsx *.xlsm *.xls"), ("All", "*.*")],
+                filetypes=[("PDF/Excel/Image", "*.pdf *.PDF *.xlsx *.xlsm *.xls *.jpg *.jpeg *.png *.tif *.tiff"), ("PDF", "*.pdf *.PDF"), ("Excel", "*.xlsx *.xlsm *.xls"), ("All", "*.*")],
                 initialdir=str(row.inv_path.parent) if row.inv_path else None,
             )
             if not path:
@@ -766,7 +766,7 @@ def run_gui() -> None:
             paths = filedialog.askopenfilenames(
                 title="Select invoice PDF/Excel file(s)",
                 filetypes=[
-                    ("PDF/Excel", "*.pdf *.PDF *.xlsx *.xlsm *.xls"),
+                    ("PDF/Excel/Image", "*.pdf *.PDF *.xlsx *.xlsm *.xls *.jpg *.jpeg *.png *.tif *.tiff"),
                     ("PDF", "*.pdf *.PDF"),
                     ("Excel", "*.xlsx *.xlsm *.xls"),
                     ("All", "*.*"),
