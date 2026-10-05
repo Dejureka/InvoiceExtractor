@@ -28,7 +28,7 @@ NOTES = (
     "Prefer cargo cartons/pallets over Say-Total container (1×20GP). "
     "GW/CBM: prefer CARTONS/KGS[/CBM] when carton count matches; 20GP CBM sanity ≤33; "
     "OCR slips (.830→.53, 46.519→16.519, GO.→CO.). "
-    "Container: ISO 4 letters+7 digits + seal; invoice_refs: all BHCWH* / P/L NO."
+    "Container: ISO 4 letters+7 digits + seal; invoice_refs: all BHCWH* / P/L NO. BHC 5th: SAY OCR ($1X→SIX, SAYTOTAL, em-dash); C/NO.…/N PALLET marks; slash-row GW preferred when pkg matches; uncorroborated multi-pass GW → needs_gold."
 )
 
 RULES_JSON = {
@@ -132,18 +132,33 @@ def _read_votes(text: str) -> dict:
         q = _QDEX.search(text)
         if q:
             out["bl_no"] = f"QDEX{q.group(1)}"
-    # SAY TOTAL: EIGHT (8) PALLETS / THIRTY PACKAGES (containers excluded)
+    # SAY TOTAL: EIGHT (8) PALLETS / THIRTY PACKAGES (containers excluded).
+    # OCR may glue SAYTOTAL, insert em-dashes, or mangle SIX→$1X / S1X.
     for sm in re.finditer(
-        r"SAY\s*TOTAL\s*:?\s*([A-Z][A-Z\s\-]*?)\s*(?:[({]\s*(\d{1,4})\s*[)}]\s*)?(" + _UNIT + r")\b",
+        r"SAY\s*TOTAL\s*:?\s*([^\n]{0,40}?)\b(" + _UNIT + r")\b",
         text, re.I,
     ):
         if re.search(r"CONTAINER|\bGP\b|\bHC\b", sm.group(0), re.I):
             continue
-        w = _words_to_int(sm.group(1))
+        chunk = sm.group(1)
+        # strip non-letters for word parse ($1X / — SIX / S1X)
+        words_chunk = re.sub(r"[^A-Za-z\s\-]", " ", chunk)
+        # common OCR: $1X / S1X / SlX / 5IX → SIX
+        if re.search(r"(?:\$|S|5)\s*[lI1]\s*X\b", chunk, re.I) and not re.search(r"[A-Za-z]{3,}", words_chunk):
+            words_chunk = "SIX"
+        w = _words_to_int(words_chunk)
         if w:
             out["say"].append(("say_words", float(w)))
-        if sm.group(2):
-            out["say"].append(("say_digits", float(sm.group(2))))
+        dm = re.search(r"[({]\s*(\d{1,4})\s*[)}]", chunk)
+        if dm:
+            out["say"].append(("say_digits", float(dm.group(1))))
+        break
+    # Marks "C/NO.1-113/6 PALLET" (OCR CINO.1-143/6 PALLET) corroborates pkg
+    for mm in re.finditer(
+        r"(?:C\s*/?\s*NO\.?|CINO\.?)[^\n]{0,30}/\s*(\d{1,3})\s*PALLETS?\b",
+        text, re.I,
+    ):
+        out["say"].append(("marks_slash", float(mm.group(1))))
         break
     # per-container rows "30CARTONS/7290.00KGS" ("!" = "/1", "I" = "/")
     row_spans = []
@@ -170,11 +185,13 @@ def _read_votes(text: str) -> dict:
             continue
         out["face_gw"] = _wnum(fm.group(1))
         break
-    # face package count under "No. of pkgs" ("(8 PALLETS", "190 CARTON" = "(90", "154 PKGS")
+    # face package count under "No. of pkgs" ("(8 PALLETS", "190 CARTON" = "(90", "154 PKGS").
+    # OCR often turns "/" into "!": "18 PALLETS ! 1 1498.500KGS" — still capture the count;
+    # the leading "("→"1" slip is corrected later against SAY/marks votes.
     hm = re.search(r"No[.,]?\s*of\s*pkgs", text, re.I)
     if hm:
         tail = "\n".join(text[hm.end():].splitlines()[:4])
-        fm = re.search(r"[(|‘'\s]([0-9OoBZ]{1,4})\s*(" + _UNIT + r"|CARTON)\b(?!\s*[/I!|¢]\s*\d)", tail, re.I)
+        fm = re.search(r"[(|‘'\s!]([0-9OoBZ]{1,4})\s*(" + _UNIT + r"|CARTON)\b", tail, re.I)
         if fm:
             fx = fm.group(1).translate(_DIGIT_FIX)
             if fx.isdigit():
@@ -530,9 +547,12 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
         rows = r["rows"]
         if rows and all(w is not None for _, w in rows):
             wsum = round(sum(w for _, w in rows), 3)
-            # rows must add up to a face total read (else a row was lost /
-            # misread); a lone row counts on its own only when no face read exists
-            if any(abs(wsum - f) <= 1.0 for f in face_gws) or (len(rows) == 1 and not face_gws):
+            # rows must add up to a face total (tolerance 1.0), OR a lone slash
+            # row is kept even when face disagrees by a few kg (OCR digit slip
+            # e.g. 13101 vs 13104) so the vote / needs_gold can decide.
+            close = any(abs(wsum - f) <= 1.0 for f in face_gws)
+            lone = len(rows) == 1
+            if close or lone:
                 gw_reads.append((f"rows_{t}", wsum))
                 if all(c is not None for c, _ in rows):
                     pkg_reads.append((f"rows_{t}", float(sum(c for c, _ in rows))))
@@ -554,13 +574,35 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
     elif pkg_reads and pv is not None and (pv != h.packages or "bl_no" in ng):
         ng.append("packages")
         h.packages = pv if h.packages in (None, 1.0) else h.packages
+    # Prefer slash-row GW whose package count matches the voted packages
+    # (31PALLETS/13101 over face 13104).
+    if pok and pv is not None:
+        matched_row_gws = []
+        for t, r in reads:
+            for cnt, w in r["rows"]:
+                if cnt is not None and w is not None and float(cnt) == float(pv):
+                    matched_row_gws.append(w)
+        if matched_row_gws and len(set(matched_row_gws)) == 1:
+            gv_pref = matched_row_gws[0]
+            if h.gross_weight_kg != gv_pref:
+                vnotes.append(f"GW {gv_pref:g} by slash row matching pkg {pv:g}")
+            h.gross_weight_kg = gv_pref
+            # drop disagreeing face-only reads so vote reflects the slash
+            gw_reads = [(s, v) for s, v in gw_reads if not s.startswith("face_") or abs(v - gv_pref) <= 1.0]
+            if not any(s.startswith("rows_") for s, _ in gw_reads):
+                gw_reads.append(("rows_pref", gv_pref))
+
     gv, gok, gdetail = _vote(gw_reads)
     if gok:
         h.gross_weight_kg = gv
-    elif len({v for _, v in gw_reads}) > 1 or (gw_reads and "bl_no" in ng):
-        # reads disagree, or the face is unreliable (BL no reads disagree) and
-        # the single GW read is uncorroborated → needs_gold (suggested value kept)
-        ng.append("gross_weight_kg")
+    elif len({v for _, v in gw_reads}) > 1 or (gw_reads and "bl_no" in ng) or (
+        gw_reads and not gok and len(passes) > 1
+    ):
+        # reads disagree, BL no unreliable, or a multi-pass scan with no
+        # corroborated GW (single face misread e.g. 1498.5 vs real 1195.5)
+        # → needs_gold (suggested value kept)
+        if "gross_weight_kg" not in ng:
+            ng.append("gross_weight_kg")
     if h.gross_weight_kg is None and gv is not None:
         h.gross_weight_kg = gv  # suggested (needs_gold below)
     if len(passes) > 1:

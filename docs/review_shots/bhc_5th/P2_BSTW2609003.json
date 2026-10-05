@@ -1,0 +1,203 @@
+{
+  "header": {
+    "invoice_no": "BSTW2609003",
+    "invoice_date": "2026-09-22",
+    "total_pkg": 6.0,
+    "gross_weight_kg": 1195.5,
+    "incoterm": "FOB SHANGHAI",
+    "item_line_count": 8,
+    "total_quantity": 769.0,
+    "amount": 38806.7,
+    "currency": "USD",
+    "vendor": "KATATA ELECTRIC (KUNSHAN) CO., LTD.",
+    "origin": "China",
+    "hs_code": null,
+    "bl_no": "SHAKEL26971867",
+    "bl_packages": 6.0,
+    "bl_gross_weight_kg": 1498.5,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "BSTW2609003",
+      "part_no": "3FA84414A",
+      "description": "A10629710A(3FA84414A) / PCB AS.",
+      "qty": 10.0,
+      "unit": "PCS",
+      "unit_price": 142.77,
+      "amount": 1427.7,
+      "origin": "China",
+      "hs_code": "8415909000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "BSTW2609003",
+      "part_no": "3FA77516C",
+      "description": "17B50014F PV173KF CB (3FA77516C) / PCB AS.",
+      "qty": 50.0,
+      "unit": "PCS",
+      "unit_price": 115.56,
+      "amount": 5778.0,
+      "origin": "China",
+      "hs_code": "8415909000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "BSTW2609003",
+      "part_no": "3FH84725A",
+      "description": "A10775580A NF202SA(3FH84725A) / NF PCB",
+      "qty": 6.0,
+      "unit": "PCS",
+      "unit_price": 35.53,
+      "amount": 213.18,
+      "origin": "China",
+      "hs_code": "8415909000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "BSTW2609003",
+      "part_no": "3FH84725A",
+      "description": "A10775580A NF202SA(3FH84725A) / NF PCB",
+      "qty": 18.0,
+      "unit": "PCS",
+      "unit_price": 35.53,
+      "amount": 639.54,
+      "origin": "China",
+      "hs_code": "8415909000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "BSTW2609003",
+      "part_no": "1FA15061A",
+      "description": "17A25434B(1FA15061A) / PCB AS.",
+      "qty": 49.0,
+      "unit": "PCS",
+      "unit_price": 83.24,
+      "amount": 4078.76,
+      "origin": "China",
+      "hs_code": "8415909000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "BSTW2609003",
+      "part_no": "3FH74422A",
+      "description": "17A26887B NF161B(3FH74422A) / NF PCB",
+      "qty": 600.0,
+      "unit": "PCS",
+      "unit_price": 36.06,
+      "amount": 21636.0,
+      "origin": "China",
+      "hs_code": "8415909000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "BSTW2609003",
+      "part_no": "3FA74423A",
+      "description": "17F21278F PV161F(3FA74423A) / PCB AS.",
+      "qty": 1.0,
+      "unit": "PCS",
+      "unit_price": 139.82,
+      "amount": 139.82,
+      "origin": "China",
+      "hs_code": "8415909000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "BSTW2609003",
+      "part_no": "3FA74423A",
+      "description": "17F21278F PV161F(3FA74423A) / PCB AS.",
+      "qty": 35.0,
+      "unit": "PCS",
+      "unit_price": 139.82,
+      "amount": 4893.7,
+      "origin": "China",
+      "hs_code": "8415909000",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-5th/BHC_5th data/case 1/BSTW2609003 LCL  博世台湾.xlsx",
+    "text_backend": "excel/openpyxl",
+    "format_id": "bhc_vendor_ci_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "profile=katata; HS 8415909000 (footer; applied to all lines); source=split; pkl_used=no; 缺 PKL; bl_used=yes; bl_file=20260929142515-0001.pdf; bl_needs_gold (needs_gold: gross_weight_kg (OCR reads disagree / too few); TVL HBL partial; pkg 6 by vote (legacy 18.0); pkg reads: say_words_r1=6, say_digits_r1=6, marks_slas)",
+    "labeled_amount": 38806.7,
+    "labeled_amount_label": "TOTAL",
+    "source": "split",
+    "inv_file": "/home/box/Downloads/BHC-batch-5th/BHC_5th data/case 1/BSTW2609003 LCL  博世台湾.xlsx",
+    "pkl_file": null,
+    "pkl_used": false,
+    "bl_file": "/home/box/Downloads/BHC-batch-5th/BHC_5th data/case 1/20260929142515-0001.pdf",
+    "bl_used": true,
+    "bl_format_id": "tvl_hbl_v1",
+    "pair_status": "僅 INV",
+    "source_kind": "excel",
+    "needs_gold_fields": [
+      "bl_gross_weight_kg"
+    ],
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "needs_gold",
+    "checker_issues": [
+      "needs_gold field(s): bl_gross_weight_kg (document contradicts itself; confirm manually / from BL)"
+    ],
+    "checker_details": {
+      "item_line_count": {
+        "want": 8,
+        "got": 8
+      },
+      "total_quantity": {
+        "want": 769.0,
+        "got": 769.0
+      },
+      "amount": {
+        "want": 38806.7,
+        "got": 38806.7
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 38806.7,
+        "header_amount": 38806.7,
+        "sum_items": 38806.7,
+        "item_count": 8
+      },
+      "needs_gold_fields": [
+        "bl_gross_weight_kg"
+      ]
+    }
+  },
+  "_hard": {
+    "verdict": "needs_gold",
+    "issues": [
+      "needs_gold field(s): bl_gross_weight_kg (document contradicts itself; confirm manually / from BL)"
+    ],
+    "details": {
+      "item_line_count": {
+        "want": 8,
+        "got": 8
+      },
+      "total_quantity": {
+        "want": 769.0,
+        "got": 769.0
+      },
+      "amount": {
+        "want": 38806.7,
+        "got": 38806.7
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 38806.7,
+        "header_amount": 38806.7,
+        "sum_items": 38806.7,
+        "item_count": 8
+      },
+      "needs_gold_fields": [
+        "bl_gross_weight_kg"
+      ]
+    }
+  },
+  "_pair_status": "僅 INV",
+  "_pair_id": "P2"
+}

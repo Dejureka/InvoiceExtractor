@@ -63,6 +63,9 @@ def match_score(text: str, filename: str = "") -> float:
         score -= 0.5
     if "MARUBENI" in tu or "TETSUGEN" in tu:
         score -= 0.6
+    # scanned TVL HBL marks also show BHC-TW / motor PNs — don't steal the BL
+    if "BILL OF LADING" in tu or "SHAKEL" in tu or "T.V.L" in tu:
+        score -= 0.7
     return max(0.0, min(score, 1.0))
 
 

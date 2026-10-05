@@ -33,6 +33,14 @@ Profiles (BHC 4th batch, 2026-10-05):
                   发票箱单.xlsx`` (invoice + packing list sheets). Copper coil
                   priced per KG; PN = PO NO (``P100592670060``, same idea as
                   Marubeni copper S/N); pkg = PACKAGES column of the PL TOTAL.
+- ``katata``      KATATA ELECTRIC (KUNSHAN) — ``BSTW2609003.pdf`` (OCR INV+PL)
+                  + ``BSTW2609003 LCL 博世台湾.xlsx`` twin. PN = MODEL NO.
+                  (Bosch ``3FA84414A``); pkg = ``PACKING : 6 PALLET``;
+                  GW = ``Gross Weight : 1195.5kg``; HS soft-ok from footer.
+- ``nisshinbo``   NISSHINBO MECHATRONICS (SHANGHAI) — ``TAWA-26024…Invoice &
+                  Packinglist.pdf`` (OCR INV+PL). PN = ``2GF34793A``; pkg =
+                  ``240 CTNS``; GW = PL ``G/WEIGHT 4,850.88 KGS``; HS not printed
+                  (BHC soft).
 
 Only Result fields are extracted (no vessel / ETD / CBM / container).
 BHC: missing HS is soft.
@@ -46,18 +54,20 @@ from typing import Callable, Optional
 from invoice_extractor.schema import ExtractResult, Header, Item, Meta, en_date_to_iso, us_float
 
 MATCH_HINTS = {
-    "filename_regex": r"SHC-THT|MDBWH|BHC-TW|BHCTW|HLHK",
+    "filename_regex": r"SHC-THT|MDBWH|BHC-TW|BHCTW|HLHK|BSTW|TAWA",
     "keywords": [
         "ZHEJIANG SANHUA INTELLIGENT CONTROLS",
         "WELLING INTERNATIONAL HONG KONG",
         "BROAD-OCEAN MOTOR",
         "HIPUS Co",
         "HAILIANG METAL TRADING",
+        "KATATA ELECTRIC",
+        "NISSHINBO MECHATRONICS",
     ],
 }
 
 NOTES = (
-    "BHC vendor CI family (profiles sanhua / welling / broad_ocean / hipus / hailiang). "
+    "BHC vendor CI family (profiles sanhua / welling / broad_ocean / hipus / hailiang / katata / nisshinbo). "
     "Labeled TOTAL amount drives the hard check; PN = Bosch customer PN column "
     "(hailiang: PO NO). pkg/GW from the PL TOTAL (combined or split PKL via "
     "parse_packing). HIPUS shared PL → packing_units per pallet (shipment total on "
@@ -66,7 +76,7 @@ NOTES = (
 
 RULES_JSON = {
     "id": "bhc_vendor_ci_v1",
-    "profiles": ["sanhua", "welling", "broad_ocean", "hipus", "hailiang"],
+    "profiles": ["sanhua", "welling", "broad_ocean", "hipus", "hailiang", "katata", "nisshinbo"],
 }
 
 _BOSCH_PN = re.compile(r"\b(\d[A-Z]{2}\d{5}[A-Z])\b")
@@ -81,6 +91,8 @@ _PROFILE_ANCHORS: list[tuple[str, re.Pattern[str]]] = [
     ("broad_ocean", re.compile(r"BROAD-?\s?OCEAN\s+MOTOR", re.I)),
     ("hipus", re.compile(r"\bHIPUS\s+Co|^No\.\t\d{3}-BHCTW-\d{2}[A-Z]-\d{2}\b", re.I | re.M)),
     ("hailiang", re.compile(r"HAILIANG\s+METAL", re.I)),
+    ("katata", re.compile(r"KATATA\s+ELECTRIC", re.I)),
+    ("nisshinbo", re.compile(r"NISSHINBO\s+MECHATRONICS", re.I)),
 ]
 
 
@@ -99,7 +111,7 @@ def match_score(text: str, filename: str = "") -> float:
     tu = (text or "").upper()
     if "COMMERCIAL INVOICE" in tu or re.search(r"(?m)^\s*INVOICE\s*$", tu) or "=== SHEET: INVOICE" in tu:
         score += 0.2
-    if re.search(r"SHC-THT|MDBWH|BHC-?TW|HLHK", filename or "", re.I):
+    if re.search(r"SHC-THT|MDBWH|BHC-?TW|HLHK|BSTW|TAWA", filename or "", re.I):
         score += 0.1
     if _NOT_INVOICE.search(text or ""):
         score -= 0.6
@@ -250,12 +262,47 @@ def _pack_hailiang(text: str):
     return float(m.group(2)), _num(m.group(4)), None, note
 
 
+
+def _pack_katata(text: str):
+    """``PACKING : 6 PALLET`` + ``Gross Weight : 1195.5kg`` (INV footer or PL)."""
+    m = re.search(r"PACKING\s*:\s*(\d+)\s*PALLETS?\b", text, re.I)
+    pkg = float(m.group(1)) if m else None
+    # OCR may read 1195.5kg as 1195.Skg (S≈5)
+    g = re.search(r"Gross\s*Weight\s*:\s*([\d,]+[.,][\dSs]+)\s*[kKSs]?g", text, re.I)
+    if not g:
+        g = re.search(r"Gross\s*Weight\s*:\s*([\d,]+(?:\.\d+)?)\s*k?g", text, re.I)
+    gw = None
+    if g:
+        raw = g.group(1).replace(",", "").replace("S", "5").replace("s", "5")
+        gw = _num(raw)
+    return pkg, gw, None, None
+
+def _pack_nisshinbo(text: str):
+    """PL ``TOTAL 240CTNS 4,800PCS … 4,850.88 KGS``."""
+    pk = text
+    if "PACKING LIST" in text.upper():
+        pk = text[text.upper().index("PACKING LIST"):]
+    m = re.search(
+        r"TOTAL\s+(\d+)\s*CTNS?\s+[\d,]+\s*PCS\s+[\d,.]+\s*KGS\s+([\d,.]+)\s*KGS",
+        pk,
+        re.I,
+    )
+    if m:
+        return float(m.group(1)), _num(m.group(2)), None, None
+    m = re.search(r"(\d+)\s*CTNS?\s+[\d,]+\s*PCS\s+[\d,.]+\s*KGS\s+([\d,.]+)\s*KGS", pk, re.I)
+    if m:
+        return float(m.group(1)), _num(m.group(2)), None, None
+    return None, None, None, None
+
+
 _PACKERS: dict[str, Callable] = {
     "sanhua": _pack_sanhua,
     "welling": _pack_welling,
     "broad_ocean": _pack_broad_ocean,
     "hipus": _pack_hipus,
     "hailiang": _pack_hailiang,
+    "katata": _pack_katata,
+    "nisshinbo": _pack_nisshinbo,
 }
 
 
@@ -556,12 +603,182 @@ def _inv_hailiang(text: str, o: _Out) -> None:
         o.notes.append(note)
 
 
+
+def _flex_money(tok: str) -> Optional[float]:
+    """Parse OCR/xlsx money: ``$1, 427. 70``, ``$639, 54``, ``1427.7``."""
+    s = (tok or "").strip().replace("$", "").replace(" ", "")
+    if not s:
+        return None
+    if "," in s and "." in s:
+        s = s.replace(",", "")
+    elif "," in s:
+        head, _, tail = s.rpartition(",")
+        # ``639,54`` (2dp decimal comma) vs ``21,636`` (thousands)
+        if len(tail) == 2 and head.isdigit():
+            s = f"{head}.{tail}"
+        else:
+            s = s.replace(",", "")
+    return _num(s)
+
+
+def _inv_katata(text: str, o: _Out) -> None:
+    o.vendor = "KATATA ELECTRIC (KUNSHAN) CO., LTD."
+    m = re.search(r"INVOICE\s*NO\s*[:：]\s*(BSTW\d+)", text, re.I)
+    o.invoice_no = m.group(1).upper() if m else None
+    m = re.search(r"DATE\s*[:：]\s*(\d{4})[./](\d{1,2})[./](\d{1,2})", text, re.I)
+    if m:
+        o.invoice_date = f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+    if re.search(r"ORIGIN\s*:?\s*CHINA|MADE\s+IN\s+CHINA", text, re.I):
+        o.origin = "China"
+    hs_m = re.search(r"HS\s*CODE\s*:?\s*(\d{6,10})", text, re.I)
+    hs = hs_m.group(1) if hs_m else None
+    # Invoice body only (xlsx has no PL sheet; PDF OCR has a PACKING LIST page)
+    inv_part = re.split(r"\bPACKING\s+LIST\b", text, maxsplit=1, flags=re.I)[0]
+    # Prefer xlsx tab rows; fall back to OCR space-separated
+    for line in inv_part.splitlines():
+        if not re.match(r"\s*P\d{8}\b", line):
+            continue
+        if "\t" in line:
+            cols = [c.strip() for c in line.split("\t")]
+            # ORDER NO, KEK, MODEL, DESC, REMARK, QTY, U/P, AMOUNT, …
+            if len(cols) < 8:
+                continue
+            pn = cols[2] if re.fullmatch(r"\d[A-Z]{2}\d{5}[A-Z]", cols[2] or "") else None
+            if not pn:
+                bm = _BOSCH_PN.search(" ".join(cols))
+                pn = bm.group(1) if bm else None
+            qty = _num(cols[5])
+            price = _num(cols[6])
+            amt = _money(_num(cols[7]))
+            desc = cols[3] or cols[4] or None
+            remark = cols[4] if len(cols) > 4 else None
+            if remark and desc and remark not in desc:
+                desc = f"{desc} / {remark}"
+        else:
+            # OCR: P10062322 E80805723 3FA84414A A10629710A (3FA84414A) PCB AS. 10 $142.77 $1, 427. 70
+            bm = _BOSCH_PN.search(line)
+            pn = bm.group(1) if bm else None
+            monies = re.findall(r"\$\s*[\d,\s]+\.?\s*\d{0,2}", line)
+            if len(monies) < 2:
+                continue
+            price = _flex_money(monies[-2])
+            amt = _money(_flex_money(monies[-1]))
+            # qty = last integer before first $
+            pre = line.split("$", 1)[0]
+            qm = re.search(r"(\d+)\s*$", pre.strip())
+            qty = float(qm.group(1)) if qm else None
+            # description ≈ remark token (PCB AS. / NF PCB)
+            dm = re.search(r"\b(PCB\s*AS\.?|NF\s*PCB)\b", line, re.I)
+            desc = dm.group(1) if dm else None
+            if pn and desc is None:
+                # vendor desc before remark
+                after_pn = line[bm.end():] if bm else line
+                desc = re.sub(r"\s+\d+\s*\$[\s\S]*$", "", after_pn).strip() or None
+        if qty is None or amt is None:
+            continue
+        o.items.append(
+            Item(
+                invoice_no=o.invoice_no,
+                part_no=pn,
+                description=desc,
+                qty=qty,
+                unit="PCS",
+                unit_price=price,
+                amount=amt,
+                origin=o.origin,
+                hs_code=hs,
+                currency="USD",
+            )
+        )
+    # Labeled TOTAL (OCR: TOTAL Q' TY 769 TOTAL $38, 806. 70)
+    m = re.search(
+        r"TOTAL\s*Q[''\u2019 ]*T?Y\s+([\d,]+)\s+TOTAL\s+\$?\s*([\d, ]+\.\s*\d{2})",
+        inv_part,
+        re.I,
+    )
+    if not m:
+        m = re.search(
+            r"TOTAL\s*Q[''\u2019]?T?Y\s*\t?\s*([\d,]+)\s*\t?\s*TOTAL\s*\t?\s*\$?\s*([\d.]+)",
+            inv_part,
+            re.I,
+        )
+    if m:
+        o.total_qty = _num(m.group(1))
+        o.labeled = _money(_flex_money(m.group(2)))
+        o.label = "TOTAL"
+    sum_lines = round(sum(it.amount or 0 for it in o.items), 2) if o.items else None
+    if (
+        o.labeled is not None
+        and sum_lines is not None
+        and abs(o.labeled - sum_lines) > 0.001
+        and abs(o.labeled - sum_lines) < 1.0
+    ):
+        o.notes.append(
+            f"OCR TOTAL {o.labeled:g} ≈ sum(lines) {sum_lines:g} — using sum(lines)"
+        )
+        o.labeled = sum_lines
+    m = re.search(r"\b(FOB|CIF|CFR|EXW|FCA)\s+(SHANGHAI|NINGBO|[A-Z]{4,12})\b", text, re.I)
+    o.incoterm = f"{m.group(1).upper()} {m.group(2).upper()}" if m else None
+    o.pkg, o.gw, _, note = _pack_katata(text)
+    if note:
+        o.notes.append(note)
+    if hs:
+        o.notes.append(f"HS {hs} (footer; applied to all lines)")
+
+
+def _inv_nisshinbo(text: str, o: _Out) -> None:
+    o.vendor = "NISSHINBO MECHATRONICS (SHANGHAI) CO., LTD."
+    m = re.search(r"INVOICE\s*NO\s*[:：]\s*(TAWA-?\d+)", text, re.I)
+    o.invoice_no = m.group(1).upper() if m else None
+    m = re.search(r"DATE\s*[:：]\s*(\d{4})[./](\d{1,2})[./](\d{1,2})", text, re.I)
+    if m:
+        o.invoice_date = f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+    if re.search(r"MADE\s+IN\s+CHINA", text, re.I):
+        o.origin = "China"
+    inv_part = re.split(r"\bPACKING\s+LIST\b", text, maxsplit=1, flags=re.I)[0]
+    # ``2GF34793A 4,800 PCS USD:5.0500 USD: 24,240.00``
+    for m in re.finditer(
+        r"(?P<pn>\d[A-Z]{2}\d{5}[A-Z])\.?\s+(?P<qty>[\d,]+)\s*PCS\s+USD\s*:?\s*(?P<price>[\d.]+)\s+USD\s*:?\s*(?P<amt>[\d,.]+)",
+        inv_part,
+        re.I,
+    ):
+        desc = "CROSS FLOW FAN" if re.search(r"CROSS\s+FLOW\s+FAN", inv_part, re.I) else None
+        o.items.append(
+            Item(
+                invoice_no=o.invoice_no,
+                part_no=m.group("pn"),
+                description=desc,
+                qty=_num(m.group("qty")),
+                unit="PCS",
+                unit_price=_num(m.group("price")),
+                amount=_money(_num(m.group("amt"))),
+                origin=o.origin,
+                currency="USD",
+            )
+        )
+    m = re.search(r"TOTAL\s+FOB\s+SHANGHAI\s+USD\s*:?\s*([\d,.]+)", inv_part, re.I)
+    if m:
+        o.labeled = _money(_num(m.group(1)))
+        o.label = "TOTAL FOB SHANGHAI"
+        o.incoterm = "FOB SHANGHAI"
+    else:
+        o.incoterm = _incoterm(inv_part) or "FOB SHANGHAI"
+    if o.total_qty is None and o.items:
+        o.total_qty = float(sum(it.qty or 0 for it in o.items))
+    o.pkg, o.gw, _, note = _pack_nisshinbo(text)
+    if note:
+        o.notes.append(note)
+    o.notes.append("HS not printed on CI/PL (BHC soft-missing OK)")
+
+
 _INVOICERS: dict[str, Callable[[str, _Out], None]] = {
     "sanhua": _inv_sanhua,
     "welling": _inv_welling,
     "broad_ocean": _inv_broad_ocean,
     "hipus": _inv_hipus,
     "hailiang": _inv_hailiang,
+    "katata": _inv_katata,
+    "nisshinbo": _inv_nisshinbo,
 }
 
 

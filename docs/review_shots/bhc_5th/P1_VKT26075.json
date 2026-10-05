@@ -1,0 +1,117 @@
+{
+  "header": {
+    "invoice_no": "VKT26075",
+    "invoice_date": "2026-09-24",
+    "total_pkg": 31.0,
+    "gross_weight_kg": 13101.0,
+    "incoterm": "FOB SHANGHAI",
+    "item_line_count": 3,
+    "total_quantity": 10367.0,
+    "amount": 89520.8,
+    "currency": "USD",
+    "vendor": "NIDEC TECHNO MOTOR CORPORATION",
+    "origin": "CN",
+    "hs_code": null,
+    "bl_no": "SHAKEL26971996",
+    "bl_packages": 31.0,
+    "bl_gross_weight_kg": 13101.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "VKT26075",
+      "part_no": "2NB27125J",
+      "description": "SIC-61FV-F136-1",
+      "qty": 3136.0,
+      "unit": "PCS",
+      "unit_price": 10.38,
+      "amount": 32551.68,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "VKT26075",
+      "part_no": "3NA49217E",
+      "description": "SIC-37CVJ-F126-3",
+      "qty": 640.0,
+      "unit": "PCS",
+      "unit_price": 11.57,
+      "amount": 7404.8,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "VKT26075",
+      "part_no": "3NB51897M",
+      "description": "SIC-41CH-F136-1",
+      "qty": 6591.0,
+      "unit": "PCS",
+      "unit_price": 7.52,
+      "amount": 49564.32,
+      "origin": "CN",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-5th/BHC_5th data/case 2/BHC-TW_VKT26075_Z2609324.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "nidec_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=20260924163130-0001.pdf",
+    "labeled_amount": null,
+    "labeled_amount_label": null,
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/BHC-batch-5th/BHC_5th data/case 2/BHC-TW_VKT26075_Z2609324.pdf",
+    "pkl_file": "/home/box/Downloads/BHC-batch-5th/BHC_5th data/case 2/BHC-TW_VKT26075_Z2609324.pdf",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-5th/BHC_5th data/case 2/20260924163130-0001.pdf",
+    "bl_used": true,
+    "bl_format_id": "tvl_hbl_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 3,
+        "got": 3
+      },
+      "total_quantity": {
+        "want": 10367.0,
+        "got": 10367.0
+      },
+      "amount": {
+        "want": 89520.8,
+        "got": 89520.8
+      }
+    }
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 3,
+        "got": 3
+      },
+      "total_quantity": {
+        "want": 10367.0,
+        "got": 10367.0
+      },
+      "amount": {
+        "want": 89520.8,
+        "got": 89520.8
+      }
+    }
+  },
+  "_pair_status": "INV+PKL",
+  "_pair_id": "P1"
+}

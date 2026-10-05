@@ -110,7 +110,7 @@
 | `oukai_v1` | `Changzhou Oukai`／欧凯、`OK########`、Step Motor；xls primary |
 | `hitachi_asia_hitt_v1` | `Hitachi Asia Ltd`、`USDI…`、HITT NO／BHC NO；≠ `hitachi_gls_v1` (MEH) |
 | `bhc_manual_inv_v1` | `TW-MANUAL-…`、no commercial value；≠ MY-HUB `TOTALS:` table |
-| `bhc_vendor_ci_v1` | **BHC 小廠 CI 版面家族（一個 format_id，多個 vendor profile，`meta.notes` 記 `profile=`）**：`sanhua`（浙江三花 `SHC/THT…`，PDF＋xls twin；PN＝CUSTOMERS NO.，PDF 空白時 PN 留空＋附註）、`welling`（WELLING `MDBWH…`，`CI PL` 合訂；產地未印 → Co 空白＋附註）、`broad_ocean`（大洋 `…-BHC-TW` xls＋分檔 PL xls）、`hipus`（HIPUS `###-BHCTW-##K-##`，PDF＋xlsx twin（Header／Detail sheet，靠發票號錨點認）；一份 PL 給兩張 INV）、`hailiang`（海亮 `##HLHK…` xlsx，銅材以 KG 計，PN＝PO NO）；有 `parse_packing(text)` 給分檔 PKL 用（見下）；遇到提單／到貨通知字樣扣分 |
+| `bhc_vendor_ci_v1` | **BHC 小廠 CI 版面家族（一個 format_id，多個 vendor profile，`meta.notes` 記 `profile=`）**：`sanhua`（浙江三花 `SHC/THT…`，PDF＋xls twin；PN＝CUSTOMERS NO.，PDF 空白時 PN 留空＋附註）、`welling`（WELLING `MDBWH…`，`CI PL` 合訂；產地未印 → Co 空白＋附註）、`broad_ocean`（大洋 `…-BHC-TW` xls＋分檔 PL xls）、`hipus`（HIPUS `###-BHCTW-##K-##`，PDF＋xlsx twin（Header／Detail sheet，靠發票號錨點認）；一份 PL 給兩張 INV）、`hailiang`（海亮 `##HLHK…` xlsx，銅材以 KG 計，PN＝PO NO）、`katata`（KATATA `BSTW…`，PDF OCR＋xlsx twin；PN＝MODEL NO.）、`nisshinbo`（日清紡 `TAWA-…`，OCR 合訂 INV+PL；PN＝`2GF…`；HS 未印＝soft）；有 `parse_packing(text)` 給分檔 PKL 用（見下）；遇到提單／到貨通知字樣扣分 |
 
 **MA**：WithPeriod／NoPeriod 已進規則庫（Round4）。其他變體（USA／Wiper／Sebang）尚未做。  
 **MA 3rd（最後一批 MA）**：RBDEsea `90-C-26MA-*`（`INVOICE 2120xxxxxx.PDF`）＝`ma_with_period_v1`（HS 8 位＝發票印的 `HS CODE`）；RBJPsea `90-KWE-26MA-*`（`00…_2000…_RBTW_….PDF`）＝`ma_no_period_v1`（HS 10 位）。兩者規則**未改**，原樣 184/184 硬校 pass。RB 唯一鍵本批皆單段（DE 9 位、JP 13 位 `9843…001`），無兩段接合案例。**跨發票同一 RB（使用者 2026-09-29）**：MA 同一 shipment（同資料夾＋同 BL No.）有多張 INV、且 RB 唯一鍵在發票間重複時，件數／毛重以 **shipment 整體**計（RB 只算一次），依發票號碼排序全部放在**第一張**，其他各張件數／毛重＝0；品項行 qty／金額不動；各張都在 Summary 的 Packages／G.W. 儲存格加 Excel 附註（並寫 `meta.notes`、`header.summary_note`、`meta.shipment_packing`），其他張如「shipment pkg/GW (deduped) on 2120394532; printed pkg/GW 26 / 1989.836」，第一張如「shipment pkg/GW (deduped) 26 / 1989.836 on this first invoice (2 invoices, shared RB 110936597); printed pkg/GW 1 / 11.604」。**沒有 RB 重複的 shipment 不動**（各張照印刷值）。例：008 → 2120394532＝26／1989.836、2120394533＝0；036 → 2120422517＝32／2801.031、2120422518／2120422519＝0（皆＝BL，差 ≤0.002 為四捨五入）。實作：格式把包裝單位放 `meta.packing_units`（MA＝RB 鍵→毛重），`pairing.dedupe_shared_packing_units` 於整批抽完後執行（CLI／GUI），`SHARED_RB_MODE="shipment_first"`（另保留 `duplicate_only` 僅供對照，不用）；若某 INV 的件數／毛重不是由這些單位算出（例 PKL 覆寫）→ 不搬移，整個 shipment 標 `total_pkg`／`gross_weight_kg` needs_gold。
@@ -121,6 +121,11 @@
 ## INV／PKL 分檔與 format_id
 
 合訂本（同一 PDF 含發票＋packing）與 **分檔**（常見於 **BHC**：`*_INV_*` + `*_PKL_*`）共用同一套 FormatSOP：主 `format_id` 仍由 **INV（或合訂本）** 的 `match_score` 決定，**不**另開 `*_pkl_v1` 當主類別。分檔時 PKL 只當**同家族補充來源**（件數／GW：MA 用 `parse_rb_packages`；BITZER／通用 packing 錨點亦可），合併成一筆 ExtractResult；`meta.source=combined|split`。MA 多數仍為合訂本，勿假設全部都要分檔。
+
+**BHC 5th 新增（2026-10-05）**：
+- **`bhc_vendor_ci_v1` profiles**：`katata`（KATATA ELECTRIC `BSTW…`，PDF OCR＋xlsx twin；PN＝MODEL NO.；`PACKING : N PALLET`／`Gross Weight`）、`nisshinbo`（NISSHINBO `TAWA-…`，OCR 合訂 INV+PL；PN＝`2GF…`；pkg＝CTNS；HS 未印＝soft）。
+- **`tvl_hbl_v1`**：SAY OCR（`$1X`→SIX、SAYTOTAL、em-dash）、marks `C/NO.…/N PALLET`、slash-row GW 優先（件數一致時）、多 pass 未印證的 GW → needs_gold。
+- **`nidec_v1`**：BILL OF LADING／SHAKEL／T.V.L 扣分（避免掃描提單被當發票）。
 
 **BHC 4th 新增（2026-10-05）**：
 - **廠商專用 PKL 解析**：INV 的 format 模組若有 `parse_packing(text)`（目前 `bhc_vendor_ci_v1`），分檔 PKL 的件數／毛重先用它，抓不到才退回通用 `parse_packing_pkg_gw`；`meta.notes` 記 `pkl_parser=<format_id>`。例：大洋 PL 通用解析誤抓 2352（pcs），專用解析＝7 板／1876 kg。
@@ -142,6 +147,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-10-05 | BHC 5th（3 case；.msg 忽略）：`bhc_vendor_ci_v1` 加 profile `katata`（BSTW OCR＋xlsx twin）／`nisshinbo`（TAWA OCR 合訂）；`nidec_v1` 沿用 VKT26075（提單文字扣分，避免吃 TVL HBL）；`tvl_hbl_v1` SAY OCR 強化（`$1X`→SIX、SAYTOTAL、em-dash、`C/NO.…/N PALLET` marks）、slash-row GW 在件數對得上時優先（13101 vs face 13104）、多 pass 無第二讀法的 GW → needs_gold（case1 圖上 1195.5、OCR 誤 1498.5）；review `docs/review_shots/bhc_5th/` |
 | 2026-10-05 | BHC 4th（11 case；.msg 忽略）：新 INV 家族 `bhc_vendor_ci_v1`（profile sanhua／welling／broad_ocean／hipus／hailiang＋`parse_packing`）；擴充 `suzhou_aichi_v1`（STATOR+ROTOR、標籤 TOTAL、Gross GW、Incoterm 照頁面）、`hitachi_gls_v1`（MEH6J044 內嵌配件版、GRAND TOTAL、0 行 → needs_gold）；新 BL `jif_cosmo_waybill_v1`（JIFFA／Cosmo Trans Line waybill，防偽底紋 OCR，≥2 讀法一致才採用）；`tvl_hbl_v1` 掃描件跑第二次 OCR（300 dpi）投票：櫃別明細加總（需等於表面總重）、SAY TOTAL 英文＋括號數字（排除櫃數）、表面件數（`(` 誤讀成 `1` 修正）；BL No. 兩次讀法不同 → needs_gold（GW 只有一個讀法時一起標）；QDEX 提單號；圖片輸入（jpg／tif）；空白 Excel 範本略過；配對：`CI` token、一份 PL 對多張 INV、同提單多副本、廠商專用 PKL 解析、twin 列在 shipment_first 都算第一張；review `docs/review_shots/bhc_4th/` |
 | 2026-09-29 | MA 3rd **Round 2**（Auditor：INV 184/184、DE BL 19/19 pass；JP BL 核心欄 20/20 正確）：新規則「只抽 `InvoiceExtract_Result` 有的欄位」——`cosco_arrival_v1`／`kwe_sea_waybill_v1` 只輸出 BL No.／BL Packages／BL G.W.，移除船名／航次／ETA／ETD／CBM 等（含原 Round 2 的 ETD／CBM 修正），舊提單格式不動；`BLMeta.needs_gold_fields`（逐欄帶到 INV 列）；亂碼文字層 OCR 經 Auditor 核准：判準不放寬、backend 加 `+mojibake_layer` 並記錄、用語改「OCR when the text layer is empty or unreliable」；跨發票同一 RB（008／036）：shipment 整體去重後的件數／毛重放第一張（發票號排序）、其他張 0＋Summary 附註（`dedupe_shared_packing_units`，mode B `shipment_first`） |
 | 2026-09-27 | MA 3rd（最後一批 MA；39 資料夾（RBDEsea 19＋RBJPsea 20）／223 PDF：184 INV＋39 提單＋0 缺 BL）：INV 沿用 `ma_with_period_v1`（RBDEsea 90-C）／`ma_no_period_v1`（RBJPsea 90-KWE），未改規則；新 BL family `cosco_arrival_v1`（COSCO 到貨通知，文字層）＋`kwe_sea_waybill_v1`（KWE／APL SEA WAYBILL 掃描，OCR 投票：件數／毛重需 ≥2 讀法一致且過半，否則 needs_gold）；`looks_like_bl_filename` 認 `BL##########`；`text_layer_looks_mojibake`（影印機中文 OCR 疊在英文頁的亂碼層 → 視同不可靠，改 OCR）；提單 needs_gold 會帶到 INV 列（`needs_gold_fields` += `bl_*`）；配對時同一提單只抽一次（快取）；review `docs/review_shots/ma_3rd/` |

@@ -1,0 +1,50 @@
+{
+  "doc_type": "bl",
+  "header": {
+    "bl_no": "SHAKEL26971996",
+    "hbl_no": "SHAKEL26971996",
+    "mbl_no": null,
+    "vessel": "GLORY OCEAN",
+    "voyage": "2639S",
+    "etd": null,
+    "eta": null,
+    "pol": "SHANGHAI, CHINA",
+    "pod": "KEELUNG, TAIWAN",
+    "packages": 31.0,
+    "package_unit": "PALLETS",
+    "gross_weight_kg": 13101.0,
+    "measurement_cbm": 32.67,
+    "load_type": null,
+    "shipper": "NIDEC TECHNO MOTOR (ZHEJIANG) CO., LTD. :",
+    "consignee": "BOSCH HOME COMFORT TAIWAN CO., LTD.",
+    "notify": null,
+    "invoice_refs": null,
+    "container_nos": "TRHU6951304",
+    "forwarder": "T.V.L. Global Logistics Co., Ltd."
+  },
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-5th/BHC_5th data/case 2/20260924163130-0001.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": "tvl_hbl_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "TVL / Trans Van Links HBL face. Trained on OCR of BHC case7/8 scan HBLs (SHAKEL26970898 / SHAKEL26770270; BHC 3rd SHAKEL26971792 / SHAKEL26972017). Prefer cargo cartons/pallets over Say-Total container (1×20GP). GW/CBM: prefer CARTONS/KGS[/CBM] when carton count matches; 20GP CBM sanity ≤33; OCR slips (.830→.53, 46.519→16.519, GO.→CO.). Container: ISO 4 letters+7 digits + seal; invoice_refs: all BHCWH* / P/L NO. BHC 5th: SAY OCR ($1X→SIX, SAYTOTAL, em-dash); C/NO.…/N PALLET marks; slash-row GW preferred when pkg matches; uncorroborated multi-pass GW → needs_gold.; GW 13101 by slash row matching pkg 31; pkg reads: rows_r1=31, rows_r2=31, face_r1=31, face_r2=31; GW reads: rows_r1=13101, rows_r2=13101",
+    "doc_kind": "hbl",
+    "checker_verdict": null,
+    "checker_issues": null,
+    "needs_gold_fields": null
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "anchors": {
+        "bl_no": "SHAKEL26971996",
+        "packages": 31.0,
+        "gross_weight_kg": 13101.0,
+        "eta": null
+      }
+    }
+  }
+}
