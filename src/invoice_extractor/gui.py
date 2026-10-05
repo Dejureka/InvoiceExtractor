@@ -231,6 +231,54 @@ def _extract_pairs(rows: list[PairRow], out: Path | None) -> dict[str, Any]:
     }
 
 
+RESULT_OPEN_SUFFIXES = (".xlsx", ".xlsm")
+
+
+def open_path(path: Path | str) -> None:
+    """Open a file or folder with the system default app (raises on failure).
+
+    Windows: ``os.startfile``; macOS: ``open``; Linux/other: ``xdg-open``.
+    """
+    import os
+    import subprocess
+
+    target = str(path)
+    if hasattr(os, "startfile"):
+        os.startfile(target)  # type: ignore[attr-defined]
+    elif sys.platform == "darwin":
+        subprocess.Popen(["open", target])
+    else:
+        subprocess.Popen(["xdg-open", target])
+
+
+def _auto_open_result(result: dict[str, Any], log) -> bool:
+    """After a successful save, open the written Result workbook.
+
+    Only opens when ``result['written']`` is an existing .xlsx/.xlsm (JSON output
+    and runs that wrote nothing are left alone). Never raises: failures go to
+    ``log`` as ``(open result failed: ...)``. Returns True if an open was issued.
+    """
+    written = (result or {}).get("written")
+    if not written:
+        return False
+    path = Path(written)
+    if path.suffix.lower() not in RESULT_OPEN_SUFFIXES or not path.is_file():
+        return False
+    try:
+        open_path(path)
+    except Exception as exc:
+        try:
+            log(f"(open result failed: {exc})")
+        except Exception:
+            pass
+        return False
+    try:
+        log(f"Opened result: {path}")
+    except Exception:
+        pass
+    return True
+
+
 def run_gui() -> None:
     """Launch GUI; requires tkinter (optional tkinterdnd2 for drag-drop)."""
     try:
@@ -526,7 +574,7 @@ def run_gui() -> None:
             inv_key = str(row.inv_path.resolve()) if row.inv_path.exists() else str(row.inv_path)
             path = filedialog.askopenfilename(
                 title="選擇要配給此 INV 的 PKL 檔",
-                filetypes=[("PDF/Excel", "*.pdf *.PDF *.xlsx *.xlsm *.xls"), ("PDF", "*.pdf *.PDF"), ("Excel", "*.xlsx *.xlsm *.xls"), ("All", "*.*")],
+                filetypes=[("PDF/Excel/Image", "*.pdf *.PDF *.xlsx *.xlsm *.xls *.jpg *.jpeg *.png *.tif *.tiff"), ("PDF", "*.pdf *.PDF"), ("Excel", "*.xlsx *.xlsm *.xls"), ("All", "*.*")],
                 initialdir=str(row.inv_path.parent) if row.inv_path else None,
             )
             if not path:
@@ -585,7 +633,7 @@ def run_gui() -> None:
             inv_key = str(row.inv_path.resolve()) if row.inv_path.exists() else str(row.inv_path)
             path = filedialog.askopenfilename(
                 title="選擇要配給此 INV 的提單檔",
-                filetypes=[("PDF/Excel", "*.pdf *.PDF *.xlsx *.xlsm *.xls"), ("PDF", "*.pdf *.PDF"), ("Excel", "*.xlsx *.xlsm *.xls"), ("All", "*.*")],
+                filetypes=[("PDF/Excel/Image", "*.pdf *.PDF *.xlsx *.xlsm *.xls *.jpg *.jpeg *.png *.tif *.tiff"), ("PDF", "*.pdf *.PDF"), ("Excel", "*.xlsx *.xlsm *.xls"), ("All", "*.*")],
                 initialdir=str(row.inv_path.parent) if row.inv_path else None,
             )
             if not path:
@@ -718,7 +766,7 @@ def run_gui() -> None:
             paths = filedialog.askopenfilenames(
                 title="Select invoice PDF/Excel file(s)",
                 filetypes=[
-                    ("PDF/Excel", "*.pdf *.PDF *.xlsx *.xlsm *.xls"),
+                    ("PDF/Excel/Image", "*.pdf *.PDF *.xlsx *.xlsm *.xls *.jpg *.jpeg *.png *.tif *.tiff"),
                     ("PDF", "*.pdf *.PDF"),
                     ("Excel", "*.xlsx *.xlsm *.xls"),
                     ("All", "*.*"),
@@ -851,15 +899,7 @@ def run_gui() -> None:
                             )
                             if open_folder:
                                 try:
-                                    import os
-                                    import subprocess
-
-                                    if hasattr(os, "startfile"):
-                                        os.startfile(str(out_dir))  # type: ignore[attr-defined]
-                                    elif sys.platform == "darwin":
-                                        subprocess.Popen(["open", str(out_dir)])
-                                    else:
-                                        subprocess.Popen(["xdg-open", str(out_dir)])
+                                    open_path(out_dir)
                                 except Exception as exc:
                                     self._log(f"(open folder failed: {exc})")
 
@@ -920,6 +960,8 @@ def run_gui() -> None:
 
                     def ok() -> None:
                         self._show_batch(result)
+                        # Workbook already saved (save errors go to fail()); open it
+                        _auto_open_result(result, self._log)
                         fails = result.get("failures") or []
                         skips = result.get("skipped") or []
                         msg = (

@@ -1,0 +1,206 @@
+                                             INVOICE
+Messrs. Bosch Home Comfort Taiwan Co., Ltd.
+63, Nanking E.Road, Sec.3, Taipei, Taiwan, R.O.C.                         No.   117-BHCTW-26K-41
+                                                                        Date.     September 07, 2026
+Tel.   (88-6)3-324-4711
+                                                          Payment.
+                                                          TTR within 60 days at monthly-end after BL date
+Shipped Per                                               On or about
+WAN HAI 322 S062                                          September 18, 2026
+From                                                      To
+Shimizu, Japan                                            Keelung, Taiwan
+Shipping Marks
+                                                          TradeTerms
+N/M
+                                                          FOB
+
+
+
+
+   PO No.          Code                                   Description
+                   COO                                Quantity        Unit Price                  Amount
+
+                          PARTS FOR AIR CONDITIONER
+
+1 P10058796-300      3EJ45739A           17B34738A            CONDENSER
+                      Japan                            120       PCS    JPY2,465.00             JPY295,800.-
+
+2 P10058506-040      3EJ45739A           17B34738A            CONDENSER
+                      Japan                             60       PCS    JPY2,465.00             JPY147,900.-
+
+3 P10058250-500      3EJ45739A           17B34738A            CONDENSER
+                      Japan                            240       PCS    JPY2,465.00             JPY591,600.-
+
+4 HIPUS230926-050 1AG08508B              7B34864B             BASE BOARD
+                   Japan                                80       PCS     JPY3,506.00            JPY280,480.-
+
+5 HIPUS230926-010 1AG08508A              7B34864A             BASE BOARD
+                   Japan                                80       PCS     JPY3,267.00            JPY261,360.-
+
+6 P10060781-020      3FH74426A           17B48668A            REACTOR
+                      China                            512       PCS     JPY2,528.00          JPY1,294,336.-
+
+7 P10060611-070      3FH30842A           17C72115A            RING CORE 38
+                      Japan                         10,500       PCS       JPY87.40             JPY917,700.-
+
+8 P10060479-430      1EB04086E           17B49968E            THERMISTOR
+                      Viet Nam                         200       PCS     JPY321.00               JPY64,200.-
+
+9 P10058163-590      3FM45641A           17B33964B            THERMISTOR
+                      Malaysia                         200       PCS     JPY200.00               JPY40,000.-
+
+10 P10059823-050     3FH21884C           17C40019A            LINE FILTER
+                      China                            200       PCS      JPY173.00              JPY34,600.-
+
+11 P10059823-100     2CN32485A           17F18626A            ROLLER BEARING
+                      Japan                            234       PCS    JPY2,575.00             JPY602,550.-
+
+
+
+                                        - To be continued -
+No.            117-BHCTW-26K-41                                                           PAGE- 2
+      PO No.         Code                              Description
+                     COO                           Quantity        Unit Price         Amount
+ 12 P10061501-020      2DC31652A     17B47908A             TA-CASE
+                        Japan                       100       PCS         JPY20.70    JPY2,070.-
+
+ 13 P10061156-130      3HT48344A     17C8511401            FIN
+                        South Kore                   40       PCS      JPY2,109.00   JPY84,360.-
+
+ 14 P10060719-010      3FH30852A     17C72116A             RING CORE 47
+                        Japan                       600       PCS       JPY139.00    JPY83,400.-
+
+ 15 P10060479-490      3FM54954A     17B42615B             THERMISTOR
+                        Japan                       100       PCS     JPY215.00      JPY21,500.-
+
+ 16 P10059823-250      3FM54954A     17B42615B             THERMISTOR
+                        Japan                       500       PCS     JPY215.00      JPY107,500.-
+
+ 17 P10057485-220      3EJ53517B     17B37350B             CONDENSER
+                        Japan                        15       PCS    JPY3,035.00     JPY45,525.-
+
+ 18 P10062073-070      3CZ14471A     17E1906701            KNOCK PIN
+                        Japan                     2,000       PCS         JPY11.40   JPY22,800.-
+
+ 19 P10060890-180      3HZ46693A     17F05457A             FUSIBLE PLUG
+                        Malaysia                    100       PCS    JPY1,387.00     JPY138,700.-
+
+ 20 P10061707-050      2DG07116A     17C60120A             PACKING
+                        Japan                       100       PCS        JPY148.00   JPY14,800.-
+
+ 21 P10059698-020      2FM11709B     17C61934B             THERMISTOR
+                        China                        20       PCS     JPY257.00       JPY5,140.-
+
+ 22 P10061501-110      3BZ16900A     17E0444201            REFLECTION PL.
+                        Japan                       200       PCS       JPY31.70      JPY6,340.-
+
+ 23 P10061632-020      2DG07116A     17C60120A             PACKING
+                        Japan                       100       PCS        JPY148.00   JPY14,800.-
+
+ 24 P10061893-040      2DC31652A     17B47908A             TA-CASE
+                        Japan                       100       PCS         JPY20.70    JPY2,070.-
+
+ 25 P10061156-140      THP4-3734B    17E1158302            T-RIVET
+                        Japan                     8,000       PCS          JPY2.50   JPY20,000.-
+
+ 26 P10060549-170      3LE39284A     17E2457001            M6 BOLT
+                        Japan                       600       PCS          JPY6.50    JPY3,900.-
+
+ 27 P10061365-060      3NC76397A     17E27022A             CORE END RING
+                        Japan                       800       PCS        JPY22.40    JPY17,920.-
+
+ 28 P10060890-120      3HZ30466A     17C49475A             SIGHT GLASS
+                        Thailand                    120       PCS      JPY789.00     JPY94,680.-
+
+ 29 P10060890-030      2HP17981A     17C74970B             COIL
+                        China                       150       PCS        JPY310.00   JPY46,500.-
+
+
+
+                                     - To be continued -
+No.            117-BHCTW-26K-41                                                                  PAGE- 3
+      PO No.         Code                               Description
+                     COO                            Quantity        Unit Price               Amount
+ 30 P80016473-010      3FA52263B       7B41615B             BASE BOARD
+                        Japan                        620       PCS     JPY3,706.00       JPY2,297,720.-
+
+ 31 P10060158-040      2CN32485A       17F18626A            ROLLER BEARING
+                        Japan                         18       PCS    JPY2,575.00           JPY46,350.-
+
+ 32 P10060127-080      2CN32485A       17F18626A            ROLLER BEARING
+                        Japan                        180       PCS    JPY2,575.00          JPY463,500.-
+
+ 33 P10060214-040      2CN32485A       17F18626A            ROLLER BEARING
+                        Japan                         54       PCS    JPY2,575.00          JPY139,050.-
+
+ 34 P10057813-110      3FH66479A       17B42008A            NOISE FILTER
+                        China                        180       PCS    JPY5,427.00          JPY976,860.-
+
+ 35 P10061069-150      3LF41070B       17G6428802           LEAF SPRING (3EC0603A0020
+                        Japan                      3,000       PCS       JPY13.00           JPY39,000.-
+
+ 36 P10062522-070      3HR37545C       17G0710103           ELBOW
+                        Japan                          1       PC       JPY863.00              JPY863.-
+
+ 37 P10062346-100      2HK15460A       17C73409A            FILTER ELEMENT
+                        Thailand                       2       PCS    JPY5,617.00           JPY11,234.-
+
+ 38 P10061606-070      2HP15458A       17C73457A            80A VALVE
+                        Japan                          2       PCS JPY34,321.00             JPY68,642.-
+
+ 39 P10061365-070      2HP30874A       17C68348A            65A VALVE
+                        China                          2       PCS JPY31,575.00             JPY63,150.-
+
+ 40 P10061893-030      2BP22462A       17F06148A            FIN
+                        South Kore                    30       PCS    JPY2,561.00           JPY76,830.-
+
+ 41 P10061707-010      2BP22462A       17F06148A            FIN
+                        South Kore                    30       PCS    JPY2,561.00           JPY76,830.-
+
+ 42 P10059595-150      1EM02651B       17B44126B            FUSE
+                        China                        300       PCS      JPY162.00           JPY48,600.-
+
+ 43 P10058796-310     3EJ45739A        17B34738A       CONDENSER
+                       Japan                        180 PCS      JPY2,465.00          JPY443,700.-
+----------------------------------------------------------------------------------------------------
+                                       TOTAL: 30,670 PCS                           JPY10,014,860.-
+                                                 **********                        ***************
+
+
+
+                                                                     HIPUS Co,. Ltd.
+
+
+
+
+                                                                      ------------------------------------
+
+
+                                      - To be continued -
+No.            117-BHCTW-26K-41                                                           PAGE- 4
+      PO No.         Code                             Description
+                     COO                          Quantity        Unit Price          Amount
+                                                               K. Nakano, Associate Director
+                                                               Trading Service
+
+
+
+-------------------------------------------------------
+THIS ACCOUNT IS ASSIGNED TO, IS OWNED BY
+
+WELLS FARGO BANK N.A.
+420 Montgomery Street, San Francisco, CA 94104
+
+Payable by WIRE TRANSFER or SWIFT Transfer To
+
+Beneficiary : HIPUS Co., Ltd.
+Bank Name: Mizuho Bank, Ltd.
+Account No: 1478494
+Swift Code: MHCBJPJT
+
+WE MUST BE NOTICED IMMEDIATELY OF ANY OBJECTIONS TO
+THIS INVOICE OR THE MERCHANDISE THEREOF. PAYMENT
+MUST BE MADE DIRECTLY TO THE BANK ACCOUNT
+INFORMATION AS INDICATED ABOVE
+-------------------------------------------------------
+

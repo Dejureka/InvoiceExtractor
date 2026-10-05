@@ -37,14 +37,27 @@ _INPUT_GLOBS = (
     "*.XLSM",
     "*.xls",
     "*.XLS",
+    # scanned BL / invoice photos (OCR). PNG is accepted as an explicit file
+    # only — folders often hold screenshots (Summary_/example_ PNGs).
+    "*.jpg",
+    "*.JPG",
+    "*.jpeg",
+    "*.JPEG",
+    "*.tif",
+    "*.TIF",
+    "*.tiff",
+    "*.TIFF",
 )
-_INPUT_SUFFIXES = frozenset({".pdf", ".xlsx", ".xlsm", ".xls"})
+_INPUT_SUFFIXES = frozenset(
+    {".pdf", ".xlsx", ".xlsm", ".xls", ".jpg", ".jpeg", ".png", ".tif", ".tiff"}
+)
 
 
 def collect_pdfs(paths: list[str | Path]) -> tuple[list[Path], list[str]]:
     """Expand files and directories into a de-duplicated PDF/Excel list.
 
-    Accepts ``.pdf``, ``.xlsx``, ``.xlsm``, ``.xls``. Skips tool outputs
+    Accepts ``.pdf``, ``.xlsx``, ``.xlsm``, ``.xls`` and images (``.jpg``,
+    ``.jpeg``, ``.tif``; ``.png`` only as an explicit file; OCR). Skips tool outputs
     (``InvoiceExtract_Result.xlsx``, templates) and anything under ``ocr_out/``.
 
     Returns (files, errors) where errors are human-readable path problems.
@@ -185,7 +198,8 @@ def cmd_extract(args: argparse.Namespace) -> int:
         ):
             print(
                 f"SKIP {row.pair_id}: {row.status} "
-                f"inv={row.display_inv} pkl={row.display_pkl} bl={row.display_bl}",
+                f"inv={row.display_inv} pkl={row.display_pkl} bl={row.display_bl}"
+                + (f" ({row.notes})" if getattr(row, "notes", "") else ""),
                 file=sys.stderr,
             )
             continue

@@ -1,0 +1,104 @@
+{
+  "header": {
+    "invoice_no": "9027784701",
+    "invoice_date": "2026-09-24",
+    "total_pkg": 90.0,
+    "gross_weight_kg": 21870.0,
+    "incoterm": "CIF Taipei",
+    "item_line_count": 3,
+    "total_quantity": 90.0,
+    "amount": 177725.7,
+    "currency": "USD",
+    "vendor": "Bosch Home Comfort Supply (M) Sdn. Bhd.",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": "SHAKEL26971969",
+    "bl_packages": 90.0,
+    "bl_gross_weight_kg": 21870.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "9027784701",
+      "part_no": "RAM-14GSD C",
+      "description": "SF RAM,RAS",
+      "qty": 20.0,
+      "unit": "PCS",
+      "unit_price": 1974.73,
+      "amount": 39494.6,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027784701",
+      "part_no": "RAM-14GSD C",
+      "description": "SF RAM,RAS",
+      "qty": 40.0,
+      "unit": "PCS",
+      "unit_price": 1974.73,
+      "amount": 78989.2,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "9027784701",
+      "part_no": "RAM-14GSD C",
+      "description": "SF RAM,RAS",
+      "qty": 30.0,
+      "unit": "PCS",
+      "unit_price": 1974.73,
+      "amount": 59241.9,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 7/BHCWHJTV2609004_INV_9027784701.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "bhc_my_hub_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "soft-missing packing/GW OK for this format; source=split; pkl_used=yes; bl_used=yes; bl_file=SHAKEL26971969.pdf",
+    "labeled_amount": 177725.7,
+    "labeled_amount_label": "TOTALS",
+    "source": "split",
+    "inv_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 7/BHCWHJTV2609004_INV_9027784701.PDF",
+    "pkl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 7/PKL_BHCWHJTV2609004  台湾 世邦.pdf",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 7/SHAKEL26971969.pdf",
+    "bl_used": true,
+    "bl_format_id": "tvl_hbl_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 3,
+        "got": 3
+      },
+      "total_quantity": {
+        "want": 90.0,
+        "got": 90.0
+      },
+      "amount": {
+        "want": 177725.7,
+        "got": 177725.7
+      },
+      "labeled_amount": {
+        "label": "TOTALS",
+        "want": 177725.7,
+        "header_amount": 177725.7,
+        "sum_items": 177725.7,
+        "item_count": 3
+      }
+    }
+  }
+}

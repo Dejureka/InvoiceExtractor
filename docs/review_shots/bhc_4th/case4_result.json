@@ -1,0 +1,93 @@
+{
+  "header": {
+    "invoice_no": "JCH26-09M2",
+    "invoice_date": "2026-09-16",
+    "total_pkg": 5.0,
+    "gross_weight_kg": 2993.0,
+    "incoterm": "FOB NAGOYA, JAPAN",
+    "item_line_count": 2,
+    "total_quantity": 800.0,
+    "amount": 59144.08,
+    "currency": "USD",
+    "vendor": "Marubeni Tetsugen Metals Corporation",
+    "origin": "Japan",
+    "hs_code": null,
+    "bl_no": "NGOA24053",
+    "bl_packages": 5.0,
+    "bl_gross_weight_kg": 2993.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "JCH26-09M2",
+      "part_no": "EMCP-P100584760010",
+      "description": "COPPER TUBE (THERMOEXCEL CPC)",
+      "qty": 480.0,
+      "unit": "PCS",
+      "unit_price": 73.9301,
+      "amount": 35486.45,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "JCH26-09M2",
+      "part_no": "EMCP-P100586060010",
+      "description": "COPPER TUBE (THERMOEXCEL CPC)",
+      "qty": 320.0,
+      "unit": "PCS",
+      "unit_price": 73.9301,
+      "amount": 23657.63,
+      "origin": "Japan",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 4/(JCH26-09M2) Invoice, PL.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": "marubeni_tetsugen_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=Bill Of Lading - NGOA24053.pdf",
+    "labeled_amount": 59144.08,
+    "labeled_amount_label": "Total",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 4/(JCH26-09M2) Invoice, PL.pdf",
+    "pkl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 4/(JCH26-09M2) Invoice, PL.pdf",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 4/Bill Of Lading - NGOA24053.pdf",
+    "bl_used": true,
+    "bl_format_id": "dhl_danmar_bl_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 2,
+        "got": 2
+      },
+      "total_quantity": {
+        "want": 800.0,
+        "got": 800.0
+      },
+      "amount": {
+        "want": 59144.08,
+        "got": 59144.08
+      },
+      "labeled_amount": {
+        "label": "Total",
+        "want": 59144.08,
+        "header_amount": 59144.08,
+        "sum_items": 59144.08,
+        "item_count": 2
+      }
+    },
+    "text_backend_warning": "OCR used (ocr/tesseract): PDF text layer was empty. Column layout may be imperfect vs pdftotext; rules still apply."
+  }
+}

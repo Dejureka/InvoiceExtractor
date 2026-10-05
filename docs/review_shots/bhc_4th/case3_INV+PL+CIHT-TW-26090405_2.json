@@ -1,0 +1,104 @@
+{
+  "header": {
+    "invoice_no": "CIHT-TW-26090405",
+    "invoice_date": "2026-09-24",
+    "total_pkg": null,
+    "gross_weight_kg": null,
+    "incoterm": "FOB",
+    "item_line_count": 3,
+    "total_quantity": 195.0,
+    "amount": 33565.0,
+    "currency": "USD",
+    "vendor": "QINGDAO HISENSE BOSCH AIR-CONDITIONING SYSTEM CO.,LTD.",
+    "origin": "China",
+    "hs_code": null,
+    "bl_no": "QDEX2609096",
+    "bl_packages": 30.0,
+    "bl_gross_weight_kg": 4500.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "CIHT-TW-26090405",
+      "part_no": "RCI-160FJ/E",
+      "description": "HITACHI 2AG30063C",
+      "qty": 50.0,
+      "unit": "SETS",
+      "unit_price": 71.0,
+      "amount": 3550.0,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "CIHT-TW-26090405",
+      "part_no": "RCI-125FY",
+      "description": "HITACHI 2HE30064G",
+      "qty": 45.0,
+      "unit": "SETS",
+      "unit_price": 207.0,
+      "amount": 9315.0,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "CIHT-TW-26090405",
+      "part_no": "RCI-125FY",
+      "description": "HITACHI 2HE30064G",
+      "qty": 100.0,
+      "unit": "SETS",
+      "unit_price": 207.0,
+      "amount": 20700.0,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 3/INV+PL+CIHT-TW-26090405.xlsx",
+    "text_backend": "excel/openpyxl",
+    "format_id": "hisense_qingdao_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "combined INV+PL; soft-missing HS OK; source=combined; pkl_used=yes; bl_used=yes; bl_file=QDEX2609096.jpg",
+    "labeled_amount": 33565.0,
+    "labeled_amount_label": "INVOICE TOTAL AMOUNT",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 3/INV+PL+CIHT-TW-26090405.xlsx",
+    "pkl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 3/INV+PL+CIHT-TW-26090405.xlsx",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 3/QDEX2609096.jpg",
+    "bl_used": true,
+    "bl_format_id": "tvl_hbl_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "excel",
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 3,
+        "got": 3
+      },
+      "total_quantity": {
+        "want": 195.0,
+        "got": 195.0
+      },
+      "amount": {
+        "want": 33565.0,
+        "got": 33565.0
+      },
+      "labeled_amount": {
+        "label": "INVOICE TOTAL AMOUNT",
+        "want": 33565.0,
+        "header_amount": 33565.0,
+        "sum_items": 33565.0,
+        "item_count": 3
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "header": {
+    "invoice_no": "2026-09-23-BHC-TW",
+    "invoice_date": "2026-09-23",
+    "total_pkg": 7.0,
+    "gross_weight_kg": 1876.0,
+    "incoterm": "FOB ZhongShan",
+    "item_line_count": 1,
+    "total_quantity": 2352.0,
+    "amount": 13641.6,
+    "currency": "USD",
+    "vendor": "BROAD-OCEAN MOTOR(HONGKONG) CO., Ltd.",
+    "origin": "China",
+    "hs_code": null,
+    "bl_no": "CPSE26100002",
+    "bl_packages": 7.0,
+    "bl_gross_weight_kg": 1876.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "2026-09-23-BHC-TW",
+      "part_no": "2NA39372A",
+      "description": "DC MOTOR ZWK406A0700034L POWER:10W",
+      "qty": 2352.0,
+      "unit": "PCS",
+      "unit_price": 5.8,
+      "amount": 13641.6,
+      "origin": "China",
+      "hs_code": null,
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 11/COMMERCIAL_INVOICE BHC-TW 2026-09-23.xls",
+    "text_backend": "excel/xlrd",
+    "format_id": "bhc_vendor_ci_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "profile=broad_ocean; source=split; pkl_used=yes; pkl_parser=bhc_vendor_ci_v1; pkl_note=PL 7 pallets / 7 cartons; bl_used=yes; bl_file=到貨通知.pdf",
+    "labeled_amount": 13641.6,
+    "labeled_amount_label": "TOTAL",
+    "source": "split",
+    "inv_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 11/COMMERCIAL_INVOICE BHC-TW 2026-09-23.xls",
+    "pkl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 11/PACKING LIST BHC-TW 2026-09-23.xls",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 11/到貨通知.pdf",
+    "bl_used": true,
+    "bl_format_id": "hippopo_arrival_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "excel",
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 2352.0,
+        "got": 2352.0
+      },
+      "amount": {
+        "want": 13641.6,
+        "got": 13641.6
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 13641.6,
+        "header_amount": 13641.6,
+        "sum_items": 13641.6,
+        "item_count": 1
+      }
+    }
+  }
+}

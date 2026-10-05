@@ -28,7 +28,7 @@ NOTES = (
     "Prefer cargo cartons/pallets over Say-Total container (1×20GP). "
     "GW/CBM: prefer CARTONS/KGS[/CBM] when carton count matches; 20GP CBM sanity ≤33; "
     "OCR slips (.830→.53, 46.519→16.519, GO.→CO.). "
-    "Container: ISO 4 letters+7 digits + seal; invoice_refs: all BHCWH* / P/L NO."
+    "Container: ISO 4 letters+7 digits + seal; invoice_refs: all BHCWH* / P/L NO. BHC 5th: SAY OCR ($1X→SIX, SAYTOTAL, em-dash); C/NO.…/N PALLET marks; slash-row GW preferred when pkg matches; uncorroborated multi-pass GW → needs_gold. Auditor 2026-10-05: the single face weight token and the B/L no are re-read as one line (psm 7) at 200/300/400 dpi and join the vote (page psm 6 swaps glyphs: 3185→3488, 1195.5→1498.5)."
 )
 
 RULES_JSON = {
@@ -47,7 +47,7 @@ def match_score(text: str, filename: str = "") -> float:
     tu = text.upper()
     if "T.V.L" in tu or "TVL GLOBAL" in tu or "TRANS VAN LINKS" in tu:
         score += 0.45
-    if re.search(r"SHAKEL\d+", tu):
+    if re.search(r"SHAKEL\d+", tu) or _QDEX.search(text):
         score += 0.35
     if "BILL OF LADING" in tu:
         score += 0.1
@@ -58,6 +58,240 @@ def match_score(text: str, filename: str = "") -> float:
     if "DHL GLOBAL FORWARDING" in tu:
         score -= 0.4
     return max(0.0, min(score, 1.0))
+
+
+# TVL Qingdao office B/L no (BHC 3rd/4th case 3 photo ``QDEX2609096.jpg``);
+# OCR reads D as b / p / B / O.
+_QDEX = re.compile(r"(?<![A-Za-z0-9])Q[DdbpBO0]EX\s?(\d{7})(?!\d)")
+
+_WORDS = {
+    "ONE": 1, "TWO": 2, "THREE": 3, "FOUR": 4, "FIVE": 5, "SIX": 6, "SEVEN": 7,
+    "EIGHT": 8, "NINE": 9, "TEN": 10, "ELEVEN": 11, "TWELVE": 12, "THIRTEEN": 13,
+    "FOURTEEN": 14, "FIFTEEN": 15, "SIXTEEN": 16, "SEVENTEEN": 17, "EIGHTEEN": 18,
+    "NINETEEN": 19, "TWENTY": 20, "THIRTY": 30, "FORTY": 40, "FIFTY": 50,
+    "SIXTY": 60, "SEVENTY": 70, "EIGHTY": 80, "NINETY": 90,
+}
+_UNIT = r"(?:PLYWOOD\s+|WOODEN\s+)?(?:PALLETS?|PACKAGES?|CARTONS?|PKGS|PLTS|CASES?|CRATES?)"
+_DIGIT_FIX = str.maketrans({"O": "0", "o": "0", "T": "1", "I": "1", "l": "1", "|": "1",
+                            "Z": "2", "z": "2", "S": "5", "B": "8"})
+
+
+def _words_to_int(w: str) -> int | None:
+    total, cur, seen = 0, 0, False
+    for tok in re.split(r"[\s\-]+", w.upper().strip()):
+        if not tok:
+            continue
+        if tok in _WORDS:
+            cur += _WORDS[tok]
+            seen = True
+        elif tok == "HUNDRED" and seen:
+            cur = max(cur, 1) * 100
+        elif tok == "THOUSAND" and seen:
+            total += max(cur, 1) * 1000
+            cur = 0
+        elif tok in ("AND",):
+            continue
+        else:
+            return None
+    return total + cur if seen else None
+
+
+def _wnum(raw: str) -> float | None:
+    """OCR weight token → float ("3612. 000", "7290,00", "21,690.00")."""
+    t = re.sub(r"\s", "", raw)
+    head_dec = re.match(r"^(.*[.,])([\dOo]{3})$", t)
+    if head_dec:
+        t = head_dec.group(1) + head_dec.group(2).replace("O", "0").replace("o", "0")
+    if "," in t and "." in t:
+        t = t.replace(",", "")
+    elif "," in t:
+        head, _, tail = t.rpartition(",")
+        t = f"{head.replace(',', '')}.{tail}" if len(tail) in (2, 3) else t.replace(",", "")
+    try:
+        return float(t)
+    except ValueError:
+        return None
+
+
+_ROW_RX = re.compile(
+    r"(?<![A-Za-z0-9])([0-9OoTIlZzSB]{1,4})?\s*([CG]\s*ARTONS?|PACKAGES|PALLETS?|PLTS|PKGS)"
+    r"\s*([/I!|,])\s*([\d,]+[.,]\s?\d{2,3})\s*K[GeE6][S53s]",
+    re.I,
+)
+# face total weight; OCR may read the 3 decimals "000" as "OOO"
+_FACE_GW_RX = re.compile(r"(?<![\d,.])(\d{1,3}(?:,?\d{3})*[.,]\s?[\dOo]{3})\s*K[GeE6][S53s]")
+
+
+def _read_votes(text: str) -> dict:
+    """One OCR pass → candidate reads for BL no / packages / GW (Result fields only)."""
+    out: dict = {"bl_no": None, "say": [], "face_pkg": [], "rows": [], "face_gw": None}
+    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL\s?\d+)", text, re.I) or re.search(r"\b(SHAKEL\s?\d{8})\b", text, re.I)
+    if m:
+        out["bl_no"] = re.sub(r"\s", "", m.group(1)).upper()
+    else:
+        q = _QDEX.search(text)
+        if q:
+            out["bl_no"] = f"QDEX{q.group(1)}"
+    # SAY TOTAL: EIGHT (8) PALLETS / THIRTY PACKAGES (containers excluded).
+    # OCR may glue SAYTOTAL, insert em-dashes, or mangle SIX→$1X / S1X.
+    for sm in re.finditer(
+        r"SAY\s*TOTAL\s*:?\s*([^\n]{0,40}?)\b(" + _UNIT + r")\b",
+        text, re.I,
+    ):
+        if re.search(r"CONTAINER|\bGP\b|\bHC\b", sm.group(0), re.I):
+            continue
+        chunk = sm.group(1)
+        # strip non-letters for word parse ($1X / — SIX / S1X)
+        words_chunk = re.sub(r"[^A-Za-z\s\-]", " ", chunk)
+        # common OCR: $1X / S1X / SlX / 5IX → SIX
+        if re.search(r"(?:\$|S|5)\s*[lI1]\s*X\b", chunk, re.I) and not re.search(r"[A-Za-z]{3,}", words_chunk):
+            words_chunk = "SIX"
+        w = _words_to_int(words_chunk)
+        if w:
+            out["say"].append(("say_words", float(w)))
+        dm = re.search(r"[({]\s*(\d{1,4})\s*[)}]", chunk)
+        if dm:
+            out["say"].append(("say_digits", float(dm.group(1))))
+        break
+    # Marks "C/NO.1-113/6 PALLET" (OCR CINO.1-143/6 PALLET) corroborates pkg
+    for mm in re.finditer(
+        r"(?:C\s*/?\s*NO\.?|CINO\.?)[^\n]{0,30}/\s*(\d{1,3})\s*PALLETS?\b",
+        text, re.I,
+    ):
+        out["say"].append(("marks_slash", float(mm.group(1))))
+        break
+    # per-container rows "30CARTONS/7290.00KGS" ("!" = "/1", "I" = "/")
+    row_spans = []
+    for rm in _ROW_RX.finditer(text):
+        cnt_raw = rm.group(1)
+        cnt = None
+        if cnt_raw:
+            fixed = cnt_raw.translate(_DIGIT_FIX)
+            if fixed.isdigit():
+                cnt = float(int(fixed))
+        wraw = rm.group(4)
+        if rm.group(3) == "!":
+            wraw = "1" + wraw
+        out["rows"].append((cnt, _wnum(wraw)))
+        row_spans.append(rm.span())
+    # face total weight: first 3-dp KGS that is not a container row
+    for fm in _FACE_GW_RX.finditer(text):
+        if any(a <= fm.start() < b for a, b in row_spans):
+            continue
+        # a container row the row regex missed ("14PACKAGES ¢ 3448.000KGS / 25.450CBM")
+        if re.match(r"\s*/\s*[\d.,\s]+C", text[fm.end():fm.end() + 20]) or re.search(
+            r"(?:PACKAGES|CARTONS|PALLETS)\s*[^\w\s]?\s*$", text[max(0, fm.start() - 20):fm.start()], re.I
+        ):
+            continue
+        out["face_gw"] = _wnum(fm.group(1))
+        break
+    # face package count under "No. of pkgs" ("(8 PALLETS", "190 CARTON" = "(90", "154 PKGS").
+    # OCR often turns "/" into "!": "18 PALLETS ! 1 1498.500KGS" — still capture the count;
+    # the leading "("→"1" slip is corrected later against SAY/marks votes.
+    hm = re.search(r"No[.,]?\s*of\s*pkgs", text, re.I)
+    if hm:
+        tail = "\n".join(text[hm.end():].splitlines()[:4])
+        fm = re.search(r"[(|‘'\s!]([0-9OoBZ]{1,4})\s*(" + _UNIT + r"|CARTON)\b", tail, re.I)
+        if fm:
+            fx = fm.group(1).translate(_DIGIT_FIX)
+            if fx.isdigit():
+                out["face_pkg"].append(int(fx))
+    return out
+
+
+def _second_read(path: str, backend: str) -> str | None:
+    """Second OCR pass at a different resolution (scans only), for voting."""
+    from pathlib import Path as _P
+
+    from invoice_extractor.ocr import is_image_path, is_ocr_backend
+
+    if not is_ocr_backend(backend):
+        return None
+    p = _P(path)
+    if not p.is_file():
+        return None
+    try:
+        if is_image_path(p):
+            from invoice_extractor import ocr as _ocr
+            import tempfile
+
+            tess = _ocr.find_tesseract()
+            if tess is None:
+                return None
+            with tempfile.TemporaryDirectory(prefix="tvl2_") as td:
+                img = _ocr._prepare_image(p, _P(td), min_width=3000)
+                return _ocr._run_tesseract(img, _P(td) / "o", lang=_ocr.DEFAULT_LANG, tess_bin=tess)
+        from invoice_extractor.ocr import ocr_pdf
+
+        text, _b = ocr_pdf(p, dpi=300)
+        return text
+    except Exception:
+        return None
+
+
+# Weight token on the face ("3185.000KGS", "1498.500 KGS") and B/L no token.
+_TOK_GW_RX = re.compile(r"(?<![\d,.])\d[\d,.]*[.,]\s?[\dOo]{3}\s?K[GeE6][S53s]")
+_TOK_BL_RX = re.compile(r"SHAKEL\s?\d{6,9}|Q[DdbpBO0]EX\s?\d{7}")
+
+
+def _token_reads(path: str, backend: str) -> dict:
+    """Targeted re-reads of the face GW / B/L no (BHC 4th case1, 5th case1).
+
+    The page pass (psm 6) on a thin 200-dpi bilevel scan swaps single glyphs
+    in a clearly printed value (3185→3488/3485, 1195.5→1498.5, 269→268). We
+    locate the value on a 200-dpi pass with word boxes and OCR only that clip
+    as one line (psm 7, whitelist) at 200/300/400 dpi — three reads that go
+    into the same vote as the page passes. GW re-reads are used only when the
+    face shows exactly ONE weight token (a single total); container-row faces
+    (several weights) keep the row-sum vote.
+    """
+    out: dict = {"gw": [], "bl_no": [], "note": None}
+    from pathlib import Path as _P
+
+    from invoice_extractor.ocr import is_ocr_backend
+
+    if not is_ocr_backend(backend) or not _P(path).is_file():
+        return out
+    try:
+        from invoice_extractor.ocr_reread import find_spans, page_words, reread_clip
+
+        pw = page_words(path, dpi=200)
+        if not pw:
+            return out
+        _txt, words = pw
+        gw_spans = find_spans(words, _TOK_GW_RX)
+        if len(gw_spans) == 1:
+            raw, rect = gw_spans[0]
+            for dpi, t in reread_clip(path, rect, whitelist="0123456789.,KGS"):
+                m = re.search(r"(\d[\d,.]*[.,]\d{3})\s*K?G?S?", t)
+                v = _wnum(m.group(1)) if m else None
+                if v is not None:
+                    out["gw"].append((f"tok{dpi}", v))
+            out["note"] = f"GW token '{raw}' re-read: " + (", ".join(f"{s}={v:g}" for s, v in out["gw"]) or "none")
+        elif len(gw_spans) > 1:
+            out["note"] = f"{len(gw_spans)} weight tokens on face (container rows) — no token re-read"
+        for raw, rect in find_spans(words, _TOK_BL_RX)[:1]:
+            for dpi, t in reread_clip(path, rect, whitelist="SHAKELQDEX0123456789",
+                                      pad=(0.5, 0.5, 0.5, 0.5)):
+                m = re.search(r"SHAKEL(\d{8})(?!\d)", t) or re.search(r"QDEX(\d{7})(?!\d)", t)
+                if m:
+                    out["bl_no"].append((f"tok{dpi}", m.group(0)))
+    except Exception as e:  # OCR helper failure never breaks extraction
+        out["note"] = f"token re-read failed: {e}"
+    return out
+
+
+def _vote(reads: list[tuple[str, float]]) -> tuple[float | None, bool, str]:
+    from collections import Counter
+
+    vals = [v for _, v in reads if v is not None]
+    detail = ", ".join(f"{s}={v:g}" for s, v in reads if v is not None) or "no reads"
+    if not vals:
+        return None, False, detail
+    c = Counter(vals)
+    (best, n), *rest = c.most_common()
+    ok = n >= 2 and n * 2 > len(vals) and not (rest and rest[0][1] == n)
+    return best, ok, detail
 
 
 def _snip(s: str | None, n: int = 90) -> str | None:
@@ -108,6 +342,11 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
     if m:
         h.bl_no = m.group(1).upper()
         h.hbl_no = h.bl_no
+    else:
+        q = _QDEX.search(text)
+        if q:
+            h.bl_no = f"QDEX{q.group(1)}"
+            h.hbl_no = h.bl_no
 
     # Shipper: first company-like line after Shipper
     m = re.search(
@@ -324,12 +563,141 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
     if refs:
         h.invoice_refs = ", ".join(dict.fromkeys(refs))
 
+    # ---- BHC 4th: vote BL no / packages / GW over two OCR passes ---------
+    # (per-container breakdown sums, SAY TOTAL words+digits, face total) so a
+    # single misread (3488 vs 3185, 190 vs 90 CARTON, container count as pkg)
+    # is either outvoted or flagged needs_gold instead of passing silently.
+    ng: list[str] = []
+    vnotes: list[str] = []
+    passes = [("r1", text)]
+    t2 = _second_read(path, backend)
+    if t2:
+        passes.append(("r2", t2))
+    reads = [(tag, _read_votes(t)) for tag, t in passes]
+    # targeted single-line re-reads of the face GW / B/L no (scans only)
+    tok = _token_reads(path, backend)
+    if tok.get("note"):
+        vnotes.append(tok["note"])
+
+    # BL no
+    from collections import Counter as _C
+    from pathlib import Path as _P
+
+    fn = _P(path).stem.upper()
+    nos = [(tag, r["bl_no"]) for tag, r in reads if r["bl_no"]] + list(tok["bl_no"])
+    uniq = list(dict.fromkeys(n for _, n in nos))
+    if len(uniq) > 1:
+        (top, n_top), *rest_no = _C(n for _, n in nos).most_common()
+        pick = next((n for n in uniq if n in fn), None)
+        if pick is None and n_top >= 2 and n_top * 2 > len(nos) and not (rest_no and rest_no[0][1] == n_top):
+            pick = top  # clear majority incl. token re-reads → no needs_gold
+        if pick is None:
+            pick = nos[-1][1]  # higher-resolution pass
+            ng.append("bl_no")
+        h.bl_no = h.hbl_no = pick
+        vnotes.append("bl_no reads " + ", ".join(f"{t}={n}" for t, n in nos))
+    elif uniq and not h.bl_no:
+        h.bl_no = h.hbl_no = uniq[0]
+
+    face_gws = [r["face_gw"] for _, r in reads if r["face_gw"] is not None]
+    gw_reads: list[tuple[str, float]] = [(f"face_{t}", r["face_gw"]) for t, r in reads if r["face_gw"] is not None]
+    # token re-reads of the single face weight: consensus = ≥2 agreeing, strict majority
+    tok_gw = list(tok["gw"])
+    tok_best, tok_ok, _ = _vote(tok_gw)
+    if not tok_ok:
+        tok_best = None
+    gw_reads += tok_gw
+    pkg_reads: list[tuple[str, float]] = []
+    for t, r in reads:
+        pkg_reads += [(f"{k}_{t}", v) for k, v in r["say"]]
+        rows = r["rows"]
+        if rows and all(w is not None for _, w in rows):
+            wsum = round(sum(w for _, w in rows), 3)
+            # rows must add up to a face total (tolerance 1.0), OR a lone slash
+            # row is kept even when face disagrees by a few kg (OCR digit slip
+            # e.g. 13101 vs 13104) so the vote / needs_gold can decide.
+            close = any(abs(wsum - f) <= 1.0 for f in face_gws)
+            lone = len(rows) == 1
+            if close or lone:
+                gw_reads.append((f"rows_{t}", wsum))
+                if all(c is not None for c, _ in rows):
+                    pkg_reads.append((f"rows_{t}", float(sum(c for c, _ in rows))))
+    others = {v for _, v in pkg_reads}
+    for t, r in reads:
+        for fp in r["face_pkg"]:
+            v = float(fp)
+            s_fp = str(fp)
+            # leading "(" often OCRs as "1": 190 CARTON → 90, 154 PKGS → 54
+            if v not in others and len(s_fp) >= 2 and s_fp[0] == "1" and float(s_fp[1:]) in others:
+                v = float(s_fp[1:])
+            pkg_reads.append((f"face_{t}", v))
+
+    pv, pok, pdetail = _vote(pkg_reads)
+    if pok:
+        if h.packages != pv:
+            vnotes.append(f"pkg {pv:g} by vote (legacy {h.packages})")
+        h.packages = pv
+    elif pkg_reads and pv is not None and (pv != h.packages or "bl_no" in ng):
+        ng.append("packages")
+        h.packages = pv if h.packages in (None, 1.0) else h.packages
+    # Prefer slash-row GW whose package count matches the voted packages
+    # (31PALLETS/13101 over face 13104).
+    if pok and pv is not None:
+        matched_row_gws = []
+        for t, r in reads:
+            for cnt, w in r["rows"]:
+                if cnt is not None and w is not None and float(cnt) == float(pv):
+                    matched_row_gws.append(w)
+        if tok_best is not None and matched_row_gws and any(abs(w - tok_best) > 1.0 for w in matched_row_gws):
+            # the slash row IS the face weight; its page read lost to the clip re-reads
+            vnotes.append(f"slash row GW {matched_row_gws} overruled by token re-reads {tok_best:g}")
+            matched_row_gws = []
+        if matched_row_gws and len(set(matched_row_gws)) == 1:
+            gv_pref = matched_row_gws[0]
+            if h.gross_weight_kg != gv_pref:
+                vnotes.append(f"GW {gv_pref:g} by slash row matching pkg {pv:g}")
+            h.gross_weight_kg = gv_pref
+            # drop disagreeing face-only reads so vote reflects the slash
+            gw_reads = [(s, v) for s, v in gw_reads if not s.startswith("face_") or abs(v - gv_pref) <= 1.0]
+            if not any(s.startswith("rows_") for s, _ in gw_reads):
+                gw_reads.append(("rows_pref", gv_pref))
+
+    gv, gok, gdetail = _vote(gw_reads)
+    if gok:
+        h.gross_weight_kg = gv
+    elif len({v for _, v in gw_reads}) > 1 or (gw_reads and "bl_no" in ng) or (
+        gw_reads and not gok and len(passes) > 1
+    ):
+        # reads disagree, BL no unreliable, or a multi-pass scan with no
+        # corroborated GW (single face misread e.g. 1498.5 vs real 1195.5)
+        # → needs_gold (suggested value kept)
+        if "gross_weight_kg" not in ng:
+            ng.append("gross_weight_kg")
+    if h.gross_weight_kg is None and gv is not None:
+        h.gross_weight_kg = gv  # suggested (needs_gold below)
+    if len(passes) > 1:
+        # scanned face with no usable read at all → value is missing, flag it
+        if h.packages is None and "packages" not in ng:
+            ng.append("packages")
+        if h.gross_weight_kg is None and "gross_weight_kg" not in ng:
+            ng.append("gross_weight_kg")
+    vnotes.append(f"pkg reads: {pdetail}")
+    vnotes.append(f"GW reads: {gdetail}")
+
     conf = "rules"
     needs_gold = False
     if not h.bl_no:
         conf = "needs_gold"
         needs_gold = True
+        if "bl_no" not in ng:
+            ng.append("bl_no")
+    if ng:
+        conf = "needs_gold"
+        needs_gold = True
 
+    base_note = NOTES if conf == "rules" else "TVL HBL partial"
+    if ng:
+        base_note = "needs_gold: " + ", ".join(ng) + " (OCR reads disagree / too few); " + base_note
     return BLExtractResult(
         header=h,
         meta=BLMeta(
@@ -339,7 +707,8 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
             confidence=conf,
             needs_ocr=needs_ocr,
             needs_gold=needs_gold,
+            needs_gold_fields=ng or None,
             doc_kind="hbl",
-            notes=NOTES if conf == "rules" else "TVL HBL partial",
+            notes=base_note + "; " + "; ".join(vnotes),
         ),
     )

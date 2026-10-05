@@ -16,6 +16,7 @@ from invoice_extractor.formats.bl import (
     dhl_lcl_arrival_v1,
     hippopo_arrival_v1,
     hippopo_hbl_v1,
+    jif_cosmo_waybill_v1,
     milestone_arrival_v1,
     nippon_express_awb_v1,
     tvl_hbl_v1,
@@ -38,6 +39,7 @@ BUILTIN_BL: list[tuple[str, Callable[[str, str], float], BLExtractor]] = [
     ("maersk_air_waybill_v1", maersk_air_waybill_v1.match_score, maersk_air_waybill_v1.extract),
     ("cosco_arrival_v1", cosco_arrival_v1.match_score, cosco_arrival_v1.extract),
     ("kwe_sea_waybill_v1", kwe_sea_waybill_v1.match_score, kwe_sea_waybill_v1.extract),
+    ("jif_cosmo_waybill_v1", jif_cosmo_waybill_v1.match_score, jif_cosmo_waybill_v1.extract),
 ]
 
 
@@ -88,6 +90,9 @@ def looks_like_bl_filename(name: str) -> bool:
     if "AIR WAYBILL" in nu or "AWB" in nu.split("_") or nu.startswith("AWB"):
         return True
     if "HAWB" in nu or "HAWC" in nu:
+        return True
+    # JIFFA / Cosmo Trans Line waybill saved as WAYBILL.pdf (BHC 4th case 8)
+    if re.search(r"(?<![A-Z])(SEA\s*)?WAYBILL(?![A-Z])", nu):
         return True
     if re.search(r"\bQU\d{8,}\b", nu):
         return True

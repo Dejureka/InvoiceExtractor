@@ -10,7 +10,7 @@ from invoice_extractor.excel_text import (
     is_excel_path,
     workbook_to_text,
 )
-from invoice_extractor.ocr import OCR_BACKEND, is_ocr_backend, try_ocr_pdf
+from invoice_extractor.ocr import OCR_BACKEND, is_image_path, is_ocr_backend, try_ocr_image, try_ocr_pdf
 
 log = logging.getLogger(__name__)
 
@@ -176,6 +176,13 @@ def extract_layout_text(pdf_path: str | Path) -> tuple[str, str, bool]:
         except ExcelUnsupportedError as exc:
             return "", f"excel/error:{exc}", True
         return text or "", backend, not (text or "").strip()
+    if is_image_path(path):
+        # An image has no text layer; OCR sidecar (foo.jpg.ocr.txt) if present.
+        sidecar = path.with_suffix(path.suffix + ".ocr.txt")
+        if sidecar.exists():
+            text = sidecar.read_text(encoding="utf-8", errors="replace")
+            return text, "image+ocr_sidecar", not text.strip()
+        return "", "image", True
 
     from pdf_layout_text import pdf_to_layout_text
 
@@ -217,6 +224,15 @@ def extract_text(
     text, backend, needs_ocr = extract_layout_text(path)
     if not allow_ocr:
         return text, backend, needs_ocr
+
+    if is_image_path(path):
+        if not needs_ocr:
+            return text, backend, False
+        ocr_text, ocr_backend, err = try_ocr_image(path)
+        if ocr_text is not None and ocr_text.strip():
+            log.info("OCR backend %s used for %s (image input)", ocr_backend, path.name)
+            return ocr_text, ocr_backend or OCR_BACKEND, False
+        return "", "image+ocr_failed" if err else "image", True
 
     # Empty layer → OCR. Non-empty but unreliable/stale (garbage pages / high
     # binary ratio) → OCR and prefer it. Clean text layers are left alone

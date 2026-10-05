@@ -1,0 +1,93 @@
+{
+  "header": {
+    "invoice_no": "SATJG26011",
+    "invoice_date": "20/Sep/26",
+    "total_pkg": 12.0,
+    "gross_weight_kg": 7574.0,
+    "incoterm": "FOB SHANGHAI",
+    "item_line_count": 2,
+    "total_quantity": 1294.0,
+    "amount": 66150.64,
+    "currency": "USD",
+    "vendor": "SUZHOU AICHI TECHNOLOGY CO., LTD.",
+    "origin": "CN",
+    "hs_code": null,
+    "bl_no": "SHAKEL26971920",
+    "bl_packages": 12.0,
+    "bl_gross_weight_kg": 7574.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "SATJG26011",
+      "part_no": "AE75D1SC(2NE34604D)",
+      "description": "STATOR",
+      "qty": 646.0,
+      "unit": "PCS",
+      "unit_price": 56.92,
+      "amount": 36770.32,
+      "origin": "CN",
+      "hs_code": "8503009090",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "SATJG26011",
+      "part_no": "ARO89C(2NF34602A)",
+      "description": "ROTOR",
+      "qty": 648.0,
+      "unit": "PCS",
+      "unit_price": 45.34,
+      "amount": 29380.32,
+      "origin": "CN",
+      "hs_code": "8503009090",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 2/SATJG26011.pdf",
+    "text_backend": "ocr/tesseract",
+    "format_id": "suzhou_aichi_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=split; pkl_used=no; 缺 PKL; bl_used=yes; bl_file=20260923094309-0001.pdf",
+    "labeled_amount": 66150.64,
+    "labeled_amount_label": "TOTAL",
+    "source": "split",
+    "inv_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 2/SATJG26011.pdf",
+    "pkl_file": null,
+    "pkl_used": false,
+    "bl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 2/20260923094309-0001.pdf",
+    "bl_used": true,
+    "bl_format_id": "tvl_hbl_v1",
+    "pair_status": "僅 INV",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 2,
+        "got": 2
+      },
+      "total_quantity": {
+        "want": 1294.0,
+        "got": 1294.0
+      },
+      "amount": {
+        "want": 66150.64,
+        "got": 66150.64
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 66150.64,
+        "header_amount": 66150.64,
+        "sum_items": 66150.64,
+        "item_count": 2
+      }
+    },
+    "text_backend_warning": "OCR used (ocr/tesseract): PDF text layer was empty. Column layout may be imperfect vs pdftotext; rules still apply."
+  }
+}

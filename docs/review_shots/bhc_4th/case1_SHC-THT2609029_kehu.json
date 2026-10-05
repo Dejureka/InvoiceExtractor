@@ -1,0 +1,140 @@
+{
+  "header": {
+    "invoice_no": "SHC/THT2609029",
+    "invoice_date": "2026-09-09",
+    "total_pkg": 8.0,
+    "gross_weight_kg": 3185.0,
+    "incoterm": "FOB SHANGHAI",
+    "item_line_count": 6,
+    "total_quantity": 24140.0,
+    "amount": 27623.74,
+    "currency": "USD",
+    "vendor": "ZHEJIANG SANHUA INTELLIGENT CONTROLS CO.,LTD.",
+    "origin": "China",
+    "hs_code": null,
+    "bl_no": "SHAKEL26971822",
+    "bl_packages": 8.0,
+    "bl_gross_weight_kg": 3185.0,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "SHC/THT2609029",
+      "part_no": "3EF59091A",
+      "description": "AIR CONDITIONING PARTS(COIL) 4.5W",
+      "qty": 1680.0,
+      "unit": "PCS",
+      "unit_price": 1.078,
+      "amount": 1811.04,
+      "origin": "China",
+      "hs_code": "8505909090",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "SHC/THT2609029",
+      "part_no": "3HZ24910A",
+      "description": "AIR CONDITIONING PARTS(CHECK JOINT)",
+      "qty": 20.0,
+      "unit": "PCS",
+      "unit_price": 0.606,
+      "amount": 12.12,
+      "origin": "China",
+      "hs_code": "8481804090",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "SHC/THT2609029",
+      "part_no": null,
+      "description": "AIR CONDITIONING PARTS (EXP. VALVE)",
+      "qty": 3500.0,
+      "unit": "PCS",
+      "unit_price": 1.73,
+      "amount": 6055.0,
+      "origin": "China",
+      "hs_code": "8481803190",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "SHC/THT2609029",
+      "part_no": "3HM11492B",
+      "description": "PARTS FOR AIRCONDITIONER(DRYER)",
+      "qty": 17280.0,
+      "unit": "PCS",
+      "unit_price": 0.615,
+      "amount": 10627.2,
+      "origin": "China",
+      "hs_code": "8421299090",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "SHC/THT2609029",
+      "part_no": "3HL41604A",
+      "description": "贮液器)(PARTS FOR AIR CONDITIONER(ACCUMULATOR)",
+      "qty": 60.0,
+      "unit": "PCS",
+      "unit_price": 5.493,
+      "amount": 329.58,
+      "origin": "China",
+      "hs_code": "8415909000",
+      "currency": "USD"
+    },
+    {
+      "invoice_no": "SHC/THT2609029",
+      "part_no": "3HL41604A",
+      "description": "贮液器)(PARTS FOR AIR CONDITIONER(ACCUMULATOR)",
+      "qty": 1600.0,
+      "unit": "PCS",
+      "unit_price": 5.493,
+      "amount": 8788.8,
+      "origin": "China",
+      "hs_code": "8415909000",
+      "currency": "USD"
+    }
+  ],
+  "meta": {
+    "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 1/SHC-THT2609029客户资料.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "bhc_vendor_ci_v1",
+    "confidence": "high",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "profile=sanhua; CUSTOMERS NO. (Bosch PN) blank on this document for P10062198-30 — check the .xls twin / figure; PL: 197 CTNS on 8 PLTS → pkg = pallets; source=combined; pkl_used=yes; bl_used=yes; bl_file=20260921141756-0001.pdf",
+    "labeled_amount": 27623.74,
+    "labeled_amount_label": "TOTAL",
+    "source": "combined",
+    "inv_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 1/SHC-THT2609029客户资料.pdf",
+    "pkl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 1/SHC-THT2609029客户资料.pdf",
+    "pkl_used": true,
+    "bl_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 1/20260921141756-0001.pdf",
+    "bl_used": true,
+    "bl_format_id": "tvl_hbl_v1",
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 6,
+        "got": 6
+      },
+      "total_quantity": {
+        "want": 24140.0,
+        "got": 24140.0
+      },
+      "amount": {
+        "want": 27623.74,
+        "got": 27623.74
+      },
+      "labeled_amount": {
+        "label": "TOTAL",
+        "want": 27623.74,
+        "header_amount": 27623.74,
+        "sum_items": 27623.74,
+        "item_count": 6
+      }
+    }
+  }
+}
