@@ -539,10 +539,10 @@
     "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 8/IV_117-BHCTW-26K-41.xlsx",
     "text_backend": "excel/openpyxl",
     "format_id": "bhc_vendor_ci_v1",
-    "confidence": "rules",
+    "confidence": "high",
     "needs_ocr": false,
     "needs_gold": false,
-    "notes": "profile=hipus; xlsx twin: no TOTAL row — cross-check against the PDF; source=split; pkl_used=yes; pkl_parser=bhc_vendor_ci_v1; pkl_note=one PL for 117-BHCTW-26K-41, 121-BHCTW-26K-37; bl_used=yes; bl_file=WAYBILL.pdf; bl_needs_gold (needs_gold: packages, gross_weight_kg (OCR reads disagree / too few; anti-counterfeit background); pkg reads: container<pallets=10; GW reads: said_to_contain=30); shared PKL PL_117-BHCTW-26K-41, 121-BHCTW-26K-37.xlsx (4 INV files); duplicate BL copy 20260921195744-0001.pdf (same BL no 260918KEE102) not used; shipment pkg/GW (deduped) 10 / 3084.5 on this first invoice (2 invoices, one shared PL, pallets PALLET-1…PALLET-10); printed pkg/GW 10 / 3084.5",
+    "notes": "profile=hipus; xlsx twin: no TOTAL row — cross-check against the PDF; source=split; pkl_used=yes; pkl_parser=bhc_vendor_ci_v1; pkl_note=one PL for 117-BHCTW-26K-41, 121-BHCTW-26K-37; bl_used=yes; bl_file=WAYBILL.pdf; shared PKL PL_117-BHCTW-26K-41, 121-BHCTW-26K-37.xlsx (4 INV files); duplicate BL copy 20260921195744-0001.pdf (same BL no 260918KEE102) not used; shipment pkg/GW (deduped) 10 / 3084.5 on this first invoice (2 invoices, one shared PL, pallets PALLET-1…PALLET-10); printed pkg/GW 10 / 3084.5",
     "labeled_amount": 10014860.0,
     "labeled_amount_label": "sum(lines) (xlsx twin; no TOTAL row)",
     "source": "split",
@@ -554,10 +554,7 @@
     "bl_format_id": "jif_cosmo_waybill_v1",
     "pair_status": "INV+PKL",
     "source_kind": "excel",
-    "needs_gold_fields": [
-      "bl_packages",
-      "bl_gross_weight_kg"
-    ],
+    "needs_gold_fields": null,
     "packing_units": {
       "PALLET-1": 335.5,
       "PALLET-2": 275.5,
@@ -571,10 +568,8 @@
       "PALLET-10": 50.0
     },
     "packing_units_zeroed": null,
-    "checker_verdict": "needs_gold",
-    "checker_issues": [
-      "needs_gold field(s): bl_packages, bl_gross_weight_kg (document contradicts itself; confirm manually / from BL)"
-    ],
+    "checker_verdict": "pass",
+    "checker_issues": [],
     "checker_details": {
       "item_line_count": {
         "want": 43,
@@ -594,11 +589,7 @@
         "header_amount": 10014860.0,
         "sum_items": 10014860.0,
         "item_count": 43
-      },
-      "needs_gold_fields": [
-        "bl_packages",
-        "bl_gross_weight_kg"
-      ]
+      }
     },
     "shipment_packing": {
       "mode": "shipment_first",

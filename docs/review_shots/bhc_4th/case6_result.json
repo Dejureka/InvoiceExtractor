@@ -14,7 +14,7 @@
     "hs_code": null,
     "bl_no": "260918KEE103",
     "bl_packages": 16.0,
-    "bl_gross_weight_kg": null,
+    "bl_gross_weight_kg": 1998.0,
     "summary_note": null
   },
   "items": [
@@ -107,10 +107,10 @@
     "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 6/20260923_MEH6J044(TX14,TX17,TX21,TY06,TY27,TY41).pdf",
     "text_backend": "pdftotext -layout",
     "format_id": "hitachi_gls_v1",
-    "confidence": "rules",
+    "confidence": "high",
     "needs_ocr": false,
     "needs_gold": false,
-    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL.pdf; bl_needs_gold (needs_gold: packages, gross_weight_kg (OCR reads disagree / too few; anti-counterfeit background); pkg reads: attached_sheet_last_case_no=16; GW reads: no reads)",
+    "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=BL.pdf",
     "labeled_amount": 18143405.0,
     "labeled_amount_label": "GRAND TOTAL",
     "source": "combined",
@@ -122,16 +122,11 @@
     "bl_format_id": "jif_cosmo_waybill_v1",
     "pair_status": "INV+PKL",
     "source_kind": "pdf",
-    "needs_gold_fields": [
-      "bl_packages",
-      "bl_gross_weight_kg"
-    ],
+    "needs_gold_fields": null,
     "packing_units": null,
     "packing_units_zeroed": null,
-    "checker_verdict": "needs_gold",
-    "checker_issues": [
-      "needs_gold field(s): bl_packages, bl_gross_weight_kg (document contradicts itself; confirm manually / from BL)"
-    ],
+    "checker_verdict": "pass",
+    "checker_issues": [],
     "checker_details": {
       "item_line_count": {
         "want": 7,
@@ -151,11 +146,7 @@
         "header_amount": 18143405.0,
         "sum_items": 18143405.0,
         "item_count": 7
-      },
-      "needs_gold_fields": [
-        "bl_packages",
-        "bl_gross_weight_kg"
-      ]
+      }
     }
   }
 }

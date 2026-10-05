@@ -28,7 +28,7 @@ NOTES = (
     "Prefer cargo cartons/pallets over Say-Total container (1×20GP). "
     "GW/CBM: prefer CARTONS/KGS[/CBM] when carton count matches; 20GP CBM sanity ≤33; "
     "OCR slips (.830→.53, 46.519→16.519, GO.→CO.). "
-    "Container: ISO 4 letters+7 digits + seal; invoice_refs: all BHCWH* / P/L NO. BHC 5th: SAY OCR ($1X→SIX, SAYTOTAL, em-dash); C/NO.…/N PALLET marks; slash-row GW preferred when pkg matches; uncorroborated multi-pass GW → needs_gold."
+    "Container: ISO 4 letters+7 digits + seal; invoice_refs: all BHCWH* / P/L NO. BHC 5th: SAY OCR ($1X→SIX, SAYTOTAL, em-dash); C/NO.…/N PALLET marks; slash-row GW preferred when pkg matches; uncorroborated multi-pass GW → needs_gold. Auditor 2026-10-05: the single face weight token and the B/L no are re-read as one line (psm 7) at 200/300/400 dpi and join the vote (page psm 6 swaps glyphs: 3185→3488, 1195.5→1498.5)."
 )
 
 RULES_JSON = {
@@ -125,9 +125,9 @@ _FACE_GW_RX = re.compile(r"(?<![\d,.])(\d{1,3}(?:,?\d{3})*[.,]\s?[\dOo]{3})\s*K[
 def _read_votes(text: str) -> dict:
     """One OCR pass → candidate reads for BL no / packages / GW (Result fields only)."""
     out: dict = {"bl_no": None, "say": [], "face_pkg": [], "rows": [], "face_gw": None}
-    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL\d+)", text, re.I) or re.search(r"\b(SHAKEL\d{8})\b", text, re.I)
+    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL\s?\d+)", text, re.I) or re.search(r"\b(SHAKEL\s?\d{8})\b", text, re.I)
     if m:
-        out["bl_no"] = m.group(1).upper()
+        out["bl_no"] = re.sub(r"\s", "", m.group(1)).upper()
     else:
         q = _QDEX.search(text)
         if q:
@@ -227,6 +227,58 @@ def _second_read(path: str, backend: str) -> str | None:
         return text
     except Exception:
         return None
+
+
+# Weight token on the face ("3185.000KGS", "1498.500 KGS") and B/L no token.
+_TOK_GW_RX = re.compile(r"(?<![\d,.])\d[\d,.]*[.,]\s?[\dOo]{3}\s?K[GeE6][S53s]")
+_TOK_BL_RX = re.compile(r"SHAKEL\s?\d{6,9}|Q[DdbpBO0]EX\s?\d{7}")
+
+
+def _token_reads(path: str, backend: str) -> dict:
+    """Targeted re-reads of the face GW / B/L no (BHC 4th case1, 5th case1).
+
+    The page pass (psm 6) on a thin 200-dpi bilevel scan swaps single glyphs
+    in a clearly printed value (3185→3488/3485, 1195.5→1498.5, 269→268). We
+    locate the value on a 200-dpi pass with word boxes and OCR only that clip
+    as one line (psm 7, whitelist) at 200/300/400 dpi — three reads that go
+    into the same vote as the page passes. GW re-reads are used only when the
+    face shows exactly ONE weight token (a single total); container-row faces
+    (several weights) keep the row-sum vote.
+    """
+    out: dict = {"gw": [], "bl_no": [], "note": None}
+    from pathlib import Path as _P
+
+    from invoice_extractor.ocr import is_ocr_backend
+
+    if not is_ocr_backend(backend) or not _P(path).is_file():
+        return out
+    try:
+        from invoice_extractor.ocr_reread import find_spans, page_words, reread_clip
+
+        pw = page_words(path, dpi=200)
+        if not pw:
+            return out
+        _txt, words = pw
+        gw_spans = find_spans(words, _TOK_GW_RX)
+        if len(gw_spans) == 1:
+            raw, rect = gw_spans[0]
+            for dpi, t in reread_clip(path, rect, whitelist="0123456789.,KGS"):
+                m = re.search(r"(\d[\d,.]*[.,]\d{3})\s*K?G?S?", t)
+                v = _wnum(m.group(1)) if m else None
+                if v is not None:
+                    out["gw"].append((f"tok{dpi}", v))
+            out["note"] = f"GW token '{raw}' re-read: " + (", ".join(f"{s}={v:g}" for s, v in out["gw"]) or "none")
+        elif len(gw_spans) > 1:
+            out["note"] = f"{len(gw_spans)} weight tokens on face (container rows) — no token re-read"
+        for raw, rect in find_spans(words, _TOK_BL_RX)[:1]:
+            for dpi, t in reread_clip(path, rect, whitelist="SHAKELQDEX0123456789",
+                                      pad=(0.5, 0.5, 0.5, 0.5)):
+                m = re.search(r"SHAKEL(\d{8})(?!\d)", t) or re.search(r"QDEX(\d{7})(?!\d)", t)
+                if m:
+                    out["bl_no"].append((f"tok{dpi}", m.group(0)))
+    except Exception as e:  # OCR helper failure never breaks extraction
+        out["note"] = f"token re-read failed: {e}"
+    return out
 
 
 def _vote(reads: list[tuple[str, float]]) -> tuple[float | None, bool, str]:
@@ -522,15 +574,23 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
     if t2:
         passes.append(("r2", t2))
     reads = [(tag, _read_votes(t)) for tag, t in passes]
+    # targeted single-line re-reads of the face GW / B/L no (scans only)
+    tok = _token_reads(path, backend)
+    if tok.get("note"):
+        vnotes.append(tok["note"])
 
     # BL no
+    from collections import Counter as _C
     from pathlib import Path as _P
 
     fn = _P(path).stem.upper()
-    nos = [(tag, r["bl_no"]) for tag, r in reads if r["bl_no"]]
+    nos = [(tag, r["bl_no"]) for tag, r in reads if r["bl_no"]] + list(tok["bl_no"])
     uniq = list(dict.fromkeys(n for _, n in nos))
     if len(uniq) > 1:
+        (top, n_top), *rest_no = _C(n for _, n in nos).most_common()
         pick = next((n for n in uniq if n in fn), None)
+        if pick is None and n_top >= 2 and n_top * 2 > len(nos) and not (rest_no and rest_no[0][1] == n_top):
+            pick = top  # clear majority incl. token re-reads → no needs_gold
         if pick is None:
             pick = nos[-1][1]  # higher-resolution pass
             ng.append("bl_no")
@@ -541,6 +601,12 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
 
     face_gws = [r["face_gw"] for _, r in reads if r["face_gw"] is not None]
     gw_reads: list[tuple[str, float]] = [(f"face_{t}", r["face_gw"]) for t, r in reads if r["face_gw"] is not None]
+    # token re-reads of the single face weight: consensus = ≥2 agreeing, strict majority
+    tok_gw = list(tok["gw"])
+    tok_best, tok_ok, _ = _vote(tok_gw)
+    if not tok_ok:
+        tok_best = None
+    gw_reads += tok_gw
     pkg_reads: list[tuple[str, float]] = []
     for t, r in reads:
         pkg_reads += [(f"{k}_{t}", v) for k, v in r["say"]]
@@ -582,6 +648,10 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
             for cnt, w in r["rows"]:
                 if cnt is not None and w is not None and float(cnt) == float(pv):
                     matched_row_gws.append(w)
+        if tok_best is not None and matched_row_gws and any(abs(w - tok_best) > 1.0 for w in matched_row_gws):
+            # the slash row IS the face weight; its page read lost to the clip re-reads
+            vnotes.append(f"slash row GW {matched_row_gws} overruled by token re-reads {tok_best:g}")
+            matched_row_gws = []
         if matched_row_gws and len(set(matched_row_gws)) == 1:
             gv_pref = matched_row_gws[0]
             if h.gross_weight_kg != gv_pref:

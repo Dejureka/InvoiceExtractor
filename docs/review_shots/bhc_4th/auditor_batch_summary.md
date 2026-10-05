@@ -1,19 +1,24 @@
 # BHC 4th batch — Auditor review pack (2026-10-05)
 
+> **Round 2 (after Auditor review of 80642b2 / 05212ee)** — see `auditor_round2.md`.
+> Case 1 BL GW 3488 → **3185**, case 6 BL GW blank → **1998**, case 8 BL needs_gold removed (10 / 3084.5);
+> BHC 5th case 1 BL GW 1498.5 → **1195.5**. "Needs a human read" items 1–3 below are resolved by the
+> OCR re-read fix (kept for history).
+
 Source: `/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 1…11` (MEGA `/BHCsamples/BHC_4th data.zip`). All `.msg` ignored.
 Branch `feature/bhc-4th` (based on `feature/auto-open-result`). Per-case JSON = `case*_*.json` in this folder.
 Screenshots only for parts that need a human read (BL OCR disagreements / blank cells).
 
 | case | files (non-.msg) | INV format_id | Invoice No. | Amount | LINE | pkg / GW (INV/PL) | Incoterm | BL file → format | BL No. / pkg / GW | verdict |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | `SHC-THT2609029客户资料.pdf` (INV+PL) + `.xls` twin; BL scan `20260921141756-0001.pdf` | `bhc_vendor_ci_v1` (sanhua) NEW | SHC/THT2609029 | USD 27,623.74 | 6 | 8 / 3185 | FOB SHANGHAI | TVL HBL → `tvl_hbl_v1` | SHAKEL26971822* / 8 / 3488* | **needs_gold** (bl_no, bl_gw) |
+| 1 | `SHC-THT2609029客户资料.pdf` (INV+PL) + `.xls` twin; BL scan `20260921141756-0001.pdf` | `bhc_vendor_ci_v1` (sanhua) NEW | SHC/THT2609029 | USD 27,623.74 | 6 | 8 / 3185 | FOB SHANGHAI | TVL HBL → `tvl_hbl_v1` | SHAKEL26971822 / 8 / 3185 | pass (Round 2: was 3488 + needs_gold) |
 | 2 | `SATJG26011.pdf` (OCR); BL scan `20260923094309-0001.pdf` | `suzhou_aichi_v1` (extended) | SATJG26011 | 66,150.64 | 2 | 12 / 7574 | FOB SHANGHAI | `tvl_hbl_v1` | SHAKEL26971920 / 12 / 7574 | pass |
 | 3 | `INV+PL+CIHT-TW-26090405.pdf` + `.xlsx` twin; BL photo `QDEX2609096.jpg` | `hisense_qingdao_v1` | CIHT-TW-26090405 | 33,565 | 3 | 30 / 4500 | FOB | `tvl_hbl_v1` (image OCR, NEW input type) | QDEX2609096 / 30 / 4500 | pass |
 | 4 | `(JCH26-09M2) Invoice, PL.pdf`; `Bill Of Lading - NGOA24053.pdf` | `marubeni_tetsugen_v1` | JCH26-09M2 | 59,144.08 | 2 | 5 / 2993 | FOB NAGOYA, JAPAN | `dhl_danmar_bl_v1` | NGOA24053 / 5 / 2993 | pass |
 | 5 | `26HLHK01Q10009B-发票箱单.xlsx` (INV+PL); BL scan `20260922194949-0001.pdf` | `bhc_vendor_ci_v1` (hailiang) NEW | 26HLHK01Q10009B | 770,025.90 | 1 | 54 / 54288 | FOB SHANGHAI | `tvl_hbl_v1` | SHAKEL26971161 / 54 / 54288 | pass (2 soft notes) |
-| 6 | `20260923_MEH6J044(…).pdf`; empty template `SSLJP0023526  MEH6J044.xls` (skipped); `BL.pdf` | `hitachi_gls_v1` (extended) | MEH6J044 | JPY 18,143,405 | 7 | 16 / 1998 | F.O.B. SHIMIZU, JAPAN | `jif_cosmo_waybill_v1` NEW | 260918KEE103 / 16* / —* | **needs_gold** (bl_pkg, bl_gw) |
+| 6 | `20260923_MEH6J044(…).pdf`; empty template `SSLJP0023526  MEH6J044.xls` (skipped); `BL.pdf` | `hitachi_gls_v1` (extended) | MEH6J044 | JPY 18,143,405 | 7 | 16 / 1998 | F.O.B. SHIMIZU, JAPAN | `jif_cosmo_waybill_v1` NEW | 260918KEE103 / 16 / 1998 | pass (Round 2: GW was blank + needs_gold) |
 | 7 | `BHCWHJTV2609004_INV_9027784701.PDF` + `PKL_…pdf`; `SHAKEL26971969.pdf` | `bhc_my_hub_v1` | 9027784701 | 177,725.70 | 3 | 90 / 21870 | CIF Taipei | `tvl_hbl_v1` | SHAKEL26971969 / 90 / 21870 | pass |
-| 8 | `IV_117-BHCTW-26K-41.PDF`+`.xlsx`, `IV_121-BHCTW-26K-37.PDF`+`.xlsx`, shared `PL_117…, 121….xlsx`; `WAYBILL.pdf` + scan copy `20260921195744-0001.pdf` | `bhc_vendor_ci_v1` (hipus) NEW | 117-BHCTW-26K-41 / 121-BHCTW-26K-37 | JPY 10,014,860 / 15,300 | 43 / 1 | 117: 10 / 3084.5; 121: 0 / 0 (shared PL rule) | FOB | `jif_cosmo_waybill_v1` NEW | 260918KEE102 / 10* / 3084.5* | **needs_gold** (bl_pkg, bl_gw) |
+| 8 | `IV_117-BHCTW-26K-41.PDF`+`.xlsx`, `IV_121-BHCTW-26K-37.PDF`+`.xlsx`, shared `PL_117…, 121….xlsx`; `WAYBILL.pdf` + scan copy `20260921195744-0001.pdf` | `bhc_vendor_ci_v1` (hipus) NEW | 117-BHCTW-26K-41 / 121-BHCTW-26K-37 | JPY 10,014,860 / 15,300 | 43 / 1 | 117: 10 / 3084.5; 121: 0 / 0 (shared PL rule, user-confirmed 2026-10-05) | FOB | `jif_cosmo_waybill_v1` NEW | 260918KEE102 / 10 / 3084.5 | pass (Round 2: BL needs_gold removed) |
 | 9 | `BHC-TW_VKT26073_Z2609284.pdf`; BL scan `20260924135224-0001.pdf` | `nidec_v1` | VKT26073 | 129,780 | 4 | 44 / 20257 | FOB SHANGHAI | `tvl_hbl_v1` | SHAKEL26971860 / 44 / 20257 | pass |
 | 10 | `CI PL MDBWHTWJCH260915.pdf` (INV+PL); `到貨通知.pdf` | `bhc_vendor_ci_v1` (welling) NEW | MDBWHTWJCH260915 | 126,756 | 3 | 63 / 28972.8 | FOB BEIJIAO | `hippopo_arrival_v1` | CPSE26090124 / 63 / 28972.8 | pass (Co blank) |
 | 11 | `COMMERCIAL_INVOICE BHC-TW 2026-09-23.xls` + `PACKING LIST … .xls`; `到貨通知.pdf` | `bhc_vendor_ci_v1` (broad_ocean) NEW | 2026-09-23-BHC-TW | 13,641.60 | 1 | 7 / 1876 | FOB ZhongShan | `hippopo_arrival_v1` | CPSE26100002 / 7 / 1876 | pass |
@@ -29,7 +34,7 @@ Screenshots only for parts that need a human read (BL OCR disagreements / blank 
 
 ## Soft notes / user decisions
 
-- **Case 8 shared PL (one PL for invoices 117 + 121)** — extended the MA 2026-09-29 rule (`shipment_first`): 10 / 3084.5 on 117 (both PDF and xlsx rows), 0 / 0 on 121 + Summary note. **Needs user OK that the MA rule applies to BHC too.**
+- **Case 8 shared PL (one PL for invoices 117 + 121)** — extended the MA 2026-09-29 rule (`shipment_first`): 10 / 3084.5 on 117 (both PDF and xlsx rows), 0 / 0 on 121 + Summary note. **User confirmed 2026-10-05: BHC shared PL uses `shipment_first` too (BHC general rule).**
 - **Case 5 Hailiang** — PL also prints `INVOICE NO.: 10HLHK01A0313` (looks like template residue; invoice sheet / PL header / filename all say 26HLHK01Q10009B). PL TOTAL row has two counts 22 and 54; tool uses 54 (PACKAGES column) = BL 10+22+22 = 54. PN = PO NO `P100592670060` (no Bosch PN printed; copper priced per KG).
 - **Case 10 Welling** — origin not printed → Co blank (note).
 - **Case 6** `SSLJP0023526  MEH6J044.xls` is an empty form (labels only) → skipped (`SKIP … empty Excel template`).

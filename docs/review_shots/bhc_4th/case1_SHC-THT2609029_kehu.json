@@ -14,7 +14,7 @@
     "hs_code": null,
     "bl_no": "SHAKEL26971822",
     "bl_packages": 8.0,
-    "bl_gross_weight_kg": 3488.0,
+    "bl_gross_weight_kg": 3185.0,
     "summary_note": null
   },
   "items": [
@@ -95,10 +95,10 @@
     "source_file": "/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 1/SHC-THT2609029客户资料.pdf",
     "text_backend": "pdftotext -layout",
     "format_id": "bhc_vendor_ci_v1",
-    "confidence": "rules",
+    "confidence": "high",
     "needs_ocr": false,
     "needs_gold": false,
-    "notes": "profile=sanhua; CUSTOMERS NO. (Bosch PN) blank on this document for P10062198-30 — check the .xls twin / figure; PL: 197 CTNS on 8 PLTS → pkg = pallets; source=combined; pkl_used=yes; bl_used=yes; bl_file=20260921141756-0001.pdf; bl_needs_gold (needs_gold: bl_no, gross_weight_kg (OCR reads disagree / too few); TVL HBL partial; bl_no reads r1=SHAKEL26871822, r2=SHAKEL26971822; pkg reads: say_words_r1=8,)",
+    "notes": "profile=sanhua; CUSTOMERS NO. (Bosch PN) blank on this document for P10062198-30 — check the .xls twin / figure; PL: 197 CTNS on 8 PLTS → pkg = pallets; source=combined; pkl_used=yes; bl_used=yes; bl_file=20260921141756-0001.pdf",
     "labeled_amount": 27623.74,
     "labeled_amount_label": "TOTAL",
     "source": "combined",
@@ -110,16 +110,11 @@
     "bl_format_id": "tvl_hbl_v1",
     "pair_status": "INV+PKL",
     "source_kind": "pdf",
-    "needs_gold_fields": [
-      "bl_no",
-      "bl_gross_weight_kg"
-    ],
+    "needs_gold_fields": null,
     "packing_units": null,
     "packing_units_zeroed": null,
-    "checker_verdict": "needs_gold",
-    "checker_issues": [
-      "needs_gold field(s): bl_no, bl_gross_weight_kg (document contradicts itself; confirm manually / from BL)"
-    ],
+    "checker_verdict": "pass",
+    "checker_issues": [],
     "checker_details": {
       "item_line_count": {
         "want": 6,
@@ -139,11 +134,7 @@
         "header_amount": 27623.74,
         "sum_items": 27623.74,
         "item_count": 6
-      },
-      "needs_gold_fields": [
-        "bl_no",
-        "bl_gross_weight_kg"
-      ]
+      }
     }
   }
 }
