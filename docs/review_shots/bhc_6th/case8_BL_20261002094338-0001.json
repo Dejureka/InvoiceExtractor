@@ -48,7 +48,8 @@
     "packages": 5.0,
     "gross_weight_kg": 745.0,
     "needs_gold_fields": [
-     "packages"
+     "packages",
+     "gross_weight_kg"
     ],
     "invoice_reads": [
      "MEH6KO19",
@@ -58,7 +59,8 @@
      "MEHGKO19",
      "MEHGKO19"
     ],
-    "notes": "pkg reads: attached_sheet_last_case_no_r1=5; GW reads: cell=745, cell=745; GW cell (447, 353, 477, 362) re-read: 300c0=745, 400c0=745.008, 600c0=745, 300c2=745, 400c2=745.006, 600c2=-, 300c3=745, 400c3=745.006, 600c3=745, 300c4=748, 400c4=745, 600c4=748 → integer/decimals vote 745 (8 of 12)"
+    "notes": "pkg reads: attached_sheet_last_case_no_r1=5; GW reads: cell=745 (cell only); GW 745 from the cell re-read only, whole number not confirmed → needs_gold (accepted only if it equals the paired INV/PL G.W.); GW cell (447, 353, 477, 362) re-read: 300c0=745, 400c0=745.008, 600c0=745, 300c2=745, 400c2=745.006, 600c2=-, 300c3=745, 400c3=745.006, 600c3=745, 300c4=748, 400c4=745, 600c4=748 → integer/decimals vote 745 (8 of 12); widened box (433, 353, 496, 362): 2745, 2745, 2745, 5.748, 745, 745, 5748, 745, 2748, 5748, 745, 148 → no majority — NOT confirmed (cell may be truncated)",
+    "gw_cell_unverified": 745.0
    },
    {
     "pages": [
@@ -76,8 +78,10 @@
      "MEH6K018",
      "MEH6K018"
     ],
-    "notes": "pkg reads: say_words_r1=1, attached_sheet_last_case_no_r1=1, say_words_clean=1; GW reads: cell=50, cell=50; GW cell (450, 352, 477, 359) re-read: 300c0=50.006, 400c0=50.006, 600c0=50.006, 300c2=50.006, 400c2=50, 600c2=50, 300c3=50, 400c3=50, 600c3=50, 300c4=40, 400c4=40, 600c4=40 → integer/decimals vote 50 (8 of 12)"
+    "notes": "pkg reads: say_words_r1=1, attached_sheet_last_case_no_r1=1, say_words_clean=1; GW reads: cell=50 (cell only, whole number confirmed); GW cell (450, 352, 477, 359) re-read: 300c0=50.006, 400c0=50.006, 600c0=50.006, 300c2=50.006, 400c2=50, 600c2=50, 300c3=50, 400c3=50, 600c3=50, 300c4=40, 400c4=40, 600c4=40 → integer/decimals vote 50 (8 of 12); widened box (437, 352, 497, 359): -, 50, 50.1, -, 50, 50, 50, 50, 50, 50, -, - → 50 — whole number confirmed",
+    "gw_cell_unverified": null
    }
-  ]
+  ],
+  "gw_cell_unverified": null
  }
 }

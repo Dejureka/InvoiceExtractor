@@ -34,6 +34,7 @@
   "checker_verdict": null,
   "checker_issues": null,
   "needs_gold_fields": null,
-  "documents": null
+  "documents": null,
+  "gw_cell_unverified": null
  }
 }
