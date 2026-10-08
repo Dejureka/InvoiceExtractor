@@ -316,14 +316,33 @@ def _located_reads(path: str, page: int, words, want_inv: bool) -> dict:
                     if v is not None:
                         comps.append((int(v), round(v - int(v), 3)))
             v, n = _component_vote(comps)
+            note = (f"GW cell {tuple(round(x) for x in rect)} re-read: " + ", ".join(raws)
+                    + (f" → integer/decimals vote {v:g} ({n} of {len(raws)})" if v is not None else " → no majority"))
             if v is not None:
-                # the agreeing cell re-reads count as two reads in the GW vote (enough
-                # on their own when the page passes have nothing; outvoted by ≥3
-                # agreeing page/token reads)
-                out["gw"] += [("cell", v), ("cell", v)]
-            out["notes"].append(f"GW cell {tuple(round(x) for x in rect)} re-read: " + ", ".join(raws)
-                                + (f" → integer/decimals vote {v:g} ({n} of {len(raws)})" if v is not None
-                                   else " → no majority"))
+                # whole-number check: the same vote on a box widened into the
+                # neighbouring cell space must give the same value; a box that cut
+                # off a leading ``1,`` (774.5 of 1,774.5) or the decimals (1,774
+                # → 1.774) reads differently once widened
+                hx0, hy0, hx1, hy1 = hdr[0][1]
+                h = max(1.0, hy1 - hy0)
+                wide = (max(rect[0] - 1.5 * h, hx0 - 1.5 * h), rect[1],
+                        min(rect[2] + 2.5 * h, hx1 + 1.0 * h), rect[3])
+                wcomps, wraws = [], []
+                for cl in (0, 2, 3, 4):
+                    for dpi, t in reread_clip(path, wide, page=page, dpis=(300, 400, 600),
+                                              whitelist="0123456789.,", pad=(0.3, 0.4, 0.1, 0.4),
+                                              clean_per_300dpi=cl, psm="8"):
+                        wv = _gw_cell(t)
+                        wraws.append(f"{wv:g}" if wv is not None else "-")
+                        if wv is not None:
+                            wcomps.append((int(wv), round(wv - int(wv), 3)))
+                wv, wn = _component_vote(wcomps)
+                verified = wv is not None and abs(wv - v) < 1e-6
+                out["gw_cell"] = {"value": v, "verified": verified}
+                note += (f"; widened box {tuple(round(x) for x in wide)}: " + ", ".join(wraws)
+                         + (f" → {wv:g}" if wv is not None else " → no majority")
+                         + (" — whole number confirmed" if verified else " — NOT confirmed (cell may be truncated)"))
+            out["notes"].append(note)
     if want_inv:
         spans = find_spans(words, _INV_SPAN)
         iw = words
@@ -392,6 +411,54 @@ def _clean_passes(path: str, backend: str, page: int = 0, want_inv: bool = False
     return texts, tok, notes, loc
 
 
+def _digits(v: float) -> str:
+    return re.sub(r"\D", "", f"{v:.3f}").lstrip("0") or "0"
+
+
+def _decide_gw(page_reads: list[tuple[str, float | None]], cell: dict | None):
+    """GW from the page/token reads plus the located cell re-read (Auditor round 3).
+
+    * With page/token reads: the cell value joins the vote as 2 reads, always —
+      also when one value's digits are the tail of the other (``84.5`` vs
+      ``3084.5``, ``50`` vs ``150``); ≥2 agreeing reads and a strict majority
+      or needs_gold. A tie such as 150 ×2 vs cell 50 ×2 is needs_gold.
+    * Cell only (no page/token read): accepted only when the widened-box check
+      confirmed the whole number; otherwise the value stays a suggestion with
+      needs_gold, and ``gw_cell_unverified`` lets pairing accept it only if it
+      equals the paired INV/PL G.W.
+
+    Returns ``(value, confident, detail, note, cell_unverified_value)``.
+    """
+    page = [(t, v) for t, v in page_reads if v is not None]
+    cv = (cell or {}).get("value")
+    if cv is None:
+        g, ok, detail = _vote(page_reads)
+        return g, ok, detail, None, None
+    if page:
+        reads = page + [("cell", cv), ("cell", cv)]
+        g, ok, detail = _vote(reads)
+        note = None
+        tails = sorted({v for _, v in page if v != cv and (_digits(v).endswith(_digits(cv))
+                                                          or _digits(cv).endswith(_digits(v)))})
+        if tails:
+            longer = [v for v in tails if _digits(v).endswith(_digits(cv))]
+            if ok and g == cv and longer and not cell.get("verified"):
+                # an unconfirmed cell that may have lost leading digits never wins
+                # over a longer read (3,084.5 ×1 vs truncated cell 84.5 ×2)
+                ok = False
+                note = (f"GW cell {cv:g} may be the truncated tail of {longer[0]:g} (whole number not confirmed)"
+                        " → needs_gold")
+            else:
+                note = (f"GW cell {cv:g} and read(s) {', '.join(f'{x:g}' for x in tails)} differ by leading digits"
+                        + (" — majority decides" if ok else " — no majority → needs_gold"))
+        return g, ok, detail, note, None
+    if cell.get("verified"):
+        return cv, True, f"cell={cv:g} (cell only, whole number confirmed)", None, None
+    return cv, False, f"cell={cv:g} (cell only)", (
+        f"GW {cv:g} from the cell re-read only, whole number not confirmed → needs_gold "
+        f"(accepted only if it equals the paired INV/PL G.W.)"), cv
+
+
 def _read_waybill(path: str, backend: str, page: int, text: str, want_inv: bool) -> dict:
     """All votes for one waybill face (``page``) + its attached sheet text."""
     notes: list[str] = []
@@ -421,29 +488,21 @@ def _read_waybill(path: str, backend: str, page: int, text: str, want_inv: bool)
         gw += b
         partial += c_
     gw += tok_gw
-    cell = list(loc["gw"])
-    if cell:
-        cd = re.sub(r"\D", "", f"{cell[0][1]:.3f}")
-        trunc = sorted({v for _, v in gw if v is not None and v != cell[0][1]
-                        and re.sub(r"\D", "", f"{v:.3f}").endswith(cd)})
-        if trunc:  # cell box lost leading digits (``84.500`` of ``3,084.500``)
-            notes.append(f"GW cell read {cell[0][1]:g} dropped (tail of {trunc[0]:g})")
-            cell = []
-    gw += cell
-
     pkg, pkg_ok, pkg_detail = _vote(pk)
     if not pkg_ok:
         ng.append("packages")
     notes.append(f"pkg reads: {pkg_detail}")
-    g, gw_ok, gw_detail = _vote(gw)
+    g, gw_ok, gw_detail, gw_note, cell_unverified = _decide_gw(gw, loc.get("gw_cell"))
     if not gw_ok:
         ng.append("gross_weight_kg")
     notes.append(f"GW reads: {gw_detail}")
+    if gw_note:
+        notes.append(gw_note)
     notes += tok_notes + loc["notes"]
     if partial and not gw_ok:
         notes.append(f"GW partial OCR read(s) {partial} (incomplete — digits lost under the background pattern)")
     return {"bl_no": bl_no, "packages": pkg, "gross_weight_kg": g, "needs_gold_fields": ng,
-            "invoice_reads": list(loc["inv"]), "notes": notes}
+            "invoice_reads": list(loc["inv"]), "notes": notes, "gw_cell_unverified": cell_unverified}
 
 
 def _waybill_groups(text: str) -> list[tuple[int, list[int]]]:
@@ -499,7 +558,8 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
                 documents=[
                     {"pages": d["pages"], "bl_no": d["bl_no"], "packages": d["packages"],
                      "gross_weight_kg": d["gross_weight_kg"], "needs_gold_fields": d["needs_gold_fields"] or None,
-                     "invoice_reads": d["invoice_reads"], "notes": "; ".join(d["notes"])}
+                     "invoice_reads": d["invoice_reads"], "notes": "; ".join(d["notes"]),
+                     "gw_cell_unverified": d["gw_cell_unverified"]}
                     for d in docs
                 ],
             ),
@@ -525,5 +585,6 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
             needs_gold_fields=ng or None,
             notes="; ".join(notes),
             doc_kind="sea_waybill",
+            gw_cell_unverified=r["gw_cell_unverified"],
         ),
     )

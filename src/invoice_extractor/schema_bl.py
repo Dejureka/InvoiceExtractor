@@ -57,6 +57,9 @@ class BLMeta:
     # needs_gold_fields, invoice_reads, notes}; header stays blank (needs_gold)
     # and pairing picks the document whose printed invoice no. matches.
     documents: Optional[list[dict[str, Any]]] = None
+    # G.W. taken from the located cell re-read alone, whole number not confirmed
+    # (jif_cosmo_waybill_v1): pairing lifts the flag only if INV/PL G.W. is equal.
+    gw_cell_unverified: Optional[float] = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

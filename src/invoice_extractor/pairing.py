@@ -1008,6 +1008,8 @@ def merge_bl_onto_inv(
             if f not in flds:
                 flds.append(f)
         meta.needs_gold_fields = flds
+        if flds:
+            meta.needs_gold = True  # any needs_gold field ⇒ row needs_gold (Auditor round 3)
         extra += f"; bl_needs_gold ({bl_note[:160]})" if bl_note else "; bl_needs_gold"
     if bm.get("selected_waybill"):
         extra += f"; bl_waybill={bm['selected_waybill']}"
@@ -1043,7 +1045,9 @@ def select_bl_document(bl_data: dict[str, Any], invoice_no: str | None) -> dict[
     hits = []
     for d in docs:
         reads = [_inv_canon(r) for r in (d.get("invoice_reads") or [])]
-        n = sum(1 for r in reads if want and (r == want or (r.startswith(want) and len(r) - len(want) <= 2)))
+        # exact after folding look-alikes: no prefix tolerance, so invoice A1234
+        # never matches a waybill printing A12345 (Auditor round 3)
+        n = sum(1 for r in reads if want and r == want)
         hits.append(n)
     others = "; ".join(f"{d.get('bl_no')} (pages {d.get('pages')})" for d in docs)
     best = [i for i, n in enumerate(hits) if n >= 2]
@@ -1063,6 +1067,7 @@ def select_bl_document(bl_data: dict[str, Any], invoice_no: str | None) -> dict[
         meta["selected_waybill"] = (
             f"{d.get('bl_no')} (p{pg(d)}, printed INVOICE NO. matches {invoice_no}; other waybill(s) in the file not used: "
             + ", ".join(f"{o.get('bl_no')} p{pg(o)}" for o in docs if o is not d) + ")")
+        meta["gw_cell_unverified"] = d.get("gw_cell_unverified")
         meta.update(needs_gold=bool(ng), needs_gold_fields=ng or None,
                     confidence="needs_gold" if ng else "rules",
                     notes=f"{note}; {d.get('notes') or ''}".strip("; "))
@@ -1070,11 +1075,39 @@ def select_bl_document(bl_data: dict[str, Any], invoice_no: str | None) -> dict[
     else:
         hdr = dict(bl_data.get("header") or {})
         hdr.update(bl_no=None, hbl_no=None, packages=None, gross_weight_kg=None)
+        n_match = sum(1 for n in hits if n > 0)
+        why = (f"printed INVOICE NO. {invoice_no} matched more than one waybill ({n_match})" if n_match > 1
+               else f"none has a printed INVOICE NO. matching {invoice_no}" if not best
+               else f"too few matching INVOICE NO. reads for {invoice_no}")
+        meta["gw_cell_unverified"] = None
         meta.update(needs_gold=True, needs_gold_fields=["bl_no", "packages", "gross_weight_kg"],
                     confidence="needs_gold",
-                    notes=(f"needs_gold: bl_no ({len(docs)} waybills in one file: {others}; none has a printed "
-                           f"INVOICE NO. matching {invoice_no} — not guessed)"))
+                    notes=f"needs_gold: bl_no ({len(docs)} waybills in one file: {others}; {why} — not guessed)")
         out["header"] = hdr
+    out["meta"] = meta
+    return out
+
+
+def corroborate_cell_gw(bl_data: dict[str, Any], inv_gw: float | None) -> dict[str, Any]:
+    """A BL G.W. read only from the located cell re-read, with the whole number
+    not confirmed (``meta.gw_cell_unverified``), is accepted only when it equals
+    the paired INV/PL G.W. (BHC 6th case8 50 = 50). Otherwise it stays
+    needs_gold. Files without the marker are returned unchanged."""
+    meta = dict(bl_data.get("meta") or {})
+    cv = meta.get("gw_cell_unverified")
+    hdr = bl_data.get("header") or {}
+    if cv is None or hdr.get("gross_weight_kg") != cv:
+        return bl_data
+    ng = list(meta.get("needs_gold_fields") or [])
+    if inv_gw is None or abs(float(inv_gw) - float(cv)) > 0.005 or "gross_weight_kg" not in ng:
+        return bl_data
+    ng.remove("gross_weight_kg")
+    out = dict(bl_data)
+    meta.update(needs_gold=bool(ng), needs_gold_fields=ng or None,
+                confidence="needs_gold" if ng else "rules", gw_cell_unverified=None,
+                notes=(f"G.W. {cv:g} (cell re-read only) corroborated by the paired INV/PL G.W. {float(inv_gw):g}"
+                       + (f"; needs_gold: {', '.join(ng)}" if ng else "")
+                       + f"; BL reads: {meta.get('notes') or ''}"))
     out["meta"] = meta
     return out
 
@@ -1301,6 +1334,7 @@ def extract_pair_row(
     if row.bl_path:
         bl_path = Path(row.bl_path)
         bl_data = select_bl_document(_extract_bl_cached(bl_path), result.header.invoice_no)
+        bl_data = corroborate_cell_gw(bl_data, result.header.gross_weight_kg)
         result = merge_bl_onto_inv(
             result,
             bl_header=bl_data.get("header"),

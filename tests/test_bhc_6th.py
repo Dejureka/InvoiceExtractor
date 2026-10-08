@@ -556,3 +556,113 @@ def test_tvl_phantom_digit_only_stripped_when_page_pass_supports_it():
 def test_saginomiya_filename_hint_is_anchored():
     t = _t("c10_saginomiya.txt")
     assert bhc_vendor_ci_v1.match_score(t, "T261565.pdf") > bhc_vendor_ci_v1.match_score(t, "XT261565.pdf")
+
+
+# ---------------------------------------------------------------- Auditor round 3 (GW cell guard)
+
+_dec = jif_cosmo_waybill_v1._decide_gw
+
+
+def test_gw_true50_two_misread150_is_needs_gold():
+    # hatch stroke read as a leading 1 on two page passes; the cell reads 50 —
+    # 2:2 tie → needs_gold, never a confident 150
+    g, ok, _, note, _ = _dec([("r1", 150.0), ("clean", 150.0)], {"value": 50.0, "verified": True})
+    assert not ok
+    assert "no majority" in note
+
+
+def test_gw_single_misread150_does_not_knock_out_50():
+    g, ok, _, _, _ = _dec([("r1", 150.0)], {"value": 50.0, "verified": True})
+    assert (g, ok) == (50.0, True)
+
+
+@pytest.mark.parametrize("full,tail", [(1774.5, 774.5), (3084.5, 84.5)])
+def test_gw_truncated_cell_still_votes_and_majority_wins(full, tail):
+    # 6th case9 (1,774.5: 4–5 page/token reads) and BHC 4th case8 (3,084.5)
+    g, ok, detail, note, _ = _dec([("p", full)] * 4, {"value": tail, "verified": False})
+    assert (g, ok) == (full, True)
+    assert f"cell={tail:g}" in detail and "leading digits" in note
+    # one page read vs an unconfirmed truncated cell (2 reads) → not confident, flagged
+    g, ok, _, note, _ = _dec([("p", full)], {"value": tail, "verified": False})
+    assert not ok and "truncated tail" in note
+    # a single 150 does not beat a confirmed cell 50, but an unconfirmed one is flagged
+    assert _dec([("r1", 150.0)], {"value": 50.0, "verified": False})[1] is False
+
+
+@pytest.mark.parametrize("cut", [774.5, 1.774])  # left-cut "1," / right-cut ".500" of 1,774.500
+def test_gw_cell_only_truncated_needs_gold(cut):
+    g, ok, _, note, unverified = _dec([], {"value": cut, "verified": False})
+    assert not ok and unverified == cut
+    assert "not confirmed" in note
+
+
+def test_gw_cell_only_confirmed_whole_number_accepted():
+    g, ok, _, _, unverified = _dec([], {"value": 50.0, "verified": True})
+    assert (g, ok, unverified) == (50.0, True, None)
+
+
+def test_corroborate_cell_only_gw_with_inv_pl_gw():
+    from invoice_extractor.pairing import corroborate_cell_gw
+
+    def bl(v):
+        return {"header": {"bl_no": "X", "packages": 1.0, "gross_weight_kg": v},
+                "meta": {"needs_gold": True, "needs_gold_fields": ["gross_weight_kg"], "gw_cell_unverified": v,
+                         "notes": "needs_gold: gross_weight_kg"}}
+
+    ok = corroborate_cell_gw(bl(50.0), 50.0)
+    assert not ok["meta"]["needs_gold"] and not ok["meta"]["needs_gold_fields"]
+    assert "corroborated" in ok["meta"]["notes"]
+    for cut in (774.5, 1.774):  # truncated cell vs INV/PL 1,774.5 → stays needs_gold
+        r = corroborate_cell_gw(bl(cut), 1774.5)
+        assert r["meta"]["needs_gold_fields"] == ["gross_weight_kg"]
+    assert corroborate_cell_gw(bl(50.0), None)["meta"]["needs_gold_fields"] == ["gross_weight_kg"]
+    plain = {"header": {"gross_weight_kg": 50.0}, "meta": {"needs_gold_fields": None}}
+    assert corroborate_cell_gw(plain, 50.0) is plain
+
+
+def test_select_requires_exact_invoice_no_after_folding():
+    from invoice_extractor.pairing import select_bl_document
+
+    bl = _two_docs(["A12345", "A12345", "A1Z345"], ["XYZ999", "XYZ999"])
+    s = select_bl_document(bl, "A1234")  # invoice A1234 must not take A12345's waybill
+    assert s["header"]["bl_no"] is None
+    assert "none has a printed INVOICE NO. matching A1234" in s["meta"]["notes"]
+    assert select_bl_document(bl, "A12345")["header"]["bl_no"] == "261002KEE601"  # Z→2 folding still applies
+
+
+def test_select_note_when_more_than_one_waybill_matches():
+    from invoice_extractor.pairing import select_bl_document
+
+    amb = _two_docs(["MEH6K018", "MEH6K018"], ["MEH6KO18", "MEH6K018"])
+    s = select_bl_document(amb, "MEH6K018")
+    assert s["header"]["bl_no"] is None and s["meta"]["needs_gold"] is True
+    assert "matched more than one waybill" in s["meta"]["notes"]
+
+
+def test_merge_sets_row_needs_gold_when_bl_fields_flagged():
+    from invoice_extractor.pairing import merge_bl_onto_inv, select_bl_document
+
+    inv = extract_invoice(Path("/nonexistent/Shipping Docs 20261005 MEH6K018_TW.pdf"),
+                          text=_t("c8_hitachi.txt"), backend=PDF, needs_ocr=False)
+    s = select_bl_document(_two_docs(["MEH6KO19"] * 3, ["MEH6KO20"] * 3), "MEH6K018")
+    out = merge_bl_onto_inv(inv, bl_header=s["header"], bl_path="x.pdf", bl_meta=s["meta"]).to_dict()
+    assert out["meta"]["needs_gold"] is True
+
+
+C9_BL = Path("/home/box/Downloads/BHC-batch-6th/BHC_6th data/case9/run/WAYBILL.pdf")
+B4C8_BL = Path("/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 8/WAYBILL.pdf")
+
+
+@pytest.mark.parametrize("path,bl_no,pkg,gw", [
+    (C9_BL, "261002KEE101", 6.0, 1774.5),  # cell box cuts "1," → 774.5; page/token reads win
+    (B4C8_BL, "260918KEE102", 10.0, 3084.5),
+])
+def test_jif_real_scan_gw_with_cell_reread(path, bl_no, pkg, gw):
+    if not path.is_file():
+        pytest.skip("scan not on this machine")
+    from invoice_extractor.bl_rules_engine import extract_bl
+
+    d = extract_bl(path).to_dict()
+    h = d["header"]
+    assert (h["bl_no"], h["packages"], h["gross_weight_kg"]) == (bl_no, pkg, gw)
+    assert not d["meta"].get("needs_gold_fields")
