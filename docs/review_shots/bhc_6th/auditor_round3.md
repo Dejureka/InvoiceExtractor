@@ -70,7 +70,7 @@ Real scans (`extract_bl`, after the fix):
 - **Full pytest:** 368 passed, 3 skipped.
 - **Regression BHC 2nd–5th + mega (32 folders) vs `main` @4fab308:** only BHC 3rd case 5 differs (the known round-1 Dunan pairing; audited gold). Same as round 2.
 - **BHC 6th vs adfd279 (round-2 run):** 0 Result-field differences across all 15 cases (header, lines, BL fields, flags, verdict). Row notes are also identical.
-- **Review-pack JSONs:** regenerated. The BL JSONs gained `meta.gw_cell_unverified` and the widened-box notes; 0 of the 37 pack JSONs differ from adfd279 in Result fields or flags.
+- **Review-pack JSONs:** regenerated. The BL JSONs gained `meta.gw_cell_unverified` and the widened-box notes; 0 of the 35 case JSONs differ from adfd279 in Result fields or flags.
 
 ## Output changes
 
