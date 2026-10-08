@@ -314,7 +314,7 @@
   "confidence": "rules",
   "needs_ocr": false,
   "needs_gold": true,
-  "notes": "profile=hipus; source=split; pkl_used=no; 缺 PKL; bl_used=yes; bl_file=WAYBILL.pdf; bl_needs_gold (needs_gold: gross_weight_kg (OCR reads disagree / too few; anti-counterfeit background); pkg reads: pallets(pieces)_clean=6, container<pallets_clean=6; GW reads); duplicate BL copy 20261002225640-0001.pdf (same BL no 261002KEE101) not used",
+  "notes": "profile=hipus; source=split; pkl_used=no; 缺 PKL; bl_used=yes; bl_file=WAYBILL.pdf; bl_needs_gold (needs_gold: gross_weight_kg (OCR reads disagree / too few; anti-counterfeit background); pkg reads: pallets(pieces)_clean=6, container<pallets_clean=6; GW reads: clean=1774.5, tok=1774.5 (cell 774.5 unconfirmed, not voting) …); duplicate BL copy 20261002225640-0001.pdf (same BL no 261002KEE101) not used",
   "labeled_amount": 3397361.0,
   "labeled_amount_label": "TOTAL",
   "source": "split",

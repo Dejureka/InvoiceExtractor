@@ -50,7 +50,7 @@
   "confidence": "high",
   "needs_ocr": false,
   "needs_gold": false,
-  "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=20261002094338-0001.pdf; bl_needs_gold (needs_gold: gross_weight_kg; waybill 261002KEE602 (pages [3]) selected: printed INVOICE NO. matches MEH6K018 (6 reads); other waybill(s) in this file not used: ); bl_waybill=261002KEE602 (p3, printed INVOICE NO. matches MEH6K018; other waybill(s) in the file not used: 261002KEE601 p1-2); BL G.W. 50 (cell re-read only) = INV/PL G.W. total 50 of 1 invoice(s) on this waybill → accepted",
+  "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=20261002094338-0001.pdf; bl_needs_gold (needs_gold: gross_weight_kg; waybill 261002KEE602 (pages [3]) selected: printed INVOICE NO. matches MEH6K018 (6 reads); other waybill(s) in this file not used: 261002KEE601 (pages [1, 2]) …); bl_waybill=261002KEE602 (p3, printed INVOICE NO. matches MEH6K018; other waybill(s) in the file not used: 261002KEE601 p1-2); BL G.W. 50 (cell re-read only) = INV/PL G.W. total 50 of 1 invoice(s) on this waybill → accepted",
   "labeled_amount": 294030.0,
   "labeled_amount_label": "GRAND TOTAL",
   "source": "combined",
