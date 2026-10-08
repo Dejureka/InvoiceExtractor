@@ -740,3 +740,52 @@ def test_case9_waybill_gw_needs_gold_when_cell_disagrees():
     assert (h["bl_no"], h["packages"], h["gross_weight_kg"]) == ("261002KEE101", 6.0, 1774.5)
     assert m["needs_gold_fields"] == ["gross_weight_kg"]
     assert "disagrees" in m["notes"]
+
+
+# ---------------------------------------------------------------- Auditor round 5
+
+def test_cell_only_gw_missing_invoice_no_blocks_total():
+    from invoice_extractor.pairing import corroborate_cell_only_gw
+
+    # A 774.5 + B 1,000 on one waybill, B's invoice no. unread, left-cut cell 774.5
+    rows = [_row("A", 774.5, cell=774.5), _row(None, 1000.0, cell=774.5)]
+    corroborate_cell_only_gw(rows)
+    assert all(r["meta"]["needs_gold_fields"] == ["bl_gross_weight_kg"] for r in rows)
+    assert "n/a" in rows[0]["meta"]["notes"]
+    # even a value equal to the readable invoice's G.W. is not accepted
+    rows = [_row("A", 50.0, cell=50.0), _row(None, None, cell=50.0)]
+    corroborate_cell_only_gw(rows)
+    assert rows[0]["meta"]["needs_gold_fields"] == ["bl_gross_weight_kg"]
+
+
+def test_bl_note_clipped_at_item_boundary():
+    from invoice_extractor.pairing import _clip_note
+
+    note = ("needs_gold: gross_weight_kg; waybill 261002KEE602 (pages [3]) selected: printed INVOICE NO. matches "
+            "MEH6K018 (6 reads); other waybill(s) in this file not used: 261002KEE601 (pages [1, 2]); pkg reads: "
+            "say_words_r1=1, attached_sheet_last_case_no_r1=1; GW reads: cell=50 (cell only); " + "x" * 200)
+    c = _clip_note(note)
+    assert len(c) <= 242 and c.endswith(" …")
+    assert "not used: 261002KEE601 (pages [1, 2])" in c and not c.rstrip(" …").endswith(":")
+    assert _clip_note("short; note") == "short; note"
+    assert _clip_note("y" * 300).endswith(" …")  # one long item: hard cut, still marked
+
+
+@pytest.mark.parametrize("raw,want", [("abc", 600), ("", 600), (None, 600), ("-5", 600), ("0", 600),
+                                      ("900", 900), (" 45 ", 45), ("120.0", 120)])
+def test_ocr_timeout_env_fallback(raw, want):
+    from invoice_extractor.ocr import _timeout_from_env
+
+    assert _timeout_from_env(raw) == want
+
+
+def test_ocr_module_imports_with_bad_timeout_env():
+    import os
+    import subprocess
+    import sys
+
+    src = str(Path(__file__).resolve().parents[1] / "src")
+    env = dict(os.environ, INVOICE_OCR_TIMEOUT="not-a-number", PYTHONPATH=src)
+    out = subprocess.run([sys.executable, "-c", "import invoice_extractor.ocr as o; print(o.OCR_TIMEOUT_S)"],
+                         env=env, capture_output=True, text=True, timeout=60)
+    assert out.returncode == 0 and out.stdout.strip() == "600"

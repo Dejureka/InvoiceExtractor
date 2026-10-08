@@ -938,6 +938,19 @@ def _format_packing(format_id: str | None, pkl_text: str) -> dict[str, Any] | No
         return None
 
 
+def _clip_note(note: str, limit: int = 240) -> str:
+    """Shorten a BL note for the row notes at a ``; `` item boundary (never
+    mid-item, e.g. not ``…not used: )``); one over-long first item is cut at a
+    word boundary. ``…`` marks a cut."""
+    note = str(note or "")
+    if len(note) <= limit:
+        return note
+    cut = note.rfind("; ", 0, limit)
+    if cut <= 0:
+        cut = note.rfind(" ", 0, limit)
+    return (note[:cut] if cut > 0 else note[:limit]).rstrip(" ;,") + " …"
+
+
 def merge_bl_onto_inv(
     inv_result: ExtractResult,
     *,
@@ -1010,7 +1023,7 @@ def merge_bl_onto_inv(
         meta.needs_gold_fields = flds
         if flds:
             meta.needs_gold = True  # any needs_gold field ⇒ row needs_gold (Auditor round 3)
-        extra += f"; bl_needs_gold ({bl_note[:160]})" if bl_note else "; bl_needs_gold"
+        extra += f"; bl_needs_gold ({_clip_note(bl_note)})" if bl_note else "; bl_needs_gold"
     if bm.get("selected_waybill"):
         extra += f"; bl_waybill={bm['selected_waybill']}"
     meta.notes = f"{note}; {extra}".strip("; ") if note else extra
@@ -1566,16 +1579,20 @@ def corroborate_cell_only_gw(extracts: list[dict[str, Any]]) -> list[str]:
         if not marked:
             continue
         per_inv: dict[str, set] = {}
+        no_inv = False
         for d in ds:
             inv = (d.get("header") or {}).get("invoice_no")
             if not inv:
+                # an invoice row whose no. was not read blocks the total, like a
+                # missing G.W. (its G.W. cannot be attributed or de-duplicated)
+                no_inv = True
                 continue
             per_inv.setdefault(str(inv), set()).add((d.get("header") or {}).get("gross_weight_kg"))
         vals = []
         for inv, gws in per_inv.items():
             known = {float(g) for g in gws if g is not None}
             vals.append(known.pop() if len(known) == 1 else None)
-        total = round(sum(vals), 3) if vals and all(v is not None for v in vals) else None
+        total = (round(sum(vals), 3) if vals and not no_inv and all(v is not None for v in vals) else None)
         for d in marked:
             mk = d["meta"]["bl_gw_cell_only"]
             cv = float(mk["value"])
