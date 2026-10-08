@@ -1,0 +1,40 @@
+{
+ "doc_type": "bl",
+ "header": {
+  "bl_no": "KLG-T268Y98",
+  "hbl_no": null,
+  "mbl_no": null,
+  "vessel": null,
+  "voyage": null,
+  "etd": null,
+  "eta": null,
+  "pol": null,
+  "pod": null,
+  "packages": 5.0,
+  "package_unit": null,
+  "gross_weight_kg": 1460.9,
+  "measurement_cbm": null,
+  "load_type": null,
+  "shipper": null,
+  "consignee": null,
+  "notify": null,
+  "invoice_refs": null,
+  "container_nos": null,
+  "forwarder": null
+ },
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case10/run/20260929202543-0001.pdf",
+  "text_backend": "ocr/tesseract",
+  "format_id": "jif_cosmo_waybill_v1",
+  "confidence": "rules",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "pkg reads: container<pallets_r1=5, pallets(pieces)_clean=5, container<pallets_clean=5; GW reads: r1=1460.9, clean=1460.9, tok=1460.9; GW token '1, 460. 900' re-read (hatch removed): tok400=1460.9, tok600=1460.9",
+  "doc_kind": "sea_waybill",
+  "checker_verdict": null,
+  "checker_issues": null,
+  "needs_gold_fields": null,
+  "documents": null,
+  "gw_cell_only": null
+ }
+}

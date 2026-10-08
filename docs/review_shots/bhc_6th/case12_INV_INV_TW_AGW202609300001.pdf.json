@@ -1,0 +1,126 @@
+{
+ "header": {
+  "invoice_no": "AGW202609300001",
+  "invoice_date": "2026-09-30",
+  "total_pkg": 20.0,
+  "gross_weight_kg": 8690.4,
+  "incoterm": "FOB SHANGHAI",
+  "item_line_count": 2,
+  "total_quantity": 12960.0,
+  "amount": 26755.2,
+  "currency": "USD",
+  "vendor": "HEFEI AUGEWEI ELECTRONIC TECHNOLOGY CO., LTD.",
+  "origin": "China",
+  "hs_code": null,
+  "bl_no": "SHAKEL26C72175",
+  "bl_packages": 20.0,
+  "bl_gross_weight_kg": 8690.4,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "AGW202609300001",
+   "part_no": "3FH81431C",
+   "description": "ELECTRICAL PART-REACTOR(R1035)",
+   "qty": 7920.0,
+   "unit": "PCS",
+   "unit_price": 1.73,
+   "amount": 13701.6,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "AGW202609300001",
+   "part_no": "3FH83972B",
+   "description": "ELECTRICAL PART-REACTOR(R0635B)",
+   "qty": 5040.0,
+   "unit": "PCS",
+   "unit_price": 2.59,
+   "amount": 13053.6,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case12/run/INV TW AGW202609300001.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "bhc_vendor_ci_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "profile=augewei; PN = BOSCH-TW PART NO.; HS not printed (BHC soft-missing OK); source=split; pkl_used=yes; pkl_parser=bhc_vendor_ci_v1; bl_used=yes; bl_file=20260930172138-0001.pdf",
+  "labeled_amount": 26755.2,
+  "labeled_amount_label": "TOTAL",
+  "source": "split",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case12/run/INV TW AGW202609300001.pdf",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case12/run/PL TW AGW202609300001.pdf",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case12/run/20260930172138-0001.pdf",
+  "bl_used": true,
+  "bl_format_id": "tvl_hbl_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 2,
+    "got": 2
+   },
+   "total_quantity": {
+    "want": 12960.0,
+    "got": 12960.0
+   },
+   "amount": {
+    "want": 26755.2,
+    "got": 26755.2
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 26755.2,
+    "header_amount": 26755.2,
+    "sum_items": 26755.2,
+    "item_count": 2
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 2,
+    "got": 2
+   },
+   "total_quantity": {
+    "want": 12960.0,
+    "got": 12960.0
+   },
+   "amount": {
+    "want": 26755.2,
+    "got": 26755.2
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 26755.2,
+    "header_amount": 26755.2,
+    "sum_items": 26755.2,
+    "item_count": 2
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "INV TW AGW202609300001.pdf",
+  "pkl": "PL TW AGW202609300001.pdf",
+  "bl": "20260930172138-0001.pdf",
+  "status": "INV+PKL",
+  "notes": ""
+ }
+}

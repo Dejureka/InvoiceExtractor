@@ -1,0 +1,40 @@
+=== Sheet: Table 1 ===
+Invoice
+
+=== Sheet: Table 2 ===
+Consignee:
+Bosch Home Comfort Taiwan Co., Ltd. No. 63 NANKING EAST ROAD,SEC,3 TAIPEI 10636
+TAIWAN	Invoice Number:
+9027847785
+5DWZZM	Invoice Date:
+01.10.2026
+RYEY2NW7YYD0372V3M	Page: 1 / 1
+10
+Supplier Reference:  BHCWHJTV2609005
+Notify:
+TRANS VAN LINKS EXPRESS CORP
+3FL,NO.217 SEC 3. NANKING EAST ROAD, TAIPEI, TAIWAN	Terms of Payment:
+NT30, Net Due 30 Days from Invoice Date CIF   Taipei
+GLORY TIANJIN V.2639S
+Bill To / Accountee:
+Bosch Home Comfort Taiwan Co., Ltd. No. 63 NANKING EAST ROAD,SEC,3 TAIPEI 10636
+TAIWAN	ON:01 OCT 2026 FROM:SHANGHAI,CHINA TO:KEELUNG,TW
+PART NO                     DESCRIPTION       HS CODE   COO             PO NO                        LINE NO    QUANTITIES   UNIT PRICE  TOTAL AMOUNT
+(UNITS)           (USD)                 (USD)
+RAM-18GSD   C          SF RAM,RAS                              China           P80016817                    80                10.00 PCS         2,065.15              20,651.50
+RAM-18GSD   C          SF RAM,RAS                              China           P80016859                    50                10.00 PCS         2,065.15              20,651.50
+RAM-18GSD   C          SF RAM,RAS                              China           P80016880                    50                10.00 PCS         2,065.15              20,651.50
+RAM-18GSD   C          SF RAM,RAS                              China           P80016893                    20                40.00 PCS         2,065.15              82,606.00
+RAM-10GS                   MSF outdoor unit                                             P80016469                    10                  1.00 PCS         1,756.73                 1,756.73
+SHIPPING MARKS: N/M                                                                                                                                                          TOTALS:            146,317.23
+5DWZZMRYEY2NW7YYD0372V3M10
+"Diversion Contrary to U.S. Law is prohibited"
+
+=== Sheet: Table 3 ===
+Bosch Home Comfort Supply (M) Sdn. Bhd.
+(formerly Johnson Controls Air Conditioning Supply (M) Sdn. Bhd.)
+Jalan Wisma Pantai, Kg. Gajah,
+G-01, Ground Floor, Wisma Pantai, Butterworth
+12200	MY-HUB FINANCE
+(CHLOE LEE)	Company Reg.No.: 201501017357(1142691-U) OS ICP Code: BL4330999999999
+E&OE

@@ -1,0 +1,126 @@
+{
+ "header": {
+  "invoice_no": "DA15197958/47",
+  "invoice_date": "Sep.26,2026",
+  "total_pkg": 35.0,
+  "gross_weight_kg": 4676.0,
+  "incoterm": "FOB SHENZHEN",
+  "item_line_count": 2,
+  "total_quantity": 6140.0,
+  "amount": 59597.42,
+  "currency": "USD",
+  "vendor": "ZHEJIANG DUNAN INTERNATIONAL TRADING CO.,LTD.",
+  "origin": "CN",
+  "hs_code": null,
+  "bl_no": "CPSE26090321",
+  "bl_packages": 35.0,
+  "bl_gross_weight_kg": 4676.0,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "DA15197958/47",
+   "part_no": "2HS37111A",
+   "description": "AIR CONDITIONER PARTS",
+   "qty": 6040.0,
+   "unit": "PCS",
+   "unit_price": 9.708,
+   "amount": 58636.32,
+   "origin": "CN",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "DA15197958/47",
+   "part_no": "2HS35659A",
+   "description": "AIR CONDITIONER PARTS",
+   "qty": 100.0,
+   "unit": "PCS",
+   "unit_price": 9.611,
+   "amount": 961.1,
+   "origin": "CN",
+   "hs_code": null,
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case3/run/标准_结汇发票FT00044339.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "dunan_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "source=split; pkl_used=yes; pkl_parser=dunan_v1; bl_used=yes; bl_file=44339提单.pdf",
+  "labeled_amount": 59597.42,
+  "labeled_amount_label": "TOTAL",
+  "source": "split",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case3/run/标准_结汇发票FT00044339.pdf",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case3/run/标准_结汇装箱单FT00044339.pdf",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case3/run/44339提单.pdf",
+  "bl_used": true,
+  "bl_format_id": "china_progress_bl_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 2,
+    "got": 2
+   },
+   "total_quantity": {
+    "want": 6140.0,
+    "got": 6140.0
+   },
+   "amount": {
+    "want": 59597.42,
+    "got": 59597.42
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 59597.42,
+    "header_amount": 59597.42,
+    "sum_items": 59597.42,
+    "item_count": 2
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 2,
+    "got": 2
+   },
+   "total_quantity": {
+    "want": 6140.0,
+    "got": 6140.0
+   },
+   "amount": {
+    "want": 59597.42,
+    "got": 59597.42
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 59597.42,
+    "header_amount": 59597.42,
+    "sum_items": 59597.42,
+    "item_count": 2
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "标准_结汇发票FT00044339.pdf",
+  "pkl": "标准_结汇装箱单FT00044339.pdf",
+  "bl": "44339提单.pdf",
+  "status": "INV+PKL",
+  "notes": ""
+ }
+}

@@ -1,0 +1,92 @@
+=== Sheet: SC ===
+WOLONG ELECTRIC (VIETNAM) COMPANY LIMITED
+CONTRACT
+THE BUYER: BOSCH HOME COMFORT TAIWAN CO., LTD.	Contract No: WLVN26501
+Address:  No.29, Neixi Rd., Luzhu Dist., Taoyuan City 338, Taiwan	Date: Sep 15th, 2026
+Contact person :  孫敏雄(Oscar Sun)                             TEL: +886-3-3244711 ext. 639
+Email: minxiong.xun@jci-hitachi.com
+THE SELLER:  WOLONG ELECTRIC (VIETNAM) COMPANY LIMITED
+Address: Lot B39+B41 in one part of Lot CN2, An Duong Industrial Park, An Phong Ward, Hai Phong city, Vietnam
+Tel: +84 - 0225 2299516      Fax: +84 - 0225 2299516
+FROM: HAIPHONG, VIETNAM                                                                                               TO: KEELUNG, TAIWAN
+FOB HAIPHONG
+MARK & NOS	DESCRIPTIONS  MOTOR	QTY	UNIT	UNIT PRICE
+(USD)	AMOUNT
+(USD)
+HS CODE 85013130
+
+FAN MOTOR; 2NB27125T
+ (Model: ZWB1710D09A; Capacity: 100W; Voltage: 350V)	1050	PCS	20.67	21703.5
+MOTOR BLDC 2NB27125X
+ (Model:  ZWB3710D06AL; Capacity: 183W;Voltage: 310V)	288	PCS	23.61	6799.68
+FAN MOTOR;2NB27125U
+ (Model: ZWB3710D00AL; Capacity: 183W; Voltage: 310V)	720	PCS	23.07	16610.4
+TOTAL:	45113.58
+U.S. Dollars Forty Five Thousand One Hundred Thirteen And Fifty Five Cents Only.
+(1) Terms of payment: TT 90 days from invoice date
+(2) Arbitration: Any dispute arising from the execution of, or in connection with, this Contract should be settled through negotiation. In case no settlement can be reached, the case shall then be submitted to the Foreign Trade Arbitration Commission of the Viet Nam Council, for settlement by arbitration in accordance with the Commission’s Provisional Pulse of Procedure & Viet Nam Law. The award rendered by the Commission shall be final and binding on both parties.
+(3)For transactions concluded on FOB basis, it is understood that the insurance amount will be born on buyer's account & buyer's full responsibility of goods since date of cargoes on board. All expenses & its arising before shipment on board will be born on Seller's account. Seller is no responsible for any loss & arising be occurred after shipment on board as well as buye's full responsibility to pay total value of cargoes on Seller's account.
+(4) Quality/quantity discrepancy: In case of quality discrepancy, the Buyer should file claim within 30 days after the arrival of the goods at port of destination, while for quantity discrepancy, claim should be filed by the Buyer 15 days after the arrival of the goods at port of destination. It is understood that the seller shall not be liable for any discrepancy of the goods shipped due to causes for which the Insurance Company, shipping company, other transportation organization/ or Post office is liable.
+(5)The seller shall not be held liable for failure of delay in delivery of the entire lot or a portion of the goods under this Sales Contract in consequence of any Force  incidents.
+(6)The Buyer is requested to sign and return one copy of this sales contract immediately after receipt of the same objection, if any should be raised by the buyer within five days after the receipt of this sales contract in the absence of which it is understood that the buyer has accepted the terms and conditions of the sales contract.
+
+=== Sheet: INV ===
+WOLONG ELECTRIC (VIETNAM) COMPANY LIMITED
+INVOICE
+THE BUYER: BOSCH HOME COMFORT TAIWAN CO., LTD.	Invoice no: WLVN26501
+Address:  No.29, Neixi Rd., Luzhu Dist., Taoyuan City 338, Taiwan	Date: Sep 15th, 2026
+Contact person :  孫敏雄(Oscar Sun)                             TEL: +886-3-3244711 ext. 639
+Email: minxiong.xun@jci-hitachi.com
+THE SELLER:  WOLONG ELECTRIC (VIETNAM) COMPANY LIMITED
+Address: Lot B39+B41 in one part of Lot CN2, An Duong Industrial Park, An Phong Ward, Hai Phong city, Vietnam
+Tel: +84 - 0225 2299516      Fax: +84 - 0225 2299516
+FROM: HAIPHONG, VIETNAM                                                                                               TO: KEELUNG, TAIWAN
+FOB HAIPHONG
+MARK & NOS	BOSCH CODE	DESCRIPTIONS  MOTOR	QTY	UNIT	UNIT PRICE
+(USD)	AMOUNT
+(USD)
+HS CODE 85013130
+
+2NB27125T	FAN MOTOR; 2NB27125T
+ (Model: ZWB1710D09A; Capacity: 100W; Voltage: 350V)	1050	PCS	20.67	21703.5
+2NB27125X	MOTOR BLDC 2NB27125X
+ (Model:  ZWB3710D06AL; Capacity: 183W;Voltage: 310V)	288	PCS	23.61	6799.68
+2NB27125U	FAN MOTOR;2NB27125U
+ (Model: ZWB3710D00AL; Capacity: 183W; Voltage: 310V)	720	PCS	23.07	16610.4
+TOTAL:	2058	45113.58
+U.S. Dollars Forty Five Thousand One Hundred Thirteen And Fifty Five Cents Only.
+Country of Origin : Viet Nam
+Brand of goods : Wolong
+Payment term: TT 90 days from invoice date	WOLONG ELECTRIC (VIETNAM) COMPANY LIMITED
+
+
+P10062099	2NB27125T	1050
+P10062041	2NB27125X	288
+P10061954	2NB27125U	720
+
+=== Sheet: PKL ===
+WOLONG ELECTRIC (VIETNAM) COMPANY LIMITED
+PACKING LIST
+THE BUYER: BOSCH HOME COMFORT TAIWAN CO., LTD.	No:	WLVN26501
+Address:  No.29, Neixi Rd., Luzhu Dist., Taoyuan City 338, Taiwan	Date: Sep 15th, 2026
+Contact person :  孫敏雄(Oscar Sun)                             TEL: +886-3-3244711 ext. 639
+Email: minxiong.xun@jci-hitachi.com
+THE SELLER:  WOLONG ELECTRIC (VIETNAM) COMPANY LIMITED
+Address: Lot B39+B41 in one part of Lot CN2, An Duong Industrial Park, An Phong Ward, Hai Phong city, Vietnam
+Tel: +84 - 0225 2299516      Fax: +84 - 0225 2299516
+FROM: HAIPHONG, VIETNAM                                                                                               TO: KEELUNG, TAIWAN
+FOB HAIPHONG
+MARK & NOS	CAS
+.NO	DESCRIPTIONS  MOTOR	PACKING	QTY	N.W.	G.W.	MEAS.PER
+HS CODE 85013130	PALLET	PCS	KG	KG	M3
+
+FAN MOTOR; 2NB27125T
+ (Model: ZWB1710D09A; Capacity: 100W; Voltage: 350V)	210 PCS/PALLETS	1050	2163	2413	5.7700625	5
+MOTOR BLDC 2NB27125X
+ (Model:  ZWB3710D06AL; Capacity: 183W;Voltage: 310V)	144 PCS/PALLETS	288	835.1999999999999	915.1999999999999	1.5	2
+FAN MOTOR;2NB27125U
+ (Model: ZWB3710D00AL; Capacity: 183W; Voltage: 310V)	144 PCS/PALLETS	720	1467.36	1717.36	5.7700625	5
+TOTAL:	2058	4465.5599999999995	5045.5599999999995	13.040125	12
+TOTAL: 12 PALLETS (CARTON BOXES ) ONLY	12 PALLETS (CARTON BOXES)
+
+WOLONG ELECTRIC (VIETNAM) COMPANY LIMITED

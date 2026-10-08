@@ -1,0 +1,41 @@
+                         QINGDAO HISENSE BOSCH AIR-CONDITIONING SYSTEM CO.,LTD.
+                           218 QIANWANGANG ROAD QINGDAO ECONOMIC DEVELOPMENT ZONE,266510,CHINA
+                                                                  COMMERCIAL INVOICE
+SHIPED BY:       SEA                                                                                             CI DATE: 2026-09-29
+SHIPPER FROM:    QINGDAO CHINA                                                                                    CI NO.: CIHT-TW-26090470
+DEST. COUNTRY:   TW                                                                                          TRADE TERM: FOB
+DEST TO:         KEELUNG
+SOLD TO:         BOSCH HOME COMFORT TAIWAN CO.,LTD.
+                 NO.63,NANKING EAST ROAD,SEC.3,
+                 ZHONGSHAN DIST.,TAIPEI CITY 104,TAIWAN
+
+
+NO.                DESCRIPTION                            BRAND      BUYER'S MODEL   SELLER'S MODEL   SETS   UNIT PRICE     AMOUNT           BUYER'S NO.
+                                                                                                                USD           USD
+ 1                                                        HITACHI      KPI-153H         KPI-153H      300        238         71400            P80016879
+                                                                                                      300                    71400
+                        QINGDAO HISENSE BOSCH AIR-CONDITIONING SYSTEM CO.,LTD.
+                   218 QIANWANGANG ROAD QINGDAO ECONOMIC DEVELOPMENT ZONE,266510,CHINA
+
+                                                              PACKING LIST
+SHIPED BY:               SEA                                                                                            PL DATE: 2026-09-29
+SHIPPER FROM:            QINGDAO CHINA                                                                                    CI NO.: CIHT-TW-26090470
+DEST. COUNTRY:           TW                                                                                          TRADE TERM: FOB
+DEST TO:                 KEELUNG
+SOLD TO:                 BOSCH HOME COMFORT TAIWAN CO.,LTD.
+                         NO.63,NANKING EAST ROAD,SEC.3,
+                         ZHONGSHAN DIST.,TAIPEI CITY 104,TAIWAN
+
+
+
+CONTAINER                                                                       QTY.OF         QTY.OF       QTY.OF        QTY.OF      G.W.      N.W.     M3
+                 ITEM    SELLER'S MODEL BUYER'S MODEL BUYER'S PI/PO NO.REMARK
+NO.                                                                             SETS           CTNS         PLTS          PKGS        (KGS)     (KGS)    (CBM)
+NO1(40HQ)                KPI-153H        KPI-153H         P80016879                      110            0            22            22    5060.00 4180.00     41.17
+NO1 Subtotal             BSIU9886983                                                     110            0            22            22    5060.00 4180.00     41.17
+NO2(40HQ)                KPI-153H        KPI-153H         P80016879                      110            0            22            22    5060.00 4180.00     41.17
+NO2 Subtotal             TEMU8276290                                                     110            0            22            22    5060.00 4180.00     41.17
+NO3(40HQ)                KPI-153H        KPI-153H         P80016879                       80            0            16            16    3680.00 3040.00     29.94
+NO3 Subtotal             SNBU8360738                                                      80            0            16            16    3680.00 3040.00     29.94
+TOTAL                                                                                    300            0            60            60   13800.00 11400.00   112.29
+

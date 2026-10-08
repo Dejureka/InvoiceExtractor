@@ -1,0 +1,39 @@
+=== Sheet: packinglist ===
+Issuer：	PACKING LIST
+SHENZHEN TOPBAND CO., LTD 
+ADD: TOPBAND INDUSTRIAL PARK, LIYUAN INDUSTRIAL ZONE,SHIYAN, BAO'AN DISTRICT, SHENZHEN, CHINA 518102 
+PIC:CHERRY LONG
+TEL:86 (755) 2765 1888 ext. 2480
+EMAIL:longdm@topband.com.cn
+
+
+
+
+Bill to:	PO NO：
+Bosch Home Comfort Taiwan CO., LTD. 
+ADD: 338012 No. 29, Neixi Rd., Luzhu Dist., Taoyuan City, Taiwan, China
+PIC:Mr. Hsiao Ming Hsuan  TEL:03-3244711 #375 
+EMAIL:minghsuan.hsiao@bosch-hcgroup.com	INVOICE NO:	TB20260910
+DATE:	2026-09-10 00:00:00
+Country of Origin：	MADE IN CHINA
+Incoterms：	FOB SHENZHEN
+Terms of payment	By T/T
+Item	PO NO	DRAWING NO	Description of goods	Quantity  (SETS)	Ctns	Net Weight    (KGS)	Gross Weight                (KGS)
+1	P10059376	1FA14189B	the  airconditioner PCBA	84	281	2472.8	3453
+2	P10059783	1FA14189B	the  airconditioner PCBA	1024
+3	P10059976	1FA14189B	the  airconditioner PCBA	256
+4	P10060023	1FA14189B	the  airconditioner PCBA	128
+5	P10060087	1FA14189B	the  airconditioner PCBA	256
+6	P10060183	1FA14189B	the  airconditioner PCBA	500
+7	P10060656	2FA38431A	MAIN PCB AS.	4	7	36.00000000000001	67
+8	P10061128	2FA38431A	MAIN PCB AS.	196
+
+
+
+
+
+
+ITEM	1-8	CTN No./PLTS	YMMU1121555 / 18PLTS	Total Quantity:	2448	SETS
+ITEM	CTN No./PLTS	Total Packages:	18	Pallets
+ITEM	CTN No./PLTS	Total Volume	25.233299999999996	CBM
+ITEM	CTN No./PLTS	Total Gross Weight:	3520	KGS

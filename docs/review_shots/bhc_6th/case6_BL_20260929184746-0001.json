@@ -1,0 +1,40 @@
+{
+ "doc_type": "bl",
+ "header": {
+  "bl_no": "QDEX2610001",
+  "hbl_no": "QDEX2610001",
+  "mbl_no": null,
+  "vessel": null,
+  "voyage": null,
+  "etd": null,
+  "eta": null,
+  "pol": null,
+  "pod": "KEELUNG, TAIWAN",
+  "packages": 60.0,
+  "package_unit": null,
+  "gross_weight_kg": 13800.0,
+  "measurement_cbm": null,
+  "load_type": null,
+  "shipper": null,
+  "consignee": null,
+  "notify": null,
+  "invoice_refs": null,
+  "container_nos": "QDEX2610001",
+  "forwarder": "T.V.L. Global Logistics Co., Ltd."
+ },
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case6/run/20260929184746-0001.pdf",
+  "text_backend": "ocr/tesseract",
+  "format_id": "tvl_hbl_v1",
+  "confidence": "rules",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "TVL / Trans Van Links HBL face. Trained on OCR of BHC case7/8 scan HBLs (SHAKEL26970898 / SHAKEL26770270; BHC 3rd SHAKEL26971792 / SHAKEL26972017). Prefer cargo cartons/pallets over Say-Total container (1×20GP). GW/CBM: prefer CARTONS/KGS[/CBM] when carton count matches; 20GP CBM sanity ≤33; OCR slips (.830→.53, 46.519→16.519, GO.→CO.). Container: ISO 4 letters+7 digits + seal; invoice_refs: all BHCWH* / P/L NO. BHC 5th: SAY OCR ($1X→SIX, SAYTOTAL, em-dash); C/NO.…/N PALLET marks; slash-row GW preferred when pkg matches; uncorroborated multi-pass GW → needs_gold. Auditor 2026-10-05: the single face weight token and the B/L no are re-read as one line (psm 7) at 200/300/400 dpi and join the vote (page psm 6 swaps glyphs: 3185→3488, 1195.5→1498.5).; 4 weight tokens on face (container rows) — no token re-read; bl_no reads r1=QDEX2610001, r2=QDEX2610001, tok200=QDEX2610001, tok300=QDEX2810001, tok400=QDEX2610001; pkg 60 by vote (legacy None); pkg reads: say_words_r2=60, tok200=60, tok300=60, tok400=60; GW reads: face_r1=13800, face_r2=13800",
+  "doc_kind": "hbl",
+  "checker_verdict": null,
+  "checker_issues": null,
+  "needs_gold_fields": null,
+  "documents": null,
+  "gw_cell_only": null
+ }
+}

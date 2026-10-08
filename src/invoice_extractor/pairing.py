@@ -30,6 +30,14 @@ _FN_COMBINED_HINT = re.compile(r"合訂|combined|inv.?pkl|invoice.?pack", re.I)
 # IV = invoice abbr (e.g. "IV PL.pdf"); CI = commercial invoice (BHC 4th "CI PL MDBWH….pdf")
 _INV_TOKENS = frozenset({"INV", "INVOICE", "IV", "CI"})
 _PKL_TOKENS = frozenset({"PKL", "PL", "PACKING", "PACK", "PACKLIST"})
+# Glued "PACKINGLIST-TB20260910.xls" (BHC 6th case1/2) counts as a PKL tag only
+# when no INV tag is present — "TAWA-26024(260921)Invoice & Packinglist.pdf"
+# (BHC 5th case3) stays an invoice-led file as before.
+_PKL_GLUED_TOKEN = "PACKINGLIST"
+# Chinese role words inside filename tokens (BHC 6th: ``标准_结汇发票FT00044339.pdf``,
+# ``标准_结汇装箱单FT00044339.xlsx``, ``26HLHK01Q4010-发票箱单.xlsx``).
+_FN_ZH_INV = re.compile(r"发票|發票")
+_FN_ZH_PKL = re.compile(r"装箱单|裝箱單|箱单|箱單")
 
 
 def _filename_tokens(name: str) -> set[str]:
@@ -49,7 +57,9 @@ _MA_BATCH = re.compile(r"(?<![A-Za-z0-9])(90-[A-Z]+-\d{2}MA-\d{3})(?![A-Za-z0-9]
 
 _TEXT_INV = re.compile(
     r"\b(?:COMMERCIAL\s+INVOICE|INVOICE\s+NUMBER|INVOICE\s+NO\.?|DOCUMENT\s+NO\.?|"
-    r"GOODS\s+VALUE|TOTALS:|PART\s+NO|NET\s+INVOICED\s+VALUE)\b",
+    r"GOODS\s+VALUE|TOTALS:|PART\s+NO|NET\s+INVOICED\s+VALUE|"
+    # letter-spaced title (BHC 6th case10 Saginomiya "I N V OI C E")
+    r"I\s+N\s+V\s*O\s*I\s*C\s*E)\b",
     re.I,
 )
 _TEXT_PKL = re.compile(
@@ -184,8 +194,10 @@ def classify_role(
     name = path.name
     keys = pairing_keys_from_path(path)
     tokens = _filename_tokens(name)
-    fn_inv = bool(tokens & _INV_TOKENS)
-    fn_pkl = bool(tokens & _PKL_TOKENS)
+    fn_inv = bool(tokens & _INV_TOKENS) or bool(_FN_ZH_INV.search(Path(name).stem))
+    fn_pkl = bool(tokens & _PKL_TOKENS) or bool(_FN_ZH_PKL.search(Path(name).stem))
+    if not fn_pkl and not fn_inv and _PKL_GLUED_TOKEN in tokens and not re.search(r"INVOICE", name, re.I):
+        fn_pkl = True
     fn_combined = bool(_FN_COMBINED_HINT.search(name))
 
     # BL / arrival / HBL first (avoid mistaking "HBL draft …" as unknown)
@@ -332,6 +344,10 @@ def _attach_shared_pkl(rows: list[PairRow], pkls: list[FileRole]) -> list[PairRo
     return rows
 
 
+def _suffix_family(path: Path) -> str:
+    return "excel" if path.suffix.lower() in _EXCEL_SUFFIXES else path.suffix.lower()
+
+
 def _bl_rank(bl_path: Path) -> tuple[int, int]:
     d = _extract_bl_cached(bl_path)
     h = d.get("header") or {}
@@ -445,7 +461,11 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
             sc = _shared_match_score(inv.keys, pkl.keys, same_dir=same_dir)
             if sc >= 4.0 or (same_dir and sc >= 1.5):
                 candidates.append((sc, inv, pkl))
-    candidates.sort(key=lambda t: (-t[0], t[1].path.name, t[2].path.name))
+    # Tie-break: PDF↔PDF / Excel↔Excel twins first (BHC 6th case3/11 FT000443xx)
+    candidates.sort(
+        key=lambda t: (-t[0], _suffix_family(t[1].path) != _suffix_family(t[2].path),
+                       t[1].path.name, t[2].path.name)
+    )
 
     for sc, inv, pkl in candidates:
         if inv.path in used_inv or pkl.path in used_pkl:
@@ -703,6 +723,16 @@ def parse_packing_pkg_gw(text: str) -> tuple[float | None, float | None]:
     )
     if m:
         return float(m.group(1)), us_float(m.group(2))
+    # Same factory PKL read by OCR (BHC 6th case4, rotated scan): packing style
+    # before TOTAL and stray ")" / "|" after cells —
+    # "1-2 2 CASE TOTAL 40) 700.0 786.0) 6.844)" → pkg=2, gw=786
+    m = re.search(
+        r"(?im)^\s*\S+\s+(\d+)\s+(?:CASES?|PALLETS?|CTNS?|PKGS?)\s+TOTAL\s+"
+        r"[\d.,]+[)|]?\s+[\d.,]+[)|]?\s+([\d.,]+)[)|]?\s+[\d.,]+[)|]?\s*$",
+        text,
+    )
+    if m:
+        return float(m.group(1)), us_float(m.group(2))
 
     # Qingdao Hisense combined PL TOTAL row:
     # TOTAL  209  0  169  169  45986.00  43101.00  294.52 → pkg=169, gw=45986
@@ -908,6 +938,19 @@ def _format_packing(format_id: str | None, pkl_text: str) -> dict[str, Any] | No
         return None
 
 
+def _clip_note(note: str, limit: int = 240) -> str:
+    """Shorten a BL note for the row notes at a ``; `` item boundary (never
+    mid-item, e.g. not ``…not used: )``); one over-long first item is cut at a
+    word boundary. ``…`` marks a cut."""
+    note = str(note or "")
+    if len(note) <= limit:
+        return note
+    cut = note.rfind("; ", 0, limit)
+    if cut <= 0:
+        cut = note.rfind(" ", 0, limit)
+    return (note[:cut] if cut > 0 else note[:limit]).rstrip(" ;,") + " …"
+
+
 def merge_bl_onto_inv(
     inv_result: ExtractResult,
     *,
@@ -954,7 +997,8 @@ def merge_bl_onto_inv(
     if bl_p:
         extra += f"; bl_file={Path(bl_p).name}"
     bm = dict(bl_meta or {})
-    if bl_used and bm.get("needs_gold"):
+    # multi-waybill file with no matching waybill: nothing used, still flagged
+    if (bl_used or bm.get("documents")) and bm.get("needs_gold"):
         flds = list(meta.needs_gold_fields or [])
         bl_note = str(bm.get("notes") or "")
         want = []
@@ -977,9 +1021,85 @@ def merge_bl_onto_inv(
             if f not in flds:
                 flds.append(f)
         meta.needs_gold_fields = flds
-        extra += f"; bl_needs_gold ({bl_note[:160]})" if bl_note else "; bl_needs_gold"
+        if flds:
+            meta.needs_gold = True  # any needs_gold field ⇒ row needs_gold (Auditor round 3)
+        extra += f"; bl_needs_gold ({_clip_note(bl_note)})" if bl_note else "; bl_needs_gold"
+    if bm.get("selected_waybill"):
+        extra += f"; bl_waybill={bm['selected_waybill']}"
     meta.notes = f"{note}; {extra}".strip("; ") if note else extra
     return ExtractResult(header=header, items=list(inv_result.items), meta=meta)
+
+
+# OCR look-alikes folded together before comparing a printed invoice no. read
+# off a scan with the paired invoice's number (G/6 as in the SOE PN rule).
+_INV_CANON = str.maketrans({"O": "0", "Q": "0", "I": "1", "L": "1", "|": "1", "G": "6",
+                            "S": "5", "B": "8", "Z": "2"})
+
+
+def _inv_canon(s: str) -> str:
+    return re.sub(r"[^A-Z0-9]", "", str(s or "").upper()).translate(_INV_CANON)
+
+
+def select_bl_document(bl_data: dict[str, Any], invoice_no: str | None) -> dict[str, Any]:
+    """One BL file holding several waybills (``meta.documents``, BHC 6th case8):
+    keep only the document whose printed INVOICE NO. matches ``invoice_no``.
+
+    A document matches when ≥2 of its invoice-no reads equal the invoice no.
+    (after folding OCR look-alikes) and no other document has any matching
+    read. Otherwise nothing is guessed: BL No./pkg/GW stay blank and the row is
+    flagged ``bl_no`` / ``bl_packages`` / ``bl_gross_weight_kg`` needs_gold.
+    Files without ``documents`` are returned unchanged.
+    """
+    meta = dict(bl_data.get("meta") or {})
+    docs = meta.get("documents") or []
+    if len(docs) < 2:
+        return bl_data
+    want = _inv_canon(invoice_no or "")
+    hits = []
+    for d in docs:
+        reads = [_inv_canon(r) for r in (d.get("invoice_reads") or [])]
+        # exact after folding look-alikes: no prefix tolerance, so invoice A1234
+        # never matches a waybill printing A12345 (Auditor round 3)
+        n = sum(1 for r in reads if want and r == want)
+        hits.append(n)
+    others = "; ".join(f"{d.get('bl_no')} (pages {d.get('pages')})" for d in docs)
+    best = [i for i, n in enumerate(hits) if n >= 2]
+    out = dict(bl_data)
+    if len(best) == 1 and sum(1 for n in hits if n > 0) == 1:
+        d = docs[best[0]]
+        hdr = dict(bl_data.get("header") or {})
+        hdr.update(bl_no=d.get("bl_no"), hbl_no=d.get("bl_no"), packages=d.get("packages"),
+                   gross_weight_kg=d.get("gross_weight_kg"))
+        ng = list(d.get("needs_gold_fields") or [])
+        unused = "; ".join(f"{o.get('bl_no')} (pages {o.get('pages')})" for o in docs if o is not d)
+        note = (f"waybill {d.get('bl_no')} (pages {d.get('pages')}) selected: printed INVOICE NO. matches "
+                f"{invoice_no} ({hits[best[0]]} reads); other waybill(s) in this file not used: {unused}")
+        if ng:
+            note = "needs_gold: " + ", ".join(ng) + "; " + note
+        pg = lambda o: "-".join(str(x) for x in sorted({min(o.get("pages") or [0]), max(o.get("pages") or [0])}))
+        meta["selected_waybill"] = (
+            f"{d.get('bl_no')} (p{pg(d)}, printed INVOICE NO. matches {invoice_no}; other waybill(s) in the file not used: "
+            + ", ".join(f"{o.get('bl_no')} p{pg(o)}" for o in docs if o is not d) + ")")
+        meta["gw_cell_only"] = d.get("gw_cell_only")
+        meta.update(needs_gold=bool(ng), needs_gold_fields=ng or None,
+                    confidence="needs_gold" if ng else "rules",
+                    notes=f"{note}; {d.get('notes') or ''}".strip("; "))
+        out["header"] = hdr
+    else:
+        hdr = dict(bl_data.get("header") or {})
+        hdr.update(bl_no=None, hbl_no=None, packages=None, gross_weight_kg=None)
+        n_match = sum(1 for n in hits if n > 0)
+        why = (f"printed INVOICE NO. {invoice_no} matched more than one waybill ({n_match})" if n_match > 1
+               else f"too few matching INVOICE NO. reads for {invoice_no} (1 read; ≥2 needed)" if n_match == 1
+               and max(hits) == 1
+               else f"none has a printed INVOICE NO. matching {invoice_no}")
+        meta["gw_cell_only"] = None
+        meta.update(needs_gold=True, needs_gold_fields=["bl_no", "packages", "gross_weight_kg"],
+                    confidence="needs_gold",
+                    notes=f"needs_gold: bl_no ({len(docs)} waybills in one file: {others}; {why} — not guessed)")
+        out["header"] = hdr
+    out["meta"] = meta
+    return out
 
 
 _BL_CACHE: dict[tuple[str, int, int], dict[str, Any]] = {}
@@ -1203,7 +1323,8 @@ def extract_pair_row(
     # Optional BL overlay (does not touch invoice Packages / G.W.)
     if row.bl_path:
         bl_path = Path(row.bl_path)
-        bl_data = _extract_bl_cached(bl_path)
+        bl_data = select_bl_document(_extract_bl_cached(bl_path), result.header.invoice_no)
+        inv_needs_gold = bool(result.meta.needs_gold)
         result = merge_bl_onto_inv(
             result,
             bl_header=bl_data.get("header"),
@@ -1213,6 +1334,11 @@ def extract_pair_row(
         )
 
     data = result.to_dict()
+    if row.bl_path:
+        cv = (bl_data.get("meta") or {}).get("gw_cell_only")
+        if cv is not None and "bl_gross_weight_kg" in (data["meta"].get("needs_gold_fields") or []):
+            # checked against the shipment INV/PL G.W. total in corroborate_cell_only_gw
+            data["meta"]["bl_gw_cell_only"] = {"value": cv, "inv_needs_gold": inv_needs_gold}
     if row.notes:
         data["meta"]["notes"] = f"{data['meta'].get('notes') or ''}; {row.notes}".strip("; ")
     hard = hard_check(data)
@@ -1426,5 +1552,68 @@ def dedupe_shared_packing_units(
             d["meta"]["checker_verdict"] = hard["verdict"]
             d["meta"]["checker_issues"] = hard.get("issues")
             d["meta"]["checker_details"] = hard.get("details")
+            written.append(f"{_inv_label(d)}: {note}")
+    written += corroborate_cell_only_gw(extracts)
+    return written
+
+
+def corroborate_cell_only_gw(extracts: list[dict[str, Any]]) -> list[str]:
+    """BL G.W. read only by the located cell re-read (``meta.bl_gw_cell_only``,
+    jif_cosmo_waybill_v1) stays needs_gold unless it equals the INV/PL G.W.
+    **total** of all invoices on that waybill (same BL file + BL No.; one value
+    per invoice no., PDF/Excel twins counted once; after the shipment_first
+    dedupe). Any invoice without a G.W., or twins that disagree → no total → the
+    flag stays (Auditor round 4: invoice A 774.5 of a 1,774.5 waybill never
+    corroborates a left-cut cell 774.5). Runs at the end of
+    :func:`dedupe_shared_packing_units` (CLI / GUI batch step)."""
+    from invoice_extractor.checker import hard_check
+
+    groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for d in extracts:
+        m, h = d.get("meta") or {}, d.get("header") or {}
+        if m.get("bl_file"):
+            groups.setdefault((str(m.get("bl_file")), str(h.get("bl_no") or "")), []).append(d)
+    written: list[str] = []
+    for ds in groups.values():
+        marked = [d for d in ds if (d.get("meta") or {}).get("bl_gw_cell_only")]
+        if not marked:
+            continue
+        per_inv: dict[str, set] = {}
+        no_inv = False
+        for d in ds:
+            inv = (d.get("header") or {}).get("invoice_no")
+            if not inv:
+                # an invoice row whose no. was not read blocks the total, like a
+                # missing G.W. (its G.W. cannot be attributed or de-duplicated)
+                no_inv = True
+                continue
+            per_inv.setdefault(str(inv), set()).add((d.get("header") or {}).get("gross_weight_kg"))
+        vals = []
+        for inv, gws in per_inv.items():
+            known = {float(g) for g in gws if g is not None}
+            vals.append(known.pop() if len(known) == 1 else None)
+        total = (round(sum(vals), 3) if vals and not no_inv and all(v is not None for v in vals) else None)
+        for d in marked:
+            mk = d["meta"]["bl_gw_cell_only"]
+            cv = float(mk["value"])
+            if total is None or abs(total - cv) > 0.005:
+                d["meta"]["notes"] = (f"{d['meta'].get('notes') or ''}; BL G.W. {cv:g} from the cell re-read only, "
+                                      f"not confirmed by the INV/PL G.W. total "
+                                      f"({'n/a' if total is None else f'{total:g}'}) → needs_gold").strip("; ")
+                continue
+            flds = [f for f in (d["meta"].get("needs_gold_fields") or []) if f != "bl_gross_weight_kg"]
+            d["meta"]["needs_gold_fields"] = flds or None
+            d["meta"]["needs_gold"] = bool(mk.get("inv_needs_gold")) or bool(flds)
+            note = (f"BL G.W. {cv:g} (cell re-read only) = INV/PL G.W. total {total:g} of {len(per_inv)} "
+                    f"invoice(s) on this waybill → accepted")
+            d["meta"]["notes"] = f"{d['meta'].get('notes') or ''}; {note}".strip("; ")
+            hard = hard_check(d)
+            d["meta"]["checker_verdict"] = hard["verdict"]
+            d["meta"]["checker_issues"] = hard.get("issues")
+            d["meta"]["checker_details"] = hard.get("details")
+            if hard["verdict"] == "pass" and d["meta"].get("confidence") in ("rules", "needs_gold"):
+                d["meta"]["confidence"] = "high"
+            if "_hard" in d:
+                d["_hard"] = hard
             written.append(f"{_inv_label(d)}: {note}")
     return written

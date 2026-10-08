@@ -1,0 +1,186 @@
+{
+ "header": {
+  "invoice_no": "TB20261004",
+  "invoice_date": "2026-10-04",
+  "total_pkg": 65.0,
+  "gross_weight_kg": 12340.0,
+  "incoterm": "FOB SHENZHEN",
+  "item_line_count": 7,
+  "total_quantity": 12960.0,
+  "amount": 372084.19,
+  "currency": "USD",
+  "vendor": "SHENZHEN TOPBAND CO., LTD",
+  "origin": "China",
+  "hs_code": null,
+  "bl_no": "CPSE26100038",
+  "bl_packages": 65.0,
+  "bl_gross_weight_kg": 12340.0,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "TB20261004",
+   "part_no": "1FA14189B",
+   "description": "the airconditioner PCBA",
+   "qty": 5120.0,
+   "unit": "SETS",
+   "unit_price": 40.3919,
+   "amount": 206806.53,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "TB20261004",
+   "part_no": "2FA38011C",
+   "description": "MAIN PCB AS",
+   "qty": 340.0,
+   "unit": "SETS",
+   "unit_price": 16.73,
+   "amount": 5688.2,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "TB20261004",
+   "part_no": "2FA38011B",
+   "description": "MAIN PCB AS.",
+   "qty": 5667.0,
+   "unit": "SETS",
+   "unit_price": 15.2563,
+   "amount": 86457.45,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "TB20261004",
+   "part_no": "2FA38011B",
+   "description": "MAIN PCB AS.",
+   "qty": 57.0,
+   "unit": "SETS",
+   "unit_price": 15.2563,
+   "amount": 869.61,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "TB20261004",
+   "part_no": "1FA14189B",
+   "description": "the airconditioner PCBA",
+   "qty": 1664.0,
+   "unit": "SETS",
+   "unit_price": 40.3919,
+   "amount": 67212.12,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "TB20261004",
+   "part_no": "1FA15074A",
+   "description": "the airconditioner PCBA",
+   "qty": 80.0,
+   "unit": "SETS",
+   "unit_price": 55.55,
+   "amount": 4444.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "TB20261004",
+   "part_no": "1AH14134B",
+   "description": "the airconditioner PCBA",
+   "qty": 32.0,
+   "unit": "SETS",
+   "unit_price": 18.9461,
+   "amount": 606.28,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case2/run/INVOICE-TB20261004.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "bhc_vendor_ci_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "profile=topband; PN = DRAWING NO; HS not printed (BHC soft-missing OK); source=split; pkl_used=yes; pkl_parser=bhc_vendor_ci_v1; bl_used=yes; bl_file=到貨通知.pdf",
+  "labeled_amount": 372084.19,
+  "labeled_amount_label": "TOTAL",
+  "source": "split",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case2/run/INVOICE-TB20261004.pdf",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case2/run/PACKINGLIST-TB20261004.xls",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case2/run/到貨通知.pdf",
+  "bl_used": true,
+  "bl_format_id": "hippopo_arrival_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 7,
+    "got": 7
+   },
+   "total_quantity": {
+    "want": 12960.0,
+    "got": 12960.0
+   },
+   "amount": {
+    "want": 372084.19,
+    "got": 372084.19
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 372084.19,
+    "header_amount": 372084.19,
+    "sum_items": 372084.19,
+    "item_count": 7
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 7,
+    "got": 7
+   },
+   "total_quantity": {
+    "want": 12960.0,
+    "got": 12960.0
+   },
+   "amount": {
+    "want": 372084.19,
+    "got": 372084.19
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 372084.19,
+    "header_amount": 372084.19,
+    "sum_items": 372084.19,
+    "item_count": 7
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "INVOICE-TB20261004.pdf",
+  "pkl": "PACKINGLIST-TB20261004.xls",
+  "bl": "到貨通知.pdf",
+  "status": "INV+PKL",
+  "notes": ""
+ }
+}

@@ -52,6 +52,15 @@ class BLMeta:
     # Field-level needs_gold (header field names, e.g. ``packages``, ``voyage``).
     # Optional; formats that set it let pairing flag exactly those BL fields.
     needs_gold_fields: Optional[list[str]] = None
+    # One PDF with several BLs / waybills (BHC 6th case8 forwarder scan): one
+    # entry per document {pages, bl_no, packages, gross_weight_kg,
+    # needs_gold_fields, invoice_reads, notes}; header stays blank (needs_gold)
+    # and pairing picks the document whose printed invoice no. matches.
+    documents: Optional[list[dict[str, Any]]] = None
+    # G.W. read only by the located cell re-read (jif_cosmo_waybill_v1): always
+    # needs_gold here; the batch step lifts it only if it equals the INV/PL G.W.
+    # total of all invoices sharing this waybill (pairing.corroborate_cell_only_gw).
+    gw_cell_only: Optional[float] = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

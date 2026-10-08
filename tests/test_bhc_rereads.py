@@ -81,7 +81,9 @@ def test_tvl_bl_no_with_space_parsed():
 
 def _jif(monkeypatch, fixture, clean_fixture, tok):
     texts = [("clean", _t(FX4 / clean_fixture))] if clean_fixture else []
-    monkeypatch.setattr(jif, "_clean_passes", lambda path, backend: (texts, tok, []))
+    no_loc = {"bl": [], "gw": [], "inv": [], "notes": []}  # located re-reads (round 2) off
+    monkeypatch.setattr(jif, "_clean_passes",
+                        lambda path, backend, page=0, want_inv=False: (texts, tok, [], no_loc))
     return jif.extract("/x/BL.pdf", _t(FX4 / fixture), "ocr/tesseract", False).to_dict()
 
 

@@ -1,0 +1,198 @@
+{
+ "header": {
+  "invoice_no": "DA15199998/2/3/2/5",
+  "invoice_date": "Sep.29,2026",
+  "total_pkg": 34.0,
+  "gross_weight_kg": 9526.0,
+  "incoterm": "FOB NINGBO",
+  "item_line_count": 8,
+  "total_quantity": 44644.0,
+  "amount": 126156.46,
+  "currency": "USD",
+  "vendor": "ZHEJIANG DUNAN INTERNATIONAL TRADING CO.,LTD.",
+  "origin": "CN",
+  "hs_code": null,
+  "bl_no": "NBSE26090062",
+  "bl_packages": 34.0,
+  "bl_gross_weight_kg": 9526.0,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "DA15199998/2/3/2/5",
+   "part_no": "2HL27534A",
+   "description": "ACCUMULATOR",
+   "qty": 144.0,
+   "unit": "PCS",
+   "unit_price": 17.89,
+   "amount": 2576.16,
+   "origin": "CN",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "DA15199998/2/3/2/5",
+   "part_no": "3EF83256G",
+   "description": "COIL",
+   "qty": 2600.0,
+   "unit": "PCS",
+   "unit_price": 1.778,
+   "amount": 4622.8,
+   "origin": "CN",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "DA15199998/2/3/2/5",
+   "part_no": "3EF83256H",
+   "description": "COIL",
+   "qty": 1400.0,
+   "unit": "PCS",
+   "unit_price": 1.764,
+   "amount": 2469.6,
+   "origin": "CN",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "DA15199998/2/3/2/5",
+   "part_no": "3EF83256K",
+   "description": "COIL",
+   "qty": 600.0,
+   "unit": "PCS",
+   "unit_price": 1.738,
+   "amount": 1042.8,
+   "origin": "CN",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "DA15199998/2/3/2/5",
+   "part_no": "3EF83256L",
+   "description": "COIL",
+   "qty": 600.0,
+   "unit": "PCS",
+   "unit_price": 1.778,
+   "amount": 1066.8,
+   "origin": "CN",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "DA15199998/2/3/2/5",
+   "part_no": "3EF37915N",
+   "description": "COIL",
+   "qty": 15900.0,
+   "unit": "PCS",
+   "unit_price": 1.611,
+   "amount": 25614.9,
+   "origin": "CN",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "DA15199998/2/3/2/5",
+   "part_no": "3HP03581M",
+   "description": "SERVICE VALVE",
+   "qty": 3000.0,
+   "unit": "PCS",
+   "unit_price": 4.999,
+   "amount": 14997.0,
+   "origin": "CN",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "DA15199998/2/3/2/5",
+   "part_no": "3HP03581N",
+   "description": "SERVICE VALVE",
+   "qty": 20400.0,
+   "unit": "PCS",
+   "unit_price": 3.616,
+   "amount": 73766.4,
+   "origin": "CN",
+   "hs_code": null,
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case11/run/标准_结汇发票FT00044376.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "dunan_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "source=split; pkl_used=yes; pkl_parser=dunan_v1; bl_used=yes; bl_file=44376提单.pdf",
+  "labeled_amount": 126156.46,
+  "labeled_amount_label": "TOTAL",
+  "source": "split",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case11/run/标准_结汇发票FT00044376.pdf",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case11/run/标准_结汇装箱单FT00044376.pdf",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case11/run/44376提单.pdf",
+  "bl_used": true,
+  "bl_format_id": "china_progress_bl_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 8,
+    "got": 8
+   },
+   "total_quantity": {
+    "want": 44644.0,
+    "got": 44644.0
+   },
+   "amount": {
+    "want": 126156.46,
+    "got": 126156.46
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 126156.46,
+    "header_amount": 126156.46,
+    "sum_items": 126156.46,
+    "item_count": 8
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 8,
+    "got": 8
+   },
+   "total_quantity": {
+    "want": 44644.0,
+    "got": 44644.0
+   },
+   "amount": {
+    "want": 126156.46,
+    "got": 126156.46
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 126156.46,
+    "header_amount": 126156.46,
+    "sum_items": 126156.46,
+    "item_count": 8
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "标准_结汇发票FT00044376.pdf",
+  "pkl": "标准_结汇装箱单FT00044376.pdf",
+  "bl": "44376提单.pdf",
+  "status": "INV+PKL",
+  "notes": ""
+ }
+}

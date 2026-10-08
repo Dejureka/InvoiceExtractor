@@ -1,0 +1,40 @@
+{
+ "doc_type": "bl",
+ "header": {
+  "bl_no": "SHAKEL26971215",
+  "hbl_no": "SHAKEL26971215",
+  "mbl_no": null,
+  "vessel": "WAN HAI 273",
+  "voyage": "S335",
+  "etd": null,
+  "eta": null,
+  "pol": "SHANGHAI, CHINA",
+  "pod": "KEELUNG, TAIWAN",
+  "packages": 54.0,
+  "package_unit": "20GP",
+  "gross_weight_kg": 55064.0,
+  "measurement_cbm": 25.0,
+  "load_type": "FCL",
+  "shipper": null,
+  "consignee": "BOSCH HOME COMFORT TAIWAN CO., LTD.",
+  "notify": null,
+  "invoice_refs": null,
+  "container_nos": "WHSU6515720",
+  "forwarder": "T.V.L. Global Logistics Co., Ltd."
+ },
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case7/run/20260930114211-0001.pdf",
+  "text_backend": "ocr/tesseract",
+  "format_id": "tvl_hbl_v1",
+  "confidence": "rules",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "TVL / Trans Van Links HBL face. Trained on OCR of BHC case7/8 scan HBLs (SHAKEL26970898 / SHAKEL26770270; BHC 3rd SHAKEL26971792 / SHAKEL26972017). Prefer cargo cartons/pallets over Say-Total container (1×20GP). GW/CBM: prefer CARTONS/KGS[/CBM] when carton count matches; 20GP CBM sanity ≤33; OCR slips (.830→.53, 46.519→16.519, GO.→CO.). Container: ISO 4 letters+7 digits + seal; invoice_refs: all BHCWH* / P/L NO. BHC 5th: SAY OCR ($1X→SIX, SAYTOTAL, em-dash); C/NO.…/N PALLET marks; slash-row GW preferred when pkg matches; uncorroborated multi-pass GW → needs_gold. Auditor 2026-10-05: the single face weight token and the B/L no are re-read as one line (psm 7) at 200/300/400 dpi and join the vote (page psm 6 swaps glyphs: 3185→3488, 1195.5→1498.5).; GW token '85064.000KGS' re-read: tok200=55064, tok300=55064, tok400=55064; pkg 54 by vote (legacy 1.0); pkg reads: tok200=54, tok300=54, tok400=54, face_r1=54, face_r2=10; GW reads: face_r1=85064, face_r2=58064, tok200=55064, tok300=55064, tok400=55064",
+  "doc_kind": "hbl",
+  "checker_verdict": null,
+  "checker_issues": null,
+  "needs_gold_fields": null,
+  "documents": null,
+  "gw_cell_only": null
+ }
+}

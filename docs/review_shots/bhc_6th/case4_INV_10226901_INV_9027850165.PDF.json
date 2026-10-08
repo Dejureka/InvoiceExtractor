@@ -1,0 +1,114 @@
+{
+ "header": {
+  "invoice_no": "9027850165",
+  "invoice_date": "2026-10-01",
+  "total_pkg": 2.0,
+  "gross_weight_kg": 786.0,
+  "incoterm": "CIF Taipei",
+  "item_line_count": 1,
+  "total_quantity": 40.0,
+  "amount": 20211.6,
+  "currency": "USD",
+  "vendor": "Bosch Home Comfort Supply (M) Sdn. Bhd.",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": "WEB260179386",
+  "bl_packages": 2.0,
+  "bl_gross_weight_kg": 786.0,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "9027850165",
+   "part_no": "RPK-GP56K3M B",
+   "description": "SF RPK-GP56KH3MB",
+   "qty": 40.0,
+   "unit": "PCS",
+   "unit_price": 505.29,
+   "amount": 20211.6,
+   "origin": "Malaysia",
+   "hs_code": null,
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case4/run/10226901_INV_9027850165.PDF",
+  "text_backend": "pdftotext -layout",
+  "format_id": "bhc_my_hub_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "soft-missing packing/GW OK for this format; source=split; pkl_used=yes; pkl_text_backend=ocr/tesseract; bl_used=yes; bl_file=到貨 386.pdf",
+  "labeled_amount": 20211.6,
+  "labeled_amount_label": "TOTALS",
+  "source": "split",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case4/run/10226901_INV_9027850165.PDF",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case4/run/10226901_PL.pdf",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case4/run/到貨 386.pdf",
+  "bl_used": true,
+  "bl_format_id": "ceva_pyramid_arrival_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 1,
+    "got": 1
+   },
+   "total_quantity": {
+    "want": 40.0,
+    "got": 40.0
+   },
+   "amount": {
+    "want": 20211.6,
+    "got": 20211.6
+   },
+   "labeled_amount": {
+    "label": "TOTALS",
+    "want": 20211.6,
+    "header_amount": 20211.6,
+    "sum_items": 20211.6,
+    "item_count": 1
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 1,
+    "got": 1
+   },
+   "total_quantity": {
+    "want": 40.0,
+    "got": 40.0
+   },
+   "amount": {
+    "want": 20211.6,
+    "got": 20211.6
+   },
+   "labeled_amount": {
+    "label": "TOTALS",
+    "want": 20211.6,
+    "header_amount": 20211.6,
+    "sum_items": 20211.6,
+    "item_count": 1
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "10226901_INV_9027850165.PDF",
+  "pkl": "10226901_PL.pdf",
+  "bl": "到貨 386.pdf",
+  "status": "INV+PKL",
+  "notes": ""
+ }
+}

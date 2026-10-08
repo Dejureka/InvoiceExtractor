@@ -43,7 +43,7 @@ class Word:
 
 def _run(cmd: list[str], tess: Path) -> str:
     proc = subprocess.run(
-        cmd, capture_output=True, text=True, env=_ocr._tesseract_env(tess), timeout=120, check=False
+        cmd, capture_output=True, text=True, env=_ocr._tesseract_env(tess), timeout=_ocr.OCR_TIMEOUT_S, check=False
     )
     return proc.stdout or ""
 
@@ -118,7 +118,7 @@ def page_words(path: str | Path, *, dpi: int = 200, page: int = 0, clean_k: int 
             base = Path(td) / "o"
             subprocess.run(
                 [str(tess), str(img), str(base), "-l", lang, "--psm", "6", "txt", "tsv"],
-                capture_output=True, text=True, env=_ocr._tesseract_env(tess), timeout=180, check=False,
+                capture_output=True, text=True, env=_ocr._tesseract_env(tess), timeout=_ocr.OCR_TIMEOUT_S, check=False,
             )
             txt = (base.with_suffix(".txt")).read_text(encoding="utf-8", errors="replace") if base.with_suffix(".txt").is_file() else ""
             tsv = (base.with_suffix(".tsv")).read_text(encoding="utf-8", errors="replace") if base.with_suffix(".tsv").is_file() else ""
@@ -160,7 +160,7 @@ def find_spans(words: list[Word], rx: re.Pattern) -> list[tuple[str, tuple[float
 def reread_clip(path: str | Path, rect: tuple[float, float, float, float], *, page: int = 0,
                 dpis: tuple[int, ...] = (200, 300, 400), whitelist: str = "0123456789.,KGS",
                 pad: tuple[float, float, float, float] = (1.0, 0.5, 0.6, 0.5),
-                clean_per_300dpi: int = 0) -> list[tuple[int, str]]:
+                clean_per_300dpi: int = 0, psm: str = "7") -> list[tuple[int, str]]:
     """Re-OCR one located value as a single line at several zooms.
 
     ``pad`` = (left, top, right, bottom) in multiples of the box height.
@@ -190,9 +190,32 @@ def reread_clip(path: str | Path, rect: tuple[float, float, float, float], *, pa
                 pix = _render(doc, page, dpi, clip=clip, clean_k=k)
                 img = Path(td) / f"c{dpi}.png"
                 pix.save(str(img))
-                t = _run([str(tess), str(img), "stdout", "--psm", "7", "-c",
+                t = _run([str(tess), str(img), "stdout", "--psm", str(psm), "-c",
                           f"tessedit_char_whitelist={whitelist}"], tess).strip()
                 out.append((dpi, t))
     finally:
         doc.close()
     return out
+
+
+def line_height(words: list[Word], default: float = 8.0) -> float:
+    """Median word-box height in points (typewriter body text), clamped 6–12."""
+    hs = sorted(w.y1 - w.y0 for w in words if w.text.strip() and len(w.text) > 1)
+    if not hs:
+        return default
+    return max(6.0, min(12.0, hs[len(hs) // 2]))
+
+
+def line_run(words: list[Word], rect: tuple[float, float, float, float], *,
+             max_gap: float, max_width: float) -> tuple[float, float, float, float]:
+    """Extend ``rect`` rightwards over the words of the same OCR line that follow
+    it with gaps ≤ ``max_gap`` (a printed value after its label), capped at
+    ``max_width`` from ``rect``'s left edge."""
+    x0, y0, x1, y1 = rect
+    yc = (y0 + y1) / 2
+    same = sorted((w for w in words if w.y0 <= yc <= w.y1 and w.x0 >= x1 - 0.5), key=lambda w: w.x0)
+    for w in same:
+        if w.x0 - x1 > max_gap or w.x1 - x0 > max_width:
+            break
+        x1 = max(x1, w.x1)
+    return (x0, y0, x1, y1)
