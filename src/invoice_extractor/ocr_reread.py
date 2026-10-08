@@ -43,7 +43,7 @@ class Word:
 
 def _run(cmd: list[str], tess: Path) -> str:
     proc = subprocess.run(
-        cmd, capture_output=True, text=True, env=_ocr._tesseract_env(tess), timeout=120, check=False
+        cmd, capture_output=True, text=True, env=_ocr._tesseract_env(tess), timeout=_ocr.OCR_TIMEOUT_S, check=False
     )
     return proc.stdout or ""
 
@@ -118,7 +118,7 @@ def page_words(path: str | Path, *, dpi: int = 200, page: int = 0, clean_k: int 
             base = Path(td) / "o"
             subprocess.run(
                 [str(tess), str(img), str(base), "-l", lang, "--psm", "6", "txt", "tsv"],
-                capture_output=True, text=True, env=_ocr._tesseract_env(tess), timeout=180, check=False,
+                capture_output=True, text=True, env=_ocr._tesseract_env(tess), timeout=_ocr.OCR_TIMEOUT_S, check=False,
             )
             txt = (base.with_suffix(".txt")).read_text(encoding="utf-8", errors="replace") if base.with_suffix(".txt").is_file() else ""
             tsv = (base.with_suffix(".tsv")).read_text(encoding="utf-8", errors="replace") if base.with_suffix(".tsv").is_file() else ""

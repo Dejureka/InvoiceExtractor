@@ -20,6 +20,10 @@ from pathlib import Path
 OCR_BACKEND = "ocr/tesseract"
 IMAGE_OCR_BACKEND = "ocr/tesseract+image"
 DEFAULT_DPI = 200
+# tesseract / pdftoppm subprocess timeout (s). Was 120/180 s; under heavy load on
+# a shared box a scan page could time out and come back blank (BHC 6th case10,
+# Auditor round 3). Override with INVOICE_OCR_TIMEOUT.
+OCR_TIMEOUT_S = int(os.environ.get("INVOICE_OCR_TIMEOUT", "600"))
 DEFAULT_LANG = "eng"
 # Phone photos / scanner images of a BL or invoice (BHC 3rd/4th QDEX….jpg)
 IMAGE_SUFFIXES = frozenset({".jpg", ".jpeg", ".png", ".tif", ".tiff"})
@@ -115,7 +119,7 @@ def _run_tesseract(
         capture_output=True,
         text=True,
         env=env,
-        timeout=120,
+        timeout=OCR_TIMEOUT_S,
         check=False,
     )
     out_txt = out_base.with_suffix(".txt")
@@ -165,7 +169,7 @@ def _render_pages_pdftoppm(pdf_path: Path, out_dir: Path, dpi: int) -> list[Path
         [pdftoppm, "-png", "-r", str(dpi), str(pdf_path), str(prefix)],
         capture_output=True,
         text=True,
-        timeout=180,
+        timeout=OCR_TIMEOUT_S,
         check=False,
     )
     if proc.returncode != 0:
@@ -444,7 +448,7 @@ def _run_tesseract_pdf(img: Path, out_base: Path, *, lang: str, tess_bin: Path) 
         capture_output=True,
         text=True,
         env=env,
-        timeout=180,
+        timeout=OCR_TIMEOUT_S,
         check=False,
     )
     out_pdf = out_base.with_suffix(".pdf")

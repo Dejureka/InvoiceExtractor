@@ -411,52 +411,55 @@ def _clean_passes(path: str, backend: str, page: int = 0, want_inv: bool = False
     return texts, tok, notes, loc
 
 
-def _digits(v: float) -> str:
-    return re.sub(r"\D", "", f"{v:.3f}").lstrip("0") or "0"
+def _source_value(reads: list[float]) -> float | None:
+    """One source = one vote: the strict-majority value of that source's own
+    reads (re-reads of one clip at several dpi / cleanings are correlated);
+    no strict majority → the source abstains."""
+    if not reads:
+        return None
+    (v, n), = Counter(reads).most_common(1)
+    return v if n * 2 > len(reads) else None
 
 
-def _decide_gw(page_reads: list[tuple[str, float | None]], cell: dict | None):
-    """GW from the page/token reads plus the located cell re-read (Auditor round 3).
+def _decide_gw(sources: list[tuple[str, float | None]], cell: dict | None):
+    """Conservative GW decision (Auditor round 4, 2026-10-08).
 
-    * With page/token reads: the cell value joins the vote as 2 reads, always —
-      also when one value's digits are the tail of the other (``84.5`` vs
-      ``3084.5``, ``50`` vs ``150``); ≥2 agreeing reads and a strict majority
-      or needs_gold. A tie such as 150 ×2 vs cell 50 ×2 is needs_gold.
-    * Cell only (no page/token read): accepted only when the widened-box check
-      confirmed the whole number; otherwise the value stays a suggestion with
-      needs_gold, and ``gw_cell_unverified`` lets pairing accept it only if it
-      equals the paired INV/PL G.W.
+    ``sources``: one vote per independent source — each page pass (r1, clean)
+    and the token clip (its 3 dpi re-reads collapsed to one value). The located
+    cell (12 re-reads collapsed by the integer/decimals vote) is a source only
+    when the widened-box check confirmed it; an unconfirmed cell never votes.
 
-    Returns ``(value, confident, detail, note, cell_unverified_value)``.
+    * Confident only with ≥2 voting sources that ALL agree, and no cell value
+      (confirmed or not) disagreeing. Any disagreement → needs_gold (value kept
+      as a suggestion). An unconfirmed cell never counts towards the ≥2, so it
+      can never decide; it can only block.
+    * Cell only (no page/token source): never decided here — needs_gold, and
+      ``gw_cell_only`` lets the batch step accept it only when it equals the
+      INV/PL G.W. total of all invoices sharing this waybill.
+
+    Returns ``(value, confident, detail, note, gw_cell_only_value)``.
     """
-    page = [(t, v) for t, v in page_reads if v is not None]
+    srcs = [(t, v) for t, v in sources if v is not None]
     cv = (cell or {}).get("value")
-    if cv is None:
-        g, ok, detail = _vote(page_reads)
-        return g, ok, detail, None, None
-    if page:
-        reads = page + [("cell", cv), ("cell", cv)]
-        g, ok, detail = _vote(reads)
-        note = None
-        tails = sorted({v for _, v in page if v != cv and (_digits(v).endswith(_digits(cv))
-                                                          or _digits(cv).endswith(_digits(v)))})
-        if tails:
-            longer = [v for v in tails if _digits(v).endswith(_digits(cv))]
-            if ok and g == cv and longer and not cell.get("verified"):
-                # an unconfirmed cell that may have lost leading digits never wins
-                # over a longer read (3,084.5 ×1 vs truncated cell 84.5 ×2)
-                ok = False
-                note = (f"GW cell {cv:g} may be the truncated tail of {longer[0]:g} (whole number not confirmed)"
-                        " → needs_gold")
-            else:
-                note = (f"GW cell {cv:g} and read(s) {', '.join(f'{x:g}' for x in tails)} differ by leading digits"
-                        + (" — majority decides" if ok else " — no majority → needs_gold"))
-        return g, ok, detail, note, None
-    if cell.get("verified"):
-        return cv, True, f"cell={cv:g} (cell only, whole number confirmed)", None, None
-    return cv, False, f"cell={cv:g} (cell only)", (
-        f"GW {cv:g} from the cell re-read only, whole number not confirmed → needs_gold "
-        f"(accepted only if it equals the paired INV/PL G.W.)"), cv
+    confirmed = bool((cell or {}).get("verified"))
+    if not srcs:
+        if cv is None:
+            return None, False, "no reads", None, None
+        return cv, False, f"cell={cv:g} (cell only)", (
+            f"GW {cv:g} from the cell re-read only → needs_gold unless it equals the INV/PL G.W. total of the "
+            f"invoices on this waybill"), cv
+    votes = srcs + ([("cell", cv)] if cv is not None and confirmed else [])
+    detail = ", ".join(f"{t}={v:g}" for t, v in votes)
+    if cv is not None and not confirmed:
+        detail += f" (cell {cv:g} unconfirmed, not voting)"
+    (best, n), *rest = Counter(v for _, v in votes).most_common()
+    # clean = ≥2 voting sources, all agreeing, and the cell (confirmed or not)
+    # does not disagree; anything else → needs_gold
+    ok = n >= 2 and not rest and (cv is None or cv == best)
+    note = None
+    if cv is not None and cv != best:
+        note = f"GW cell {cv:g} ({'confirmed' if confirmed else 'unconfirmed'}) disagrees with {best:g} → needs_gold"
+    return best, ok, detail, note, None
 
 
 def _read_waybill(path: str, backend: str, page: int, text: str, want_inv: bool) -> dict:
@@ -480,19 +483,19 @@ def _read_waybill(path: str, backend: str, page: int, text: str, want_inv: bool)
         ng.append("bl_no")
 
     pk: list[tuple[str, float | None]] = []
-    gw: list[tuple[str, float | None]] = []
+    sources: list[tuple[str, float | None]] = []
     partial: list[str] = []
     for tag, t in passes:
         a, b, c_ = _pass_reads(t, tag)
         pk += a
-        gw += b
         partial += c_
-    gw += tok_gw
+        sources.append((tag, _source_value([v for _, v in b if v is not None])))
+    sources.append(("tok", _source_value([v for _, v in tok_gw if v is not None])))
     pkg, pkg_ok, pkg_detail = _vote(pk)
     if not pkg_ok:
         ng.append("packages")
     notes.append(f"pkg reads: {pkg_detail}")
-    g, gw_ok, gw_detail, gw_note, cell_unverified = _decide_gw(gw, loc.get("gw_cell"))
+    g, gw_ok, gw_detail, gw_note, cell_only = _decide_gw(sources, loc.get("gw_cell"))
     if not gw_ok:
         ng.append("gross_weight_kg")
     notes.append(f"GW reads: {gw_detail}")
@@ -502,7 +505,7 @@ def _read_waybill(path: str, backend: str, page: int, text: str, want_inv: bool)
     if partial and not gw_ok:
         notes.append(f"GW partial OCR read(s) {partial} (incomplete — digits lost under the background pattern)")
     return {"bl_no": bl_no, "packages": pkg, "gross_weight_kg": g, "needs_gold_fields": ng,
-            "invoice_reads": list(loc["inv"]), "notes": notes, "gw_cell_unverified": cell_unverified}
+            "invoice_reads": list(loc["inv"]), "notes": notes, "gw_cell_only": cell_only}
 
 
 def _waybill_groups(text: str) -> list[tuple[int, list[int]]]:
@@ -559,7 +562,7 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
                     {"pages": d["pages"], "bl_no": d["bl_no"], "packages": d["packages"],
                      "gross_weight_kg": d["gross_weight_kg"], "needs_gold_fields": d["needs_gold_fields"] or None,
                      "invoice_reads": d["invoice_reads"], "notes": "; ".join(d["notes"]),
-                     "gw_cell_unverified": d["gw_cell_unverified"]}
+                     "gw_cell_only": d["gw_cell_only"]}
                     for d in docs
                 ],
             ),
@@ -585,6 +588,6 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
             needs_gold_fields=ng or None,
             notes="; ".join(notes),
             doc_kind="sea_waybill",
-            gw_cell_unverified=r["gw_cell_unverified"],
+            gw_cell_only=r["gw_cell_only"],
         ),
     )

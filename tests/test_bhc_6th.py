@@ -532,14 +532,21 @@ def test_line_run_extends_over_value():
 def test_case8_original_3page_scan_end_to_end():
     from invoice_extractor.pairing import auto_pair, extract_pair_row
 
+    from invoice_extractor.pairing import dedupe_shared_packing_units
+
     rows = auto_pair(sorted(C8_DIR.glob("*.pdf")))
     assert len(rows) == 1
     d = extract_pair_row(rows[0])
+    # G.W. 50 is a cell-only read: flagged per row, accepted by the batch step
+    # because it equals the INV/PL G.W. total of the waybill's invoices (50)
+    assert d["meta"]["needs_gold_fields"] == ["bl_gross_weight_kg"]
+    dedupe_shared_packing_units([d])
     h = d["header"]
     assert (h["invoice_no"], h["bl_no"], h["bl_packages"], h["bl_gross_weight_kg"]) == (
         "MEH6K018", "261002KEE602", 1.0, 50.0)
-    assert not d["meta"].get("needs_gold_fields")
+    assert not d["meta"].get("needs_gold_fields") and d["_hard"]["verdict"] == "pass"
     assert "261002KEE601" in d["meta"]["notes"]  # unused waybill named in the notes
+    assert "INV/PL G.W. total 50" in d["meta"]["notes"]
 
 
 def test_tvl_phantom_digit_only_stripped_when_page_pass_supports_it():
@@ -558,66 +565,115 @@ def test_saginomiya_filename_hint_is_anchored():
     assert bhc_vendor_ci_v1.match_score(t, "T261565.pdf") > bhc_vendor_ci_v1.match_score(t, "XT261565.pdf")
 
 
-# ---------------------------------------------------------------- Auditor round 3 (GW cell guard)
+# ---------------------------------------------------------------- Auditor round 3/4 (GW decision)
+# Round 4 (conservative): one vote per independent source (page pass r1, clean
+# pass, token clip); a confirmed cell is one more source, an unconfirmed cell
+# never votes; confident only when ≥2 voting sources all agree. A cell-only G.W.
+# is accepted only when it equals the INV/PL G.W. total of the waybill's invoices.
 
 _dec = jif_cosmo_waybill_v1._decide_gw
 
 
+def _cell(v, confirmed):
+    return {"value": v, "verified": confirmed}
+
+
 def test_gw_true50_two_misread150_is_needs_gold():
-    # hatch stroke read as a leading 1 on two page passes; the cell reads 50 —
-    # 2:2 tie → needs_gold, never a confident 150
-    g, ok, _, note, _ = _dec([("r1", 150.0), ("clean", 150.0)], {"value": 50.0, "verified": True})
+    g, ok, _, note, _ = _dec([("r1", 150.0), ("clean", 150.0)], _cell(50.0, True))
+    assert not ok and "needs_gold" in note
+    g, ok, _, _, _ = _dec([("r1", 150.0), ("clean", 150.0)], _cell(50.0, False))
+    assert not ok  # an unconfirmed cell cannot decide, but it blocks
+
+
+def test_gw_single_misread150_vs_confirmed_50_is_needs_gold():
+    g, ok, _, _, _ = _dec([("r1", 150.0)], _cell(50.0, True))
     assert not ok
-    assert "no majority" in note
 
 
-def test_gw_single_misread150_does_not_knock_out_50():
-    g, ok, _, _, _ = _dec([("r1", 150.0)], {"value": 50.0, "verified": True})
-    assert (g, ok) == (50.0, True)
+@pytest.mark.parametrize("cut,full", [(1.774, 1774.5), (3.084, 3084.5)])  # right cut (decimals lost)
+def test_gw_right_cut_unconfirmed_cell_vs_one_page_read_is_needs_gold(cut, full):
+    g, ok, detail, note, _ = _dec([("r1", full)], _cell(cut, False))
+    assert not ok and "unconfirmed" in detail and "needs_gold" in note
 
 
-@pytest.mark.parametrize("full,tail", [(1774.5, 774.5), (3084.5, 84.5)])
-def test_gw_truncated_cell_still_votes_and_majority_wins(full, tail):
-    # 6th case9 (1,774.5: 4–5 page/token reads) and BHC 4th case8 (3,084.5)
-    g, ok, detail, note, _ = _dec([("p", full)] * 4, {"value": tail, "verified": False})
-    assert (g, ok) == (full, True)
-    assert f"cell={tail:g}" in detail and "leading digits" in note
-    # one page read vs an unconfirmed truncated cell (2 reads) → not confident, flagged
-    g, ok, _, note, _ = _dec([("p", full)], {"value": tail, "verified": False})
-    assert not ok and "truncated tail" in note
-    # a single 150 does not beat a confirmed cell 50, but an unconfirmed one is flagged
-    assert _dec([("r1", 150.0)], {"value": 50.0, "verified": False})[1] is False
+@pytest.mark.parametrize("cut,full", [(774.5, 1774.5), (84.5, 3084.5), (1.774, 1774.5), (3.084, 3084.5)])
+def test_gw_unconfirmed_cell_disagreeing_blocks(cut, full):
+    # left cut (prefix lost) and right cut (decimals lost): never decides, and
+    # disagreeing with the page/token reads → needs_gold even when they agree
+    g, ok, _, note, _ = _dec([("clean", full), ("tok", full)], _cell(cut, False))
+    assert g == full and not ok and "disagrees" in note
+    # agreeing unconfirmed cell does not count towards the ≥2
+    assert _dec([("r1", full)], _cell(full, False))[1] is False
+    assert _dec([("r1", full), ("tok", full)], _cell(full, False))[:2] == (full, True)
 
 
-@pytest.mark.parametrize("cut", [774.5, 1.774])  # left-cut "1," / right-cut ".500" of 1,774.500
-def test_gw_cell_only_truncated_needs_gold(cut):
-    g, ok, _, note, unverified = _dec([], {"value": cut, "verified": False})
-    assert not ok and unverified == cut
-    assert "not confirmed" in note
+def test_gw_token_rereads_are_one_source():
+    # 4998 misread at all 3 dpi of one token clip = ONE vote; vs confirmed cell 1998 → needs_gold
+    tok = jif_cosmo_waybill_v1._source_value([4998.0, 4998.0, 4998.0])
+    assert tok == 4998.0
+    g, ok, _, _, _ = _dec([("r1", None), ("clean", None), ("tok", tok)], _cell(1998.0, True))
+    assert not ok
+    assert jif_cosmo_waybill_v1._source_value([1998.0, 4998.0]) is None  # no majority → abstains
 
 
-def test_gw_cell_only_confirmed_whole_number_accepted():
-    g, ok, _, _, unverified = _dec([], {"value": 50.0, "verified": True})
-    assert (g, ok, unverified) == (50.0, True, None)
+def test_gw_any_disagreement_between_sources_is_needs_gold():
+    assert _dec([("r1", 1998.0), ("clean", 1998.0), ("tok", 4998.0)], None)[1] is False
+    assert _dec([("r1", 1998.0), ("clean", 1998.0), ("tok", 1998.0)], None)[:2] == (1998.0, True)
 
 
-def test_corroborate_cell_only_gw_with_inv_pl_gw():
-    from invoice_extractor.pairing import corroborate_cell_gw
+@pytest.mark.parametrize("cut", [774.5, 1.774, 50.0])
+@pytest.mark.parametrize("confirmed", [False, True])
+def test_gw_cell_only_is_never_decided_by_the_bl(cut, confirmed):
+    # left cut / right cut / whole: with no page or token source the BL alone
+    # never accepts the cell (widened-box confirmation is not enough)
+    g, ok, _, note, cell_only = _dec([("r1", None), ("tok", None)], _cell(cut, confirmed))
+    assert not ok and cell_only == cut and "cell re-read only" in note
 
-    def bl(v):
-        return {"header": {"bl_no": "X", "packages": 1.0, "gross_weight_kg": v},
-                "meta": {"needs_gold": True, "needs_gold_fields": ["gross_weight_kg"], "gw_cell_unverified": v,
-                         "notes": "needs_gold: gross_weight_kg"}}
 
-    ok = corroborate_cell_gw(bl(50.0), 50.0)
-    assert not ok["meta"]["needs_gold"] and not ok["meta"]["needs_gold_fields"]
-    assert "corroborated" in ok["meta"]["notes"]
-    for cut in (774.5, 1.774):  # truncated cell vs INV/PL 1,774.5 → stays needs_gold
-        r = corroborate_cell_gw(bl(cut), 1774.5)
-        assert r["meta"]["needs_gold_fields"] == ["gross_weight_kg"]
-    assert corroborate_cell_gw(bl(50.0), None)["meta"]["needs_gold_fields"] == ["gross_weight_kg"]
-    plain = {"header": {"gross_weight_kg": 50.0}, "meta": {"needs_gold_fields": None}}
-    assert corroborate_cell_gw(plain, 50.0) is plain
+def _row(inv, gw, cell=None, bl_file="/x/BL.pdf", bl_no="261002KEE602"):
+    flds = ["bl_gross_weight_kg"] if cell is not None else None
+    m = {"bl_file": bl_file, "needs_gold_fields": flds, "needs_gold": bool(flds), "notes": "", "confidence": "rules"}
+    if cell is not None:
+        m["bl_gw_cell_only"] = {"value": cell, "inv_needs_gold": False}
+    return {"header": {"invoice_no": inv, "gross_weight_kg": gw, "bl_no": bl_no, "bl_gross_weight_kg": cell,
+                       "amount": None},
+            "items": [], "meta": m}
+
+
+def test_cell_only_gw_corroborated_by_shipment_total_only():
+    from invoice_extractor.pairing import corroborate_cell_only_gw
+
+    one = [_row("MEH6K018", 50.0, cell=50.0)]
+    corroborate_cell_only_gw(one)
+    assert not one[0]["meta"]["needs_gold_fields"] and "INV/PL G.W. total 50" in one[0]["meta"]["notes"]
+    # invoices A 774.5 + B 1,000 on one waybill (total 1,774.5): a left-cut cell 774.5 is NOT corroborated
+    ab = [_row("A", 774.5, cell=774.5), _row("B", 1000.0, cell=774.5)]
+    corroborate_cell_only_gw(ab)
+    assert all(r["meta"]["needs_gold_fields"] == ["bl_gross_weight_kg"] for r in ab)
+    # the full value equals the total → accepted on both rows
+    ab = [_row("A", 774.5, cell=1774.5), _row("B", 1000.0, cell=1774.5)]
+    corroborate_cell_only_gw(ab)
+    assert all(not r["meta"]["needs_gold_fields"] for r in ab)
+    # PDF + xlsx twins of one invoice count once (one twin blank: single shared PL)
+    tw = [_row("X", 1774.5, cell=1774.5), _row("X", None, cell=1774.5)]
+    corroborate_cell_only_gw(tw)
+    assert all(not r["meta"]["needs_gold_fields"] for r in tw)
+    # an invoice without G.W. → no total → stays flagged; right-cut 1.774 never matches
+    for rows in ([_row("A", None, cell=774.5), _row("B", 1000.0, cell=774.5)], [_row("X", 1774.5, cell=1.774)]):
+        corroborate_cell_only_gw(rows)
+        assert all(r["meta"]["needs_gold_fields"] == ["bl_gross_weight_kg"] for r in rows)
+    # rows on another waybill don't count
+    other = [_row("A", 50.0, cell=50.0), _row("B", 70.0, bl_file="/x/OTHER.pdf")]
+    corroborate_cell_only_gw(other)
+    assert not other[0]["meta"]["needs_gold_fields"]
+
+
+def test_select_note_single_matching_read_says_too_few():
+    from invoice_extractor.pairing import select_bl_document
+
+    s = select_bl_document(_two_docs([], ["MEH6K018"]), "MEH6K018")
+    assert s["header"]["bl_no"] is None
+    assert "too few matching INVOICE NO. reads" in s["meta"]["notes"]
 
 
 def test_select_requires_exact_invoice_no_after_folding():
@@ -653,9 +709,12 @@ C9_BL = Path("/home/box/Downloads/BHC-batch-6th/BHC_6th data/case9/run/WAYBILL.p
 B4C8_BL = Path("/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 8/WAYBILL.pdf")
 
 
+B4C6_BL = Path("/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 6/BL.pdf")
+
+
 @pytest.mark.parametrize("path,bl_no,pkg,gw", [
-    (C9_BL, "261002KEE101", 6.0, 1774.5),  # cell box cuts "1," → 774.5; page/token reads win
     (B4C8_BL, "260918KEE102", 10.0, 3084.5),
+    (B4C6_BL, "260918KEE103", 16.0, 1998.0),
 ])
 def test_jif_real_scan_gw_with_cell_reread(path, bl_no, pkg, gw):
     if not path.is_file():
@@ -666,3 +725,18 @@ def test_jif_real_scan_gw_with_cell_reread(path, bl_no, pkg, gw):
     h = d["header"]
     assert (h["bl_no"], h["packages"], h["gross_weight_kg"]) == (bl_no, pkg, gw)
     assert not d["meta"].get("needs_gold_fields")
+
+
+def test_case9_waybill_gw_needs_gold_when_cell_disagrees():
+    """Round 4 honest result: page + token read 1,774.5, but the cell re-read
+    (box lost the leading ``1,``) reads 774.5 11/12 → sources disagree →
+    needs_gold with 1,774.5 kept as the suggestion."""
+    if not C9_BL.is_file():
+        pytest.skip("scan not on this machine")
+    from invoice_extractor.bl_rules_engine import extract_bl
+
+    d = extract_bl(C9_BL).to_dict()
+    h, m = d["header"], d["meta"]
+    assert (h["bl_no"], h["packages"], h["gross_weight_kg"]) == ("261002KEE101", 6.0, 1774.5)
+    assert m["needs_gold_fields"] == ["gross_weight_kg"]
+    assert "disagrees" in m["notes"]

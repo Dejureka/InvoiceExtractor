@@ -1067,7 +1067,7 @@ def select_bl_document(bl_data: dict[str, Any], invoice_no: str | None) -> dict[
         meta["selected_waybill"] = (
             f"{d.get('bl_no')} (p{pg(d)}, printed INVOICE NO. matches {invoice_no}; other waybill(s) in the file not used: "
             + ", ".join(f"{o.get('bl_no')} p{pg(o)}" for o in docs if o is not d) + ")")
-        meta["gw_cell_unverified"] = d.get("gw_cell_unverified")
+        meta["gw_cell_only"] = d.get("gw_cell_only")
         meta.update(needs_gold=bool(ng), needs_gold_fields=ng or None,
                     confidence="needs_gold" if ng else "rules",
                     notes=f"{note}; {d.get('notes') or ''}".strip("; "))
@@ -1077,37 +1077,14 @@ def select_bl_document(bl_data: dict[str, Any], invoice_no: str | None) -> dict[
         hdr.update(bl_no=None, hbl_no=None, packages=None, gross_weight_kg=None)
         n_match = sum(1 for n in hits if n > 0)
         why = (f"printed INVOICE NO. {invoice_no} matched more than one waybill ({n_match})" if n_match > 1
-               else f"none has a printed INVOICE NO. matching {invoice_no}" if not best
-               else f"too few matching INVOICE NO. reads for {invoice_no}")
-        meta["gw_cell_unverified"] = None
+               else f"too few matching INVOICE NO. reads for {invoice_no} (1 read; ≥2 needed)" if n_match == 1
+               and max(hits) == 1
+               else f"none has a printed INVOICE NO. matching {invoice_no}")
+        meta["gw_cell_only"] = None
         meta.update(needs_gold=True, needs_gold_fields=["bl_no", "packages", "gross_weight_kg"],
                     confidence="needs_gold",
                     notes=f"needs_gold: bl_no ({len(docs)} waybills in one file: {others}; {why} — not guessed)")
         out["header"] = hdr
-    out["meta"] = meta
-    return out
-
-
-def corroborate_cell_gw(bl_data: dict[str, Any], inv_gw: float | None) -> dict[str, Any]:
-    """A BL G.W. read only from the located cell re-read, with the whole number
-    not confirmed (``meta.gw_cell_unverified``), is accepted only when it equals
-    the paired INV/PL G.W. (BHC 6th case8 50 = 50). Otherwise it stays
-    needs_gold. Files without the marker are returned unchanged."""
-    meta = dict(bl_data.get("meta") or {})
-    cv = meta.get("gw_cell_unverified")
-    hdr = bl_data.get("header") or {}
-    if cv is None or hdr.get("gross_weight_kg") != cv:
-        return bl_data
-    ng = list(meta.get("needs_gold_fields") or [])
-    if inv_gw is None or abs(float(inv_gw) - float(cv)) > 0.005 or "gross_weight_kg" not in ng:
-        return bl_data
-    ng.remove("gross_weight_kg")
-    out = dict(bl_data)
-    meta.update(needs_gold=bool(ng), needs_gold_fields=ng or None,
-                confidence="needs_gold" if ng else "rules", gw_cell_unverified=None,
-                notes=(f"G.W. {cv:g} (cell re-read only) corroborated by the paired INV/PL G.W. {float(inv_gw):g}"
-                       + (f"; needs_gold: {', '.join(ng)}" if ng else "")
-                       + f"; BL reads: {meta.get('notes') or ''}"))
     out["meta"] = meta
     return out
 
@@ -1334,7 +1311,7 @@ def extract_pair_row(
     if row.bl_path:
         bl_path = Path(row.bl_path)
         bl_data = select_bl_document(_extract_bl_cached(bl_path), result.header.invoice_no)
-        bl_data = corroborate_cell_gw(bl_data, result.header.gross_weight_kg)
+        inv_needs_gold = bool(result.meta.needs_gold)
         result = merge_bl_onto_inv(
             result,
             bl_header=bl_data.get("header"),
@@ -1344,6 +1321,11 @@ def extract_pair_row(
         )
 
     data = result.to_dict()
+    if row.bl_path:
+        cv = (bl_data.get("meta") or {}).get("gw_cell_only")
+        if cv is not None and "bl_gross_weight_kg" in (data["meta"].get("needs_gold_fields") or []):
+            # checked against the shipment INV/PL G.W. total in corroborate_cell_only_gw
+            data["meta"]["bl_gw_cell_only"] = {"value": cv, "inv_needs_gold": inv_needs_gold}
     if row.notes:
         data["meta"]["notes"] = f"{data['meta'].get('notes') or ''}; {row.notes}".strip("; ")
     hard = hard_check(data)
@@ -1557,5 +1539,64 @@ def dedupe_shared_packing_units(
             d["meta"]["checker_verdict"] = hard["verdict"]
             d["meta"]["checker_issues"] = hard.get("issues")
             d["meta"]["checker_details"] = hard.get("details")
+            written.append(f"{_inv_label(d)}: {note}")
+    written += corroborate_cell_only_gw(extracts)
+    return written
+
+
+def corroborate_cell_only_gw(extracts: list[dict[str, Any]]) -> list[str]:
+    """BL G.W. read only by the located cell re-read (``meta.bl_gw_cell_only``,
+    jif_cosmo_waybill_v1) stays needs_gold unless it equals the INV/PL G.W.
+    **total** of all invoices on that waybill (same BL file + BL No.; one value
+    per invoice no., PDF/Excel twins counted once; after the shipment_first
+    dedupe). Any invoice without a G.W., or twins that disagree → no total → the
+    flag stays (Auditor round 4: invoice A 774.5 of a 1,774.5 waybill never
+    corroborates a left-cut cell 774.5). Runs at the end of
+    :func:`dedupe_shared_packing_units` (CLI / GUI batch step)."""
+    from invoice_extractor.checker import hard_check
+
+    groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for d in extracts:
+        m, h = d.get("meta") or {}, d.get("header") or {}
+        if m.get("bl_file"):
+            groups.setdefault((str(m.get("bl_file")), str(h.get("bl_no") or "")), []).append(d)
+    written: list[str] = []
+    for ds in groups.values():
+        marked = [d for d in ds if (d.get("meta") or {}).get("bl_gw_cell_only")]
+        if not marked:
+            continue
+        per_inv: dict[str, set] = {}
+        for d in ds:
+            inv = (d.get("header") or {}).get("invoice_no")
+            if not inv:
+                continue
+            per_inv.setdefault(str(inv), set()).add((d.get("header") or {}).get("gross_weight_kg"))
+        vals = []
+        for inv, gws in per_inv.items():
+            known = {float(g) for g in gws if g is not None}
+            vals.append(known.pop() if len(known) == 1 else None)
+        total = round(sum(vals), 3) if vals and all(v is not None for v in vals) else None
+        for d in marked:
+            mk = d["meta"]["bl_gw_cell_only"]
+            cv = float(mk["value"])
+            if total is None or abs(total - cv) > 0.005:
+                d["meta"]["notes"] = (f"{d['meta'].get('notes') or ''}; BL G.W. {cv:g} from the cell re-read only, "
+                                      f"not confirmed by the INV/PL G.W. total "
+                                      f"({'n/a' if total is None else f'{total:g}'}) → needs_gold").strip("; ")
+                continue
+            flds = [f for f in (d["meta"].get("needs_gold_fields") or []) if f != "bl_gross_weight_kg"]
+            d["meta"]["needs_gold_fields"] = flds or None
+            d["meta"]["needs_gold"] = bool(mk.get("inv_needs_gold")) or bool(flds)
+            note = (f"BL G.W. {cv:g} (cell re-read only) = INV/PL G.W. total {total:g} of {len(per_inv)} "
+                    f"invoice(s) on this waybill → accepted")
+            d["meta"]["notes"] = f"{d['meta'].get('notes') or ''}; {note}".strip("; ")
+            hard = hard_check(d)
+            d["meta"]["checker_verdict"] = hard["verdict"]
+            d["meta"]["checker_issues"] = hard.get("issues")
+            d["meta"]["checker_details"] = hard.get("details")
+            if hard["verdict"] == "pass" and d["meta"].get("confidence") in ("rules", "needs_gold"):
+                d["meta"]["confidence"] = "high"
+            if "_hard" in d:
+                d["_hard"] = hard
             written.append(f"{_inv_label(d)}: {note}")
     return written
