@@ -360,11 +360,14 @@ def test_jif_ocean_links_waybill():
 
 def test_jif_kee_waybills():
     assert jif_cosmo_waybill_v1._bl_nos(_t("c9_jif_waybill_ocr.txt")) == ["261002KEE101"]
-    text8 = _t("c8_jif_waybill_ocr.txt")
-    assert jif_cosmo_waybill_v1._bl_nos(text8) == ["261002KEE602"]
-    pk, gw, _ = jif_cosmo_waybill_v1._pass_reads(text8, "t")
+    # case8: the forwarder's ORIGINAL 3-page scan (KEE601 face + marks sheet, KEE602 face)
+    pages = _t("c8_jif_waybill_3page_ocr.txt").split("\f")
+    assert len(pages) == 3
+    assert jif_cosmo_waybill_v1._bl_nos(pages[2]) == ["261002KEE602"]
+    pk, gw, _ = jif_cosmo_waybill_v1._pass_reads(pages[2], "t")
     assert {v for _, v in pk} == {1.0}
-    # G.W. 50.000 sits under the watermark hatch — no text read → needs_gold
+    # G.W. 50.000 sits under the watermark hatch — the page pass has no read
+    # (the located cell re-read on the real scan reads it, see test below)
     assert gw == []
 
 
@@ -421,3 +424,135 @@ def test_hipus_xlsx_twin_cambodia_origin():
     pdf, _ = _inv("c9_hipus_inv.txt", "IV_117-BHCTW-26K-43.PDF")
     assert [i["origin"] for i in d["items"]] == [i["origin"] for i in pdf["items"]]
     assert "Cambodia" in {i["origin"] for i in d["items"]}
+
+
+# ---------------------------------------------------------------- Auditor round 2 (case8 multi-waybill)
+
+C8_DIR = Path("/home/box/Downloads/BHC-batch-6th/BHC_6th data/case8/run")
+C8_BL = C8_DIR / "20261002094338-0001.pdf"
+
+
+def test_jif_gw_cell_parse():
+    g = jif_cosmo_waybill_v1._gw_cell
+    assert g("50.000") == 50.0
+    assert g("2..50.000") == 50.0  # hatch fragments in front
+    assert g("50.0005") == 50.0  # one trailing hatch digit
+    assert g(".50,000") == 50.0
+    assert g("1,774.500") == pytest.approx(1774.5)
+    assert g("0.000") is None and g("50") is None and g("22.50.00") is None
+
+
+def test_jif_component_vote():
+    v = jif_cosmo_waybill_v1._component_vote
+    reads = [(50, 0.006)] * 4 + [(50, 0.0)] * 5 + [(40, 0.0)] * 3
+    assert v(reads) == (50.0, 8)
+    assert v([(745, 0.0), (748, 0.0)]) == (None, 0)  # no majority → not used
+    assert v([]) == (None, 0)
+
+
+def test_jif_waybill_groups_3page():
+    text = _t("c8_jif_waybill_3page_ocr.txt")
+    assert jif_cosmo_waybill_v1._waybill_groups(text) == [(0, [0, 1]), (2, [2])]
+    assert jif_cosmo_waybill_v1._waybill_groups("Gross Weight 1\fmarks") == [(0, [0, 1])]
+
+
+def test_jif_multi_waybill_header_blank_and_documents():
+    r = jif_cosmo_waybill_v1.extract(
+        "/nonexistent/20261002094338-0001.pdf", _t("c8_jif_waybill_3page_ocr.txt"), OCR, True
+    ).to_dict()
+    h, m = r["header"], r["meta"]
+    assert h["bl_no"] is None and h["packages"] is None and h["gross_weight_kg"] is None
+    assert set(m["needs_gold_fields"]) == {"bl_no", "packages", "gross_weight_kg"}
+    docs = m["documents"]
+    assert [d["bl_no"] for d in docs] == ["261002KEE601", "261002KEE602"]
+    assert [d["pages"] for d in docs] == [[1, 2], [3]]
+
+
+def _two_docs(reads601, reads602):
+    return {
+        "header": {"bl_no": None, "packages": None, "gross_weight_kg": None},
+        "meta": {
+            "needs_gold": True,
+            "needs_gold_fields": ["bl_no", "packages", "gross_weight_kg"],
+            "documents": [
+                {"pages": [1, 2], "bl_no": "261002KEE601", "packages": 5.0, "gross_weight_kg": 745.0,
+                 "needs_gold_fields": ["packages"], "invoice_reads": reads601, "notes": ""},
+                {"pages": [3], "bl_no": "261002KEE602", "packages": 1.0, "gross_weight_kg": 50.0,
+                 "needs_gold_fields": [], "invoice_reads": reads602, "notes": ""},
+            ],
+        },
+    }
+
+
+def test_select_bl_document_by_invoice_no():
+    from invoice_extractor.pairing import select_bl_document
+
+    bl = _two_docs(["MEH6KO19", "MEHGKO19", "MEHGKOT9"], ["MEH6KO18", "MEH6K018", "MEHGK018"])
+    s = select_bl_document(bl, "MEH6K018")
+    assert (s["header"]["bl_no"], s["header"]["packages"], s["header"]["gross_weight_kg"]) == (
+        "261002KEE602", 1.0, 50.0)
+    assert not s["meta"]["needs_gold"] and not s["meta"]["needs_gold_fields"]
+    assert "261002KEE601" in s["meta"]["selected_waybill"]  # unused waybill named
+    # the other invoice picks the other waybill (its own field flags carried over)
+    s2 = select_bl_document(bl, "MEH6K019")
+    assert s2["header"]["bl_no"] == "261002KEE601" and s2["meta"]["needs_gold_fields"] == ["packages"]
+    # no match → nothing guessed
+    s3 = select_bl_document(bl, "MEH6K020")
+    assert s3["header"]["bl_no"] is None and s3["header"]["gross_weight_kg"] is None
+    assert set(s3["meta"]["needs_gold_fields"]) == {"bl_no", "packages", "gross_weight_kg"}
+    # a single matching read is not enough; matches on two documents → ambiguous
+    assert select_bl_document(_two_docs([], ["MEH6K018"]), "MEH6K018")["header"]["bl_no"] is None
+    amb = _two_docs(["MEH6K018", "MEH6K018"], ["MEH6K018", "MEH6K018"])
+    assert select_bl_document(amb, "MEH6K018")["header"]["bl_no"] is None
+    # single-document BLs pass through untouched
+    one = {"header": {"bl_no": "X"}, "meta": {}}
+    assert select_bl_document(one, "MEH6K018") is one
+
+
+def test_merge_flags_unmatched_multi_waybill():
+    from invoice_extractor.pairing import merge_bl_onto_inv, select_bl_document
+
+    inv = extract_invoice(Path("/nonexistent/Shipping Docs 20261005 MEH6K018_TW.pdf"),
+                          text=_t("c8_hitachi.txt"), backend=PDF, needs_ocr=False)
+    s = select_bl_document(_two_docs(["MEH6KO19"] * 3, ["MEH6KO20"] * 3), "MEH6K018")
+    out = merge_bl_onto_inv(inv, bl_header=s["header"], bl_path="x.pdf", bl_meta=s["meta"]).to_dict()
+    assert out["header"]["bl_no"] is None
+    assert {"bl_no", "bl_packages", "bl_gross_weight_kg"} <= set(out["meta"]["needs_gold_fields"])
+
+
+def test_line_run_extends_over_value():
+    from invoice_extractor.ocr_reread import Word, line_run
+
+    ws = [Word("INVOICE", 100, 10, 130, 18, (1,)), Word("NO.", 132, 10, 145, 18, (1,)),
+          Word("MEH6K018", 150, 10, 190, 18, (1,)), Word("far", 400, 10, 420, 18, (1,))]
+    assert line_run(ws, (100, 10, 145, 18), max_gap=20, max_width=150) == (100, 10, 190, 18)
+
+
+@pytest.mark.skipif(not C8_BL.is_file(), reason="BHC 6th case8 scan not on this machine")
+def test_case8_original_3page_scan_end_to_end():
+    from invoice_extractor.pairing import auto_pair, extract_pair_row
+
+    rows = auto_pair(sorted(C8_DIR.glob("*.pdf")))
+    assert len(rows) == 1
+    d = extract_pair_row(rows[0])
+    h = d["header"]
+    assert (h["invoice_no"], h["bl_no"], h["bl_packages"], h["bl_gross_weight_kg"]) == (
+        "MEH6K018", "261002KEE602", 1.0, 50.0)
+    assert not d["meta"].get("needs_gold_fields")
+    assert "261002KEE601" in d["meta"]["notes"]  # unused waybill named in the notes
+
+
+def test_tvl_phantom_digit_only_stripped_when_page_pass_supports_it():
+    f = tvl_hbl_v1._phantom_fix
+    assert f("SHAKEL26C072175", ["SHAKEL26072175"]) == "SHAKEL26C72175"
+    assert f("SHAKEL26C072175", ["SHAKEL26C72175"]) == "SHAKEL26C72175"
+    # genuine 6-digit C number: page pass also reads 6 digits → kept
+    assert f("SHAKEL26C072175", ["SHAKEL26C072175"]) == "SHAKEL26C072175"
+    assert f("SHAKEL26C072175", []) == "SHAKEL26C072175"
+    assert f("SHAKEL26C72175", []) == "SHAKEL26C72175"
+    assert tvl_hbl_v1._read_votes("B/L NO. SHAKEL26C072175\n")["bl_no"] == "SHAKEL26C072175"
+
+
+def test_saginomiya_filename_hint_is_anchored():
+    t = _t("c10_saginomiya.txt")
+    assert bhc_vendor_ci_v1.match_score(t, "T261565.pdf") > bhc_vendor_ci_v1.match_score(t, "XT261565.pdf")

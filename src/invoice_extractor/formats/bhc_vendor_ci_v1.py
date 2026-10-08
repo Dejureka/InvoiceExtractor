@@ -157,7 +157,7 @@ def match_score(text: str, filename: str = "") -> float:
         or re.search(r"I\s+N\s+V\s*O\s*I\s*C\s*E", tu)
     ):
         score += 0.2
-    if re.search(r"SHC-THT|MDBWH|BHC-?TW|HLHK|BSTW|TAWA|TB\d{8}|AGW\d{6}|JCN\d{5}|WLVN|WLA\d{5}|T\d{6}\.", filename or "", re.I):
+    if re.search(r"SHC-THT|MDBWH|BHC-?TW|HLHK|BSTW|TAWA|TB\d{8}|AGW\d{6}|JCN\d{5}|WLVN|WLA\d{5}|(?:^|[\\/])T\d{6}\.(?:pdf|xlsx?)$", filename or "", re.I):
         score += 0.1
     if _NOT_INVOICE.search(text or ""):
         score -= 0.6

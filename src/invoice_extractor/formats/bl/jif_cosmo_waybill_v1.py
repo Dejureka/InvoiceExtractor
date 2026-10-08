@@ -254,7 +254,9 @@ def _gw_cell_rect(path: str, page: int, words, hdr_rect) -> tuple | None:
         if not cand:
             return None
         top = min(cand, key=lambda w: w.y0)
-        row = [w for w in cand if w.y0 < top.y1 and w.y1 > top.y0]
+        # same line: every word with a digit (the ``3,`` of ``3, 084, 500`` too)
+        row = [w for w in ws if any(ch.isdigit() for ch in w.text) and w.y0 < top.y1 and w.y1 > top.y0
+               and w.x1 > hx0 - 1.5 * h and w.x0 < hx1 + 0.5 * h]
         return (min(w.x0 for w in row), min(w.y0 for w in row),
                 min(max(w.x1 for w in row), hx1 + 0.5 * h), max(w.y1 for w in row))
 
@@ -315,7 +317,10 @@ def _located_reads(path: str, page: int, words, want_inv: bool) -> dict:
                         comps.append((int(v), round(v - int(v), 3)))
             v, n = _component_vote(comps)
             if v is not None:
-                out["gw"] += [(f"cell×{n}", v)] * n
+                # the agreeing cell re-reads count as two reads in the GW vote (enough
+                # on their own when the page passes have nothing; outvoted by ≥3
+                # agreeing page/token reads)
+                out["gw"] += [("cell", v), ("cell", v)]
             out["notes"].append(f"GW cell {tuple(round(x) for x in rect)} re-read: " + ", ".join(raws)
                                 + (f" → integer/decimals vote {v:g} ({n} of {len(raws)})" if v is not None
                                    else " → no majority"))
@@ -415,7 +420,16 @@ def _read_waybill(path: str, backend: str, page: int, text: str, want_inv: bool)
         pk += a
         gw += b
         partial += c_
-    gw += tok_gw + list(loc["gw"])
+    gw += tok_gw
+    cell = list(loc["gw"])
+    if cell:
+        cd = re.sub(r"\D", "", f"{cell[0][1]:.3f}")
+        trunc = sorted({v for _, v in gw if v is not None and v != cell[0][1]
+                        and re.sub(r"\D", "", f"{v:.3f}").endswith(cd)})
+        if trunc:  # cell box lost leading digits (``84.500`` of ``3,084.500``)
+            notes.append(f"GW cell read {cell[0][1]:g} dropped (tail of {trunc[0]:g})")
+            cell = []
+    gw += cell
 
     pkg, pkg_ok, pkg_detail = _vote(pk)
     if not pkg_ok:

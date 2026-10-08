@@ -125,8 +125,8 @@ _FACE_GW_RX = re.compile(r"(?<![\d,.])(\d{1,3}(?:,?\d{3})*[.,]\s?[\dOo]{3})\s*K[
 def _read_votes(text: str) -> dict:
     """One OCR pass → candidate reads for BL no / packages / GW (Result fields only)."""
     out: dict = {"bl_no": None, "say": [], "face_pkg": [], "rows": [], "face_gw": None}
-    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL\s?(?:\d{2}C\d{5}(?!\d)|\d+))", text, re.I) or re.search(
-        r"\b(SHAKEL\s?(?:\d{2}C\d{5}|\d{8}))\b", text, re.I
+    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL\s?(?:\d{2}C\d{5,6}(?!\d)|\d+))", text, re.I) or re.search(
+        r"\b(SHAKEL\s?(?:\d{2}C\d{5,6}|\d{8}))\b", text, re.I
     )
     if m:
         out["bl_no"] = re.sub(r"\s", "", m.group(1)).upper()
@@ -245,6 +245,20 @@ _TOK_BL_RX = re.compile(r"SHAKEL\s?\d{2}[0-9C]\d{3,6}|Q[DdbpBO0]EX\s?\d{7}")
 _SHAKEL_C_PHANTOM = re.compile(r"SHAKEL(\d{2})C\d(\d{5})(?!\d)")
 
 
+def _phantom_fix(tok_no: str, page_nos: list[str]) -> str:
+    """``SHAKEL26C072175`` from the one-line re-read: drop the glyph after the C
+    only when a page pass supports the 5-digit form (``SHAKEL26072175`` /
+    ``SHAKEL26C72175``, same last 5 digits). A genuine 6-digit C number (page
+    pass also has 6 digits after the C) is kept as read (Auditor round 2)."""
+    m = _SHAKEL_C_PHANTOM.fullmatch(tok_no)
+    if not m:
+        return tok_no
+    tail = m.group(2)
+    if any(re.fullmatch(rf"SHAKEL{m.group(1)}[0-9C]{tail}", p) for p in page_nos):
+        return f"SHAKEL{m.group(1)}C{tail}"
+    return tok_no
+
+
 def _token_reads(path: str, backend: str) -> dict:
     """Targeted re-reads of the face GW / B/L no (BHC 4th case1, 5th case1).
 
@@ -287,9 +301,8 @@ def _token_reads(path: str, backend: str) -> dict:
         for raw, rect in find_spans(words, _TOK_BL_RX)[:1]:
             for dpi, t in reread_clip(path, rect, whitelist="SHAKELQDEXC0123456789",
                                       pad=(0.5, 0.5, 0.5, 0.5)):
-                t = _SHAKEL_C_PHANTOM.sub(r"SHAKEL\1C\2", t)
                 m = (
-                    re.search(r"SHAKEL(\d{2}C\d{5}|\d{8})(?![\dC])", t)
+                    re.search(r"SHAKEL(\d{2}C\d{5,6}|\d{8})(?![\dC])", t)
                     or re.search(r"QDEX(\d{7})(?!\d)", t)
                 )
                 if m:
@@ -387,9 +400,9 @@ def _normalize_bhc_ref(ref: str) -> str:
 def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractResult:
     h = BLHeader(forwarder="T.V.L. Global Logistics Co., Ltd.")
 
-    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL(?:\d{2}C\d{5}(?!\d)|\d+))", text, re.I)
+    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL(?:\d{2}C\d{5,6}(?!\d)|\d+))", text, re.I)
     if not m:
-        m = re.search(r"\b(SHAKEL(?:\d{2}C\d{5}|\d+))\b", text, re.I)
+        m = re.search(r"\b(SHAKEL(?:\d{2}C\d{5,6}|\d+))\b", text, re.I)
     if m:
         h.bl_no = m.group(1).upper()
         h.hbl_no = h.bl_no
@@ -635,7 +648,8 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
     from pathlib import Path as _P
 
     fn = _P(path).stem.upper()
-    nos = [(tag, r["bl_no"]) for tag, r in reads if r["bl_no"]] + list(tok["bl_no"])
+    page_nos = [(tag, r["bl_no"]) for tag, r in reads if r["bl_no"]]
+    nos = page_nos + [(t, _phantom_fix(n, [p for _, p in page_nos])) for t, n in tok["bl_no"]]
     uniq = list(dict.fromkeys(n for _, n in nos))
     if len(uniq) > 1:
         (top, n_top), *rest_no = _C(n for _, n in nos).most_common()
