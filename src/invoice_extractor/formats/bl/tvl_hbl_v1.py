@@ -35,7 +35,7 @@ RULES_JSON = {
     "id": "tvl_hbl_v1",
     "doc_kind": "hbl",
     "header": {
-        "bl_no": r"B/L\s*NO\.?\s*(SHAKEL\d+)",
+        "bl_no": r"B/L\s*NO\.?\s*(SHAKEL(?:\d{2}C\d{5}|\d+))",
         "packages": r"SAY\s+TOTAL[:\s]+(?:ONE\s*\(1\)\s*)?(\d+)?\s*(?:PALLET|20.?GP|CARTONS)",
         "gross_weight_kg": r"([\d,]+\.\d+)\s*K?GS",
     },
@@ -125,7 +125,9 @@ _FACE_GW_RX = re.compile(r"(?<![\d,.])(\d{1,3}(?:,?\d{3})*[.,]\s?[\dOo]{3})\s*K[
 def _read_votes(text: str) -> dict:
     """One OCR pass → candidate reads for BL no / packages / GW (Result fields only)."""
     out: dict = {"bl_no": None, "say": [], "face_pkg": [], "rows": [], "face_gw": None}
-    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL\s?\d+)", text, re.I) or re.search(r"\b(SHAKEL\s?\d{8})\b", text, re.I)
+    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL\s?(?:\d{2}C\d{5}(?!\d)|\d+))", text, re.I) or re.search(
+        r"\b(SHAKEL\s?(?:\d{2}C\d{5}|\d{8}))\b", text, re.I
+    )
     if m:
         out["bl_no"] = re.sub(r"\s", "", m.group(1)).upper()
     else:
@@ -231,7 +233,16 @@ def _second_read(path: str, backend: str) -> str | None:
 
 # Weight token on the face ("3185.000KGS", "1498.500 KGS") and B/L no token.
 _TOK_GW_RX = re.compile(r"(?<![\d,.])\d[\d,.]*[.,]\s?[\dOo]{3}\s?K[GeE6][S53s]")
-_TOK_BL_RX = re.compile(r"SHAKEL\s?\d{6,9}|Q[DdbpBO0]EX\s?\d{7}")
+# Locator only (value is re-read): a face weight whose leading digits are mangled
+# ("s7es2.000KG8" for 17652.000KGS, BHC 6th case5) — used when the strict token
+# finds nothing.
+_TOK_GW_LOOSE_RX = re.compile(r"(?<![\w,.])\S{0,4}\d[.,]\s?[\dOo]{3}\s?K[GeE6][S538s]?")
+# Face package count under "No. of pkgs" ("71 CARTON", "60PACKAGES", "54 PKGS").
+_TOK_PKG_WORD = re.compile(r"CART|PALLET|PACKAGE|PKG|PLT", re.I)
+_TOK_BL_RX = re.compile(r"SHAKEL\s?\d{2}[0-9C]\d{3,6}|Q[DdbpBO0]EX\s?\d{7}")
+# BHC 6th: TVL numbers with a letter in the 3rd place (SHAKEL26C72175 / SHAKEL26C71898).
+# The single-line re-read may add a phantom glyph after the C ("26C072175").
+_SHAKEL_C_PHANTOM = re.compile(r"SHAKEL(\d{2})C\d(\d{5})(?!\d)")
 
 
 def _token_reads(path: str, backend: str) -> dict:
@@ -245,7 +256,7 @@ def _token_reads(path: str, backend: str) -> dict:
     face shows exactly ONE weight token (a single total); container-row faces
     (several weights) keep the row-sum vote.
     """
-    out: dict = {"gw": [], "bl_no": [], "note": None}
+    out: dict = {"gw": [], "bl_no": [], "pkg": [], "note": None}
     from pathlib import Path as _P
 
     from invoice_extractor.ocr import is_ocr_backend
@@ -260,6 +271,8 @@ def _token_reads(path: str, backend: str) -> dict:
             return out
         _txt, words = pw
         gw_spans = find_spans(words, _TOK_GW_RX)
+        if not gw_spans:
+            gw_spans = find_spans(words, _TOK_GW_LOOSE_RX)
         if len(gw_spans) == 1:
             raw, rect = gw_spans[0]
             for dpi, t in reread_clip(path, rect, whitelist="0123456789.,KGS"):
@@ -270,14 +283,52 @@ def _token_reads(path: str, backend: str) -> dict:
             out["note"] = f"GW token '{raw}' re-read: " + (", ".join(f"{s}={v:g}" for s, v in out["gw"]) or "none")
         elif len(gw_spans) > 1:
             out["note"] = f"{len(gw_spans)} weight tokens on face (container rows) — no token re-read"
+        out["pkg"] = _face_pkg_reads(path, words, find_spans, reread_clip)
         for raw, rect in find_spans(words, _TOK_BL_RX)[:1]:
-            for dpi, t in reread_clip(path, rect, whitelist="SHAKELQDEX0123456789",
+            for dpi, t in reread_clip(path, rect, whitelist="SHAKELQDEXC0123456789",
                                       pad=(0.5, 0.5, 0.5, 0.5)):
-                m = re.search(r"SHAKEL(\d{8})(?!\d)", t) or re.search(r"QDEX(\d{7})(?!\d)", t)
+                t = _SHAKEL_C_PHANTOM.sub(r"SHAKEL\1C\2", t)
+                m = (
+                    re.search(r"SHAKEL(\d{2}C\d{5}|\d{8})(?![\dC])", t)
+                    or re.search(r"QDEX(\d{7})(?!\d)", t)
+                )
                 if m:
                     out["bl_no"].append((f"tok{dpi}", m.group(0)))
     except Exception as e:  # OCR helper failure never breaks extraction
         out["note"] = f"token re-read failed: {e}"
+    return out
+
+
+def _face_pkg_reads(path: str, words, find_spans, reread_clip) -> list[tuple[str, float]]:
+    """Single-line re-reads of the face package count under ``No. of pkgs``
+    (BHC 6th: ``71 CARTON`` OCR'd as ``iTHCARTON``; ``60PACKAGES`` as
+    ``GOPACKAGES``; ``54 PKGS`` lost on the 300-dpi pass)."""
+    hdr = find_spans(words, re.compile(r"No[.,]?\s*of\s*pkgs", re.I))
+    if not hdr:
+        return []
+    hx0, hy0, hx1, hy1 = hdr[0][1]
+    hh = max(1.0, hy1 - hy0)
+    cands = [
+        w for w in words
+        if hy1 < w.y0 < hy1 + 8 * hh and _TOK_PKG_WORD.search(w.text)
+        and w.x0 < hx1 + 4 * hh and w.x1 > hx0 - 6 * hh
+    ]
+    if not cands:
+        return []
+    cands.sort(key=lambda w: (w.y0, w.x0))
+    unit = cands[0]
+    same = [w for w in words if w.line == unit.line and w.x1 <= unit.x0 + 0.5 and unit.x0 - w.x1 < 3 * hh]
+    x0 = min([unit.x0] + [w.x0 for w in same])
+    rect = (x0, unit.y0, unit.x1, unit.y1)
+    out: list[tuple[str, float]] = []
+    for dpi, t in reread_clip(path, rect, whitelist="0123456789 ACEGKLNOPRST",
+                              pad=(0.8, 0.4, 0.3, 0.4)):
+        # the clip OCR still reads 6 as G / 0 as O ("GOPACKAGES" = 60PACKAGES)
+        m = re.search(r"(?<![A-Z0-9])([0-9GOSBIZ]{1,4})\s*(CARTONS?|PALLETS?|PACKAGES?|PKGS?|PLTS?)\b", t)
+        if m:
+            fx = m.group(1).translate(_DIGIT_FIX).replace("G", "6")
+            if fx.isdigit() and int(fx) > 0:
+                out.append((f"tok{dpi}", float(fx)))
     return out
 
 
@@ -336,9 +387,9 @@ def _normalize_bhc_ref(ref: str) -> str:
 def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractResult:
     h = BLHeader(forwarder="T.V.L. Global Logistics Co., Ltd.")
 
-    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL\d+)", text, re.I)
+    m = re.search(r"B/L\s*NO\.?\s*(SHAKEL(?:\d{2}C\d{5}(?!\d)|\d+))", text, re.I)
     if not m:
-        m = re.search(r"\b(SHAKEL\d+)\b", text, re.I)
+        m = re.search(r"\b(SHAKEL(?:\d{2}C\d{5}|\d+))\b", text, re.I)
     if m:
         h.bl_no = m.group(1).upper()
         h.hbl_no = h.bl_no
@@ -622,6 +673,15 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
                 gw_reads.append((f"rows_{t}", wsum))
                 if all(c is not None for c, _ in rows):
                     pkg_reads.append((f"rows_{t}", float(sum(c for c, _ in rows))))
+    # face package count re-read as one line (needs ≥2 agreeing clip reads)
+    tok_pkg = list(tok.get("pkg") or [])
+    if tok_pkg:
+        tb, tok_pok, _ = _vote(tok_pkg)
+        # the clip re-reads the FACE count only: it may corroborate a SAY /
+        # slash-row read or stand in when there is none, but never outvote a
+        # SAY total (BHC 5th case1: face "18 PALLETS" vs SAY SIX (6)).
+        if tok_pok and (not pkg_reads or tb in {v for _, v in pkg_reads}):
+            pkg_reads += tok_pkg
     others = {v for _, v in pkg_reads}
     for t, r in reads:
         for fp in r["face_pkg"]:

@@ -85,7 +85,10 @@ def extract_from_text(
         amount = us_float(m_tot.group(2))
 
     m_inc = re.search(r"(FOB\s+NINGBO)", text, re.I)
-    incoterm = m_inc.group(1).upper() if m_inc else None
+    if not m_inc:
+        # BHC 6th FT00044339 ships from Shenzhen ("FOB SHENZHEN")
+        m_inc = re.search(r"\b(FOB\s+(?:SHENZHEN|SHANGHAI|SHEKOU|NINGBO))\b", text, re.I)
+    incoterm = re.sub(r"\s+", " ", m_inc.group(1)).upper() if m_inc else None
 
     items: list[Item] = []
     # Map PN prefixes to rough descriptions from nearby headers
@@ -169,6 +172,28 @@ def extract_from_text(
         meta.confidence = "needs_gold"
         meta.needs_gold = True
     return ExtractResult(header=header, items=items, meta=meta)
+
+
+def parse_packing(text: str) -> dict | None:
+    """Split-PKL overlay hook (``标准_结汇装箱单FT000443xx`` PDF / .xlsx).
+
+    Total row ``TOTAL:35PACKAGES  6140 PCS  4676  3083  37.58`` (.xlsx) or the
+    PDF layout with ``6140 PCS 4676.00 3083.00 37.58`` one line above
+    ``TOTAL:35PACKAGES`` → pkg = packages / pallets, GW = the G.W column.
+    """
+    m_pk = re.search(r"TOTAL:?\s*(\d+)\s*(PALLETS?|PACKAGES?|CTNS?|CARTONS?|CASES?)", text, re.I)
+    if not m_pk:
+        return None
+    pkg = float(m_pk.group(1))
+    row = r"([\d,]+)\s*PCS\s+([\d,]+(?:\.\d+)?)\s+([\d,]+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)\s*$"
+    gw = None
+    m = re.search(r"(?im)^TOTAL:?\s*\d+\s*[A-Z]+\s+" + row, text)
+    if not m:
+        # PDF: sum row on the line just above "TOTAL:nnPALLETS"
+        m = re.search(r"(?im)^\s*" + row + r"\s*\n[^\n]*TOTAL:?\s*\d+\s*[A-Z]+\s*$", text)
+    if m:
+        gw = us_float(m.group(2))
+    return {"pkg": pkg, "gw": gw, "units": None, "note": None}
 
 
 def extract(path: str, text: str, backend: str, needs_ocr: bool) -> ExtractResult:

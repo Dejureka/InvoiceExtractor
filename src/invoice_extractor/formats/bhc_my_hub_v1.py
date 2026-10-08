@@ -141,7 +141,7 @@ def _incoterm(text: str) -> str | None:
 
 
 def _parse_items(
-    text: str, invoice_no: str | None, currency: str | None
+    text: str, invoice_no: str | None, currency: str | None, *, excel: bool = False
 ) -> list[Item]:
     items: list[Item] = []
     lines = text.splitlines()
@@ -162,7 +162,19 @@ def _parse_items(
         if not m:
             i += 1
             continue
-        desc = re.sub(r"\s{2,}", " ", m.group("desc")).strip()
+        pn = m.group("pn")
+        desc = m.group("desc")
+        # Excel twin keeps the PDF column gaps inside one cell (BHC 6th case5
+        # ``RAM-18GSD   C          SF RAM,RAS``): the widest gap (≥4 spaces)
+        # inside the PN match is the PN│DESCRIPTION border → PN ``RAM-18GSD C``.
+        # Excel input only: PDF outputs of earlier audited batches stay as they were.
+        gaps = list(re.finditer(r"\s{4,}", pn)) if excel else []
+        if gaps:
+            g = max(gaps, key=lambda g: len(g.group(0)))
+            desc = f"{pn[g.end():]} {desc}"
+            pn = pn[: g.start()]
+            pn = re.sub(r"\s{2,}", " ", pn).strip()
+        desc = re.sub(r"\s{2,}", " ", desc).strip()
         # peel parenthetical continuation on next line if present
         nxt = i + consumed
         if nxt < len(lines) and re.match(r"^\s*\(", lines[nxt]):
@@ -172,7 +184,7 @@ def _parse_items(
         items.append(
             Item(
                 invoice_no=invoice_no,
-                part_no=m.group("pn"),
+                part_no=pn,
                 description=desc or None,
                 qty=us_float(m.group("qty")),
                 unit="PCS",
@@ -199,7 +211,7 @@ def extract_from_text(
     amount = _totals(text)
     currency = "USD"
     incoterm = _incoterm(text)
-    items = _parse_items(text, invoice_no, currency)
+    items = _parse_items(text, invoice_no, currency, excel=str(text_backend).startswith("excel"))
     total_qty = sum(it.qty or 0.0 for it in items) if items else None
     header = Header(
         invoice_no=invoice_no,

@@ -30,6 +30,14 @@ _FN_COMBINED_HINT = re.compile(r"合訂|combined|inv.?pkl|invoice.?pack", re.I)
 # IV = invoice abbr (e.g. "IV PL.pdf"); CI = commercial invoice (BHC 4th "CI PL MDBWH….pdf")
 _INV_TOKENS = frozenset({"INV", "INVOICE", "IV", "CI"})
 _PKL_TOKENS = frozenset({"PKL", "PL", "PACKING", "PACK", "PACKLIST"})
+# Glued "PACKINGLIST-TB20260910.xls" (BHC 6th case1/2) counts as a PKL tag only
+# when no INV tag is present — "TAWA-26024(260921)Invoice & Packinglist.pdf"
+# (BHC 5th case3) stays an invoice-led file as before.
+_PKL_GLUED_TOKEN = "PACKINGLIST"
+# Chinese role words inside filename tokens (BHC 6th: ``标准_结汇发票FT00044339.pdf``,
+# ``标准_结汇装箱单FT00044339.xlsx``, ``26HLHK01Q4010-发票箱单.xlsx``).
+_FN_ZH_INV = re.compile(r"发票|發票")
+_FN_ZH_PKL = re.compile(r"装箱单|裝箱單|箱单|箱單")
 
 
 def _filename_tokens(name: str) -> set[str]:
@@ -49,7 +57,9 @@ _MA_BATCH = re.compile(r"(?<![A-Za-z0-9])(90-[A-Z]+-\d{2}MA-\d{3})(?![A-Za-z0-9]
 
 _TEXT_INV = re.compile(
     r"\b(?:COMMERCIAL\s+INVOICE|INVOICE\s+NUMBER|INVOICE\s+NO\.?|DOCUMENT\s+NO\.?|"
-    r"GOODS\s+VALUE|TOTALS:|PART\s+NO|NET\s+INVOICED\s+VALUE)\b",
+    r"GOODS\s+VALUE|TOTALS:|PART\s+NO|NET\s+INVOICED\s+VALUE|"
+    # letter-spaced title (BHC 6th case10 Saginomiya "I N V OI C E")
+    r"I\s+N\s+V\s*O\s*I\s*C\s*E)\b",
     re.I,
 )
 _TEXT_PKL = re.compile(
@@ -184,8 +194,10 @@ def classify_role(
     name = path.name
     keys = pairing_keys_from_path(path)
     tokens = _filename_tokens(name)
-    fn_inv = bool(tokens & _INV_TOKENS)
-    fn_pkl = bool(tokens & _PKL_TOKENS)
+    fn_inv = bool(tokens & _INV_TOKENS) or bool(_FN_ZH_INV.search(Path(name).stem))
+    fn_pkl = bool(tokens & _PKL_TOKENS) or bool(_FN_ZH_PKL.search(Path(name).stem))
+    if not fn_pkl and not fn_inv and _PKL_GLUED_TOKEN in tokens and not re.search(r"INVOICE", name, re.I):
+        fn_pkl = True
     fn_combined = bool(_FN_COMBINED_HINT.search(name))
 
     # BL / arrival / HBL first (avoid mistaking "HBL draft …" as unknown)
@@ -332,6 +344,10 @@ def _attach_shared_pkl(rows: list[PairRow], pkls: list[FileRole]) -> list[PairRo
     return rows
 
 
+def _suffix_family(path: Path) -> str:
+    return "excel" if path.suffix.lower() in _EXCEL_SUFFIXES else path.suffix.lower()
+
+
 def _bl_rank(bl_path: Path) -> tuple[int, int]:
     d = _extract_bl_cached(bl_path)
     h = d.get("header") or {}
@@ -445,7 +461,11 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
             sc = _shared_match_score(inv.keys, pkl.keys, same_dir=same_dir)
             if sc >= 4.0 or (same_dir and sc >= 1.5):
                 candidates.append((sc, inv, pkl))
-    candidates.sort(key=lambda t: (-t[0], t[1].path.name, t[2].path.name))
+    # Tie-break: PDF↔PDF / Excel↔Excel twins first (BHC 6th case3/11 FT000443xx)
+    candidates.sort(
+        key=lambda t: (-t[0], _suffix_family(t[1].path) != _suffix_family(t[2].path),
+                       t[1].path.name, t[2].path.name)
+    )
 
     for sc, inv, pkl in candidates:
         if inv.path in used_inv or pkl.path in used_pkl:
@@ -699,6 +719,16 @@ def parse_packing_pkg_gw(text: str) -> tuple[float | None, float | None]:
     # "1-3   3   TOTAL   52   715.5   867   7.863" → pkg=3, gw=867
     m = re.search(
         r"(?im)^\s*\S+\s+(\d+)\s+TOTAL\s+[\d.,]+\s+[\d.,]+\s+([\d.,]+)\s+[\d.,]+\s*$",
+        text,
+    )
+    if m:
+        return float(m.group(1)), us_float(m.group(2))
+    # Same factory PKL read by OCR (BHC 6th case4, rotated scan): packing style
+    # before TOTAL and stray ")" / "|" after cells —
+    # "1-2 2 CASE TOTAL 40) 700.0 786.0) 6.844)" → pkg=2, gw=786
+    m = re.search(
+        r"(?im)^\s*\S+\s+(\d+)\s+(?:CASES?|PALLETS?|CTNS?|PKGS?)\s+TOTAL\s+"
+        r"[\d.,]+[)|]?\s+[\d.,]+[)|]?\s+([\d.,]+)[)|]?\s+[\d.,]+[)|]?\s*$",
         text,
     )
     if m:

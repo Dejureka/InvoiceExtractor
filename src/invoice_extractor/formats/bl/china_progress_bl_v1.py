@@ -70,6 +70,9 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
     m = re.search(r"B/L\s+NUMBER\s+(NBSE\w+)", text, re.I)
     if not m:
         m = re.search(r"\b(NBSE\w+)\b", text, re.I)
+    if not m:
+        # Shenzhen office numbers (BHC 6th case3 ``CPSE26090321``)
+        m = re.search(r"\b((?:CPSE|SZSE)\d{8})\b", text)
     if m:
         h.bl_no = m.group(1).upper()
         h.hbl_no = h.bl_no
@@ -101,6 +104,12 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
     if m:
         h.packages = float(m.group(1))
         h.package_unit = "PALLETS"
+    else:
+        # BHC 6th case3: container line "35PACKAGES/4676.000KGS/37.580CBM"
+        m = re.search(r"(\d+)\s*(PACKAGES|CARTONS|CTNS|CASES)\s*/\s*[\d,]+\.\d{3}\s*KGS", text, re.I)
+        if m:
+            h.packages = float(m.group(1))
+            h.package_unit = m.group(2).upper()
 
     m = re.search(r"([\d,]+\.\d{3})\s*KGS", text, re.I)
     if m:

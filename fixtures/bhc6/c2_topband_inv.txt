@@ -1,0 +1,45 @@
+Issuer：
+SHENZHEN TOPBAND CO., LTD
+ADD: TOPBAND INDUSTRIAL PARK, LIYUAN
+INDUSTRIAL ZONE,SHIYAN, BAO'AN
+DISTRICT, SHENZHEN, CHINA 518102             COMMERCIAL INVOICE
+PIC:CHERRY LONG
+TEL:86 (755) 2765 1888 ext. 2480
+EMAIL:longdm@topband.com.cn
+
+Bill to:                                     PO NO：
+                                             INVOICE NO:                 TB20261004
+Bosch Home Comfort Taiwan CO., LTD.
+ADD: 338012 No. 29, Neixi Rd., Luzhu Dist.,  DATE:                       2026/10/4
+Taoyuan City, Taiwan, China
+                                             Country of Origin：          MADE IN CHINA
+PIC:Mr. Ming Hsuan Hsiao TEL: 03-3244711 EXT
+375                                          Incoterms：                  FOB SHENZHEN
+EMAIL: minghsuan.hsiao@bosch-hcgroup.com
+                                             Terms of payment            By T/T
+                                                                         Quantity Unit Price      Amount
+  Item       PO NO        DRAWING NO            Description of goods
+                                                                         (SETS)    (USD)           (USD)
+    1       P10060183        1FA14189B         the airconditioner PCBA      5120       40.3919    206806.53
+
+    2       P10061455        2FA38011C              MAIN PCB AS              340        16.73      5688.20
+
+    3       P80016721        2FA38011B             MAIN PCB AS.             5667       15.2563    86457.45
+
+    4       P10060656        2FA38011B             MAIN PCB AS.              57        15.2563     869.61
+
+    5       P10060183        1FA14189B         the airconditioner PCBA      1664       40.3919    67212.12
+
+    6       P10061214        1FA15074A         the airconditioner PCBA       80         55.55      4444.00
+
+    7       P80016950        1AH14134B         the airconditioner PCBA       32        18.9461     606.28
+
+
+
+
+                                                                         TOTAL:       USD 372,084.19
+
+
+
+***SAY USD
+

@@ -12,6 +12,11 @@ of the description / weight block are noisy (``C0 PALLETS``, ``998, 000``,
 agreeing reads (strict majority) or it is ``needs_gold`` with the suggested
 value kept for the Summary BL columns.
 
+BHC 6th (2026-10-08): same JIFFA model form issued by OCEAN LINKS LTD. for
+Saginomiya (case10 scan ``20260929202543-0001.pdf``, waybill ``KLG-T268Y98``,
+``1 CONTAINER<5 PALLETS(131 CARTONS)>`` / 1,460.900 KGS, Yokohama → Keelung);
+HIPUS ``4 PALLETS(8,959 PIECES) & 2 CASES`` / ``1 CONTAINER<6 PACKAGES>`` = 6.
+
 Rule (user, 2026-09-29): only Result fields — BL No. / BL Packages / BL G.W.
 """
 
@@ -28,6 +33,7 @@ MATCH_HINTS = {
     "keywords": [
         "Japan International",
         "COSMO TRANS LINE",
+        "OCEAN LINKS LTD",
         "JIFFA MODEL FORM",
         "Waybill No.",
         "SHIPPER'S LOAD & COUNT SAID TO CONTAIN",
@@ -59,7 +65,9 @@ RULES_JSON = {
         "bl_no": r"\d{6}KEE\d{3} (spaces stripped)",
         "packages_votes": [
             r"(\d+)\s*PALLETS?\s*\(\s*[\d,]+\s*PIECES",
-            r"CONTAINER\s*<\s*(\d+)\s*PALLETS",
+            r"CONTAINER\s*<\s*(\d+)\s*(?:PALLETS|PACKAGES)",
+            r"N PALLETS(… PIECES) & M CASES → N+M",
+            r"SAY : ONE(1)PALLET ONLY",
             r"CASE NO\.\s*(?:\d+\s*-\s*)?(\d+)  (attached sheet, last)",
         ],
         "gw_votes": [r"(\d{1,3}(?:,\s?\d{3})+\.\s?\d{3})|(\d{1,3}[,.]\s?\d{3})(?=\s|$)"],
@@ -67,6 +75,8 @@ RULES_JSON = {
 }
 
 _BL_RE = re.compile(r"(\d[\d ]{5,8})\s*K\s*E\s*E\s*(\d[\d ]{2,4})")
+# Ocean Links waybill no "KLG-T268Y98"
+_BL_OL_RE = re.compile(r"\b(KLG\s?-\s?[A-Z0-9]{7,8})\b")
 
 
 def match_score(text: str, filename: str = "") -> float:
@@ -76,6 +86,8 @@ def match_score(text: str, filename: str = "") -> float:
         score += 0.3
     if "COSMO TRANS LINE" in t:
         score += 0.3
+    if "OCEAN LINKS" in t:
+        score += 0.4
     if "JIFFA" in t or "IFFA MODEL FORM" in t:
         score += 0.15
     if "WAYBILL" in t.replace(" ", ""):
@@ -94,6 +106,8 @@ def _bl_nos(text: str) -> list[str]:
         b = m.group(2).replace(" ", "")
         if len(a) == 6 and len(b) == 3:
             out.append(f"{a}KEE{b}")
+    for m in _BL_OL_RE.finditer(text):
+        out.append(re.sub(r"\s", "", m.group(1)))
     return out
 
 
@@ -110,8 +124,15 @@ def _vote(reads: list[tuple[str, float | None]]) -> tuple[float | None, bool, st
     return best, confident, detail
 
 
+_SAY_WORDS = {
+    "ONE": 1, "TWO": 2, "THREE": 3, "FOUR": 4, "FIVE": 5, "SIX": 6, "SEVEN": 7,
+    "EIGHT": 8, "NINE": 9, "TEN": 10, "ELEVEN": 11, "TWELVE": 12,
+}
+
 _GW3_RX = re.compile(r"(?<![\d,.])(\d{1,3})[,.]\s?(\d{3})[,.]\s?(\d{3})(?![\d])")
 _DIG = str.maketrans({"O": "0", "o": "0", "I": "1", "l": "1"})
+# count glyph inside "CONTAINER<S PALLETS" (OCR S = 5, BHC 6th case10)
+_DIG_CNT = str.maketrans({"O": "0", "o": "0", "I": "1", "l": "1", "S": "5"})
 
 
 def _gw3(s: str) -> float | None:
@@ -126,12 +147,29 @@ def _pass_reads(text: str, tag: str) -> tuple[list, list, list]:
     pk: list[tuple[str, float | None]] = []
     # "16 PALLETS (4,815 PIECES)"; cleaned pass may break the line before "(" and
     # prefix a stray glyph ("Bo 16 PALLETS\na (4,815 PIECES)", "¢10 PALLETS(31, 670")
-    m = re.search(r"\b(\d{1,3})\s*PALLETS?\s*(?:\n[^\n(]{0,4})?\(\s*[\d,\s]+PIECES", text, re.I)
+    m = re.search(r"\b(\d{1,3})\s*PALLETS?\s*(?:\n[^\n(]{0,4})?\(\s*[\d,\s]+(?:PIECES|CARTONS)\s*\)?", text, re.I)
     if m and int(m.group(1)) > 0:
-        pk.append((f"pallets(pieces)_{tag}", float(m.group(1))))
-    m = re.search(r"CONTAINER\s*[<(]\s*([\dOoIl]{1,3})\s*PALLETS", text, re.I)
-    if m and m.group(1).translate(_DIG).isdigit():
-        pk.append((f"container<pallets_{tag}", float(m.group(1).translate(_DIG))))
+        n = int(m.group(1))
+        # BHC 6th case9: "4 PALLETS(8,959 PIECES) & 2 CASES" → 6 packages
+        mc = re.match(r"\s*&\s*(\d{1,3})\s*(?:CASES?|CARTONS?|CRATES?|SKIDS?)\b", text[m.end():], re.I)
+        if mc:
+            n += int(mc.group(1))
+        pk.append((f"pallets(pieces)_{tag}", float(n)))
+    m = re.search(r"CONTAINER\s*[<(]\s*([\dOoIlS]{1,3})\s*(?:PALLETS|PACKAGES)", text, re.I)
+    if m and m.group(1).translate(_DIG_CNT).isdigit():
+        pk.append((f"container<pallets_{tag}", float(m.group(1).translate(_DIG_CNT))))
+    # BHC 6th case8: "SAY :ONE(1)PALLET ONLY." (OCR "ONE(IDPALLET", "0NE(1)PALLET")
+    m = re.search(
+        r"SAY\s*:?\s*([A-Z0]{3,9})\s*\(\s*([\dIlD]{1,3})\s*\)?\s*(?:PALLETS?|PACKAGES?|CASES?)\b",
+        text,
+    )
+    if m:
+        w = _SAY_WORDS.get(m.group(1).replace("0", "O"))
+        d = m.group(2).translate(_DIG).replace("D", "")
+        if w:
+            pk.append((f"say_words_{tag}", float(w)))
+        elif d.isdigit() and int(d) > 0:
+            pk.append((f"say_digits_{tag}", float(d)))
     cases = re.findall(r"CASE\s*NO\.?\s*(?:\d{1,3}\s*-\s*)?(\d{1,3})\b", text, re.I)
     if cases:
         pk.append((f"attached_sheet_last_case_no_{tag}", float(max(int(x) for x in cases))))

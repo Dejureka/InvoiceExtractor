@@ -1,0 +1,58 @@
+                                                                                                                                           Invoice
+
+ Consignee:                                                                          Invoice Number:          Invoice Date:                 Page:
+   Bosch Home Comfort Taiwan Co., Ltd.                                                  9027850165               01.10.2026                 1/1
+   No. 63 NANKING EAST ROAD,SEC,3
+                                                                                                     FD0C4TZ2AF77VP875P1ESV3M10
+   TAIPEI 10636
+   TAIWAN
+                                                                                     Supplier Reference: 10226901
+
+
+
+ Notify:                                                                             Terms of Payment:
+   CEVA FREIGHT (TAIWAN) CO., LTD.                                                      NT30, Net Due 30 Days from Invoice Date
+   11F., NO.10, SEC. 3, MINSHENG E. RD
+   ZHONGSHAN DIST.,                                                                    CIF Taipei
+   TAIPEI CITY 104511
+   TAIWAN                                                                              WAN HAI 321 N069
+
+
+ Bill To / Accountee:                                                                  On: 01 OCT 2026
+    Bosch Home Comfort Taiwan Co., Ltd.                                                From: Port Klang, MY
+    No. 63 NANKING EAST ROAD,SEC,3                                                     To: Keelung, TW
+    TAIPEI 10636
+    TAIWAN
+
+
+
+ PART NO                       DESCRIPTION               HS CODE COO           PO NO                LINE NO    QUANTITIES UNIT PRICE TOTAL AMOUNT
+                                                                                                                  (UNITS)     (USD)           (USD)
+
+ RPK-GP56K3M B                 SF RPK-GP56KH3MB                     Malaysia   P80016824             10          40.00 PCS        505.29        20,211.60
+
+
+
+
+ SHIPPING MARKS: N/M                                                                                                          TOTALS:           20,211.60
+
+
+
+
+                                                                    FD0C4TZ2AF77VP875P1ESV3M10
+
+
+
+
+ "Diversion Contrary to U.S. Law is prohibited"
+
+
+
+Bosch Home Comfort Supply (M) Sdn. Bhd.                               MY-HUB FINANCE                           Company Reg.No.: 201501017357(1142691-U)
+                                                                                                               OS ICP Code: BL4330999999999
+(formerly Johnson Controls Air Conditioning Supply (M) Sdn. Bhd.)                                              E&OE
+Jalan Wisma Pantai, Kg. Gajah,
+G-01, Ground Floor, Wisma Pantai,
+Butterworth
+12200                                                                  (CHLOE LEE)
+

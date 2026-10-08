@@ -91,7 +91,9 @@ def match_score(text: str, filename: str = "") -> float:
         score += 0.3
     if "GLOBAL LIFE SOLUTIONS" in text:
         score += 0.4
-    if re.search(r"Invoice\s+No\.?\s+MEH", text, re.I):
+    if re.search(r"Invoice\s+No\.?\s+MEH", text, re.I) or re.search(
+        r"Invoice\s+No\.[^\n]*\n[^\n]*?\bMEH[0-9A-Z]{4,}", text, re.I
+    ):
         score += 0.25
     if "JAPANESE YEN" in text or "J¥" in text:
         score += 0.1
@@ -108,6 +110,11 @@ def extract_from_text(
     needs_ocr: bool = False,
 ) -> ExtractResult:
     m_inv = re.search(r"Invoice\s+No\.?\s*:?\s*(MEH\w+)", text, re.I)
+    if not m_inv:
+        # BHC 6th MEH6K018: "Invoice No.      Date" header line, value below.
+        m_inv = re.search(
+            r"Invoice\s+No\.[^\n]*\n[^\n]*?\b(MEH[0-9A-Z]{4,})\b", text, re.I
+        )
     invoice_no = m_inv.group(1) if m_inv else None
 
     m_date = re.search(
@@ -205,6 +212,11 @@ def extract_from_text(
                 md = re.search(r"(ACCESSORY\s*:\s*.+?)\s*$", nxt, re.I)
                 if md:
                     desc = re.sub(r"\s+", " ", md.group(1))
+                elif re.fullmatch(r"[A-Z][A-Z0-9 /.\-]{2,}", nxt) and not re.match(
+                    r"P\d{6,}", nxt
+                ):
+                    # MEH6K018 spare parts: plain description below the row.
+                    desc = re.sub(r"\s+", " ", nxt)
             pn = m.group("pn").upper()
             items.append(
                 Item(

@@ -1,0 +1,98 @@
+=== Sheet: contact ===
+
+
+CONTRACT
+
+THE BUYER:Bosch Home Comfort Taiwan Co., Ltd.	No.: WLA26322-3
+ADDRESS: N0.29 Neixi Rd.,Luzhu Dist.,Taoyuan City 338,Taiwan	Date:SEP 21, 2026
+THE SELLER:  WOLONG ELECTRIC GROUP CO., LTD
+ADDRESS: NO. 1801, RENMIN WEST ROAD, SHANGYU CITY, ZHEJIANG PROVINCE,  CHINA, 312300
+FROM: SHANGHAI  CHINA                                               TO: TAIWAN CHINA
+FOB
+MARK & NOS	DESCRIPTIONS	QTY	UNIT	UNIT PRICE	AMOUNT
+N/M	MOTOR   8501310090
+ZWB4710L25A 220W	2NB38435A	PCS	23.35	0
+ZWB4710L06AL 250W	2NB39071B	PCS	0
+ZWB4710L07AL 250W	2NB39071A	PCS	0
+MOTOR
+ZWB4710L08AL 250W	2NB39072B	240	PCS	18.23	4375.2
+MOTOR
+ZWB4710L09AL 250W	2NB39072A	240	PCS	17.82	4276.8
+TOTAL:	480	PCS	8652
+SAY TOTAL US DOLLARS FOUR THOUSAND THREE HUNDRED AND TWENTY TWENTY SIX  ONLY.
+(1) Terms of payment: T/T 60 days
+(2) Arbitration: Any dispute arising from the execution of, or in connection with, this Contract should be settled through negotiation. In case no settlement can be reached, the case shall then be submitted to the Foreign Trade Arbitration Commission of the China Council for the Promotion of International trade, Peking, for settlement by arbitration in accordance with the Commission’s Provisional Pulse of Procedure. The award rendered by the Commission shall be final and binding on both parties.
+REMARKS
+(1) The Buyers shall establish the covering Letter of Credit before the stipulated time, falling which the seller reserves the right to required without further notice, or any part of this sales contract non fulfilled by the buyers, or to lodge a claim for direct losses sustained if any.
+(2)For transactions concluded on CIF basis, it is understood that the insurance amount will be for 110% of the invoice value against the risks specified in the Sales Contract, if additional insurance amount or coverage is required, the Buyers must have the consent of the Seller before Shipment, and the additional premium is to be borne by the Buyer.
+(3) QUALITY/QUANTITY DISCREPANCY, in case of quality discrepancy, the Buyer should file claim within 30 days after the arrival of the goods at port of destination, while for quantity discrepancy, claim should be filed by the Buyer 15 days after the arrival of the goods at port of destination. It is understood that the seller shall not be liable for any discrepancy of the goods shipped due to causes for which the Insurance Company, shipping company, other transportation organization/ or Post office is liable.
+
+(4)The seller shall not be held liable for failure of delay in delivery of the entire lot or a portion of the goods under this Sales Contract in consequence of any Force  incidents.
+(5)The Buyer is requested to sign and return one copy of this sales contract immediately after receipt of the same objection, if any should be raised by the buyer within five days after the receipt of this sales contract in the absence of which it is understood that the buyer has accepted the terms and conditions of the sales contract.
+
+THE BUYER:	THE SELLER:
+
+=== Sheet: invoice ===
+
+
+COMMERCIAL INVOICE
+
+THE BUYER:Bosch Home Comfort Taiwan Co., Ltd.	No.: WLA26322-3
+ADDRESS: N0.29 Neixi Rd.,Luzhu Dist.,Taoyuan City 338,Taiwan	Date:SEP 21, 2026
+THE SELLER:  WOLONG ELECTRIC GROUP CO., LTD
+ADDRESS: NO. 1801, RENMIN WEST ROAD, SHANGYU CITY, ZHEJIANG PROVINCE,  CHINA, 312300
+FROM: SHANGHAI  CHINA                                               TO: TAIWAN CHINA
+FOB
+MARK & NOS	DESCRIPTIONS	QTY	UNIT	UNIT PRICE	AMOUNT
+N/M	MOTOR   8501310090
+ZWB4710L25A 220W	2NB38435A	PCS	23.35	0
+ZWB4710L06AL 250W	2NB39071B	PCS	0
+ZWB4710L07AL 250W	2NB39071A	PCS	0
+MOTOR
+ZWB4710L08AL 250W	2NB39072B	240	PCS	18.23	4375.2
+MOTOR
+ZWB4710L09AL 250W	2NB39072A	240	PCS	17.82	4276.8
+TOTAL:	480	PCS	8652
+SAY TOTAL US DOLLARS FOUR THOUSAND THREE HUNDRED AND TWENTY TWENTY SIX  ONLY.
+
+
+P10062318	2NB39072A	120
+P10062318	2NB39072A	120
+P10062318	2NB39072B	120
+P10062318	2NB39072B	120
+
+=== Sheet: packing list ===
+
+
+PACKING LIST
+
+THE BUYER:Bosch Home Comfort Taiwan Co., Ltd.	No.: WLA26322-3
+ADDRESS: N0.29 Neixi Rd.,Luzhu Dist.,Taoyuan City 338,Taiwan	Date:SEP 21, 2026
+THE SELLER:  WOLONG ELECTRIC GROUP CO., LTD
+ADDRESS: NO. 1801, RENMIN WEST ROAD, SHANGYU CITY, ZHEJIANG PROVINCE,  CHINA, 312300
+
+FROM: SHANGHAI  CHINA                                               TO: TAIWAN CHINA
+FOB
+MARK & NOS	DESCRIPTIONS	PACKING	QTY	N.W.	G.W.	MEAS.PER
+N/M	MOTOR   8501310090	PCS	KG	KG	M3	MM
+0	ZWB4710L25A 220W	2NB38435A	120PCS/PALLET	0	0	0	1130*950*800
+0	ZWB4710L06AL 250W	2NB39071B	120PCS/PALLET	0	0	0	1130*950*1070
+0	ZWB4710L07AL 250W	2NB39071A	120PCS/PALLET	0	0	0	1130*950*1070
+2	MOTOR
+ZWB4710L08AL 250W	2NB39072B	120PCS/PALLET	240	820.8	920.8	2.298	1130*950*1070
+2	MOTOR
+ZWB4710L09AL 250W	2NB39072A	120PCS/PALLET	240	820.8	920.8	2.3	1130*950*1070
+4	TOTAL:	480	1641.6	1841.6	4.598
+TOTAL:ALL  MOTORS ARE PUT INTO 4 PALLETS.
+
+=== Sheet: 申报要素 ===
+申报要素
+商品描述：用于空调的电动机
+HS编码：8501310090
+品牌：WOLONG,境内自主品牌
+输出功率：250W
+直流电动机：是
+出口货物不确定在最终目的国享受优惠关税
+型号：
+ZWB4710L08AL 250W
+ZWB4710L09AL 250W

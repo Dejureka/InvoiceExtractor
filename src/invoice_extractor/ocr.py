@@ -10,6 +10,7 @@ format_id.
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -103,10 +104,12 @@ def tesseract_available() -> bool:
     return find_tesseract() is not None
 
 
-def _run_tesseract(img: Path, out_base: Path, *, lang: str, tess_bin: Path) -> str:
+def _run_tesseract(
+    img: Path, out_base: Path, *, lang: str, tess_bin: Path, psm: str = "6"
+) -> str:
     env = _tesseract_env(tess_bin)
 
-    cmd = [str(tess_bin), str(img), str(out_base), "-l", lang, "--psm", "6"]
+    cmd = [str(tess_bin), str(img), str(out_base), "-l", lang, "--psm", psm]
     proc = subprocess.run(
         cmd,
         capture_output=True,
@@ -181,6 +184,56 @@ def render_pdf_pages(pdf_path: Path, out_dir: Path, dpi: int = DEFAULT_DPI) -> l
         return _render_pages_pdftoppm(pdf_path, out_dir, dpi)
 
 
+# A page whose OCR is mostly noise (e.g. a landscape packing list scanned
+# sideways — BHC 6th case4 ``10226901_PL.pdf``) is re-read rotated 90°/270°.
+ROTATE_RETRY_RATIO = 0.30
+ROTATE_ACCEPT_RATIO = 0.45
+_GOOD_TOKEN = re.compile(r"[A-Za-z]{3,}[.,:]?|\d[\d,.]*")
+
+
+def ocr_readability(text: str) -> tuple[int, float]:
+    """``(good_tokens, good_ratio)`` — words with a vowel or plain numbers."""
+    toks = text.split()
+    good = 0
+    for t in toks:
+        if _GOOD_TOKEN.fullmatch(t) and (t[0].isdigit() or re.search(r"[AEIOUaeiou]", t)):
+            good += 1
+    return good, good / max(1, len(toks))
+
+
+def _rotated_retry(
+    pdf_path: Path, page_index: int, tdir: Path, *, lang: str, dpi: int, tess_bin: Path
+) -> str | None:
+    """Best OCR of the page rotated 90/270 (psm 6 and 4), or None."""
+    try:
+        import pymupdf
+    except Exception:
+        return None
+    best: tuple[int, str] | None = None
+    doc = pymupdf.open(pdf_path)
+    try:
+        page = doc[page_index]
+        base_rot = page.rotation
+        zoom = dpi / 72.0
+        for rot in (90, 270):
+            page.set_rotation((base_rot + rot) % 360)
+            pix = page.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom), alpha=False)
+            img = tdir / f"rot_{page_index:04d}_{rot}.png"
+            pix.save(str(img))
+            for psm in ("6", "4"):
+                txt = _run_tesseract(
+                    img, tdir / f"rot_{page_index:04d}_{rot}_{psm}", lang=lang,
+                    tess_bin=tess_bin, psm=psm,
+                )
+                good, ratio = ocr_readability(txt)
+                if ratio >= ROTATE_ACCEPT_RATIO and (best is None or good > best[0]):
+                    best = (good, txt)
+        page.set_rotation(base_rot)
+    finally:
+        doc.close()
+    return best[1] if best else None
+
+
 def ocr_pdf(
     pdf_path: str | Path,
     *,
@@ -209,6 +262,14 @@ def ocr_pdf(
         for i, img in enumerate(pages):
             out_base = tdir / f"ocr_{i:04d}"
             chunk = _run_tesseract(img, out_base, lang=lang, tess_bin=tess)
+            good, ratio = ocr_readability(chunk)
+            if ratio < ROTATE_RETRY_RATIO:
+                try:
+                    alt = _rotated_retry(path, i, tdir, lang=lang, dpi=dpi, tess_bin=tess)
+                except Exception:
+                    alt = None
+                if alt is not None and ocr_readability(alt)[0] > good:
+                    chunk = alt
             chunks.append(chunk.rstrip() + "\n")
         text = "\f".join(chunks)
     return text, OCR_BACKEND

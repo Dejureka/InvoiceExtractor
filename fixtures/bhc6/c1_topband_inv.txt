@@ -1,0 +1,47 @@
+Issuer：
+SHENZHEN TOPBAND CO., LTD
+ADD: TOPBAND INDUSTRIAL PARK, LIYUAN
+INDUSTRIAL ZONE,SHIYAN, BAO'AN
+DISTRICT, SHENZHEN, CHINA 518102             COMMERCIAL INVOICE
+PIC:CHERRY LONG
+TEL:86 (755) 2765 1888 ext. 2480
+EMAIL:longdm@topband.com.cn
+
+Bill to:                                     PO NO：
+                                             INVOICE NO:                 TB20260910
+Bosch Home Comfort Taiwan CO., LTD.
+ADD: 338012 No. 29, Neixi Rd., Luzhu Dist.,  DATE:                       2026/9/10
+Taoyuan City, Taiwan, China
+                                             Country of Origin：          MADE IN CHINA
+PIC:Mr. Ming Hsuan Hsiao TEL: 03-3244711 EXT
+375                                          Incoterms：                  FOB SHENZHEN
+EMAIL: minghsuan.hsiao@bosch-hcgroup.com
+                                             Terms of payment            By T/T
+                                                                         Quantity Unit Price      Amount
+  Item       PO NO        DRAWING NO            Description of goods
+                                                                         (SETS)    (USD)           (USD)
+    1       P10059376        1FA14189B         the airconditioner PCBA       84        39.6776        3332.92
+
+    2       P10059783        1FA14189B         the airconditioner PCBA      1024       39.6776    40629.86
+
+    3       P10059976        1FA14189B         the airconditioner PCBA       256       39.6776    10157.47
+
+    4       P10060023        1FA14189B         the airconditioner PCBA       128       39.6776        5078.73
+
+    5       P10060087        1FA14189B         the airconditioner PCBA       256       39.6776    10157.47
+
+    6       P10060183        1FA14189B         the airconditioner PCBA       500       39.6776    19838.80
+
+    7       P10060656        2FA38431A             MAIN PCB AS.               4        14.8145         59.26
+
+    8       P10061128        2FA38431A             MAIN PCB AS.              196       14.8145        2903.64
+
+
+
+
+                                                                         TOTAL:       USD 92,158.14
+
+
+
+***SAY USD
+

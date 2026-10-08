@@ -1,0 +1,62 @@
+                                                                                                                                             Invoice
+
+ Consignee:                                                                          Invoice Number:          Invoice Date:                   Page:
+   Bosch Home Comfort Taiwan Co., Ltd.                                                  9027847785               01.10.2026                   1/1
+   No. 63 NANKING EAST ROAD,SEC,3
+                                                                                                    5DWZZMRYEY2NW7YYD0372V3M10
+   TAIPEI 10636
+   TAIWAN
+                                                                                     Supplier Reference: BHCWHJTV2609005
+
+
+
+ Notify:                                                                             Terms of Payment:
+   TRANS VAN LINKS EXPRESS CORP                                                         NT30, Net Due 30 Days from Invoice Date
+   3FL,NO.217 SEC 3. NANKING EAST ROAD, TAIPEI, TAIWAN
+                                                                                       CIF Taipei
+
+                                                                                       GLORY TIANJIN V.2639S
+
+
+ Bill To / Accountee:                                                                  ON:01 OCT 2026
+    Bosch Home Comfort Taiwan Co., Ltd.                                                FROM:SHANGHAI,CHINA
+    No. 63 NANKING EAST ROAD,SEC,3                                                     TO:KEELUNG,TW
+    TAIPEI 10636
+    TAIWAN
+
+
+
+ PART NO                       DESCRIPTION               HS CODE COO           PO NO                LINE NO    QUANTITIES UNIT PRICE TOTAL AMOUNT
+                                                                                                                  (UNITS)     (USD)             (USD)
+
+ RAM-18GSD C                   SF RAM,RAS                           China      P80016817             80          10.00 PCS        2,065.15        20,651.50
+ RAM-18GSD C                   SF RAM,RAS                           China      P80016859             50          10.00 PCS        2,065.15        20,651.50
+ RAM-18GSD C                   SF RAM,RAS                           China      P80016880             50          10.00 PCS        2,065.15        20,651.50
+ RAM-18GSD C                   SF RAM,RAS                           China      P80016893             20          40.00 PCS        2,065.15        82,606.00
+ RAM-10GS                      MSF outdoor unit                                P80016469             10            1.00 PCS       1,756.73            1,756.73
+
+
+
+
+ SHIPPING MARKS: N/M                                                                                                          TOTALS:            146,317.23
+
+
+
+
+                                                                    5DWZZMRYEY2NW7YYD0372V3M10
+
+
+
+
+ "Diversion Contrary to U.S. Law is prohibited"
+
+
+
+Bosch Home Comfort Supply (M) Sdn. Bhd.                               MY-HUB FINANCE                           Company Reg.No.: 201501017357(1142691-U)
+                                                                                                               OS ICP Code: BL4330999999999
+(formerly Johnson Controls Air Conditioning Supply (M) Sdn. Bhd.)                                              E&OE
+Jalan Wisma Pantai, Kg. Gajah,
+G-01, Ground Floor, Wisma Pantai,
+Butterworth
+12200                                                                  (CHLOE LEE)
+

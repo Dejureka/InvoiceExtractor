@@ -32,7 +32,7 @@ RULES_JSON = {
     "doc_kind": "arrival_notice",
     "header": {
         "bl_no": r"B/L\s+NO\s*:\s*(\S+)",
-        "packages": r"(\d+)\s+(?:PLTS|PALLETS|CARTONS)",
+        "packages": r"(\d+)\s+(?:PLTS|PALLETS?|CARTONS)",
         "gross_weight_kg": r"([\d,]+\.\d{2})\s*KGS",
         "eta": r"抵港日期\s*([\d/]+)",
     },
@@ -118,7 +118,14 @@ def extract(path: str, text: str, backend: str, needs_ocr: bool) -> BLExtractRes
         cargo = text[: m_svc.start()]
     pkgs = re.findall(r"(\d+)\s+PLTS", cargo, re.I)
     carts = re.findall(r"(\d+)\s+CARTONS", cargo, re.I)
-    if pkgs:
+    # BHC 6th: "18 PALLETS" / "40 PALLETS" + "25 PALLETS" (two containers) /
+    # "4 PALLETS" (the marks column "4PALLETS" has no space and is not counted)
+    pallets = re.findall(r"(?<![\w])(\d+)\s+PALLETS?\b", cargo, re.I)
+    if not pkgs and pallets:
+        vals = [float(x) for x in pallets]
+        h.packages = float(sum(vals))
+        h.package_unit = "PALLETS"
+    elif pkgs:
         vals = [float(x) for x in pkgs]
         h.packages = float(sum(vals)) if len(vals) > 1 else float(vals[0])
         h.package_unit = "PLTS"
