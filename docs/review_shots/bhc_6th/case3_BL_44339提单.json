@@ -1,0 +1,38 @@
+{
+ "doc_type": "bl",
+ "header": {
+  "bl_no": "CPSE26090321",
+  "hbl_no": "CPSE26090321",
+  "mbl_no": null,
+  "vessel": null,
+  "voyage": null,
+  "etd": null,
+  "eta": null,
+  "pol": null,
+  "pod": "KEELUNG",
+  "packages": 35.0,
+  "package_unit": "PACKAGES",
+  "gross_weight_kg": 4676.0,
+  "measurement_cbm": null,
+  "load_type": null,
+  "shipper": null,
+  "consignee": null,
+  "notify": null,
+  "invoice_refs": null,
+  "container_nos": null,
+  "forwarder": "Shenzhen China Progress International Forwarding"
+ },
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case3/run/44339提单.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "china_progress_bl_v1",
+  "confidence": "rules",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "China Progress International ocean B/L (NBSE…). Sample: 44266提单.pdf (BHC 3rd case5 Dunan).",
+  "doc_kind": "bl",
+  "checker_verdict": null,
+  "checker_issues": null,
+  "needs_gold_fields": null
+ }
+}

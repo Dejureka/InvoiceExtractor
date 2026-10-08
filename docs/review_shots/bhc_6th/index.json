@@ -1,0 +1,112 @@
+{
+ "case1": {
+  "files": [
+   "case1_INV_INVOICE-TB20260910.pdf.json",
+   "case1_BL_到貨通知.json"
+  ],
+  "skipped_rows": []
+ },
+ "case2": {
+  "files": [
+   "case2_INV_INVOICE-TB20261004.pdf.json",
+   "case2_BL_到貨通知.json"
+  ],
+  "skipped_rows": []
+ },
+ "case3": {
+  "files": [
+   "case3_INV_标准_结汇发票FT00044339.pdf.json",
+   "case3_INV_标准_结汇发票FT00044339.xlsx.json",
+   "case3_BL_44339提单.json"
+  ],
+  "skipped_rows": []
+ },
+ "case4": {
+  "files": [
+   "case4_INV_10226901_INV_9027850165.PDF.json",
+   "case4_BL_到貨_386.json"
+  ],
+  "skipped_rows": []
+ },
+ "case5": {
+  "files": [
+   "case5_INV_BHCWHJTV2609005_INV_9027847785.PDF.json",
+   "case5_INV_BHCWHJTV2609005_INV_9027847785.xlsx.json",
+   "case5_BL_20260930205033-0001.json"
+  ],
+  "skipped_rows": []
+ },
+ "case6": {
+  "files": [
+   "case6_INV_INV+PL+CIHT-TW-26090470.pdf.json",
+   "case6_INV_INV+PL+CIHT-TW-26090470.xlsx.json",
+   "case6_BL_20260929184746-0001.json"
+  ],
+  "skipped_rows": []
+ },
+ "case7": {
+  "files": [
+   "case7_INV_26HLHK01Q4010-发票箱单.xlsx.json",
+   "case7_BL_20260930114211-0001.json"
+  ],
+  "skipped_rows": []
+ },
+ "case8": {
+  "files": [
+   "case8_INV_Shipping_Docs_20261005_MEH6K018_TW.pdf.json",
+   "case8_BL_20261002094338-0001_p3_KEE602.json"
+  ],
+  "skipped_rows": []
+ },
+ "case9": {
+  "files": [
+   "case9_INV_IV_117-BHCTW-26K-43.PDF.json",
+   "case9_INV_IV_117-BHCTW-26K-43.xlsx.json",
+   "case9_BL_WAYBILL.json"
+  ],
+  "skipped_rows": []
+ },
+ "case10": {
+  "files": [
+   "case10_INV_T261565.pdf.json",
+   "case10_BL_20260929202543-0001.json"
+  ],
+  "skipped_rows": []
+ },
+ "case11": {
+  "files": [
+   "case11_INV_标准_结汇发票FT00044376.pdf.json",
+   "case11_INV_标准_结汇发票FT00044376.xlsx.json",
+   "case11_BL_44376提单.json"
+  ],
+  "skipped_rows": []
+ },
+ "case12": {
+  "files": [
+   "case12_INV_INV_TW_AGW202609300001.pdf.json",
+   "case12_BL_20260930172138-0001.json"
+  ],
+  "skipped_rows": []
+ },
+ "case13": {
+  "files": [
+   "case13_INV_COMMERCIAL_INVOICE-JCN26589.pdf.json",
+   "case13_BL_20260930172059-0001.json"
+  ],
+  "skipped_rows": []
+ },
+ "case14": {
+  "files": [
+   "case14_INV_WLVN26501.xlsx.json",
+   "case14_BL_到貨通知.json"
+  ],
+  "skipped_rows": []
+ },
+ "case15": {
+  "files": [
+   "case15_INV_WLA26322-3_台湾博世_海运拼箱9.21.xls.json",
+   "case15_BL_到貨通知.json"
+  ],
+  "skipped_rows": []
+ }
+}

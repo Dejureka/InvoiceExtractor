@@ -1,0 +1,138 @@
+{
+ "header": {
+  "invoice_no": "WLVN26501",
+  "invoice_date": "2026-09-15",
+  "total_pkg": 12.0,
+  "gross_weight_kg": 5045.56,
+  "incoterm": "FOB HAIPHONG",
+  "item_line_count": 3,
+  "total_quantity": 2058.0,
+  "amount": 45113.58,
+  "currency": "USD",
+  "vendor": "WOLONG ELECTRIC (VIETNAM) COMPANY LIMITED",
+  "origin": "Viet Nam",
+  "hs_code": null,
+  "bl_no": "P043ADNE2609",
+  "bl_packages": 12.0,
+  "bl_gross_weight_kg": 5045.56,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "WLVN26501",
+   "part_no": "2NB27125T",
+   "description": "FAN MOTOR; 2NB27125T (Model: ZWB1710D09A; Capacity: 100W; Voltage: 350V)",
+   "qty": 1050.0,
+   "unit": "PCS",
+   "unit_price": 20.67,
+   "amount": 21703.5,
+   "origin": "Viet Nam",
+   "hs_code": "85013130",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "WLVN26501",
+   "part_no": "2NB27125X",
+   "description": "MOTOR BLDC 2NB27125X (Model: ZWB3710D06AL; Capacity: 183W;Voltage: 310V)",
+   "qty": 288.0,
+   "unit": "PCS",
+   "unit_price": 23.61,
+   "amount": 6799.68,
+   "origin": "Viet Nam",
+   "hs_code": "85013130",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "WLVN26501",
+   "part_no": "2NB27125U",
+   "description": "FAN MOTOR;2NB27125U (Model: ZWB3710D00AL; Capacity: 183W; Voltage: 310V)",
+   "qty": 720.0,
+   "unit": "PCS",
+   "unit_price": 23.07,
+   "amount": 16610.4,
+   "origin": "Viet Nam",
+   "hs_code": "85013130",
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case14/run/WLVN26501.xlsx",
+  "text_backend": "excel/openpyxl",
+  "format_id": "bhc_vendor_ci_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "profile=wolong; amount in words 'U.S. Dollars Forty Five Thousand One Hundred Thirteen And Fifty Five Cents Only.' does not match the numeric TOTAL 45,113.58 — numeric total used; HS 85013130 (header; applied to all lines); source=combined; pkl_used=yes; bl_used=yes; bl_file=到貨通知.pdf",
+  "labeled_amount": 45113.58,
+  "labeled_amount_label": "TOTAL",
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case14/run/WLVN26501.xlsx",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case14/run/WLVN26501.xlsx",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case14/run/到貨通知.pdf",
+  "bl_used": true,
+  "bl_format_id": "hippopo_arrival_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "excel",
+  "needs_gold_fields": null,
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 3,
+    "got": 3
+   },
+   "total_quantity": {
+    "want": 2058.0,
+    "got": 2058.0
+   },
+   "amount": {
+    "want": 45113.58,
+    "got": 45113.58
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 45113.58,
+    "header_amount": 45113.58,
+    "sum_items": 45113.58,
+    "item_count": 3
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 3,
+    "got": 3
+   },
+   "total_quantity": {
+    "want": 2058.0,
+    "got": 2058.0
+   },
+   "amount": {
+    "want": 45113.58,
+    "got": 45113.58
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 45113.58,
+    "header_amount": 45113.58,
+    "sum_items": 45113.58,
+    "item_count": 3
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "WLVN26501.xlsx",
+  "pkl": "—",
+  "bl": "到貨通知.pdf",
+  "status": "僅 INV",
+  "notes": ""
+ }
+}

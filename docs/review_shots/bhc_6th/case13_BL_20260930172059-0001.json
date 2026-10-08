@@ -1,0 +1,38 @@
+{
+ "doc_type": "bl",
+ "header": {
+  "bl_no": "SHAKEL26C71898",
+  "hbl_no": "SHAKEL26C71898",
+  "mbl_no": null,
+  "vessel": "JJ STAR",
+  "voyage": "2640S",
+  "etd": null,
+  "eta": null,
+  "pol": "SHANGHAI, CHINA",
+  "pod": "KEELUNG, TAIWAN",
+  "packages": 5.0,
+  "package_unit": "PALLETS",
+  "gross_weight_kg": 3000.0,
+  "measurement_cbm": null,
+  "load_type": null,
+  "shipper": "HANGZHOU XIAOSHAN JIANGNAN POWDER METALS",
+  "consignee": "BOSCH HOME COMFORT TAIWAN CO, LTD,",
+  "notify": null,
+  "invoice_refs": null,
+  "container_nos": null,
+  "forwarder": "T.V.L. Global Logistics Co., Ltd."
+ },
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case13/run/20260930172059-0001.pdf",
+  "text_backend": "ocr/tesseract",
+  "format_id": "tvl_hbl_v1",
+  "confidence": "rules",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "TVL / Trans Van Links HBL face. Trained on OCR of BHC case7/8 scan HBLs (SHAKEL26970898 / SHAKEL26770270; BHC 3rd SHAKEL26971792 / SHAKEL26972017). Prefer cargo cartons/pallets over Say-Total container (1×20GP). GW/CBM: prefer CARTONS/KGS[/CBM] when carton count matches; 20GP CBM sanity ≤33; OCR slips (.830→.53, 46.519→16.519, GO.→CO.). Container: ISO 4 letters+7 digits + seal; invoice_refs: all BHCWH* / P/L NO. BHC 5th: SAY OCR ($1X→SIX, SAYTOTAL, em-dash); C/NO.…/N PALLET marks; slash-row GW preferred when pkg matches; uncorroborated multi-pass GW → needs_gold. Auditor 2026-10-05: the single face weight token and the B/L no are re-read as one line (psm 7) at 200/300/400 dpi and join the vote (page psm 6 swaps glyphs: 3185→3488, 1195.5→1498.5).; GW token '3000.000KGS' re-read: tok200=3000, tok300=3000, tok400=3000; pkg 5 by vote (legacy 15.0); pkg reads: say_words_r1=5, say_digits_r1=8, say_words_r2=5, say_digits_r2=5, tok200=15, tok300=5, tok400=5, face_r1=15; GW reads: face_r1=3000, face_r2=0.6, tok200=3000, tok300=3000, tok400=3000",
+  "doc_kind": "hbl",
+  "checker_verdict": null,
+  "checker_issues": null,
+  "needs_gold_fields": null
+ }
+}

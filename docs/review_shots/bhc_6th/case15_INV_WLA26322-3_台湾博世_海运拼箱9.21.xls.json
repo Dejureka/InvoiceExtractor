@@ -1,0 +1,126 @@
+{
+ "header": {
+  "invoice_no": "WLA26322-3",
+  "invoice_date": "2026-09-21",
+  "total_pkg": 4.0,
+  "gross_weight_kg": 1841.6,
+  "incoterm": "FOB",
+  "item_line_count": 2,
+  "total_quantity": 480.0,
+  "amount": 8652.0,
+  "currency": "USD",
+  "vendor": "WOLONG ELECTRIC GROUP CO., LTD",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": "SHSE26090288",
+  "bl_packages": 4.0,
+  "bl_gross_weight_kg": 1841.6,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "WLA26322-3",
+   "part_no": "2NB39072B",
+   "description": "MOTOR ZWB4710L08AL 250W",
+   "qty": 240.0,
+   "unit": "PCS",
+   "unit_price": 18.23,
+   "amount": 4375.2,
+   "origin": null,
+   "hs_code": "8501310090",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "WLA26322-3",
+   "part_no": "2NB39072A",
+   "description": "MOTOR ZWB4710L09AL 250W",
+   "qty": 240.0,
+   "unit": "PCS",
+   "unit_price": 17.82,
+   "amount": 4276.8,
+   "origin": null,
+   "hs_code": "8501310090",
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case15/run/WLA26322-3 台湾博世 海运拼箱9.21.xls",
+  "text_backend": "excel/xlrd",
+  "format_id": "bhc_vendor_ci_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "profile=wolong; incoterm printed 'FOB' only (no named port; FROM: SHANGHAI); amount in words 'SAY TOTAL US DOLLARS FOUR THOUSAND THREE HUNDRED AND TWENTY TWENTY SIX ONLY.' does not match the numeric TOTAL 8,652.00 — numeric total used; 3 template row(s) with no qty / amount 0 skipped; HS 8501310090 (header; applied to all lines); country of origin not printed (seller in Zhejiang, China) — origin blank; source=combined; pkl_used=yes; bl_used=yes; bl_file=到貨通知.pdf",
+  "labeled_amount": 8652.0,
+  "labeled_amount_label": "TOTAL",
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case15/run/WLA26322-3 台湾博世 海运拼箱9.21.xls",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case15/run/WLA26322-3 台湾博世 海运拼箱9.21.xls",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case15/run/到貨通知.pdf",
+  "bl_used": true,
+  "bl_format_id": "hippopo_arrival_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "excel",
+  "needs_gold_fields": null,
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 2,
+    "got": 2
+   },
+   "total_quantity": {
+    "want": 480.0,
+    "got": 480.0
+   },
+   "amount": {
+    "want": 8652.0,
+    "got": 8652.0
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 8652.0,
+    "header_amount": 8652.0,
+    "sum_items": 8652.0,
+    "item_count": 2
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 2,
+    "got": 2
+   },
+   "total_quantity": {
+    "want": 480.0,
+    "got": 480.0
+   },
+   "amount": {
+    "want": 8652.0,
+    "got": 8652.0
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 8652.0,
+    "header_amount": 8652.0,
+    "sum_items": 8652.0,
+    "item_count": 2
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "WLA26322-3 台湾博世 海运拼箱9.21.xls",
+  "pkl": "—",
+  "bl": "到貨通知.pdf",
+  "status": "僅 INV",
+  "notes": ""
+ }
+}

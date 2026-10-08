@@ -1,0 +1,397 @@
+{
+ "header": {
+  "invoice_no": "117-BHCTW-26K-43",
+  "invoice_date": "2026-09-17",
+  "total_pkg": 6.0,
+  "gross_weight_kg": 1774.5,
+  "incoterm": "FOB",
+  "item_line_count": 24,
+  "total_quantity": 8969.0,
+  "amount": 3397361.0,
+  "currency": "JPY",
+  "vendor": "HIPUS Co., Ltd.",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": "261002KEE101",
+  "bl_packages": 6.0,
+  "bl_gross_weight_kg": 1774.5,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "3DB27146A",
+   "description": "NYLON HOLDER",
+   "qty": 500.0,
+   "unit": "PCS",
+   "unit_price": 12.2,
+   "amount": 6100.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "1HK07195A",
+   "description": "STRAINER ASSY",
+   "qty": 10.0,
+   "unit": "PCS",
+   "unit_price": 65246.0,
+   "amount": 652460.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "3DQ77517A",
+   "description": "RUBBER BUSH",
+   "qty": 200.0,
+   "unit": "PCS",
+   "unit_price": 210.0,
+   "amount": 42000.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "2HK15471A",
+   "description": "FILTER ELEMENT",
+   "qty": 2.0,
+   "unit": "PCS",
+   "unit_price": 2678.0,
+   "amount": 5356.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "2HK15459A",
+   "description": "STRAINER",
+   "qty": 1.0,
+   "unit": "PCS",
+   "unit_price": 14750.0,
+   "amount": 14750.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "2HK15460A",
+   "description": "FILTER ELEMENT",
+   "qty": 1.0,
+   "unit": "PCS",
+   "unit_price": 5617.0,
+   "amount": 5617.0,
+   "origin": "Thailand",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "2HK15472A",
+   "description": "OIL STRAINER",
+   "qty": 2.0,
+   "unit": "PCS",
+   "unit_price": 18017.0,
+   "amount": 36034.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "3FR46592A",
+   "description": "DIODE MODULE",
+   "qty": 100.0,
+   "unit": "PCS",
+   "unit_price": 1617.0,
+   "amount": 161700.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "3FR46592A",
+   "description": "DIODE MODULE",
+   "qty": 100.0,
+   "unit": "PCS",
+   "unit_price": 1617.0,
+   "amount": 161700.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "2HK15471A",
+   "description": "FILTER ELEMENT",
+   "qty": 1.0,
+   "unit": "PCS",
+   "unit_price": 2678.0,
+   "amount": 2678.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "2FH21366A",
+   "description": "REACTOR",
+   "qty": 72.0,
+   "unit": "PCS",
+   "unit_price": 2740.0,
+   "amount": 197280.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "3CG21956A",
+   "description": "SPRING",
+   "qty": 2000.0,
+   "unit": "PCS",
+   "unit_price": 3.2,
+   "amount": 6400.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "1EB04085D",
+   "description": "THERMISTOR",
+   "qty": 1000.0,
+   "unit": "PCS",
+   "unit_price": 44.6,
+   "amount": 44600.0,
+   "origin": "Cambodia",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "1EB04085J",
+   "description": "THERMISTOR",
+   "qty": 1000.0,
+   "unit": "PCS",
+   "unit_price": 61.3,
+   "amount": 61300.0,
+   "origin": "Cambodia",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "2FM13029A",
+   "description": "THERMISTOR",
+   "qty": 1800.0,
+   "unit": "PCS",
+   "unit_price": 128.0,
+   "amount": 230400.0,
+   "origin": "Thailand",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "3FH74426A",
+   "description": "REACTOR",
+   "qty": 256.0,
+   "unit": "PCS",
+   "unit_price": 2528.0,
+   "amount": 647168.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "3HR37545D",
+   "description": "ELBOW",
+   "qty": 2.0,
+   "unit": "PCS",
+   "unit_price": 1646.0,
+   "amount": 3292.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "3HR37545C",
+   "description": "ELBOW",
+   "qty": 2.0,
+   "unit": "PCS",
+   "unit_price": 863.0,
+   "amount": 1726.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "3FH47662A",
+   "description": "RING CORE 25",
+   "qty": 600.0,
+   "unit": "PCS",
+   "unit_price": 35.2,
+   "amount": 21120.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "2DG07116A",
+   "description": "PACKING",
+   "qty": 100.0,
+   "unit": "PCS",
+   "unit_price": 148.0,
+   "amount": 14800.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "2DG07116A",
+   "description": "PACKING",
+   "qty": 100.0,
+   "unit": "PCS",
+   "unit_price": 148.0,
+   "amount": 14800.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "3FH47843A",
+   "description": "REACTOR",
+   "qty": 320.0,
+   "unit": "PCS",
+   "unit_price": 1759.0,
+   "amount": 562880.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "2EL32738A",
+   "description": "HERMETIC TERMINAL",
+   "qty": 400.0,
+   "unit": "PCS",
+   "unit_price": 629.0,
+   "amount": 251600.0,
+   "origin": "Thailand",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "117-BHCTW-26K-43",
+   "part_no": "2EL32738A",
+   "description": "HERMETIC TERMINAL",
+   "qty": 400.0,
+   "unit": "PCS",
+   "unit_price": 629.0,
+   "amount": 251600.0,
+   "origin": "Thailand",
+   "hs_code": null,
+   "currency": "JPY"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case9/run/IV_117-BHCTW-26K-43.xlsx",
+  "text_backend": "excel/openpyxl",
+  "format_id": "bhc_vendor_ci_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "profile=hipus; xlsx twin: no TOTAL row — cross-check against the PDF; source=split; pkl_used=yes; pkl_parser=bhc_vendor_ci_v1; bl_used=yes; bl_file=WAYBILL.pdf; duplicate BL copy 20261002225640-0001.pdf (same BL no 261002KEE101) not used",
+  "labeled_amount": 3397361.0,
+  "labeled_amount_label": "sum(lines) (xlsx twin; no TOTAL row)",
+  "source": "split",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case9/run/IV_117-BHCTW-26K-43.xlsx",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case9/run/PL_117-BHCTW-26K-43.xlsx",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case9/run/WAYBILL.pdf",
+  "bl_used": true,
+  "bl_format_id": "jif_cosmo_waybill_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "excel",
+  "needs_gold_fields": null,
+  "packing_units": {
+   "PALLET-1": 151.5,
+   "PALLET-2": 188.0,
+   "PALLET-3": 566.5,
+   "PALLET-4": 392.5,
+   "CASE-5": 237.5,
+   "CASE-6": 238.5
+  },
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 24,
+    "got": 24
+   },
+   "total_quantity": {
+    "want": 8969.0,
+    "got": 8969.0
+   },
+   "amount": {
+    "want": 3397361.0,
+    "got": 3397361.0
+   },
+   "labeled_amount": {
+    "label": "sum(lines) (xlsx twin; no TOTAL row)",
+    "want": 3397361.0,
+    "header_amount": 3397361.0,
+    "sum_items": 3397361.0,
+    "item_count": 24
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 24,
+    "got": 24
+   },
+   "total_quantity": {
+    "want": 8969.0,
+    "got": 8969.0
+   },
+   "amount": {
+    "want": 3397361.0,
+    "got": 3397361.0
+   },
+   "labeled_amount": {
+    "label": "sum(lines) (xlsx twin; no TOTAL row)",
+    "want": 3397361.0,
+    "header_amount": 3397361.0,
+    "sum_items": 3397361.0,
+    "item_count": 24
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P2",
+ "_pair": {
+  "inv": "IV_117-BHCTW-26K-43.xlsx",
+  "pkl": "PL_117-BHCTW-26K-43.xlsx",
+  "bl": "WAYBILL.pdf",
+  "status": "INV+PKL",
+  "notes": "duplicate BL copy 20261002225640-0001.pdf (same BL no 261002KEE101) not used"
+ }
+}

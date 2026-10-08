@@ -1,0 +1,138 @@
+{
+ "header": {
+  "invoice_no": "MEH6K018",
+  "invoice_date": "2026-10-05",
+  "total_pkg": 1.0,
+  "gross_weight_kg": 50.0,
+  "incoterm": "F.O.B. SHIMIZU, JAPAN",
+  "item_line_count": 2,
+  "total_quantity": 20.0,
+  "amount": 294030.0,
+  "currency": "JPY",
+  "vendor": "Hitachi Global Life Solutions, Inc.",
+  "origin": "JP",
+  "hs_code": null,
+  "bl_no": "261002KEE602",
+  "bl_packages": 1.0,
+  "bl_gross_weight_kg": null,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "MEH6K018",
+   "part_no": "P29601",
+   "description": "DRAIN PAN ASSY",
+   "qty": 10.0,
+   "unit": "PCS",
+   "unit_price": 11979.0,
+   "amount": 119790.0,
+   "origin": "MY",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "MEH6K018",
+   "part_no": "P29942",
+   "description": "FAN CONTROLLER",
+   "qty": 10.0,
+   "unit": "PCS",
+   "unit_price": 17424.0,
+   "amount": 174240.0,
+   "origin": "CN",
+   "hs_code": null,
+   "currency": "JPY"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case8/run/Shipping Docs 20261005 MEH6K018_TW.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "hitachi_gls_v1",
+  "confidence": "rules",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "source=combined; pkl_used=yes; bl_used=yes; bl_file=20261002094338-0001_p3_KEE602.pdf; bl_needs_gold (needs_gold: gross_weight_kg (OCR reads disagree / too few; anti-counterfeit background); pkg reads: say_words_r1=1, attached_sheet_last_case_no_r1=1, say_words_)",
+  "labeled_amount": 294030.0,
+  "labeled_amount_label": "GRAND TOTAL",
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case8/run/Shipping Docs 20261005 MEH6K018_TW.pdf",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case8/run/Shipping Docs 20261005 MEH6K018_TW.pdf",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case8/run/20261002094338-0001_p3_KEE602.pdf",
+  "bl_used": true,
+  "bl_format_id": "jif_cosmo_waybill_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": [
+   "bl_gross_weight_kg"
+  ],
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "needs_gold",
+  "checker_issues": [
+   "needs_gold field(s): bl_gross_weight_kg (document contradicts itself; confirm manually / from BL)"
+  ],
+  "checker_details": {
+   "item_line_count": {
+    "want": 2,
+    "got": 2
+   },
+   "total_quantity": {
+    "want": 20.0,
+    "got": 20.0
+   },
+   "amount": {
+    "want": 294030.0,
+    "got": 294030.0
+   },
+   "labeled_amount": {
+    "label": "GRAND TOTAL",
+    "want": 294030.0,
+    "header_amount": 294030.0,
+    "sum_items": 294030.0,
+    "item_count": 2
+   },
+   "needs_gold_fields": [
+    "bl_gross_weight_kg"
+   ]
+  }
+ },
+ "_hard": {
+  "verdict": "needs_gold",
+  "issues": [
+   "needs_gold field(s): bl_gross_weight_kg (document contradicts itself; confirm manually / from BL)"
+  ],
+  "details": {
+   "item_line_count": {
+    "want": 2,
+    "got": 2
+   },
+   "total_quantity": {
+    "want": 20.0,
+    "got": 20.0
+   },
+   "amount": {
+    "want": 294030.0,
+    "got": 294030.0
+   },
+   "labeled_amount": {
+    "label": "GRAND TOTAL",
+    "want": 294030.0,
+    "header_amount": 294030.0,
+    "sum_items": 294030.0,
+    "item_count": 2
+   },
+   "needs_gold_fields": [
+    "bl_gross_weight_kg"
+   ]
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "Shipping Docs 20261005 MEH6K018_TW.pdf",
+  "pkl": "—",
+  "bl": "20261002094338-0001_p3_KEE602.pdf",
+  "status": "僅 INV",
+  "notes": ""
+ }
+}

@@ -1,0 +1,126 @@
+{
+ "header": {
+  "invoice_no": "JCN26589",
+  "invoice_date": "2026-09-26",
+  "total_pkg": 5.0,
+  "gross_weight_kg": 3000.0,
+  "incoterm": "FOB SHANGHAI",
+  "item_line_count": 2,
+  "total_quantity": 4000.0,
+  "amount": 16170.0,
+  "currency": "USD",
+  "vendor": "HANGZHOU XIAOSHAN JIANGNAN POWDER METALS FACTORY",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": "SHAKEL26C71898",
+  "bl_packages": 5.0,
+  "bl_gross_weight_kg": 3000.0,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "JCN26589",
+   "part_no": "3CZ55100-A",
+   "description": "WEIGHT",
+   "qty": 3000.0,
+   "unit": "PCS",
+   "unit_price": 4.31,
+   "amount": 12930.0,
+   "origin": null,
+   "hs_code": "8482990000",
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "JCN26589",
+   "part_no": "3CZ57656-A",
+   "description": "WEIGHT",
+   "qty": 1000.0,
+   "unit": "PCS",
+   "unit_price": 3.24,
+   "amount": 3240.0,
+   "origin": null,
+   "hs_code": "8482990000",
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case13/run/COMMERCIAL INVOICE-JCN26589.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "bhc_vendor_ci_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "profile=jiangnan; incoterm printed 'FOB EXPEDITORS SHANGHAI' (EXPEDITORS = forwarder) → FOB SHANGHAI; HS = HTSUS NUMBER 8482.99.0000 (printed per line); PN = Part No. (3CZ…-A); country of origin not printed (manufacturer in Hangzhou, China) — origin blank; source=split; pkl_used=yes; pkl_parser=bhc_vendor_ci_v1; pkl_note=PL: 350 CTNS on FIVE PALLETS → pkg = pallets; bl_used=yes; bl_file=20260930172059-0001.pdf",
+  "labeled_amount": 16170.0,
+  "labeled_amount_label": "TOTAL",
+  "source": "split",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case13/run/COMMERCIAL INVOICE-JCN26589.pdf",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case13/run/PACKING LIST-JCN26589.pdf",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case13/run/20260930172059-0001.pdf",
+  "bl_used": true,
+  "bl_format_id": "tvl_hbl_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 2,
+    "got": 2
+   },
+   "total_quantity": {
+    "want": 4000.0,
+    "got": 4000.0
+   },
+   "amount": {
+    "want": 16170.0,
+    "got": 16170.0
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 16170.0,
+    "header_amount": 16170.0,
+    "sum_items": 16170.0,
+    "item_count": 2
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 2,
+    "got": 2
+   },
+   "total_quantity": {
+    "want": 4000.0,
+    "got": 4000.0
+   },
+   "amount": {
+    "want": 16170.0,
+    "got": 16170.0
+   },
+   "labeled_amount": {
+    "label": "TOTAL",
+    "want": 16170.0,
+    "header_amount": 16170.0,
+    "sum_items": 16170.0,
+    "item_count": 2
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "COMMERCIAL INVOICE-JCN26589.pdf",
+  "pkl": "PACKING LIST-JCN26589.pdf",
+  "bl": "20260930172059-0001.pdf",
+  "status": "INV+PKL",
+  "notes": ""
+ }
+}

@@ -1,0 +1,38 @@
+{
+ "doc_type": "bl",
+ "header": {
+  "bl_no": "261002KEE101",
+  "hbl_no": null,
+  "mbl_no": null,
+  "vessel": null,
+  "voyage": null,
+  "etd": null,
+  "eta": null,
+  "pol": null,
+  "pod": null,
+  "packages": 6.0,
+  "package_unit": null,
+  "gross_weight_kg": 1774.5,
+  "measurement_cbm": null,
+  "load_type": null,
+  "shipper": null,
+  "consignee": null,
+  "notify": null,
+  "invoice_refs": null,
+  "container_nos": null,
+  "forwarder": null
+ },
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case9/run/WAYBILL.pdf",
+  "text_backend": "ocr/tesseract",
+  "format_id": "jif_cosmo_waybill_v1",
+  "confidence": "rules",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "pkg reads: pallets(pieces)_clean=6, container<pallets_clean=6; GW reads: said_to_contain_clean=1774.5, tok300=1774.5, tok400=1774.5, tok600=1774.5; GW token '1,774,500' re-read (hatch removed): tok300=1774.5, tok400=1774.5, tok600=1774.5",
+  "doc_kind": "sea_waybill",
+  "checker_verdict": null,
+  "checker_issues": null,
+  "needs_gold_fields": null
+ }
+}

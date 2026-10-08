@@ -1,0 +1,162 @@
+{
+ "header": {
+  "invoice_no": "9027847785",
+  "invoice_date": "2026-10-01",
+  "total_pkg": 71.0,
+  "gross_weight_kg": 17652.0,
+  "incoterm": "CIF Taipei",
+  "item_line_count": 5,
+  "total_quantity": 71.0,
+  "amount": 146317.23,
+  "currency": "USD",
+  "vendor": "Bosch Home Comfort Supply (M) Sdn. Bhd.",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": "SHAKEL26971972",
+  "bl_packages": 71.0,
+  "bl_gross_weight_kg": 17652.0,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "9027847785",
+   "part_no": "RAM-18GSD C",
+   "description": "SF RAM,RAS",
+   "qty": 10.0,
+   "unit": "PCS",
+   "unit_price": 2065.15,
+   "amount": 20651.5,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "9027847785",
+   "part_no": "RAM-18GSD C",
+   "description": "SF RAM,RAS",
+   "qty": 10.0,
+   "unit": "PCS",
+   "unit_price": 2065.15,
+   "amount": 20651.5,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "9027847785",
+   "part_no": "RAM-18GSD C",
+   "description": "SF RAM,RAS",
+   "qty": 10.0,
+   "unit": "PCS",
+   "unit_price": 2065.15,
+   "amount": 20651.5,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "9027847785",
+   "part_no": "RAM-18GSD C",
+   "description": "SF RAM,RAS",
+   "qty": 40.0,
+   "unit": "PCS",
+   "unit_price": 2065.15,
+   "amount": 82606.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  },
+  {
+   "invoice_no": "9027847785",
+   "part_no": "RAM-10GS",
+   "description": "MSF outdoor unit",
+   "qty": 1.0,
+   "unit": "PCS",
+   "unit_price": 1756.73,
+   "amount": 1756.73,
+   "origin": null,
+   "hs_code": null,
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case5/run/BHCWHJTV2609005_INV_9027847785.PDF",
+  "text_backend": "pdftotext -layout",
+  "format_id": "bhc_my_hub_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "soft-missing packing/GW OK for this format; source=split; pkl_used=yes; bl_used=yes; bl_file=20260930205033-0001.pdf",
+  "labeled_amount": 146317.23,
+  "labeled_amount_label": "TOTALS",
+  "source": "split",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case5/run/BHCWHJTV2609005_INV_9027847785.PDF",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case5/run/PKL_BHCWHJTV2609005  台湾 世邦.pdf",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case5/run/20260930205033-0001.pdf",
+  "bl_used": true,
+  "bl_format_id": "tvl_hbl_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 5,
+    "got": 5
+   },
+   "total_quantity": {
+    "want": 71.0,
+    "got": 71.0
+   },
+   "amount": {
+    "want": 146317.23,
+    "got": 146317.23
+   },
+   "labeled_amount": {
+    "label": "TOTALS",
+    "want": 146317.23,
+    "header_amount": 146317.23,
+    "sum_items": 146317.23,
+    "item_count": 5
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 5,
+    "got": 5
+   },
+   "total_quantity": {
+    "want": 71.0,
+    "got": 71.0
+   },
+   "amount": {
+    "want": 146317.23,
+    "got": 146317.23
+   },
+   "labeled_amount": {
+    "label": "TOTALS",
+    "want": 146317.23,
+    "header_amount": 146317.23,
+    "sum_items": 146317.23,
+    "item_count": 5
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "BHCWHJTV2609005_INV_9027847785.PDF",
+  "pkl": "PKL_BHCWHJTV2609005  台湾 世邦.pdf",
+  "bl": "20260930205033-0001.pdf",
+  "status": "INV+PKL",
+  "notes": ""
+ }
+}

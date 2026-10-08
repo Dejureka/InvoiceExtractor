@@ -1,0 +1,114 @@
+{
+ "header": {
+  "invoice_no": "CIHT-TW-26090470",
+  "invoice_date": "2026-09-29",
+  "total_pkg": 60.0,
+  "gross_weight_kg": 13800.0,
+  "incoterm": "FOB",
+  "item_line_count": 1,
+  "total_quantity": 300.0,
+  "amount": 71400.0,
+  "currency": "USD",
+  "vendor": "QINGDAO HISENSE BOSCH AIR-CONDITIONING SYSTEM CO.,LTD.",
+  "origin": "China",
+  "hs_code": null,
+  "bl_no": "QDEX2610001",
+  "bl_packages": 60.0,
+  "bl_gross_weight_kg": 13800.0,
+  "summary_note": null
+ },
+ "items": [
+  {
+   "invoice_no": "CIHT-TW-26090470",
+   "part_no": "KPI-153H",
+   "description": "HITACHI KPI-153H",
+   "qty": 300.0,
+   "unit": "SETS",
+   "unit_price": 238.0,
+   "amount": 71400.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "USD"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case6/run/INV+PL+CIHT-TW-26090470.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "hisense_qingdao_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "combined INV+PL; soft-missing HS OK; source=combined; pkl_used=yes; bl_used=yes; bl_file=20260929184746-0001.pdf; duplicate BL copy QDEX2610001.jpg (same BL no QDEX2610001) not used",
+  "labeled_amount": 71400.0,
+  "labeled_amount_label": "INVOICE TOTAL AMOUNT",
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case6/run/INV+PL+CIHT-TW-26090470.pdf",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case6/run/INV+PL+CIHT-TW-26090470.pdf",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case6/run/20260929184746-0001.pdf",
+  "bl_used": true,
+  "bl_format_id": "tvl_hbl_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 1,
+    "got": 1
+   },
+   "total_quantity": {
+    "want": 300.0,
+    "got": 300.0
+   },
+   "amount": {
+    "want": 71400.0,
+    "got": 71400.0
+   },
+   "labeled_amount": {
+    "label": "INVOICE TOTAL AMOUNT",
+    "want": 71400.0,
+    "header_amount": 71400.0,
+    "sum_items": 71400.0,
+    "item_count": 1
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 1,
+    "got": 1
+   },
+   "total_quantity": {
+    "want": 300.0,
+    "got": 300.0
+   },
+   "amount": {
+    "want": 71400.0,
+    "got": 71400.0
+   },
+   "labeled_amount": {
+    "label": "INVOICE TOTAL AMOUNT",
+    "want": 71400.0,
+    "header_amount": 71400.0,
+    "sum_items": 71400.0,
+    "item_count": 1
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "INV+PL+CIHT-TW-26090470.pdf",
+  "pkl": "—",
+  "bl": "20260929184746-0001.pdf",
+  "status": "僅 INV",
+  "notes": "duplicate BL copy QDEX2610001.jpg (same BL no QDEX2610001) not used"
+ }
+}

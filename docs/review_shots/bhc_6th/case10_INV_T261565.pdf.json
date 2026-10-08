@@ -1,0 +1,402 @@
+{
+ "header": {
+  "invoice_no": "T261565",
+  "invoice_date": "2026-10-04",
+  "total_pkg": 5.0,
+  "gross_weight_kg": null,
+  "incoterm": "FOB YOKOHAMA",
+  "item_line_count": 25,
+  "total_quantity": 9854.0,
+  "amount": 7433872.0,
+  "currency": "JPY",
+  "vendor": "SAGINOMIYA SEISAKUSHO, INC.",
+  "origin": null,
+  "hs_code": null,
+  "bl_no": "KLG-T268Y98",
+  "bl_packages": 5.0,
+  "bl_gross_weight_kg": 1460.9,
+  "summary_note": "PL prints no gross-weight total (1,221.46 kg on the Total row is the Net Weight column) — invoice G.W. left blank; use BL G.W."
+ },
+ "items": [
+  {
+   "invoice_no": "T261565",
+   "part_no": "2HP27640A",
+   "description": "COIL FOR 4-WAY REVERSING VALVES Type STF-H01AI1870A1",
+   "qty": 1350.0,
+   "unit": "PCS",
+   "unit_price": 276.0,
+   "amount": 372600.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "2HP27640A",
+   "description": "COIL FOR 4-WAY REVERSING VALVES Type STF-H01AI1870A1",
+   "qty": 1350.0,
+   "unit": "PCS",
+   "unit_price": 276.0,
+   "amount": 372600.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "2HP29676A",
+   "description": "4-WAY REVERSING VALVES Type STF-H0404",
+   "qty": 480.0,
+   "unit": "PCS",
+   "unit_price": 1773.0,
+   "amount": 851040.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3HH67419A",
+   "description": "EXPANSION VALVES Type RCX-5234DVSA",
+   "qty": 200.0,
+   "unit": "PCS",
+   "unit_price": 2669.0,
+   "amount": 533800.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3HH59372A",
+   "description": "EXPANSION VALVES Type SCX-0945DVSAQ15",
+   "qty": 100.0,
+   "unit": "PCS",
+   "unit_price": 3513.0,
+   "amount": 351300.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3HH59372C",
+   "description": "EXPANSION VALVES Type SCX-1657DVSAQ18",
+   "qty": 20.0,
+   "unit": "PCS",
+   "unit_price": 3513.0,
+   "amount": 70260.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3HH59372C",
+   "description": "EXPANSION VALVES Type SCX-1657DVSAQ18",
+   "qty": 20.0,
+   "unit": "PCS",
+   "unit_price": 3513.0,
+   "amount": 70260.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "THP3-5916B",
+   "description": "CHECK VALVES Type BCV-1005DY",
+   "qty": 100.0,
+   "unit": "PCS",
+   "unit_price": 1120.0,
+   "amount": 112000.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "THP3-5916C",
+   "description": "CHECK VALVES Type BCV-1306DY",
+   "qty": 50.0,
+   "unit": "PCS",
+   "unit_price": 3836.0,
+   "amount": 191800.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3HP64245A",
+   "description": "CHECK VALVES Type UCV-A1505DRQ3",
+   "qty": 80.0,
+   "unit": "PCS",
+   "unit_price": 708.0,
+   "amount": 56640.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3HH37914C",
+   "description": "ELECTRONIC EXPANSION VALVES Type UKV-18D127",
+   "qty": 500.0,
+   "unit": "PCS",
+   "unit_price": 402.0,
+   "amount": 201000.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3HH66067A",
+   "description": "ELECTRONIC EXPANSION VALVES Type UKV-25D174",
+   "qty": 210.0,
+   "unit": "PCS",
+   "unit_price": 402.0,
+   "amount": 84420.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3HH45426A",
+   "description": "ELECTRONIC EXPANSION VALVES Type UKV-32D28",
+   "qty": 100.0,
+   "unit": "PCS",
+   "unit_price": 597.0,
+   "amount": 59700.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "2EF18792A",
+   "description": "COIL FOR ELECTRONIC EXPANSION VALVES Type UKV-A027",
+   "qty": 850.0,
+   "unit": "PCS",
+   "unit_price": 358.0,
+   "amount": 304300.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "2EF18792C",
+   "description": "COIL FOR ELECTRONIC EXPANSION VALVES Type UKV-A035",
+   "qty": 100.0,
+   "unit": "PCS",
+   "unit_price": 358.0,
+   "amount": 35800.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3EF69427G",
+   "description": "COIL FOR ELECTRONIC EXPANSION VALVES Type UKV-A529",
+   "qty": 400.0,
+   "unit": "PCS",
+   "unit_price": 359.0,
+   "amount": 143600.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3EF69427G",
+   "description": "COIL FOR ELECTRONIC EXPANSION VALVES Type UKV-A529",
+   "qty": 300.0,
+   "unit": "PCS",
+   "unit_price": 359.0,
+   "amount": 107700.0,
+   "origin": "China",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "2EC17335A",
+   "description": "PRESSURE SWITCHES Type ACB-DB157",
+   "qty": 1500.0,
+   "unit": "PCS",
+   "unit_price": 369.0,
+   "amount": 553500.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "2EC17335A",
+   "description": "PRESSURE SWITCHES Type ACB-DB157",
+   "qty": 600.0,
+   "unit": "PCS",
+   "unit_price": 369.0,
+   "amount": 221400.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3EC75528B",
+   "description": "PRESSURE SWITCHES Type SYS-C106X2A107",
+   "qty": 40.0,
+   "unit": "PCS",
+   "unit_price": 1250.0,
+   "amount": 50000.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "3EC75528C",
+   "description": "PRESSURE SWITCHES Type SYS-C106X2A108",
+   "qty": 20.0,
+   "unit": "PCS",
+   "unit_price": 1250.0,
+   "amount": 25000.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "2EC17568A",
+   "description": "PRESSURE SENSORS Type NSK-BD020F-102",
+   "qty": 500.0,
+   "unit": "PCS",
+   "unit_price": 1392.0,
+   "amount": 696000.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "2EC17569A",
+   "description": "PRESSURE SENSORS Type NSK-BD050F-102",
+   "qty": 600.0,
+   "unit": "PCS",
+   "unit_price": 1392.0,
+   "amount": 835200.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "2EC18338A",
+   "description": "PRESSURE SENSORS Type YSK-AC10B-819",
+   "qty": 256.0,
+   "unit": "PCS",
+   "unit_price": 2953.0,
+   "amount": 755968.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  },
+  {
+   "invoice_no": "T261565",
+   "part_no": "2EC18339B",
+   "description": "PRESSURE SENSORS Type YSK-AC35B-338",
+   "qty": 128.0,
+   "unit": "PCS",
+   "unit_price": 2953.0,
+   "amount": 377984.0,
+   "origin": "Japan",
+   "hs_code": null,
+   "currency": "JPY"
+  }
+ ],
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case10/run/T261565.pdf",
+  "text_backend": "pdftotext -layout",
+  "format_id": "bhc_vendor_ci_v1",
+  "confidence": "high",
+  "needs_ocr": false,
+  "needs_gold": false,
+  "notes": "profile=saginomiya; PN = BUYER DRAWING NO.; origin per line: '(MADE IN CHINA)' → China, others Japan (footer COUNTRY OF ORIGIN : JAPAN / CHINA); HS not printed (BHC soft-missing OK); Package Total: 131 cartons on 5 pallets → pkg = pallets; PL prints no gross-weight total (1,221.46 kg on the Total row is the Net Weight column) — invoice G.W. left blank; use BL G.W.; source=combined; pkl_used=yes; bl_used=yes; bl_file=20260929202543-0001.pdf",
+  "labeled_amount": 7433872.0,
+  "labeled_amount_label": "Total F.O.B",
+  "source": "combined",
+  "inv_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case10/run/T261565.pdf",
+  "pkl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case10/run/T261565.pdf",
+  "pkl_used": true,
+  "bl_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case10/run/20260929202543-0001.pdf",
+  "bl_used": true,
+  "bl_format_id": "jif_cosmo_waybill_v1",
+  "pair_status": "INV+PKL",
+  "source_kind": "pdf",
+  "needs_gold_fields": null,
+  "packing_units": null,
+  "packing_units_zeroed": null,
+  "checker_verdict": "pass",
+  "checker_issues": [],
+  "checker_details": {
+   "item_line_count": {
+    "want": 25,
+    "got": 25
+   },
+   "total_quantity": {
+    "want": 9854.0,
+    "got": 9854.0
+   },
+   "amount": {
+    "want": 7433872.0,
+    "got": 7433872.0
+   },
+   "labeled_amount": {
+    "label": "Total F.O.B",
+    "want": 7433872.0,
+    "header_amount": 7433872.0,
+    "sum_items": 7433872.0,
+    "item_count": 25
+   }
+  }
+ },
+ "_hard": {
+  "verdict": "pass",
+  "issues": [],
+  "details": {
+   "item_line_count": {
+    "want": 25,
+    "got": 25
+   },
+   "total_quantity": {
+    "want": 9854.0,
+    "got": 9854.0
+   },
+   "amount": {
+    "want": 7433872.0,
+    "got": 7433872.0
+   },
+   "labeled_amount": {
+    "label": "Total F.O.B",
+    "want": 7433872.0,
+    "header_amount": 7433872.0,
+    "sum_items": 7433872.0,
+    "item_count": 25
+   }
+  }
+ },
+ "_pair_status": "INV+PKL",
+ "_pair_id": "P1",
+ "_pair": {
+  "inv": "T261565.pdf",
+  "pkl": "—",
+  "bl": "20260929202543-0001.pdf",
+  "status": "僅 INV",
+  "notes": ""
+ }
+}
