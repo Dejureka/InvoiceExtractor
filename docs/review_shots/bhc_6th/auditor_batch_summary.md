@@ -21,7 +21,7 @@ Pack layout:
 | 6 | `hisense_qingdao_v1` (PDF + xlsx twin) | CIHT-TW-26090470 | USD 71,400.00 | 1 | 300 | 60 / 13,800 (PDF row; xlsx row blank*) | FOB | `tvl_hbl_v1` | QDEX2610001 / 60 / 13,800 | pass |
 | 7 | `bhc_vendor_ci_v1` (hailiang, extended) | 26HLHK01Q4010 | USD 749,014.61 | 8 | 49,147 (KG) | 54 / 55,064 | FOB SHANGHAI | `tvl_hbl_v1` | SHAKEL26971215 / 54 / 55,064 | pass |
 | 8 | `hitachi_gls_v1` (extended) | MEH6K018 | JPY 294,030 | 2 | 20 | 1 / 50 | F.O.B. SHIMIZU, JAPAN | `jif_cosmo_waybill_v1` (original 3-page scan; waybill picked by printed INVOICE NO.) | 261002KEE602 / 1 / 50 | pass (round 2) |
-| 9 | `bhc_vendor_ci_v1` (hipus, extended; PDF + xlsx twin) | 117-BHCTW-26K-43 | JPY 3,397,361 | 24 | 8,969 | 6 / 1,774.5 (xlsx row; PDF row blank*) | FOB | `jif_cosmo_waybill_v1` | 261002KEE101 / 6 / 1,774.5 | pass |
+| 9 | `bhc_vendor_ci_v1` (hipus, extended; PDF + xlsx twin) | 117-BHCTW-26K-43 | JPY 3,397,361 | 24 | 8,969 | 6 / 1,774.5 (xlsx row; PDF row blank*) | FOB | `jif_cosmo_waybill_v1` | 261002KEE101 / 6 / 1,774.5 (**BL G.W. needs_gold**, round 4) | needs_gold (`bl_gross_weight_kg`) |
 | 10 | `bhc_vendor_ci_v1` (saginomiya, NEW) | T261565 | JPY 7,433,872 | 25 | 9,854 | 5 / **blank** + Summary note | FOB YOKOHAMA | `jif_cosmo_waybill_v1` (Ocean Links, extended) | KLG-T268Y98 / 5 / 1,460.9 | pass |
 | 11 | `dunan_v1` (PDF + xlsx twin) | DA15199998/2/3/2/5 | USD 126,156.46 | 8 | 44,644 | 34 / 9,526 | FOB NINGBO | `china_progress_bl_v1` | NBSE26090062 / 34 / 9,526 | pass |
 | 12 | `bhc_vendor_ci_v1` (augewei, NEW) | AGW202609300001 | USD 26,755.20 | 2 | 12,960 | 20 / 8,690.4 | FOB SHANGHAI | `tvl_hbl_v1` | **SHAKEL26C72175** / 20 / 8,690.4 | pass |
@@ -41,8 +41,13 @@ case9 scan `20261002225640-0001.pdf`.
 
 ## Needs a human read
 
-None after Auditor round 2. Case 8 (formerly BL GW needs_gold) now runs the original 3-page scan
-and outputs 261002KEE602 / 1 / 50. See `auditor_round2.md`.
+1. **Case 9 BL G.W. (waybill 261002KEE101), round 4.** Under the conservative GW rule, the page and token reads say 1,774.5
+   but the located cell re-read says 774.5 (its box lost the leading `1,`). The sources disagree, so `bl_gross_weight_kg`
+   is needs_gold with the suggestion 1,774.5. The scan prints **1,774.500 KGS** (= INV/PL); see `crops/case9_bl_pkg_gw.png`.
+   Expected gold: 261002KEE101 / 6 / 1,774.5. Details are in `auditor_round4.md`.
+
+Case 8 (round 2) outputs 261002KEE602 / 1 / 50 from the original 3-page scan. The G.W. comes from the cell re-read only
+and is accepted because it equals the INV/PL G.W. total (round 4).
 
 ## User decisions applied (2026-10-08)
 
@@ -75,7 +80,7 @@ and outputs 261002KEE602 / 1 / 50. See `auditor_round2.md`.
 ## Hard-check notes
 
 - All 15 cases: INV amount = labeled total = sum(lines); LINE/QTY consistent; unit price × qty
-  per line within tolerance. No INV hard fail. All rows pass after round 2.
+  per line within tolerance. No INV hard fail. All rows pass except case 9 (BL G.W. needs_gold, round 4).
 - INV/PL pkg/GW = BL pkg/GW on every case where both exist (case 10 INV GW blank by decision;
   case 8 = 1 / 50 on both sides after round 2).
 

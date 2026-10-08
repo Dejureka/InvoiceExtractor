@@ -26,15 +26,17 @@
   "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case9/run/WAYBILL.pdf",
   "text_backend": "ocr/tesseract",
   "format_id": "jif_cosmo_waybill_v1",
-  "confidence": "rules",
+  "confidence": "needs_gold",
   "needs_ocr": false,
-  "needs_gold": false,
-  "notes": "pkg reads: pallets(pieces)_clean=6, container<pallets_clean=6; GW reads: said_to_contain_clean=1774.5, tok300=1774.5, tok400=1774.5, tok600=1774.5, cell=774.5, cell=774.5; GW cell 774.5 and read(s) 1774.5 differ by leading digits — majority decides; GW token '1,774,500' re-read (hatch removed): tok300=1774.5, tok400=1774.5, tok600=1774.5; GW cell (455, 353, 488, 360) re-read: 300c0=774.506, 400c0=774.5, 600c0=774.5, 300c2=774.5, 400c2=774.5, 600c2=774.5, 300c3=774.5, 400c3=774.5, 600c3=774.5, 300c4=774.5, 400c4=774.5, 600c4=774.5 → integer/decimals vote 774.5 (11 of 12); widened box (444, 353, 492, 360): 774.5, 774.5, 774.5, 4774.5, 1774.5, 4774.5, 1774.5, 1774.5, 1774.5, 1774.5, 1774.5, 1774.5 → 1774.5 — NOT confirmed (cell may be truncated)",
+  "needs_gold": true,
+  "notes": "needs_gold: gross_weight_kg (OCR reads disagree / too few; anti-counterfeit background); pkg reads: pallets(pieces)_clean=6, container<pallets_clean=6; GW reads: clean=1774.5, tok=1774.5 (cell 774.5 unconfirmed, not voting); GW cell 774.5 (unconfirmed) disagrees with 1774.5 → needs_gold; GW token '1,774,500' re-read (hatch removed): tok300=1774.5, tok400=1774.5, tok600=1774.5; GW cell (455, 353, 488, 360) re-read: 300c0=774.506, 400c0=774.5, 600c0=774.5, 300c2=774.5, 400c2=774.5, 600c2=774.5, 300c3=774.5, 400c3=774.5, 600c3=774.5, 300c4=774.5, 400c4=774.5, 600c4=774.5 → integer/decimals vote 774.5 (11 of 12); widened box (444, 353, 492, 360): 774.5, 774.5, 774.5, 4774.5, 1774.5, 4774.5, 1774.5, 1774.5, 1774.5, 1774.5, 1774.5, 1774.5 → 1774.5 — NOT confirmed (cell may be truncated)",
   "doc_kind": "sea_waybill",
   "checker_verdict": null,
   "checker_issues": null,
-  "needs_gold_fields": null,
+  "needs_gold_fields": [
+   "gross_weight_kg"
+  ],
   "documents": null,
-  "gw_cell_unverified": null
+  "gw_cell_only": null
  }
 }

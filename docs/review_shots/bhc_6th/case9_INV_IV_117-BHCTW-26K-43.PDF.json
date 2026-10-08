@@ -311,10 +311,10 @@
   "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case9/run/IV_117-BHCTW-26K-43.PDF",
   "text_backend": "pdftotext -layout",
   "format_id": "bhc_vendor_ci_v1",
-  "confidence": "high",
+  "confidence": "rules",
   "needs_ocr": false,
-  "needs_gold": false,
-  "notes": "profile=hipus; source=split; pkl_used=no; 缺 PKL; bl_used=yes; bl_file=WAYBILL.pdf; duplicate BL copy 20261002225640-0001.pdf (same BL no 261002KEE101) not used",
+  "needs_gold": true,
+  "notes": "profile=hipus; source=split; pkl_used=no; 缺 PKL; bl_used=yes; bl_file=WAYBILL.pdf; bl_needs_gold (needs_gold: gross_weight_kg (OCR reads disagree / too few; anti-counterfeit background); pkg reads: pallets(pieces)_clean=6, container<pallets_clean=6; GW reads); duplicate BL copy 20261002225640-0001.pdf (same BL no 261002KEE101) not used",
   "labeled_amount": 3397361.0,
   "labeled_amount_label": "TOTAL",
   "source": "split",
@@ -326,11 +326,15 @@
   "bl_format_id": "jif_cosmo_waybill_v1",
   "pair_status": "僅 INV",
   "source_kind": "pdf",
-  "needs_gold_fields": null,
+  "needs_gold_fields": [
+   "bl_gross_weight_kg"
+  ],
   "packing_units": null,
   "packing_units_zeroed": null,
-  "checker_verdict": "pass",
-  "checker_issues": [],
+  "checker_verdict": "needs_gold",
+  "checker_issues": [
+   "needs_gold field(s): bl_gross_weight_kg (document contradicts itself; confirm manually / from BL)"
+  ],
   "checker_details": {
    "item_line_count": {
     "want": 24,
@@ -350,12 +354,17 @@
     "header_amount": 3397361.0,
     "sum_items": 3397361.0,
     "item_count": 24
-   }
+   },
+   "needs_gold_fields": [
+    "bl_gross_weight_kg"
+   ]
   }
  },
  "_hard": {
-  "verdict": "pass",
-  "issues": [],
+  "verdict": "needs_gold",
+  "issues": [
+   "needs_gold field(s): bl_gross_weight_kg (document contradicts itself; confirm manually / from BL)"
+  ],
   "details": {
    "item_line_count": {
     "want": 24,
@@ -375,7 +384,10 @@
     "header_amount": 3397361.0,
     "sum_items": 3397361.0,
     "item_count": 24
-   }
+   },
+   "needs_gold_fields": [
+    "bl_gross_weight_kg"
+   ]
   }
  },
  "_pair_status": "僅 INV",

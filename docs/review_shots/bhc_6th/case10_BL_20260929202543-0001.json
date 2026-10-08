@@ -29,12 +29,12 @@
   "confidence": "rules",
   "needs_ocr": false,
   "needs_gold": false,
-  "notes": "pkg reads: container<pallets_r1=5, pallets(pieces)_clean=5, container<pallets_clean=5; GW reads: said_to_contain_r1=1460.9, said_to_contain_clean=1460.9, tok400=1460.9, tok600=1460.9; GW token '1, 460. 900' re-read (hatch removed): tok400=1460.9, tok600=1460.9",
+  "notes": "pkg reads: container<pallets_r1=5, pallets(pieces)_clean=5, container<pallets_clean=5; GW reads: r1=1460.9, clean=1460.9, tok=1460.9; GW token '1, 460. 900' re-read (hatch removed): tok400=1460.9, tok600=1460.9",
   "doc_kind": "sea_waybill",
   "checker_verdict": null,
   "checker_issues": null,
   "needs_gold_fields": null,
   "documents": null,
-  "gw_cell_unverified": null
+  "gw_cell_only": null
  }
 }
