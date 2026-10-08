@@ -68,10 +68,10 @@ Real scans (`extract_bl`, after the fix):
 ## Verification
 
 - **Full pytest:** 368 passed, 3 skipped.
-- **Regression BHC 2nd–5th + mega (32 folders) vs `main` @4fab308:** only BHC 3rd case 5 differs (the known round-1 Dunan pairing; audited gold). Same as round 2.
+- **Regression BHC 2nd–5th + mega (32 folders) vs `main` @4fab308:** two folders differ. BHC 3rd case 5 is the known round-1 Dunan pairing (audited gold). BHC 2nd case 1 changed row `meta.needs_gold` False → True on both rows (QDEX2609010.jpg, fields `bl_gross_weight_kg`/`bl_packages` already flagged). That comes from fix 2(b); values, needs_gold fields and the hard verdict are unchanged. *(Corrected in round 4: the original text said only 3rd case 5. My harness does not record `meta.needs_gold`, so this was missed.)*
 - **BHC 6th vs adfd279 (round-2 run):** 0 Result-field differences across all 15 cases (header, lines, BL fields, flags, verdict). Row notes are also identical.
 - **Review-pack JSONs:** regenerated. The BL JSONs gained `meta.gw_cell_unverified` and the widened-box notes; 0 of the 35 case JSONs differ from adfd279 in Result fields or flags.
 
 ## Output changes
 
-None. All 15 BHC 6th Result rows and all 32 regression folders are unchanged vs round 2.
+None in Result values. All 15 BHC 6th Result rows are unchanged vs round 2. In the 32 regression folders the only change vs round 2 is BHC 2nd case 1 row `meta.needs_gold` False → True (fix 2(b); values, fields and verdict unchanged). *(Corrected in round 4.)*
