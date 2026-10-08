@@ -160,7 +160,7 @@ def find_spans(words: list[Word], rx: re.Pattern) -> list[tuple[str, tuple[float
 def reread_clip(path: str | Path, rect: tuple[float, float, float, float], *, page: int = 0,
                 dpis: tuple[int, ...] = (200, 300, 400), whitelist: str = "0123456789.,KGS",
                 pad: tuple[float, float, float, float] = (1.0, 0.5, 0.6, 0.5),
-                clean_per_300dpi: int = 0) -> list[tuple[int, str]]:
+                clean_per_300dpi: int = 0, psm: str = "7") -> list[tuple[int, str]]:
     """Re-OCR one located value as a single line at several zooms.
 
     ``pad`` = (left, top, right, bottom) in multiples of the box height.
@@ -190,7 +190,7 @@ def reread_clip(path: str | Path, rect: tuple[float, float, float, float], *, pa
                 pix = _render(doc, page, dpi, clip=clip, clean_k=k)
                 img = Path(td) / f"c{dpi}.png"
                 pix.save(str(img))
-                t = _run([str(tess), str(img), "stdout", "--psm", "7", "-c",
+                t = _run([str(tess), str(img), "stdout", "--psm", str(psm), "-c",
                           f"tessedit_char_whitelist={whitelist}"], tess).strip()
                 out.append((dpi, t))
     finally:
