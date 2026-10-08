@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-05",
+  "updated": "2026-10-08",
   "notes": "Formats that passed AuditSOP (Auditor final pass after conflict fixes). GUI mapping_status uses this registry; BL-only rows also use meta.format_id → same path.",
   "formats": {
     "bitzer_v1": {
@@ -25,8 +25,8 @@
     },
     "hitachi_gls_v1": {
       "audited": true,
-      "date": "2026-10-05",
-      "note": "Round3 Hitachi GLS / MEH; BHC 4th/5th Auditor pass"
+      "date": "2026-10-08",
+      "note": "Round3 Hitachi GLS / MEH; BHC 4th/5th Auditor pass; BHC 6th Auditor pass (MEH invoice no. on the line below the header; spare-part description line; case8 MEH6K018)"
     },
     "highly_v1": {
       "audited": true,
@@ -45,13 +45,13 @@
     },
     "bhc_my_hub_v1": {
       "audited": true,
-      "date": "2026-09-10",
-      "note": "Round4 BHC MY-HUB; bhc_cases_1368 + OCR PKL overlay"
+      "date": "2026-10-08",
+      "note": "Round4 BHC MY-HUB; bhc_cases_1368 + OCR PKL overlay; BHC 6th Auditor pass (Excel twin PN│DESCRIPTION gap split; case4/case5)"
     },
     "hisense_qingdao_v1": {
       "audited": true,
-      "date": "2026-09-13",
-      "note": "bhc_cases_1368 case1 Auditor pass"
+      "date": "2026-10-08",
+      "note": "bhc_cases_1368 case1 Auditor pass; BHC 6th case6 reconfirm (no code change)"
     },
     "aichi_electric_v1": {
       "audited": true,
@@ -60,8 +60,8 @@
     },
     "ceva_pyramid_arrival_v1": {
       "audited": true,
-      "date": "2026-09-15",
-      "note": "bhc_bl_cases case4/5/6 Auditor pass"
+      "date": "2026-10-08",
+      "note": "bhc_bl_cases case4/5/6 Auditor pass; BHC 6th case4 reconfirm (no code change)"
     },
     "dhl_lcl_arrival_v1": {
       "audited": true,
@@ -100,8 +100,8 @@
     },
     "tvl_hbl_v1": {
       "audited": true,
-      "date": "2026-10-05",
-      "note": "bhc_ocr_scans case7/8 HBL Auditor pass; BHC 4th/5th Auditor pass (OCR clip re-read for BL No./pkg/GW)"
+      "date": "2026-10-08",
+      "note": "bhc_ocr_scans case7/8 HBL Auditor pass; BHC 4th/5th Auditor pass (OCR clip re-read for BL No./pkg/GW); BHC 6th Auditor pass (26C letter-series BL no. SHAKEL26C#####, guarded phantom-digit strip; case5/6/7/12/13)"
     },
     "soe_rb_gmbh_v1": {
       "audited": true,
@@ -135,8 +135,8 @@
     },
     "dunan_v1": {
       "audited": true,
-      "date": "2026-09-24",
-      "note": "BHC 3rd Auditor pass"
+      "date": "2026-10-08",
+      "note": "BHC 3rd Auditor pass; BHC 6th Auditor pass (split PKL overlay parse_packing, FOB SHENZHEN incoterm; case3/case11)"
     },
     "ohizumi_dongguan_v1": {
       "audited": true,
@@ -160,8 +160,8 @@
     },
     "hippopo_arrival_v1": {
       "audited": true,
-      "date": "2026-09-24",
-      "note": "BHC 3rd Auditor pass"
+      "date": "2026-10-08",
+      "note": "BHC 3rd Auditor pass; BHC 6th Auditor pass (PALLET(S) packages, multi-container pallet sum; case1/2/14/15)"
     },
     "dhl_danmar_bl_v1": {
       "audited": true,
@@ -170,8 +170,8 @@
     },
     "china_progress_bl_v1": {
       "audited": true,
-      "date": "2026-09-24",
-      "note": "BHC 3rd Auditor pass"
+      "date": "2026-10-08",
+      "note": "BHC 3rd Auditor pass; BHC 6th Auditor pass (CPSE/SZSE BL no., container-line packages; case3/case11)"
     },
     "cosco_arrival_v1": {
       "audited": true,
@@ -185,13 +185,13 @@
     },
     "bhc_vendor_ci_v1": {
       "audited": true,
-      "date": "2026-10-05",
-      "note": "BHC 4th/5th Auditor pass (profiles sanhua/welling/broad_ocean/hipus/hailiang/katata/nisshinbo; shared-PL shipment_first)"
+      "date": "2026-10-08",
+      "note": "BHC 4th/5th Auditor pass (profiles sanhua/welling/broad_ocean/hipus/hailiang/katata/nisshinbo; shared-PL shipment_first); BHC 6th Auditor Round 5 pass @4363b43 (new profiles topband/augewei/jiangnan/wolong/saginomiya; hipus/hailiang reconfirmed; split PL overlay; saginomiya filename hint T\\d{6}.)"
     },
     "jif_cosmo_waybill_v1": {
       "audited": true,
-      "date": "2026-10-05",
-      "note": "BHC 4th Auditor pass (JIFFA Cosmo sea waybill; OCR clip re-read for pkg/GW)"
+      "date": "2026-10-08",
+      "note": "BHC 4th Auditor pass (JIFFA Cosmo sea waybill; OCR clip re-read for pkg/GW); BHC 6th Auditor Round 5 pass (multi-waybill PDF: pick waybill by printed INVOICE NO., else needs_gold; OCEAN LINKS LTD issuer; conservative one-vote-per-source GW rule + INV/PL shipment-total corroboration for cell-only GW; case8/9/10)"
     }
   }
 }
