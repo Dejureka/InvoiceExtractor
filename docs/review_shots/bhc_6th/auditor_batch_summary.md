@@ -20,7 +20,7 @@ Pack layout:
 | 5 | `bhc_my_hub_v1` (PDF + xlsx twin) | 9027847785 | USD 146,317.23 | 5 | 71 | 71 / 17,652 (PDF row; xlsx row blank*) | CIF Taipei | `tvl_hbl_v1` | SHAKEL26971972 / 71 / 17,652 | pass |
 | 6 | `hisense_qingdao_v1` (PDF + xlsx twin) | CIHT-TW-26090470 | USD 71,400.00 | 1 | 300 | 60 / 13,800 (PDF row; xlsx row blank*) | FOB | `tvl_hbl_v1` | QDEX2610001 / 60 / 13,800 | pass |
 | 7 | `bhc_vendor_ci_v1` (hailiang, extended) | 26HLHK01Q4010 | USD 749,014.61 | 8 | 49,147 (KG) | 54 / 55,064 | FOB SHANGHAI | `tvl_hbl_v1` | SHAKEL26971215 / 54 / 55,064 | pass |
-| 8 | `hitachi_gls_v1` (extended) | MEH6K018 | JPY 294,030 | 2 | 20 | 1 / 50 | F.O.B. SHIMIZU, JAPAN | `jif_cosmo_waybill_v1` | 261002KEE602 / 1 / **blank — needs_gold** | needs_gold (`bl_gross_weight_kg`) |
+| 8 | `hitachi_gls_v1` (extended) | MEH6K018 | JPY 294,030 | 2 | 20 | 1 / 50 | F.O.B. SHIMIZU, JAPAN | `jif_cosmo_waybill_v1` (original 3-page scan; waybill picked by printed INVOICE NO.) | 261002KEE602 / 1 / 50 | pass (round 2) |
 | 9 | `bhc_vendor_ci_v1` (hipus, extended; PDF + xlsx twin) | 117-BHCTW-26K-43 | JPY 3,397,361 | 24 | 8,969 | 6 / 1,774.5 (xlsx row; PDF row blank*) | FOB | `jif_cosmo_waybill_v1` | 261002KEE101 / 6 / 1,774.5 | pass |
 | 10 | `bhc_vendor_ci_v1` (saginomiya, NEW) | T261565 | JPY 7,433,872 | 25 | 9,854 | 5 / **blank** + Summary note | FOB YOKOHAMA | `jif_cosmo_waybill_v1` (Ocean Links, extended) | KLG-T268Y98 / 5 / 1,460.9 | pass |
 | 11 | `dunan_v1` (PDF + xlsx twin) | DA15199998/2/3/2/5 | USD 126,156.46 | 8 | 44,644 | 34 / 9,526 | FOB NINGBO | `china_progress_bl_v1` | NBSE26090062 / 34 / 9,526 | pass |
@@ -41,17 +41,15 @@ case9 scan `20261002225640-0001.pdf`.
 
 ## Needs a human read
 
-1. **Case 8 BL GW (waybill 261002KEE602)** — the GW sits under the anti-counterfeit hatch; no
-   OCR pass or clip re-read gives two agreeing reads, so `bl_gross_weight_kg` is needs_gold
-   (blank). The image shows **50.000 KGS** (= INV/PL 50). Crops:
-   `crops/case8_bl_pkg_gw_NEEDS_CHECK.png`, `crops/case8_bl_gw_50.000_clip_NEEDS_CHECK.png`.
-   Expected gold: 261002KEE602 / 1 / 50.
+None after Auditor round 2. Case 8 (formerly BL GW needs_gold) now runs the original 3-page scan
+and outputs 261002KEE602 / 1 / 50. See `auditor_round2.md`.
 
 ## User decisions applied (2026-10-08)
 
 - **Case 8**: only MEH6K018 + waybill 261002KEE602. Waybill 261002KEE601 (MEH6K019, 5 PLT / 745 kg)
-  and its marks sheet (scan pages 1–2) were misplaced by the forwarder: recorded as skipped
-  (missing invoice), not output.
+  and its marks sheet (scan pages 1–2) were misplaced by the forwarder (missing invoice) and are not output.
+  Round 2 runs the original 3-page PDF. The extractor selects KEE602 by its printed INVOICE NO. and names
+  KEE601 as not used.
 - **Case 14** (Wolong VN): words say "…Thirteen And Fifty Five Cents" but the numeric TOTAL is 45,113.58, which matches the sum of lines.
   The numeric total is used, with a note in `meta.notes`.
 - **Case 15** (Wolong CN): the amount in words is garbled ("FOUR THOUSAND THREE HUNDRED AND TWENTY TWENTY
@@ -77,9 +75,9 @@ case9 scan `20261002225640-0001.pdf`.
 ## Hard-check notes
 
 - All 15 cases: INV amount = labeled total = sum(lines); LINE/QTY consistent; unit price × qty
-  per line within tolerance. No INV hard fail. Only non-pass row: case 8 (BL GW needs_gold).
+  per line within tolerance. No INV hard fail. All rows pass after round 2.
 - INV/PL pkg/GW = BL pkg/GW on every case where both exist (case 10 INV GW blank by decision;
-  case 8 BL GW needs_gold).
+  case 8 = 1 / 50 on both sides after round 2).
 
 ## Rule changes for review
 

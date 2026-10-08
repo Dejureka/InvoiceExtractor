@@ -1,7 +1,7 @@
 # Auditor request — BHC 6th batch (2026-10-08)
 
 **Scope:** 15 shipments (15 .msg) from `/home/box/Downloads/BHC-batch-6th/`, unpacked to
-`BHC_6th data/case1…15`. Case 8 runs only invoice MEH6K018 + waybill 261002KEE602. That was the
+`BHC_6th data/case1…15`. Case 8 outputs only invoice MEH6K018 + waybill 261002KEE602 (round 2: from the original 3-page scan). That was the
 user's decision: waybill 261002KEE601 and its marks sheet were misplaced by the forwarder, have no invoice,
 are recorded as skipped and are not output.
 
@@ -19,10 +19,9 @@ are recorded as skipped and are not output.
 
 1. **Per invoice:** invoice no., amount (= labeled total = sum of lines), LINE/QTY, pkg/GW and
    BL No./pkg/GW against the page images and crops, for all 15 cases.
-2. **Needs check: case 8 BL GW.** It is `needs_gold` (blank) because the OCR reads under the waybill hatch
-   don't agree. The image shows **50.000 KGS** (= INV/PL 50). See
-   `crops/case8_bl_pkg_gw_NEEDS_CHECK.png` and `crops/case8_bl_gw_50.000_clip_NEEDS_CHECK.png`.
-   Please confirm the gold value: 261002KEE602 / 1 / 50.
+2. **Case 8 (round 2).** The original 3-page forwarder scan is run as dropped. The waybill is selected by its printed
+   INVOICE NO. (MEH6K018 → 261002KEE602), and the GW cell is re-read under the hatch → 261002KEE602 / 1 / 50.
+   Details, reads and crops are in `auditor_round2.md`.
 3. **New profiles.** The new `bhc_vendor_ci_v1` profiles are topband (cases 1–2), augewei (12), jiangnan (13),
    wolong (14–15) and saginomiya (10). Check the PN source column and the origin rules
    (case 10 per line; cases 13 and 15 blank because origin is not printed).
