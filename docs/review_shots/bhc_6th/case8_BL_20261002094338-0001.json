@@ -1,0 +1,83 @@
+{
+ "doc_type": "bl",
+ "header": {
+  "bl_no": null,
+  "hbl_no": null,
+  "mbl_no": null,
+  "vessel": null,
+  "voyage": null,
+  "etd": null,
+  "eta": null,
+  "pol": null,
+  "pod": null,
+  "packages": null,
+  "package_unit": null,
+  "gross_weight_kg": null,
+  "measurement_cbm": null,
+  "load_type": null,
+  "shipper": null,
+  "consignee": null,
+  "notify": null,
+  "invoice_refs": null,
+  "container_nos": null,
+  "forwarder": null
+ },
+ "meta": {
+  "source_file": "/home/box/Downloads/BHC-batch-6th/BHC_6th data/case8/run/20261002094338-0001.pdf",
+  "text_backend": "ocr/tesseract",
+  "format_id": "jif_cosmo_waybill_v1",
+  "confidence": "needs_gold",
+  "needs_ocr": false,
+  "needs_gold": true,
+  "notes": "needs_gold: bl_no, packages, gross_weight_kg (2 waybills in one PDF: p1-2 261002KEE601 (INVOICE NO. reads ['MEH6KO19', 'MEHGKO19', 'MEHGKOT9']); p3 261002KEE602 (INVOICE NO. reads ['MEH6K018', 'MEH6KO18']); selected by the paired invoice no.)",
+  "doc_kind": "sea_waybill",
+  "checker_verdict": null,
+  "checker_issues": null,
+  "needs_gold_fields": [
+   "bl_no",
+   "packages",
+   "gross_weight_kg"
+  ],
+  "documents": [
+   {
+    "pages": [
+     1,
+     2
+    ],
+    "bl_no": "261002KEE601",
+    "packages": 5.0,
+    "gross_weight_kg": 745.0,
+    "needs_gold_fields": [
+     "packages"
+    ],
+    "invoice_reads": [
+     "MEH6KO19",
+     "MEHGKO19",
+     "MEHGKOT9",
+     "MEHGKO19",
+     "MEHGKO19",
+     "MEHGKO19"
+    ],
+    "notes": "pkg reads: attached_sheet_last_case_no_r1=5; GW reads: cell=745, cell=745; GW cell (447, 353, 477, 362) re-read: 300c0=745, 400c0=745.008, 600c0=745, 300c2=745, 400c2=745.006, 600c2=-, 300c3=745, 400c3=745.006, 600c3=745, 300c4=748, 400c4=745, 600c4=748 → integer/decimals vote 745 (8 of 12)"
+   },
+   {
+    "pages": [
+     3
+    ],
+    "bl_no": "261002KEE602",
+    "packages": 1.0,
+    "gross_weight_kg": 50.0,
+    "needs_gold_fields": null,
+    "invoice_reads": [
+     "MEH6KO18",
+     "MEH6K018",
+     "MEH6K018",
+     "MEH6KO18",
+     "MEH6K018",
+     "MEH6K018"
+    ],
+    "notes": "pkg reads: say_words_r1=1, attached_sheet_last_case_no_r1=1, say_words_clean=1; GW reads: cell=50, cell=50; GW cell (450, 352, 477, 359) re-read: 300c0=50.006, 400c0=50.006, 600c0=50.006, 300c2=50.006, 400c2=50, 600c2=50, 300c3=50, 400c3=50, 600c3=50, 300c4=40, 400c4=40, 600c4=40 → integer/decimals vote 50 (8 of 12)"
+   }
+  ]
+ }
+}
