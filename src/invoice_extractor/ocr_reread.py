@@ -196,3 +196,26 @@ def reread_clip(path: str | Path, rect: tuple[float, float, float, float], *, pa
     finally:
         doc.close()
     return out
+
+
+def line_height(words: list[Word], default: float = 8.0) -> float:
+    """Median word-box height in points (typewriter body text), clamped 6–12."""
+    hs = sorted(w.y1 - w.y0 for w in words if w.text.strip() and len(w.text) > 1)
+    if not hs:
+        return default
+    return max(6.0, min(12.0, hs[len(hs) // 2]))
+
+
+def line_run(words: list[Word], rect: tuple[float, float, float, float], *,
+             max_gap: float, max_width: float) -> tuple[float, float, float, float]:
+    """Extend ``rect`` rightwards over the words of the same OCR line that follow
+    it with gaps ≤ ``max_gap`` (a printed value after its label), capped at
+    ``max_width`` from ``rect``'s left edge."""
+    x0, y0, x1, y1 = rect
+    yc = (y0 + y1) / 2
+    same = sorted((w for w in words if w.y0 <= yc <= w.y1 and w.x0 >= x1 - 0.5), key=lambda w: w.x0)
+    for w in same:
+        if w.x0 - x1 > max_gap or w.x1 - x0 > max_width:
+            break
+        x1 = max(x1, w.x1)
+    return (x0, y0, x1, y1)

@@ -984,7 +984,8 @@ def merge_bl_onto_inv(
     if bl_p:
         extra += f"; bl_file={Path(bl_p).name}"
     bm = dict(bl_meta or {})
-    if bl_used and bm.get("needs_gold"):
+    # multi-waybill file with no matching waybill: nothing used, still flagged
+    if (bl_used or bm.get("documents")) and bm.get("needs_gold"):
         flds = list(meta.needs_gold_fields or [])
         bl_note = str(bm.get("notes") or "")
         want = []
@@ -1008,8 +1009,74 @@ def merge_bl_onto_inv(
                 flds.append(f)
         meta.needs_gold_fields = flds
         extra += f"; bl_needs_gold ({bl_note[:160]})" if bl_note else "; bl_needs_gold"
+    if bm.get("selected_waybill"):
+        extra += f"; bl_waybill={bm['selected_waybill']}"
     meta.notes = f"{note}; {extra}".strip("; ") if note else extra
     return ExtractResult(header=header, items=list(inv_result.items), meta=meta)
+
+
+# OCR look-alikes folded together before comparing a printed invoice no. read
+# off a scan with the paired invoice's number (G/6 as in the SOE PN rule).
+_INV_CANON = str.maketrans({"O": "0", "Q": "0", "I": "1", "L": "1", "|": "1", "G": "6",
+                            "S": "5", "B": "8", "Z": "2"})
+
+
+def _inv_canon(s: str) -> str:
+    return re.sub(r"[^A-Z0-9]", "", str(s or "").upper()).translate(_INV_CANON)
+
+
+def select_bl_document(bl_data: dict[str, Any], invoice_no: str | None) -> dict[str, Any]:
+    """One BL file holding several waybills (``meta.documents``, BHC 6th case8):
+    keep only the document whose printed INVOICE NO. matches ``invoice_no``.
+
+    A document matches when ≥2 of its invoice-no reads equal the invoice no.
+    (after folding OCR look-alikes) and no other document has any matching
+    read. Otherwise nothing is guessed: BL No./pkg/GW stay blank and the row is
+    flagged ``bl_no`` / ``bl_packages`` / ``bl_gross_weight_kg`` needs_gold.
+    Files without ``documents`` are returned unchanged.
+    """
+    meta = dict(bl_data.get("meta") or {})
+    docs = meta.get("documents") or []
+    if len(docs) < 2:
+        return bl_data
+    want = _inv_canon(invoice_no or "")
+    hits = []
+    for d in docs:
+        reads = [_inv_canon(r) for r in (d.get("invoice_reads") or [])]
+        n = sum(1 for r in reads if want and (r == want or (r.startswith(want) and len(r) - len(want) <= 2)))
+        hits.append(n)
+    others = "; ".join(f"{d.get('bl_no')} (pages {d.get('pages')})" for d in docs)
+    best = [i for i, n in enumerate(hits) if n >= 2]
+    out = dict(bl_data)
+    if len(best) == 1 and sum(1 for n in hits if n > 0) == 1:
+        d = docs[best[0]]
+        hdr = dict(bl_data.get("header") or {})
+        hdr.update(bl_no=d.get("bl_no"), hbl_no=d.get("bl_no"), packages=d.get("packages"),
+                   gross_weight_kg=d.get("gross_weight_kg"))
+        ng = list(d.get("needs_gold_fields") or [])
+        unused = "; ".join(f"{o.get('bl_no')} (pages {o.get('pages')})" for o in docs if o is not d)
+        note = (f"waybill {d.get('bl_no')} (pages {d.get('pages')}) selected: printed INVOICE NO. matches "
+                f"{invoice_no} ({hits[best[0]]} reads); other waybill(s) in this file not used: {unused}")
+        if ng:
+            note = "needs_gold: " + ", ".join(ng) + "; " + note
+        pg = lambda o: "-".join(str(x) for x in sorted({min(o.get("pages") or [0]), max(o.get("pages") or [0])}))
+        meta["selected_waybill"] = (
+            f"{d.get('bl_no')} (p{pg(d)}, printed INVOICE NO. matches {invoice_no}; other waybill(s) in the file not used: "
+            + ", ".join(f"{o.get('bl_no')} p{pg(o)}" for o in docs if o is not d) + ")")
+        meta.update(needs_gold=bool(ng), needs_gold_fields=ng or None,
+                    confidence="needs_gold" if ng else "rules",
+                    notes=f"{note}; {d.get('notes') or ''}".strip("; "))
+        out["header"] = hdr
+    else:
+        hdr = dict(bl_data.get("header") or {})
+        hdr.update(bl_no=None, hbl_no=None, packages=None, gross_weight_kg=None)
+        meta.update(needs_gold=True, needs_gold_fields=["bl_no", "packages", "gross_weight_kg"],
+                    confidence="needs_gold",
+                    notes=(f"needs_gold: bl_no ({len(docs)} waybills in one file: {others}; none has a printed "
+                           f"INVOICE NO. matching {invoice_no} — not guessed)"))
+        out["header"] = hdr
+    out["meta"] = meta
+    return out
 
 
 _BL_CACHE: dict[tuple[str, int, int], dict[str, Any]] = {}
@@ -1233,7 +1300,7 @@ def extract_pair_row(
     # Optional BL overlay (does not touch invoice Packages / G.W.)
     if row.bl_path:
         bl_path = Path(row.bl_path)
-        bl_data = _extract_bl_cached(bl_path)
+        bl_data = select_bl_document(_extract_bl_cached(bl_path), result.header.invoice_no)
         result = merge_bl_onto_inv(
             result,
             bl_header=bl_data.get("header"),
