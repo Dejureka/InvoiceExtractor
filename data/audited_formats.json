@@ -196,7 +196,7 @@
     "ebike_ax_billing_v1": {
       "audited": true,
       "date": "2026-11-10",
-      "note": "eBike 1st Auditor pass 18/18 @f8bb8b2 (Energy and Body Systems Kft AX Billing; EUR; soft HS if Commodity Code unprinted; no shipment_first; AX00011144 Copy counted as a real invoice, including NOT VALID watermark)"
+      "note": "eBike 1st Auditor pass 18/18 @f8bb8b2; r2 re-audit 18/18 @4900fef (2026-11-10): unit price = amount/qty (6 d.p.), printed per-100 PC price is not Unt; qty/amount as printed; soft HS if Commodity Code unprinted; no shipment_first; AX00011144 Copy counted as a real invoice, including NOT VALID watermark"
     }
   }
 }
