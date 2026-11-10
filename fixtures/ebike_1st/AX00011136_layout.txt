@@ -1,0 +1,560 @@
+Robert Bosch Energy and Body Systems
+Kft
+MISKOLC
+Robert Bosch park 3                                                                                                                                  Original
+3526
+                                                                                                                                                     Page 1 of 8
+HU13065188
+                                                                                                     Invoice
+                                                                                                     Billing Document               AX00011136
+         Bill to Party Address                                                                       Billing Date                   27.08.2026
+                                                                                                     Your VAT ID                    DE811128135
+         Robert Bosch GmbH
+                                                                                                     Payer                          4001020279
+         PO Box 10 60 50
+         70049 GERLINGEN
+         GERMANY
+
+
+
+
+Sold to Party           Robert Bosch GmbH PO Box 10 60 50 70049 GERLINGEN-SCHILLERHOEHE GERMANY
+Payer                   Robert Bosch GmbH Robert-Bosch-Platz 1 70839 GERLINGEN-SCHILLERHÖHE GERMANY
+Ship to Party           Robert Bosch GmbH Zhongheng 10th Rd., Wuqi Dist. 100 TAICHUNG 435 TAIWAN
+Shipping Point          DCEU Finished Goods MISKOLC Dr.Cselényi József 3 3526, HUNGARY
+Unloading Point         YTCHU                                      Shipping Mode       Sea
+Item     Bosch Material No.                          Billing Quantity          Unit Price                 Net Value                  Tax Rate     Tax Amount
+No.      Material Description                                                  Pricing Unit
+
+
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055516                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025500
+10     1270.016.507-VE4                              10 PC                     508,78                           50,88                0%               0,00
+       Cable                                                                   100 PC
+
+
+         Customer Mat. No                   1270016507VE4                           Delivery Date                       27.08.2026
+         Batch                              0006179754
+         Commodity Code                     85443000                                Country of Origin                   MA
+         Net Weight                              0,726 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057053855                              Your Ord. Date                       30.04.2026
+Our Ord. Number                  700021158
+11     EB12.120.005-VE4                              30 PC                     228,85                           68,66                0%               0,00
+       Cable                                                                   100 PC
+
+
+         Customer Mat. No                   EB12120005VE4                           Delivery Date                       27.08.2026
+         Batch                              0006179937
+         Commodity Code                     85444290                                Country of Origin                   MA
+         Net Weight                              0,738 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055887                              Your Ord. Date                       30.04.2026
+Our Ord. Number                  700021025
+12     EB12.120.006-VE4                              40 PC                     221,47                           88,59                0%               0,00
+       Cable                                                                   100 PC
+
+
+         Customer Mat. No                   EB12120006VE4                           Delivery Date                       27.08.2026
+         Batch                              0006183180
+         Commodity Code                     85444290                                Country of Origin                   MA
+         Net Weight                              0,860 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055481                              Your Ord. Date                       30.04.2026
+Our Ord. Number                  700021048
+
+Bank Details                    IBAN (EUR): HU97 10800007 50000010 04672506 (HUF): HU52 1080000744672003 00000000 Swift code: CITIHUHX
+Registered Office               H-3526 Miskolc, Robert Bosch Park 3.
+Robert Bosch Energy and Body Systems
+Kft
+MISKOLC
+Robert Bosch park 3                                                                                                                                  Original
+3526
+                                                                                                                                                    Page 2 of 8
+HU13065188
+                                                                                     Invoice
+Bill to Party Address                                                                Billing Document                AX00011136
+Robert Bosch GmbH                                                                    Billing Date                    27.08.2026
+PO Box 10 60 50                                                                      Your VAT ID                     DE811128135
+70049 GERLINGEN                                                                      Payer                           4001020279
+GERMANY
+
+
+
+
+Item     Bosch Material No.                          Billing Quantity          Unit Price                 Net Value                   Tax Rate   Tax Amount
+No.      Material Description                                                  Pricing Unit
+
+
+
+13       1270.015.727-VE4                            20 PC                     101,26                           20,25                 0%             0,00
+         Magnet                                                                100 PC
+
+
+         Customer Mat. No                   1270015727VE4                           Delivery Date                        27.08.2026
+         Batch                              0006179743
+         Commodity Code                     85051110                                Country of Origin                    CN
+         Net Weight                              0,076 KG
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055495                              Your Ord. Date                       30.04.2026
+Our Ord. Number                  700021054
+14     1270.016.204-VE4                              10 PC                     125,20                           12,52                 0%             0,00
+       Chain Wheel Disc                                                        100 PC
+
+
+         Customer Mat. No                   1270016204VE4                           Delivery Date                        27.08.2026
+         Batch                              0006179750
+         Commodity Code                     84839089                                Country of Origin                    DE
+         Net Weight                              0,183 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055992                              Your Ord. Date                       30.04.2026
+Our Ord. Number                  700021066
+15     EB12.900.002-VE4                              18 PC                     1.904,27                         342,77                0%             0,00
+       Charger                                                                 100 PC
+
+
+         Customer Mat. No                   EB12900002VE4                           Delivery Date                        27.08.2026
+         Batch                              0006180049
+         Commodity Code                     85044060                                Country of Origin                    HU
+         Net Weight                             13,176 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055589                              Your Ord. Date                       30.04.2026
+Our Ord. Number                  700021103
+16     1270.020.800-VE4                              20 PC                     173,74                           34,75                 0%             0,00
+       Sensor Cable                                                            100 PC
+
+
+         Customer Mat. No                   1270020800VE4                           Delivery Date                        27.08.2026
+         Batch                              0006179856
+         Commodity Code                     90318080                                Country of Origin                    RO
+         Net Weight                              0,360 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055592                              Your Ord. Date                       30.04.2026
+Our Ord. Number                  700021110
+17     1270.020.803-VE4                              30 PC                     184,67                           55,40                 0%             0,00
+       Sensor Cable                                                            100 PC
+Bank Details                    IBAN (EUR): HU97 10800007 50000010 04672506 (HUF): HU52 1080000744672003 00000000 Swift code: CITIHUHX
+Registered Office               H-3526 Miskolc, Robert Bosch Park 3.
+Robert Bosch Energy and Body Systems
+Kft
+MISKOLC
+Robert Bosch park 3                                                                                                                                  Original
+3526
+                                                                                                                                                    Page 3 of 8
+HU13065188
+                                                                                     Invoice
+Bill to Party Address                                                                Billing Document                AX00011136
+Robert Bosch GmbH                                                                    Billing Date                    27.08.2026
+PO Box 10 60 50                                                                      Your VAT ID                     DE811128135
+70049 GERLINGEN                                                                      Payer                           4001020279
+GERMANY
+
+
+
+
+Item     Bosch Material No.                          Billing Quantity          Unit Price                 Net Value                   Tax Rate   Tax Amount
+No.      Material Description                                                  Pricing Unit
+
+
+
+
+         Customer Mat. No                   1270020803VE4                           Delivery Date                        27.08.2026
+         Batch                              0006179923
+         Commodity Code                     90318080                                Country of Origin                    RO
+         Net Weight                              0,654 KG
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055571                              Your Ord. Date                       30.04.2026
+Our Ord. Number                  700021166
+18     1270.020.160-VE4                              12 PC                     1.094,52                         131,34                0%             0,00
+       Service kit                                                             100 PC
+
+
+         Customer Mat. No                   1270020160VE4                           Delivery Date                        27.08.2026
+         Batch                              0006179831
+         Commodity Code                     84879090                                Country of Origin                    HU
+         Net Weight                              0,377 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057054873                              Your Ord. Date                       30.04.2026
+Our Ord. Number                  700021317
+19     0275.007.337-VE4                              10 PC                     27.678,33                      2.767,83                0%             0,00
+       Drive Unit                                                              100 PC
+
+
+         Customer Mat. No                   0275007337VE4                           Delivery Date                        27.08.2026
+         Batch                              0006179614
+         Commodity Code                     85013100                                Country of Origin                    HU
+         Net Weight                             40,000 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055591                              Your Ord. Date                       05.05.2026
+Our Ord. Number                  700022749
+20     1270.020.802-VE4                              30 PC                     176,14                           52,84                 0%             0,00
+       Sensor Cable                                                            100 PC
+
+
+         Customer Mat. No                   1270020802VE4                           Delivery Date                        27.08.2026
+         Batch                              0006179868
+         Commodity Code                     90318080                                Country of Origin                    RO
+         Net Weight                              0,435 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055519                              Your Ord. Date                       15.06.2026
+Our Ord. Number                  700024366
+21     1270.016.515-VE4                              30 PC                     483,74                           145,12                0%             0,00
+       Cable                                                                   100 PC
+
+
+Bank Details                    IBAN (EUR): HU97 10800007 50000010 04672506 (HUF): HU52 1080000744672003 00000000 Swift code: CITIHUHX
+Registered Office               H-3526 Miskolc, Robert Bosch Park 3.
+Robert Bosch Energy and Body Systems
+Kft
+MISKOLC
+Robert Bosch park 3                                                                                                                                  Original
+3526
+                                                                                                                                                    Page 4 of 8
+HU13065188
+                                                                                     Invoice
+Bill to Party Address                                                                Billing Document                AX00011136
+Robert Bosch GmbH                                                                    Billing Date                    27.08.2026
+PO Box 10 60 50                                                                      Your VAT ID                     DE811128135
+70049 GERLINGEN                                                                      Payer                           4001020279
+GERMANY
+
+
+
+
+Item     Bosch Material No.                          Billing Quantity          Unit Price                 Net Value                   Tax Rate   Tax Amount
+No.      Material Description                                                  Pricing Unit
+
+
+
+         Customer Mat. No                   1270016515VE4                           Delivery Date                        27.08.2026
+         Batch                              0006179759
+         Commodity Code                     85443000                                Country of Origin                    MA
+         Net Weight                              1,593 KG
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055526                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025497
+22     1270.016.551-VE4                              10 PC                     279,99                           28,00                 0%             0,00
+       Cable                                                                   100 PC
+
+
+         Customer Mat. No                   1270016551VE4                           Delivery Date                        27.08.2026
+         Batch                              0006179764
+         Commodity Code                     85444290                                Country of Origin                    RO
+         Net Weight                              0,041 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055440                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025538
+23     1270.015.067-VE4                              30 PC                     474,53                           142,36                0%             0,00
+       Connector                                                               100 PC
+
+
+         Customer Mat. No                   1270015067VE4                           Delivery Date                        27.08.2026
+         Batch                              0006179740
+         Commodity Code                     85443000                                Country of Origin                    MA
+         Net Weight                              1,830 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055950                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025543
+24     EB12.120.07B-VE4                              20 PC                     648,54                           129,71                0%             0,00
+       Cable                                                                   100 PC
+
+
+         Customer Mat. No                   EB1212007BVE4                           Delivery Date                        27.08.2026
+         Batch                              0006180009
+         Commodity Code                     85444290                                Country of Origin                    CN
+         Net Weight                              0,536 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055888                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025548
+25     EB12.120.007-VE4                              10 PC                     208,84                           20,88                 0%             0,00
+       Cable                                                                   100 PC
+
+
+         Customer Mat. No                   EB12120007VE4                           Delivery Date                        27.08.2026
+         Batch                              0006179944
+Bank Details                    IBAN (EUR): HU97 10800007 50000010 04672506 (HUF): HU52 1080000744672003 00000000 Swift code: CITIHUHX
+Registered Office               H-3526 Miskolc, Robert Bosch Park 3.
+Robert Bosch Energy and Body Systems
+Kft
+MISKOLC
+Robert Bosch park 3                                                                                                                                 Original
+3526
+                                                                                                                                                   Page 5 of 8
+HU13065188
+                                                                                     Invoice
+Bill to Party Address                                                                Billing Document                AX00011136
+Robert Bosch GmbH                                                                    Billing Date                    27.08.2026
+PO Box 10 60 50                                                                      Your VAT ID                     DE811128135
+70049 GERLINGEN                                                                      Payer                           4001020279
+GERMANY
+
+
+
+
+Item     Bosch Material No.                          Billing Quantity          Unit Price                 Net Value                  Tax Rate   Tax Amount
+No.      Material Description                                                  Pricing Unit
+
+
+
+         Commodity Code                     85444290                                Country of Origin                   MA
+         Net Weight                              0,168 KG
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057056007                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025554
+26     EB12.900.00S-VE4                              10 PC                     55,42                             5,54                0%             0,00
+       Mounting Kit                                                            100 PC
+
+
+         Customer Mat. No                   EB1290000SVE4                           Delivery Date                       27.08.2026
+         Batch                              0006180167
+         Commodity Code                     83023000                                Country of Origin                   HU
+         Net Weight                              0,100 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055924                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025561
+27     EB12.120.03S-VE4                              10 PC                     175,91                           17,59                0%             0,00
+       Cable                                                                   100 PC
+
+
+         Customer Mat. No                   EB1212003SVE4                           Delivery Date                       27.08.2026
+         Batch                              0006179974
+         Commodity Code                     85444290                                Country of Origin                   MA
+         Net Weight                              0,028 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055575                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025562
+28     1270.020.344-VE4                              20 PC                     82,98                            16,60                0%             0,00
+       Mains Cable                                                             100 PC
+
+
+         Customer Mat. No                   1270020344VE4                           Delivery Date                       27.08.2026
+         Batch                              0006179840
+         Commodity Code                     85444290                                Country of Origin                   CN
+         Net Weight                              1,774 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055573                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025564
+29     1270.020.322-VE4                              10 PC                     103,85                           10,39                0%             0,00
+       Cable Set                                                               100 PC
+
+
+         Customer Mat. No                   1270020322VE4                           Delivery Date                       27.08.2026
+         Batch                              0006179834
+         Commodity Code                     85444290                                Country of Origin                   RO
+         Net Weight                              0,231 KG
+Bank Details                    IBAN (EUR): HU97 10800007 50000010 04672506 (HUF): HU52 1080000744672003 00000000 Swift code: CITIHUHX
+Registered Office               H-3526 Miskolc, Robert Bosch Park 3.
+Robert Bosch Energy and Body Systems
+Kft
+MISKOLC
+Robert Bosch park 3                                                                                                                                 Original
+3526
+                                                                                                                                                   Page 6 of 8
+HU13065188
+                                                                                     Invoice
+Bill to Party Address                                                                Billing Document                AX00011136
+Robert Bosch GmbH                                                                    Billing Date                    27.08.2026
+PO Box 10 60 50                                                                      Your VAT ID                     DE811128135
+70049 GERLINGEN                                                                      Payer                           4001020279
+GERMANY
+
+
+
+
+Item     Bosch Material No.                          Billing Quantity          Unit Price                 Net Value                  Tax Rate   Tax Amount
+No.      Material Description                                                  Pricing Unit
+
+
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055524                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025572
+30     1270.016.533-VE4                              10 PC                     602,57                           60,26                0%             0,00
+       Cable                                                                   100 PC
+
+
+         Customer Mat. No                   1270016533VE4                           Delivery Date                       27.08.2026
+         Batch                              0006179763
+         Commodity Code                     85443000                                Country of Origin                   MA
+         Net Weight                              0,586 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055494                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025579
+31     1270.016.202-VE4                              20 PC                     98,80                            19,76                0%             0,00
+       Chain Wheel Disc                                                        100 PC
+
+
+         Customer Mat. No                   1270016202VE4                           Delivery Date                       27.08.2026
+         Batch                              0006179747
+         Commodity Code                     84839089                                Country of Origin                   DE
+         Net Weight                              0,716 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055911                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025588
+32     EB12.120.02W-VE4                              20 PC                     313,37                           62,67                0%             0,00
+       Cable                                                                   100 PC
+
+
+         Customer Mat. No                   EB1212002WVE4                           Delivery Date                       27.08.2026
+         Batch                              0006179951
+         Commodity Code                     85444290                                Country of Origin                   MA
+         Net Weight                              0,676 KG
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055877                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025598
+33     EB12.100.05U-VE4                              20 PC                     23,19                             4,64                0%             0,00
+       Packaging                                                               100 PC
+
+
+         Customer Mat. No                   EB1210005UVE4                           Delivery Date                       27.08.2026
+         Batch                              0006179927
+         Commodity Code                     48239085                                Country of Origin                   HU
+         Net Weight                              2,000 KG
+
+
+
+Bank Details                    IBAN (EUR): HU97 10800007 50000010 04672506 (HUF): HU52 1080000744672003 00000000 Swift code: CITIHUHX
+Registered Office               H-3526 Miskolc, Robert Bosch Park 3.
+Robert Bosch Energy and Body Systems
+Kft
+MISKOLC
+Robert Bosch park 3                                                                                                                                    Original
+3526
+                                                                                                                                                      Page 7 of 8
+HU13065188
+                                                                                     Invoice
+Bill to Party Address                                                                Billing Document                AX00011136
+Robert Bosch GmbH                                                                    Billing Date                    27.08.2026
+PO Box 10 60 50                                                                      Your VAT ID                     DE811128135
+70049 GERLINGEN                                                                      Payer                           4001020279
+GERMANY
+
+
+
+
+Item     Bosch Material No.                          Billing Quantity          Unit Price                 Net Value                   Tax Rate    Tax Amount
+No.      Material Description                                                  Pricing Unit
+
+
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055925                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025602
+34     EB12.120.03T-VE4                              10 PC                     592,70                           59,27                 0%                 0,00
+       Cable                                                                   100 PC
+
+
+         Customer Mat. No                   EB1212003TVE4                           Delivery Date                       27.08.2026
+         Batch                              0006180005
+         Commodity Code                     85443000                                Country of Origin                   CN
+         Net Weight                              0,104 KG
+
+Delivery Number                  1269545104                              Consignment Number                   0050142328
+Your Ord. Number                 0057055919                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025604
+35     EB12.120.034-VE4                              10 PC                     287,12                           28,71                 0%                 0,00
+       Cable                                                                   100 PC
+
+
+         Customer Mat. No                   EB12120034VE4                           Delivery Date                       27.08.2026
+         Batch                              0006179957
+         Commodity Code                     85444290                                Country of Origin                   MA
+         Net Weight                              0,162 KG
+
+
+                                                                                 Net value                                                        4.377,33 EUR
+                                                                                 Tax amount                                      0%                   0,00 EUR
+                                                                                 Total value                                                      4.377,33 EUR
+
+
+                                                                                 Net value                                                       1.593.786 HUF
+                                                                                 Tax amount                                      0%                      0 HUF
+                                                                                 Total value                                                     1.593.786 HUF
+Incoterms           FCA Miskolc
+Payment Terms       30 days net
+                    Up to 26.09.2026 without deduction
+
+
+
+
+Export, tax free according to § 98 of the Hungarian VAT Act.
+
+Total Num of packages             1
+Total Net Weight                         68,129 KG
+Total Gross Weight                      121,000 KG
+
+
+
+
+                                                                                        Exchange Rate 1 EUR =            364,10000 HUF Date 27.08.2026
+Bank Details                    IBAN (EUR): HU97 10800007 50000010 04672506 (HUF): HU52 1080000744672003 00000000 Swift code: CITIHUHX
+Registered Office               H-3526 Miskolc, Robert Bosch Park 3.
+Robert Bosch Energy and Body Systems
+Kft
+MISKOLC
+Robert Bosch park 3                                                                                                                     Original
+3526
+                                                                                                                                       Page 8 of 8
+HU13065188
+                                                                                   Invoice
+Bill to Party Address                                                              Billing Document                AX00011136
+Robert Bosch GmbH                                                                  Billing Date                    27.08.2026
+PO Box 10 60 50                                                                    Your VAT ID                     DE811128135
+70049 GERLINGEN                                                                    Payer                           4001020279
+GERMANY
+
+
+
+
+The document is valid without the signature of the issuer
+
+
+
+
+Bank Details                  IBAN (EUR): HU97 10800007 50000010 04672506 (HUF): HU52 1080000744672003 00000000 Swift code: CITIHUHX
+Registered Office             H-3526 Miskolc, Robert Bosch Park 3.
+

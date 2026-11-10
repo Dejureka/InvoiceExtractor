@@ -101,6 +101,9 @@ def match_score(text: str, filename: str = "") -> float:
         score -= 0.5
     if "BITZER" in text or "Ladeliste" in text:
         score -= 0.5
+    # eBike AX Billing (Energy and Body Systems Kft) — different BU / number format
+    if re.search(r"Billing Document\s+AX\d+", text) or "Energy and Body Systems" in text:
+        score -= 0.6
     return max(0.0, min(score, 1.0))
 
 

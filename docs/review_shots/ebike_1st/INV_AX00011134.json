@@ -1,0 +1,115 @@
+{
+  "header": {
+    "invoice_no": "AX00011134",
+    "invoice_date": "2026-08-27",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 108.0,
+    "incoterm": "FCA Miskolc",
+    "item_line_count": 3,
+    "total_quantity": 163.0,
+    "amount": 3051.77,
+    "currency": "EUR",
+    "vendor": "Robert Bosch Energy and Body Systems Kft (eBike)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "AX00011134",
+      "part_no": "1270.020.917-VE4",
+      "description": "Display",
+      "qty": 150.0,
+      "unit": "PC",
+      "unit_price": 1510.07,
+      "amount": 2265.11,
+      "origin": "CN",
+      "hs_code": "85371091",
+      "currency": "EUR",
+      "net_weight": 16.35,
+      "pricing_unit": 100.0
+    },
+    {
+      "invoice_no": "AX00011134",
+      "part_no": "0275.007.822-VE4",
+      "description": "Digital Display",
+      "qty": 10.0,
+      "unit": "PC",
+      "unit_price": 2564.75,
+      "amount": 256.48,
+      "origin": "HU",
+      "hs_code": "85371091",
+      "currency": "EUR",
+      "net_weight": 2.905,
+      "pricing_unit": 100.0
+    },
+    {
+      "invoice_no": "AX00011134",
+      "part_no": "EB11.100.01E-1Y8",
+      "description": "Drive Unit",
+      "qty": 3.0,
+      "unit": "PC",
+      "unit_price": 17672.73,
+      "amount": 530.18,
+      "origin": "HU",
+      "hs_code": "85013100",
+      "currency": "EUR",
+      "net_weight": 8.45,
+      "pricing_unit": 100.0
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/ebike_1st/bc74710E09587C0-AEAF-4975-9BC2-BA9EC65362A1}1.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ebike_ax_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 3051.77,
+    "labeled_amount_label": "Net value EUR",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "source_kind": null,
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 3,
+        "got": 3
+      },
+      "total_quantity": {
+        "want": 163.0,
+        "got": 163.0
+      },
+      "amount": {
+        "want": 3051.77,
+        "got": 3051.77
+      },
+      "labeled_amount": {
+        "label": "Net value EUR",
+        "want": 3051.77,
+        "header_amount": 3051.77,
+        "sum_items": 3051.77,
+        "item_count": 3
+      },
+      "missing_hs_indices": []
+    }
+  },
+  "_stamp": "Original",
+  "_consignment": "0050142328"
+}
