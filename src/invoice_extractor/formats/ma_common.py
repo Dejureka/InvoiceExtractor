@@ -89,6 +89,63 @@ def _rb_units(text: str) -> dict[str, float]:
 
 
 
+# AK Marking HU: only the first line of a block has the literal "RB"; later
+# 15–20 digit handling-unit IDs sit on their own Dummy Pack line. Unique key
+# is that HU id alone (do not concat a second digit group — dimensions and
+# weights on the same line are not a NoPeriod second segment).
+_AK_HU = re.compile(
+    r"^\s*(?:RB\s+)?(\d{15,20})\s+Dummy Pack\. Mat\.",
+    re.I,
+)
+# "Gross 5.000 KG" (older AK) or "Gross HU Weight 17.800 KG" (newer AK).
+# Does not match "Net HU Weight" or "Gross Product Weight".
+_AK_GROSS = re.compile(
+    r"Gross(?:\s+HU(?:\s+Weight)?)?\s+([\d,.]+)\s*KG",
+    re.I,
+)
+_AK_SUMMARY = re.compile(r"^\s*\d{1,4}\s+Dummy Pack\. Mat\.", re.I)
+_AK_STOP = re.compile(
+    r"Total Num of Packages|Tax Information:|The document is valid",
+    re.I,
+)
+
+
+def parse_ak_units(text: str) -> dict[str, float]:
+    """``{HU id: Gross HU Weight KG}`` in document order (first Gross wins).
+
+    Stored on ``meta.packing_units`` so pairing can count an HU that repeats
+    across invoices of one shipment only once
+    (:func:`invoice_extractor.pairing.dedupe_shared_packing_units`).
+    """
+    mark = text[text.find("Marking") :] if "Marking" in text else text
+    lines = mark.splitlines()
+    hu_gw: dict[str, float] = {}
+    i = 0
+    while i < len(lines):
+        hm = _AK_HU.match(lines[i])
+        if not hm:
+            i += 1
+            continue
+        hu = hm.group(1)
+        gw = None
+        # Same line, then following lines (page-break / footer may sit between
+        # the HU id and Gross, or Gross may already be on the HU line with Net
+        # on the next page). Stop at the next HU, the type-summary block, or
+        # the printed totals. Skip POS-no / Net Val / footer noise.
+        end = min(i + 25, len(lines))
+        for j in range(i, end):
+            if j > i and (_AK_HU.match(lines[j]) or _AK_SUMMARY.match(lines[j]) or _AK_STOP.search(lines[j])):
+                break
+            gm = _AK_GROSS.search(lines[j])
+            if gm:
+                gw = us_float(gm.group(1))
+                break
+        if gw is not None and hu not in hu_gw:
+            hu_gw[hu] = gw
+        i += 1
+    return hu_gw
+
+
 def parse_ak_packages(text: str) -> tuple[float | None, float | None]:
     """Packages + GW for MA Billing-Document (AK) invoices.
 
@@ -96,20 +153,7 @@ def parse_ak_packages(text: str) -> tuple[float | None, float | None]:
     a leading ``RB``). Fall back to ``Total Num of Packages`` plus summary
     ``Dummy Pack. Mat.`` Gross lines when HU markers are incomplete.
     """
-    mark = text
-    if "Marking" in text:
-        mark = text[text.find("Marking") :]
-    hu_gw: dict[str, float] = {}
-    # RB-prefixed or bare 15–20 digit HU followed by Dummy Pack… Gross
-    for m in re.finditer(
-        r"(?:\bRB\s+)?(\d{15,20})\s+Dummy Pack\. Mat\.[^\n]*?(?:\n[^\n]*){0,3}?Gross\s+([\d,.]+)\s*KG",
-        mark,
-        re.I,
-    ):
-        hu = m.group(1)
-        if hu in hu_gw:
-            continue
-        hu_gw[hu] = us_float(m.group(2))
+    hu_gw = parse_ak_units(text)
     if hu_gw:
         return float(len(hu_gw)), round(sum(hu_gw.values()), 3)
 

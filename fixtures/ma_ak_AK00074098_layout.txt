@@ -1,0 +1,151 @@
+Robert Bosch GmbH
+Robert-Bosch-Platz 1
+70839 GERLINGEN
+GERMANY
+                                                                                                                                                             Original
+                                                                                                                                                             Page 1 of 2
+
+                                                                                                              Invoice
+                                                                                                              Billing Document             AK00074098
+         Bill to Party Address                                                                                Billing Date                 02.11.2026
+                                                                                                              Your VAT-IdNo                TW80272572
+         Robert Bosch Taiwan Co., Ltd.
+                                                                                                              Payer                        4001020386
+         6F, Jian Guo N.Road, Sec1 90
+         TAIPEI 10491
+         TAIWAN
+
+
+
+
+Sold to Party                Robert Bosch Taiwan Co., Ltd. 6F, Jian Guo N.Road, Sec1 90 TAIPEI 10491 TAIWAN
+Payer                        Robert Bosch Taiwan Co., Ltd. Sec. 1 4F Jian Guo North Road 90 TAIPEI 10491 TAIWAN
+Ship to Party                Robert Bosch Taiwan Co., Ltd. 6F, Jian Guo N.Road, Sec1 90 TAIPEI 10491 TAIWAN
+Shipping Point               ADC MY outbound MALAYSIA
+Unloading Point              VTW01                                         Shipping Mode        Sea
+Item     Bosch Material No.                          Billing Quantity               Unit Price                      Net Value                Tax Rate     Tax Amount
+No.      Material Description                                                       Pricing Unit
+
+
+
+Delivery Number                       800355742                               Consignment Number                        300037751
+Your Ord. Number                      4504904117                              Your Ord. Date                            12.06.2026
+10     1987.124.170-FXX                              528 PC                       87                                     45,936              0%                   0
+       Engine Oil                                                                 1 PC
+
+          Customer Mat. No                  1987124170FXX                                 Delivery Date                         02.11.2026
+
+          EAN Number                        4047026860276
+          Commodity Code                    2710194600                                    Country of Origin                     MY
+          Net Product Weight                528.000 KG                                    Handling Unit                         406702140322506154
+          Gross Product Weight              564.432 KG
+          Subtotal of net value based       45,936 TWD
+          on Ship-to
+
+
+                                                                                       Net value                                                          45,936 TWD
+                                                                                       Value added Tax                                 0%                      0 TWD
+                                                                                       Gross value                                                        45,936 TWD
+
+                                                                                       02.11.2026 1 TWD
+                                                                                       = /36.40810 EUR
+
+                                                                                       Value added Tax                                 0%                   0,00 EUR
+Incoterms                FCA Bosch Plant
+Payment Terms            On 15. of following month net
+                         Up to 15.12.2026 without deduction
+
+Payment Terms            On 15. of following month net
+
+
+
+Marking
+
+
+
+RB        406702140321949730                    Dummy Pack. Mat. for Carton                          26x25x8CM                  Gross HU Weight 1.280       KG
+                                                                                                                                Net HU Weight 1.120         KG
+          406702140322506154                    Dummy Pack. Mat. for PALLET                          120x100x100CM              Gross HU Weight 310.000     KG
+                                                                                                                                Net HU Weight 293.500       KG
+                                                POS-no                                               10                         Net Val         12,528      TWD
+          406702140322528170                    Dummy Pack. Mat. for PALLET                          120x80x100CM               Gross HU Weight 102.000     KG
+                                                                                                                                Net HU Weight 77.000        KG
+          406702140323114235                    Dummy Pack. Mat. for PALLET                          120x80x100CM               Gross HU Weight 400.000     KG
+
+Bank Details                                 DEUTSCHE BANK AG, BIC DEUTDESSXXX, IBAN DE32 6007 0070 0119 0677 14
+Registered Office/Sitz                       Stuttgart
+Registered Court/Registergericht             Amtsgericht Stuttgart, HRB 14000
+Chairman/Aufsichtsratvorsitzender            Prof. Dr. Stefan Asenkerschbaumer
+Managing Directors/Geschäftsführung          Dr. Stefan Hartung, Dr. Christian Fischer, Dr. Markus Forschner, Stefan Grosch,
+                                             Dr. Markus Heyn, Dr. Frank Meyer, Katja von Raven, Dr. Tanja Rückert
+Bosch Contacts                               In case of queries, please contact Robert Bosch GmbH GS/OBC-EMEA1,Postfach 10 60 50, DE-70049 Stuttgart
+                                             Laura.Precup-Muresan@ro.bosch.com
+Robert Bosch GmbH
+Robert-Bosch-Platz 1
+70839 GERLINGEN
+GERMANY
+                                                                                                                                                            Original
+                                                                                                                                                           Page 2 of 2
+
+                                                                                             Invoice
+Bill to Party Address                                                                        Billing Document                   AK00074098
+Robert Bosch Taiwan Co., Ltd.                                                                Billing Date                       02.11.2026
+6F, Jian Guo N.Road, Sec1 90                                                                 Your VAT-IdNo                      TW80272572
+TAIPEI 10491                                                                                 Payer                              4001020386
+TAIWAN
+
+
+
+
+                                                                                                                                  Net HU Weight 375.000    KG
+                                                  POS-no                                              10                          Net Val         33,408   TWD
+          406702140323149664                      Dummy Pack. Mat. for PALLET                         120x80x100CM                Gross HU Weight 56.000   KG
+                                                                                                                                  Net HU Weight 31.000     KG
+          406702140323149916                      Dummy Pack. Mat. for PALLET                         120x80x100CM                Gross HU Weight 56.000   KG
+                                                                                                                                  Net HU Weight 31.000     KG
+          406702140323150264                      Dummy Pack. Mat. for PALLET                         120x80x100CM                Gross HU Weight 56.000   KG
+                                                                                                                                  Net HU Weight 31.000     KG
+          406702140323154286                      Dummy Pack. Mat. for PALLET                         120x80x100CM                Gross HU Weight 56.000   KG
+                                                                                                                                  Net HU Weight 31.000     KG
+          406702140323179739                      Dummy Pack. Mat. for PALLET                         120x80x100CM                Gross HU Weight 45.000   KG
+                                                                                                                                  Net HU Weight 20.000     KG
+          406702140323180025                      Dummy Pack. Mat. for PALLET                         120x80x100CM                Gross HU Weight 55.000   KG
+                                                                                                                                  Net HU Weight 30.000     KG
+
+
+
+
+          1         Dummy Pack. Mat. for Carton                       Net 1.120            KG              Gross 1.280          KG
+          1         Dummy Pack. Mat. for PALLET                       Net 293.500          KG              Gross 310.000        KG
+          1         Dummy Pack. Mat. for PALLET                       Net 77.000           KG              Gross 102.000        KG
+          1         Dummy Pack. Mat. for PALLET                       Net 375.000          KG              Gross 400.000        KG
+          4         Dummy Pack. Mat. for PALLET                       Net 124.000          KG              Gross 224.000        KG
+          1         Dummy Pack. Mat. for PALLET                       Net 20.000           KG              Gross 45.000         KG
+          1         Dummy Pack. Mat. for PALLET                       Net 30.000           KG              Gross 55.000         KG
+
+
+
+Tax Information: non-taxable, out of the scope of Value Added Tax (VAT)
+
+
+
+Total Num of packages                 10
+Total Net Weight                      920.620
+Total Gross Weight                    1,137.280
+
+
+
+The document is valid without the signature of the issuer
+
+
+
+
+Bank Details                                  DEUTSCHE BANK AG, BIC DEUTDESSXXX, IBAN DE32 6007 0070 0119 0677 14
+Registered Office/Sitz                        Stuttgart
+Registered Court/Registergericht              Amtsgericht Stuttgart, HRB 14000
+Chairman/Aufsichtsratvorsitzender             Prof. Dr. Stefan Asenkerschbaumer
+Managing Directors/Geschäftsführung           Dr. Stefan Hartung, Dr. Christian Fischer, Dr. Markus Forschner, Stefan Grosch,
+                                              Dr. Markus Heyn, Dr. Frank Meyer, Katja von Raven, Dr. Tanja Rückert
+Bosch Contacts                                In case of queries, please contact Robert Bosch GmbH GS/OBC-EMEA1,Postfach 10 60 50, DE-70049 Stuttgart
+                                              Laura.Precup-Muresan@ro.bosch.com
+
