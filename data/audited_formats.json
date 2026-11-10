@@ -192,6 +192,11 @@
       "audited": true,
       "date": "2026-10-08",
       "note": "BHC 4th Auditor pass (JIFFA Cosmo sea waybill; OCR clip re-read for pkg/GW); BHC 6th Auditor Round 5 pass (multi-waybill PDF: pick waybill by printed INVOICE NO., else needs_gold; OCEAN LINKS LTD issuer; conservative one-vote-per-source GW rule + INV/PL shipment-total corroboration for cell-only GW; case8/9/10)"
+    },
+    "ebike_ax_billing_v1": {
+      "audited": true,
+      "date": "2026-11-10",
+      "note": "eBike 1st Auditor pass 18/18 @f8bb8b2 (Energy and Body Systems Kft AX Billing; EUR; soft HS if Commodity Code unprinted; no shipment_first; AX00011144 Copy counted as a real invoice, including NOT VALID watermark)"
     }
   }
 }
