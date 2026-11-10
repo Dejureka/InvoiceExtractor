@@ -19,20 +19,59 @@ from typing import Any
 
 # PDFextract-style Summary sheet (one row per invoice).
 SUMMARY_SHEET = "Summary"
+# Two-line header (wrap_text + taller row 1). Legacy one-line name is still
+# recognised when reading older workbooks.
+SUMMARY_GW_COL = "G.W. (kgs)-Air\nDIM. (CBM)-Sea"
+SUMMARY_GW_COL_LEGACY = "G.W. (kgs)-Air DIM. (CBM)-Sea"
+SUMMARY_CURRENCY_COL = "Invoice\nCurrency"
+SUMMARY_CURRENCY_COL_LEGACY = "Invoice Currency"
+
 SUMMARY_COLS = [
     "Invoice No.",
     "Packages",
     "Package Mode",
-    "G.W. (kgs)-Air DIM. (CBM)-Sea",
+    SUMMARY_GW_COL,
     "Incoterms",
     "Invoice Value",
     "LINE",
     "QTY",
-    "Invoice Currency",
+    SUMMARY_CURRENCY_COL,
     "BL No.",
     "BL Packages",
     "BL G.W. (kgs)",
 ]
+
+
+def _is_legacy_or_current_header(name: object, current: str, legacy: str) -> bool:
+    if not isinstance(name, str):
+        return False
+    return name in (current, legacy) or name.replace("\n", " ") == legacy
+
+
+def is_summary_gw_header(name: object) -> bool:
+    """True for the current two-line G.W. header or the pre-2026-11 one-line name."""
+    return _is_legacy_or_current_header(name, SUMMARY_GW_COL, SUMMARY_GW_COL_LEGACY)
+
+
+def is_summary_currency_header(name: object) -> bool:
+    """True for the current two-line Invoice Currency header or the one-line name."""
+    return _is_legacy_or_current_header(
+        name, SUMMARY_CURRENCY_COL, SUMMARY_CURRENCY_COL_LEGACY
+    )
+
+
+def summary_header_map(headers: list) -> dict:
+    """Map headers to current names, treating legacy one-line G.W. / Currency as current."""
+    out = {}
+    for h in headers:
+        if is_summary_gw_header(h):
+            out[SUMMARY_GW_COL] = h
+        elif is_summary_currency_header(h):
+            out[SUMMARY_CURRENCY_COL] = h
+        else:
+            out[h] = h
+    return out
+
 
 # PDFextract-style detail / declaration lines.
 LINES_SHEET = "Lines"
@@ -187,7 +226,7 @@ def _add_summary_note(ws, header: dict[str, Any]) -> None:
     from openpyxl.comments import Comment
 
     r = ws.max_row
-    for col in (SUMMARY_COLS.index("Packages") + 1, SUMMARY_COLS.index("G.W. (kgs)-Air DIM. (CBM)-Sea") + 1):
+    for col in (SUMMARY_COLS.index("Packages") + 1, SUMMARY_COLS.index(SUMMARY_GW_COL) + 1):
         c = Comment(str(note), "InvoiceExtractor")
         c.width, c.height = 420, 120
         ws.cell(r, col).comment = c
@@ -293,6 +332,10 @@ def _apply_header_style(ws, ncols: int | None = None) -> None:
         cell.font = font
         cell.alignment = align
         cell.border = border
+    if ws.title == SUMMARY_SHEET:
+        # Two-line G.W. header must be fully visible (template was 30).
+        prev = ws.row_dimensions[1].height
+        ws.row_dimensions[1].height = max(float(prev or 0), 36.0)
 
 
 def _set_workbook_author(wb) -> None:
