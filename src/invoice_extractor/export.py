@@ -23,6 +23,8 @@ SUMMARY_SHEET = "Summary"
 # recognised when reading older workbooks.
 SUMMARY_GW_COL = "G.W. (kgs)-Air\nDIM. (CBM)-Sea"
 SUMMARY_GW_COL_LEGACY = "G.W. (kgs)-Air DIM. (CBM)-Sea"
+SUMMARY_CURRENCY_COL = "Invoice\nCurrency"
+SUMMARY_CURRENCY_COL_LEGACY = "Invoice Currency"
 
 SUMMARY_COLS = [
     "Invoice No.",
@@ -33,25 +35,41 @@ SUMMARY_COLS = [
     "Invoice Value",
     "LINE",
     "QTY",
-    "Invoice Currency",
+    SUMMARY_CURRENCY_COL,
     "BL No.",
     "BL Packages",
     "BL G.W. (kgs)",
 ]
 
 
-def is_summary_gw_header(name: object) -> bool:
-    """True for the current two-line G.W. header or the pre-2026-11 one-line name."""
+def _is_legacy_or_current_header(name: object, current: str, legacy: str) -> bool:
     if not isinstance(name, str):
         return False
-    return name in (SUMMARY_GW_COL, SUMMARY_GW_COL_LEGACY) or name.replace("\n", " ") == SUMMARY_GW_COL_LEGACY
+    return name in (current, legacy) or name.replace("\n", " ") == legacy
+
+
+def is_summary_gw_header(name: object) -> bool:
+    """True for the current two-line G.W. header or the pre-2026-11 one-line name."""
+    return _is_legacy_or_current_header(name, SUMMARY_GW_COL, SUMMARY_GW_COL_LEGACY)
+
+
+def is_summary_currency_header(name: object) -> bool:
+    """True for the current two-line Invoice Currency header or the one-line name."""
+    return _is_legacy_or_current_header(
+        name, SUMMARY_CURRENCY_COL, SUMMARY_CURRENCY_COL_LEGACY
+    )
 
 
 def summary_header_map(headers: list) -> dict:
-    """``{header: cell_or_index_ready_name}`` treating legacy G.W. as the current name."""
+    """Map headers to current names, treating legacy one-line G.W. / Currency as current."""
     out = {}
     for h in headers:
-        out[SUMMARY_GW_COL if is_summary_gw_header(h) else h] = h
+        if is_summary_gw_header(h):
+            out[SUMMARY_GW_COL] = h
+        elif is_summary_currency_header(h):
+            out[SUMMARY_CURRENCY_COL] = h
+        else:
+            out[h] = h
     return out
 
 

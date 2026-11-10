@@ -102,7 +102,7 @@ Excel 工作簿採 **PDFextract.xlsm 風格欄位**（範本：`data/templates/I
 
 | 工作表 | 說明 |
 |--------|------|
-| **`Summary`** | 每張發票一列（各自合計，非跨檔加總）：Invoice No. / Packages / Package Mode / G.W. (kgs)-Air / DIM. (CBM)-Sea（儲存格兩行） / Incoterms / Invoice Value / LINE / QTY / Invoice Currency |
+| **`Summary`** | 每張發票一列（各自合計，非跨檔加總）：Invoice No. / Packages / Package Mode / G.W. (kgs)-Air / DIM. (CBM)-Sea（儲存格兩行） / Incoterms / Invoice Value / LINE / QTY / Invoice / Currency（儲存格兩行） |
 | **`Lines`** | 明細：PN / Des / Qty / Unt / Amt / UoM / Co / HS code / N.W. / InvoiceNumber / Currency |
 | **`meta`** | 每檔一列：format_id / checker_verdict / text_backend / status / error 等 |
 

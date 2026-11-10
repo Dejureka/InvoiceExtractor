@@ -16,6 +16,7 @@ from invoice_extractor.export import (
     META_COLS,
     META_SHEET,
     SUMMARY_COLS,
+    SUMMARY_CURRENCY_COL,
     SUMMARY_SHEET,
     TEMPLATE_REL,
     bundled_template_path,
@@ -183,17 +184,17 @@ def test_write_xlsx_pdfextract_columns(tmp_path: Path):
     assert headers == list(SUMMARY_COLS)
     assert "Invoice No." in headers
     assert "Invoice Value" in headers
-    assert "Invoice Currency" in headers
+    assert SUMMARY_CURRENCY_COL in headers
     assert "BL No." in headers
     assert "BL Packages" in headers
     assert "BL G.W. (kgs)" in headers
-    # BL columns sit at the far right (after Invoice Currency)
+    # BL columns sit at the far right (after Invoice Currency / two-line header)
     assert headers[-3:] == ["BL No.", "BL Packages", "BL G.W. (kgs)"]
-    assert headers.index("Invoice Currency") < headers.index("BL No.")
+    assert headers.index(SUMMARY_CURRENCY_COL) < headers.index("BL No.")
     row = {headers[i]: ws_h[2][i].value for i in range(len(headers))}
     assert row["Invoice No."] == "INV-1"
     assert row["Invoice Value"] == 12.5
-    assert row["Invoice Currency"] == "USD"
+    assert row[SUMMARY_CURRENCY_COL] == "USD"
     assert row["Packages"] == 1.0
     assert row["BL No."] == "WEB260166448"
     assert row["BL Packages"] == 99.0
@@ -360,7 +361,7 @@ def test_summary_bl_columns_far_right_and_green_header_style(tmp_path: Path):
         "Invoice Value",
         "LINE",
         "QTY",
-        "Invoice Currency",
+        "Invoice\nCurrency",
         "BL No.",
         "BL Packages",
         "BL G.W. (kgs)",
@@ -388,6 +389,9 @@ def test_summary_bl_columns_far_right_and_green_header_style(tmp_path: Path):
     gw = next(c for c in ws[1] if c.value and "G.W." in str(c.value) and "DIM." in str(c.value))
     assert gw.value == "G.W. (kgs)-Air\nDIM. (CBM)-Sea"
     assert gw.alignment.wrap_text is True
+    cur = next(c for c in ws[1] if c.value and str(c.value).replace("\n", " ") == "Invoice Currency")
+    assert cur.value == "Invoice\nCurrency"
+    assert cur.alignment.wrap_text is True
     assert (ws.row_dimensions[1].height or 0) >= 36
 
 
@@ -402,8 +406,11 @@ def test_template_summary_order_matches_export():
 
 def test_summary_gw_header_legacy_alias():
     from invoice_extractor.export import (
+        SUMMARY_CURRENCY_COL,
+        SUMMARY_CURRENCY_COL_LEGACY,
         SUMMARY_GW_COL,
         SUMMARY_GW_COL_LEGACY,
+        is_summary_currency_header,
         is_summary_gw_header,
     )
 
@@ -412,3 +419,8 @@ def test_summary_gw_header_legacy_alias():
     assert "\n" in SUMMARY_GW_COL
     assert not is_summary_gw_header("Packages")
     assert not is_summary_gw_header(None)
+    assert is_summary_currency_header(SUMMARY_CURRENCY_COL)
+    assert is_summary_currency_header(SUMMARY_CURRENCY_COL_LEGACY)
+    assert SUMMARY_CURRENCY_COL == "Invoice\nCurrency"
+    assert not is_summary_currency_header("Invoice Value")
+    assert not is_summary_currency_header(None)
