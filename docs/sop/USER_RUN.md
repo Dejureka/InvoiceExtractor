@@ -22,7 +22,7 @@
 
 預設輸出（單檔／多檔相同）：工具最外層根目錄的 **`InvoiceExtract_Result.xlsx`**  
 （portable：與 `InvoiceExtractor.exe` 同層；開發：專案／範本根）。每次執行清舊資料列再寫入。  
-Browse／`--out` 可改路徑；**不再**預設在 PDF 旁產生 `<檔名>.extract.xlsx`。
+GUI 一律寫入此預設檔；命令列可用 `--out` 改路徑或改輸出 JSON。**不再**預設在 PDF 旁產生 `<檔名>.extract.xlsx`。
 
 ---
 
@@ -31,8 +31,7 @@ Browse／`--out` 可改路徑；**不再**預設在 PDF 旁產生 `<檔名>.extr
 1. 下載並解壓 `InvoiceExtractor_Portable_Win64.zip`（**整個資料夾**保留，含 `poppler/bin`）。
 2. 雙擊 `InvoiceExtractor.exe` → 應出現視窗（不該只閃黑窗）。
 3. **Browse** 多選 PDF／Excel（`.xlsx`／`.xlsm`／`.xls`），或 **Add folder**，或拖檔／拖資料夾進視窗。工具自己的 `InvoiceExtract_Result.xlsx`、範本、以及 `ocr_out/` 內檔案不會被當成輸入。
-4. 輸出路徑可改；預設為工具根目錄的 `InvoiceExtract_Result.xlsx`（同檔覆寫）。
-5. 按 **Extract**。成功看 Summary／Lines；失敗檔會在介面列出。
+4. 按 **Extract**。結果寫入工具根目錄的 `InvoiceExtract_Result.xlsx`（同檔覆寫）。成功看 Summary／Lines；失敗檔會在介面列出。
 
 命令列（可選）：
 

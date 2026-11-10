@@ -500,21 +500,6 @@ def run_gui() -> None:
                 frm_pair_btns, text="重新自動配對", command=self._rebuild_pairs
             ).pack(side="left", padx=2)
 
-            from invoice_extractor.export import DEFAULT_RESULT_NAME
-
-            frm_out = ttk.LabelFrame(
-                self.root,
-                text=f"Output (optional; default: {DEFAULT_RESULT_NAME} at tool root)",
-            )
-            frm_out.pack(fill="x", **pad)
-            self.out_var = tk.StringVar()
-            ttk.Entry(frm_out, textvariable=self.out_var).pack(
-                side="left", fill="x", expand=True, padx=4, pady=4
-            )
-            ttk.Button(frm_out, text="Browse…", command=self._browse_out).pack(
-                side="left", padx=4, pady=4
-            )
-
             frm_btns = ttk.Frame(self.root)
             frm_btns.pack(fill="x", **pad)
             # tk.Button (not ttk): vista/xpnative ttk ignores background on Windows.
@@ -881,7 +866,6 @@ def run_gui() -> None:
             self._pdfs = []
             self._pairs = []
             self.pdf_var.set("")
-            self.out_var.set("")
             self.listbox.delete(0, "end")
             self._sync_pair_tree()
             self.summary.delete("1.0", "end")
@@ -939,21 +923,6 @@ def run_gui() -> None:
                     return
                 self._set_pdfs(pdfs, append=True)
                 self._log(f"Added folder ({len(pdfs)} files); total {len(self._pdfs)}")
-
-        def _browse_out(self) -> None:
-            path = filedialog.asksaveasfilename(
-                title="Save extract as",
-                defaultextension=".xlsx",
-                initialfile="InvoiceExtract_Result.xlsx",
-                filetypes=[
-                    ("Excel", "*.xlsx"),
-                    ("JSON", "*.json"),
-                    ("All", "*.*"),
-                ],
-            )
-            if path:
-                self.out_var.set(path)
-
 
         def _run_ocr_pdf(self) -> None:
             """Standalone: multi-select scan PDFs → searchable PDFs in ocr_out/."""
@@ -1081,9 +1050,6 @@ def run_gui() -> None:
                 if not pdf.is_file():
                     messagebox.showerror("Not found", f"File not found:\n{pdf}")
                     return
-            out_s = self.out_var.get().strip().strip('"')
-            out = Path(out_s) if out_s else None
-
             if not self._pairs:
                 self._rebuild_pairs()
             pairs = list(self._pairs)
@@ -1098,7 +1064,7 @@ def run_gui() -> None:
 
             def work() -> None:
                 try:
-                    result = _extract_pairs(pairs, out)
+                    result = _extract_pairs(pairs, None)
 
                     def ok() -> None:
                         self._show_batch(result)

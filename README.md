@@ -10,7 +10,7 @@
 
 本地可攜的發票 PDF → **Excel (.xlsx)** 抽取器（規則庫 + 硬校驗）。公司電腦拷資料夾就能跑；沒網路也能用已學會的 format。預設輸出 Excel；需要 JSON 時把 `--out` 設成 `.json` 即可（Auditor／自動化仍可用）。
 
-**輸出統一**：不論單檔或多檔，預設都寫入工具最外層根目錄的 **`InvoiceExtract_Result.xlsx`**（含 `InvoiceExtractor.exe` 的資料夾；開發時為專案／範本所在根目錄）。每次執行載入固定範本 `data/templates/InvoiceExtract_Template.xlsx`、**清掉舊資料列**、再寫入本次結果（單／多發票同一檔）。可用 Browse／`--out` 覆寫。不再預設在 PDF 旁產生 `<pdf>.extract.xlsx`。
+**輸出統一**：不論單檔或多檔，預設都寫入工具最外層根目錄的 **`InvoiceExtract_Result.xlsx`**（含 `InvoiceExtractor.exe` 的資料夾；開發時為專案／範本所在根目錄）。每次執行載入固定範本 `data/templates/InvoiceExtract_Template.xlsx`、**清掉舊資料列**、再寫入本次結果（單／多發票同一檔）。GUI 一律寫入此預設檔；命令列可用 `--out` 改路徑或改輸出 JSON。不再預設在 PDF 旁產生 `<pdf>.extract.xlsx`。
 
 ## Windows 免安裝包（推薦）
 
@@ -18,7 +18,7 @@
 
 1. **整個資料夾**複製到電腦或隨身碟（含 `poppler/bin`，勿只拷 exe）
 2. **雙擊 `InvoiceExtractor.exe`** → 開啟圖形介面（不會只閃一下 console）
-3. 拖放或「Browse」選擇 **一個或多個** PDF（也可「Add folder」）→ 可選輸出路徑（預設工具根目錄的 `InvoiceExtract_Result.xlsx`）→ 按 **Extract**
+3. 拖放或「Browse」選擇 **一個或多個** PDF（也可「Add folder」）→ 按 **Extract**（寫入工具根目錄的 `InvoiceExtract_Result.xlsx`，同檔覆寫）
 4. 摘要顯示：`invoice_no | format_id | mapping status | hard pass/fail`（`audit ok`／`已知未審`／`全新／需規則`／`hard fail`）；批次統計在底列；失敗檔另列
 5. 本包**已內建 poppler**；若摘要出現 text backend 警告，請確認 `poppler/bin/pdftotext.exe` 仍在同一資料夾
 
@@ -61,7 +61,7 @@ python -m invoice_extractor --gui
 python run_gui.py
 ```
 
-Browse 可多選 PDF；Add folder 可加入整個資料夾；拖放多個 PDF／資料夾亦可。輸出預設為工具根目錄（exe 旁／專案根）的 `InvoiceExtract_Result.xlsx`（同檔覆寫）。 選檔後 GUI 顯示 **INV＋PKL 配對表**（BHC `_INV_`／`_PKL_` 分檔為主；MA 合訂本一次抽完）；Extract 前可改配／拆開／略過。詳見 RunSOP。
+Browse 可多選 PDF；Add folder 可加入整個資料夾；拖放多個 PDF／資料夾亦可。GUI 一律寫入工具根目錄（exe 旁／專案根）的 `InvoiceExtract_Result.xlsx`（同檔覆寫）；要改路徑請用命令列 `--out`。選檔後 GUI 顯示 **INV＋PKL 配對表**（BHC `_INV_`／`_PKL_` 分檔為主；MA 合訂本一次抽完）；Extract 前可改配／拆開／略過。詳見 RunSOP。
 
 ### CLI
 
