@@ -313,13 +313,91 @@ def run_gui() -> None:
             else:
                 root = tk.Tk()
             root.title("InvoiceExtractor — Published by Peter Yang")
-            root.geometry("820x720")
+            root.geometry("860x800")
             root.minsize(560, 520)
             return root
 
+        def _apply_theme(self, tk, ttk) -> None:
+            """Clam ttk + tk.Button accent so Extract is visible on Windows."""
+            import tkinter.font as tkfont
+            bg = "#f4f6f8"
+            surface = "#ffffff"
+            accent = "#1b6ec2"
+            if sys.platform.startswith("win"):
+                family = "Segoe UI"
+            else:
+                family = tkfont.nametofont("TkDefaultFont").actual()["family"]
+            font_ui = (family, 9)
+            font_title = (family, 9, "bold")
+            self._ui = {
+                "bg": bg,
+                "surface": surface,
+                "accent": accent,
+                "accent_hover": "#155a9c",
+                "accent_active": "#0f4a80",
+                "muted": "#5c6770",
+                "font_ui": font_ui,
+                "font_title": font_title,
+                "font_extract": (family, 11, "bold"),
+                "family": family,
+            }
+            self.root.configure(bg=bg)
+            style = ttk.Style(self.root)
+            try:
+                style.theme_use("clam")
+            except tk.TclError:
+                pass
+            style.configure(".", background=bg, foreground="#1f2a33")
+            style.configure("TFrame", background=bg)
+            style.configure("TLabel", background=bg, foreground="#1f2a33")
+            style.configure(
+                "TLabelframe",
+                background=bg,
+                bordercolor="#c5cdd4",
+                relief="groove",
+                padding=6,
+            )
+            style.configure(
+                "TLabelframe.Label",
+                background=bg,
+                foreground="#16324f",
+                font=font_title,
+            )
+            style.configure("TButton", padding=(9, 3))
+            style.configure("TEntry", padding=3, fieldbackground=surface)
+            style.configure(
+                "Treeview",
+                background=surface,
+                fieldbackground=surface,
+            )
+            style.configure(
+                "Treeview.Heading",
+                font=font_title,
+                background="#dfe7ee",
+                foreground="#16324f",
+            )
+            style.map("Treeview.Heading", background=[("active", "#cfd9e3")])
+            style.configure(
+                "Status.TLabel",
+                background="#e6eaee",
+                foreground="#33404a",
+                relief="sunken",
+                font=font_ui,
+                padding=(6, 3),
+            )
+            style.configure(
+                "Author.TLabel",
+                background=bg,
+                foreground="#5c6770",
+                font=font_ui,
+            )
+            style.configure("Hint.TLabel", background=bg, foreground="#5c6770", font=font_ui)
+
         def _build(self) -> None:
             self.root = self._make_root()
-            pad = {"padx": 8, "pady": 4}
+            self._apply_theme(tk, ttk)
+            pad = {"padx": 8, "pady": 5}
+            ui = self._ui
 
             frm_pdf = ttk.LabelFrame(self.root, text="Files (PDF / Excel; multi-select / folders OK)")
             frm_pdf.pack(fill="x", **pad)
@@ -340,11 +418,20 @@ def run_gui() -> None:
                 + (" — drag-drop on" if has_dnd else " — use Browse"),
             )
             frm_drop.pack(fill="x", **pad)
-            self.drop_label = ttk.Label(
+            self.drop_label = tk.Label(
                 frm_drop,
                 text="Drop PDFs/Excel or a folder here, or use Browse",
                 anchor="center",
-                padding=20,
+                justify="center",
+                bg="#e8eef5",
+                fg="#3d4f61",
+                font=(ui["family"], 10),
+                relief="groove",
+                bd=2,
+                highlightthickness=1,
+                highlightbackground="#b7c4d1",
+                padx=16,
+                pady=16,
             )
             self.drop_label.pack(fill="x", padx=8, pady=8)
             if has_dnd:
@@ -356,7 +443,18 @@ def run_gui() -> None:
 
             frm_list = ttk.LabelFrame(self.root, text="Selected files")
             frm_list.pack(fill="x", **pad)
-            self.listbox = tk.Listbox(frm_list, height=4, selectmode="extended")
+            self.listbox = tk.Listbox(
+                frm_list,
+                height=4,
+                selectmode="extended",
+                bg=ui["surface"],
+                fg="#1f2a33",
+                font=ui["font_ui"],
+                relief="solid",
+                bd=1,
+                highlightthickness=0,
+                selectbackground="#cfe0f0",
+            )
             self.listbox.pack(fill="x", expand=True, padx=4, pady=4)
 
             frm_pair = ttk.LabelFrame(
@@ -419,12 +517,37 @@ def run_gui() -> None:
 
             frm_btns = ttk.Frame(self.root)
             frm_btns.pack(fill="x", **pad)
-            self.run_btn = ttk.Button(
-                frm_btns, text="Extract", command=self._run_extract
+            # tk.Button (not ttk): vista/xpnative ttk ignores background on Windows.
+            self.run_btn = tk.Button(
+                frm_btns,
+                text="Extract",
+                command=self._run_extract,
+                font=ui["font_extract"],
+                bg=ui["accent"],
+                fg="#ffffff",
+                activebackground=ui["accent_active"],
+                activeforeground="#ffffff",
+                disabledforeground="#d0d7de",
+                relief="raised",
+                bd=1,
+                highlightthickness=0,
+                padx=22,
+                pady=8,
+                cursor="hand2",
             )
-            self.run_btn.pack(side="right", padx=4)
+
+            def _extract_enter(_event) -> None:
+                if str(self.run_btn["state"]) != "disabled":
+                    self.run_btn.configure(bg=ui["accent_hover"])
+
+            def _extract_leave(_event) -> None:
+                self.run_btn.configure(bg=ui["accent"])
+
+            self.run_btn.bind("<Enter>", _extract_enter)
+            self.run_btn.bind("<Leave>", _extract_leave)
+            self.run_btn.pack(side="right", padx=(8, 4), pady=2)
             ttk.Button(frm_btns, text="Clear", command=self._clear).pack(
-                side="right", padx=4
+                side="right", padx=4, pady=8
             )
 
             frm_ocr = ttk.Frame(self.root)
@@ -438,11 +561,22 @@ def run_gui() -> None:
             ttk.Label(
                 frm_ocr,
                 text="掃描 PDF → ocr_out/{檔名}.ocr.pdf（獨立於 Extract）",
+                style="Hint.TLabel",
             ).pack(side="left", padx=4)
 
             frm_sum = ttk.LabelFrame(self.root, text="Summary")
             frm_sum.pack(fill="both", expand=True, **pad)
-            self.summary = scrolledtext.ScrolledText(frm_sum, height=10, wrap="word")
+            self.summary = scrolledtext.ScrolledText(
+                frm_sum,
+                height=10,
+                wrap="word",
+                bg=ui["surface"],
+                fg="#1f2a33",
+                font=ui["font_ui"],
+                relief="solid",
+                bd=1,
+                highlightthickness=0,
+            )
             self.summary.pack(fill="both", expand=True, padx=4, pady=4)
 
             self.author_var = tk.StringVar(value="Published by Peter Yang")
@@ -450,7 +584,7 @@ def run_gui() -> None:
                 self.root,
                 textvariable=self.author_var,
                 anchor="e",
-                foreground="#555555",
+                style="Author.TLabel",
             )
             author.pack(fill="x", side="bottom", padx=8, pady=(0, 2))
 
@@ -458,9 +592,17 @@ def run_gui() -> None:
                 value="Ready — pairing: INV+PKL / 僅 INV / 僅 PKL / 僅 提單 / 未配對；mapping: audit ok / 已知未審 / 全新／需規則 / hard fail"
             )
             status = ttk.Label(
-                self.root, textvariable=self.status_var, relief="sunken", anchor="w"
+                self.root,
+                textvariable=self.status_var,
+                style="Status.TLabel",
+                anchor="w",
             )
             status.pack(fill="x", side="bottom", padx=4, pady=2)
+
+            self.root.update_idletasks()
+            need_h = self.root.winfo_reqheight()
+            need_w = max(self.root.winfo_reqwidth(), 860)
+            self.root.geometry(f"{need_w}x{max(need_h, 800)}")
 
             dnd_note = "enabled" if has_dnd else "not installed (Browse still works)"
             self._log(f"Drag-drop: {dnd_note}")
