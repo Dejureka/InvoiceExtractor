@@ -114,24 +114,27 @@ def test_all_18_header_lines_currency_and_hard_check():
     assert ship_gw == 2446.0
 
 
-def test_pricing_unit_and_european_qty():
+def test_unit_price_is_amount_over_qty():
+    """Printed per-100 price is not Unt; unit price = amount / qty (6 d.p.)."""
     res = extract_from_text(_text("AX00011135"))
-    # 1.100 PC × 242,13 / 100 PC = 2.663,43
+    # Printed: 1.100 PC, unit 242,13 / 100 PC, Net Value 2.663,43
+    # Unt = 2663.43 / 1100 = 2.4213 (not 242.13)
     first = res.items[0]
     assert first.part_no == "EB12.100.015-1CF"
     assert first.qty == 1100.0
-    assert first.unit_price == 242.13
     assert first.amount == 2663.43
-    assert first.pricing_unit == 100.0
+    assert first.unit_price == round(2663.43 / 1100.0, 6)
+    assert first.unit_price == 2.4213
+    assert first.pricing_unit in (None, 1.0)
     assert first.hs_code
     assert first.origin
-    # semicolon in description must not drop the pricing unit (AX00011148 item 15)
+    # semicolon in description must still keep the desc (AX00011148 item)
     res = extract_from_text(_text("AX00011148"))
     kit = next(it for it in res.items if it.part_no == "EB13.900.029-VE4")
-    assert kit.pricing_unit == 100.0
     assert kit.qty == 120.0
-    assert kit.unit_price == 1025.48
     assert kit.amount == 1230.58
+    assert kit.unit_price == round(1230.58 / 120.0, 6)
+    assert kit.pricing_unit in (None, 1.0)
     assert "Service kit" in (kit.description or "")
 
 

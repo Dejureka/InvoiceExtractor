@@ -424,3 +424,34 @@ def test_summary_gw_header_legacy_alias():
     assert SUMMARY_CURRENCY_COL == "Invoice\nCurrency"
     assert not is_summary_currency_header("Invoice Value")
     assert not is_summary_currency_header(None)
+
+
+def test_second_extract_run_replaces_result(tmp_path: Path):
+    """Two extract runs to the same InvoiceExtract_Result.xlsx leave only the second run."""
+    from invoice_extractor.export import write_extracts
+
+    path = tmp_path / "InvoiceExtract_Result.xlsx"
+    write_extracts([SAMPLE, SAMPLE2], path)
+    wb1 = load_workbook(path)
+    assert wb1[SUMMARY_SHEET].max_row == 3
+    nos1 = [wb1[SUMMARY_SHEET].cell(r, 1).value for r in range(2, wb1[SUMMARY_SHEET].max_row + 1)]
+    assert nos1 == ["INV-1", "INV-2"]
+    lines1 = wb1[LINES_SHEET].max_row
+
+    write_extracts([SAMPLE2], path)
+    wb2 = load_workbook(path)
+    nos2 = [wb2[SUMMARY_SHEET].cell(r, 1).value for r in range(2, wb2[SUMMARY_SHEET].max_row + 1)]
+    assert nos2 == ["INV-2"], nos2
+    assert wb2[SUMMARY_SHEET].max_row == 2
+    # SAMPLE had more line items than SAMPLE2; leftover run-1 lines must be gone
+    assert wb2[LINES_SHEET].max_row < lines1
+    line_h = [c.value for c in wb2[LINES_SHEET][1]]
+    invn = line_h.index("InvoiceNumber")
+    line_nos = [
+        wb2[LINES_SHEET].cell(r, invn + 1).value
+        if False else wb2[LINES_SHEET][r][invn].value
+        for r in range(2, wb2[LINES_SHEET].max_row + 1)
+    ]
+    assert line_nos and all(n == "INV-2" for n in line_nos)
+    meta_nos = [wb2[META_SHEET].cell(r, 1).value for r in range(2, wb2[META_SHEET].max_row + 1)]
+    assert "inv.pdf" not in meta_nos  # SAMPLE source must not linger

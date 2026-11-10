@@ -12,7 +12,9 @@ invoices append into one workbook.
 from __future__ import annotations
 
 import json
+import os
 import sys
+import tempfile
 from copy import copy
 from pathlib import Path
 from typing import Any
@@ -260,6 +262,10 @@ def _meta_row(meta: dict[str, Any], *, status: str = "ok", error: str | None = N
 
 def _clear_data_rows(ws) -> None:
     """Remove all rows below the header (row 1); keep formatting on row 1."""
+    tables = getattr(ws, "tables", None)
+    if tables:
+        for name in list(tables):
+            del tables[name]
     if ws.max_row > 1:
         ws.delete_rows(2, ws.max_row - 1)
 
@@ -411,6 +417,40 @@ def _load_workbook_for_write(template: Path | None = None):
     return wb
 
 
+def _save_workbook(wb, path: Path) -> None:
+    """Write ``wb`` over ``path`` via a same-dir temp + os.replace.
+
+    Never loads the destination. If Excel has the file open, raise a clear
+    PermissionError instead of leaving a half-written workbook.
+    """
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_name = tempfile.mkstemp(
+        suffix=".xlsx", prefix=f".{path.stem}.", dir=str(path.parent)
+    )
+    os.close(fd)
+    tmp = Path(tmp_name)
+    try:
+        wb.save(tmp)
+        os.replace(tmp, path)
+    except PermissionError:
+        try:
+            tmp.unlink(missing_ok=True)
+        except OSError:
+            pass
+        raise PermissionError(
+            f"Cannot overwrite {path.name}: the file is open in Excel or another "
+            "program. Close it and run Extract again — each run starts from the "
+            "template and does not append to a previous Result."
+        ) from None
+    except Exception:
+        try:
+            tmp.unlink(missing_ok=True)
+        except OSError:
+            pass
+        raise
+
+
 def write_xlsx_many(
     extracts: list[dict[str, Any]],
     path: Path,
@@ -424,8 +464,20 @@ def write_xlsx_many(
     - ``Lines``: all line items, keyed by InvoiceNumber.
     - ``meta``: one row per file (success + optional failures).
 
-    Clears previous data rows from the template while keeping headers/format.
+    Every run loads the bundled template (never the destination file), clears
+    data rows, writes this run only, and atomically replaces the destination.
     """
+    path = Path(path)
+    if path.suffix.lower() != ".xlsx":
+        path = path.with_suffix(".xlsx")
+    # Never treat an existing Result as the template (rows would survive a
+    # failed clear, which looks like "append on the second run").
+    if template is not None and Path(template).is_file():
+        try:
+            if Path(template).resolve() == path.resolve():
+                template = bundled_template_path()
+        except OSError:
+            pass
     wb = _load_workbook_for_write(template)
     ws_s = wb[SUMMARY_SHEET]
     ws_l = wb[LINES_SHEET]
@@ -453,12 +505,8 @@ def write_xlsx_many(
             )
         )
 
-    path = Path(path)
-    if path.suffix.lower() != ".xlsx":
-        path = path.with_suffix(".xlsx")
-    path.parent.mkdir(parents=True, exist_ok=True)
     _apply_calibri_fonts(wb)
-    wb.save(path)
+    _save_workbook(wb, path)
     return path
 
 
@@ -632,9 +680,8 @@ def write_bl_xlsx_many(
     path = Path(path)
     if path.suffix.lower() != ".xlsx":
         path = path.with_suffix(".xlsx")
-    path.parent.mkdir(parents=True, exist_ok=True)
     _apply_calibri_fonts(wb)
-    wb.save(path)
+    _save_workbook(wb, path)
     return path
 
 

@@ -396,8 +396,15 @@ def _collapse_duplicate_bls(bls: list[FileRole], inv_dirs: set[str]) -> tuple[li
     return keep, dup_notes
 
 
-def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> list[PairRow]:
-    """Build pair rows from selected PDFs (filename roles; no PDF I/O).
+def auto_pair(
+    paths: Iterable[Path],
+    *,
+    roles: list[FileRole] | None = None,
+    peek_text: bool = True,
+    allow_ocr: bool = False,
+    check_empty_excel: bool | None = None,
+) -> list[PairRow]:
+    """Build pair rows from selected PDFs (filename roles; optional text peek).
 
     Strategy (BHC-optimized):
     1. Classify each file by filename (INV / PKL / BL / combined).
@@ -406,31 +413,43 @@ def auto_pair(paths: Iterable[Path], *, roles: list[FileRole] | None = None) -> 
     4. Leftover inv → 僅 INV; leftover pkl → 僅 PKL; leftover bl → 僅 提單;
        unknown alone → 未配對／需確認.
     5. ``combined`` / unknown-with-MA-like → single-file row (INV side, no PKL).
+
+    ``peek_text`` refines unknown / scanner-like stems from the text layer.
+    Default ``allow_ocr=False`` so adding files in the GUI does not OCR on the
+    UI thread (Extract still OCRs). Pass ``peek_text=False`` for a filename-only
+    pass (instant list update).
     """
     paths = [Path(p) for p in paths]
+    if check_empty_excel is None:
+        check_empty_excel = peek_text
     if roles is None:
         roles = [classify_role(p, filename_only=True) for p in paths]
-        # Refine unknowns / bare scanner stems with a text peek (BL vs INV)
-        import re as _re
-        from invoice_extractor.text_layer import extract_text as _extract_text
-        refined: list[FileRole] = []
-        for r in roles:
-            stem = r.path.stem
-            scannerish = bool(_re.match(r"\d{12,}-\d+", stem)) or stem.upper() in {"BL", "HBL"}
-            if r.role in ("unknown",) or (scannerish and r.role != "bl"):
-                try:
-                    text, _, _ = _extract_text(r.path, allow_ocr=True)
-                except Exception:
-                    text = ""
-                if text and text.strip():
-                    r = classify_role(r.path, text)
-            refined.append(r)
-        roles = refined
+        if peek_text:
+            # Refine unknowns / bare scanner stems with a text peek (BL vs INV)
+            import re as _re
+            from invoice_extractor.text_layer import extract_text as _extract_text
+            refined: list[FileRole] = []
+            for r in roles:
+                stem = r.path.stem
+                scannerish = bool(_re.match(r"\d{12,}-\d+", stem)) or stem.upper() in {"BL", "HBL"}
+                if r.role in ("unknown",) or (scannerish and r.role != "bl"):
+                    try:
+                        text, _, _ = _extract_text(r.path, allow_ocr=allow_ocr)
+                    except Exception:
+                        text = ""
+                    if text and text.strip():
+                        r = classify_role(r.path, text)
+                refined.append(r)
+            roles = refined
     # Blank Excel forms (template sent next to the real invoice) → skipped rows
     empty_rows: list[PairRow] = []
     kept_roles: list[FileRole] = []
     for r in roles:
-        if r.role in ("inv", "pkl", "combined", "unknown") and excel_looks_empty(r.path):
+        if (
+            check_empty_excel
+            and r.role in ("inv", "pkl", "combined", "unknown")
+            and excel_looks_empty(r.path)
+        ):
             empty_rows.append(
                 PairRow(pair_id="", inv_path=r.path, status=STATUS_UNMATCHED, skipped=True,
                         notes="empty Excel template (no values) — skipped")

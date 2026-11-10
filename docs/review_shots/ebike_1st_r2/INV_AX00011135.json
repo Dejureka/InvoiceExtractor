@@ -1,0 +1,198 @@
+{
+  "header": {
+    "invoice_no": "AX00011135",
+    "invoice_date": "2026-08-27",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 134.0,
+    "incoterm": "FCA Miskolc",
+    "item_line_count": 9,
+    "total_quantity": 3430.0,
+    "amount": 23249.1,
+    "currency": "EUR",
+    "vendor": "Robert Bosch Energy and Body Systems Kft (eBike)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "AX00011135",
+      "part_no": "EB12.100.015-1CF",
+      "description": "Adapter",
+      "qty": 1100.0,
+      "unit": "PC",
+      "unit_price": 2.4213,
+      "amount": 2663.43,
+      "origin": "MA",
+      "hs_code": "85366990",
+      "currency": "EUR",
+      "net_weight": 1.65,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "AX00011135",
+      "part_no": "EB12.120.00R-1CF",
+      "description": "Cable",
+      "qty": 1200.0,
+      "unit": "PC",
+      "unit_price": 2.9438,
+      "amount": 3532.56,
+      "origin": "RO",
+      "hs_code": "85444290",
+      "currency": "EUR",
+      "net_weight": 31.44,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "AX00011135",
+      "part_no": "1270.016.844-VE4",
+      "description": "Operating Unit",
+      "qty": 50.0,
+      "unit": "PC",
+      "unit_price": 8.9018,
+      "amount": 445.09,
+      "origin": "CN",
+      "hs_code": "85371091",
+      "currency": "EUR",
+      "net_weight": 1.4,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "AX00011135",
+      "part_no": "EB13.100.004-VE4",
+      "description": "Display",
+      "qty": 30.0,
+      "unit": "PC",
+      "unit_price": 22.245333,
+      "amount": 667.36,
+      "origin": "CN",
+      "hs_code": "85371091",
+      "currency": "EUR",
+      "net_weight": 1.755,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "AX00011135",
+      "part_no": "EB13.100.01H-VE4",
+      "description": "Operating Unit",
+      "qty": 10.0,
+      "unit": "PC",
+      "unit_price": 13.113,
+      "amount": 131.13,
+      "origin": "CN",
+      "hs_code": "40169997",
+      "currency": "EUR",
+      "net_weight": 0.174,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "AX00011135",
+      "part_no": "1270.020.912-VE4",
+      "description": "Display Mounting",
+      "qty": 30.0,
+      "unit": "PC",
+      "unit_price": 8.547667,
+      "amount": 256.43,
+      "origin": "HU",
+      "hs_code": "85389099",
+      "currency": "EUR",
+      "net_weight": 4.44,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "AX00011135",
+      "part_no": "EB13.100.01E-1CF",
+      "description": "Operating Unit",
+      "qty": 600.0,
+      "unit": "PC",
+      "unit_price": 9.8519,
+      "amount": 5911.14,
+      "origin": "CN",
+      "hs_code": "85371091",
+      "currency": "EUR",
+      "net_weight": 9.84,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "AX00011135",
+      "part_no": "EB13.100.000-1CF",
+      "description": "Operating Unit",
+      "qty": 400.0,
+      "unit": "PC",
+      "unit_price": 24.0438,
+      "amount": 9617.52,
+      "origin": "CN",
+      "hs_code": "85371091",
+      "currency": "EUR",
+      "net_weight": 13.88,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "AX00011135",
+      "part_no": "EB13.200.069-VE4",
+      "description": "Battery",
+      "qty": 10.0,
+      "unit": "PC",
+      "unit_price": 2.444,
+      "amount": 24.44,
+      "origin": "HU",
+      "hs_code": "85076000",
+      "currency": "EUR",
+      "net_weight": 0.033,
+      "pricing_unit": null
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/ebike_1st/75ed0f40B303F5DC-C4AC-42E4-BF4E-5E2185442E3A}1.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ebike_ax_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 23249.1,
+    "labeled_amount_label": "Net value EUR",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "source_kind": null,
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 9,
+        "got": 9
+      },
+      "total_quantity": {
+        "want": 3430.0,
+        "got": 3430.0
+      },
+      "amount": {
+        "want": 23249.1,
+        "got": 23249.1
+      },
+      "labeled_amount": {
+        "label": "Net value EUR",
+        "want": 23249.1,
+        "header_amount": 23249.1,
+        "sum_items": 23249.1,
+        "item_count": 9
+      }
+    }
+  },
+  "_stamp": "Original",
+  "_consignment": "0050142328"
+}

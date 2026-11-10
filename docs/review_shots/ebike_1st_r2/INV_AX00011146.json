@@ -1,0 +1,114 @@
+{
+  "header": {
+    "invoice_no": "AX00011146",
+    "invoice_date": "2026-08-27",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 185.0,
+    "incoterm": "FCA Miskolc",
+    "item_line_count": 3,
+    "total_quantity": 40.0,
+    "amount": 6243.05,
+    "currency": "EUR",
+    "vendor": "Robert Bosch Energy and Body Systems Kft (eBike)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "AX00011146",
+      "part_no": "EB12.100.04Z-VE4",
+      "description": "PowerTube",
+      "qty": 20.0,
+      "unit": "PC",
+      "unit_price": 162.965,
+      "amount": 3259.3,
+      "origin": "HU",
+      "hs_code": "85076000",
+      "currency": "EUR",
+      "net_weight": 78.0,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "AX00011146",
+      "part_no": "EB12.100.010-VE4",
+      "description": "PowerTube",
+      "qty": 10.0,
+      "unit": "PC",
+      "unit_price": 135.524,
+      "amount": 1355.24,
+      "origin": "HU",
+      "hs_code": "85076000",
+      "currency": "EUR",
+      "net_weight": 36.37,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "AX00011146",
+      "part_no": "EB12.100.053-VE4",
+      "description": "PowerTube",
+      "qty": 10.0,
+      "unit": "PC",
+      "unit_price": 162.851,
+      "amount": 1628.51,
+      "origin": "HU",
+      "hs_code": "85076000",
+      "currency": "EUR",
+      "net_weight": 39.0,
+      "pricing_unit": null
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/ebike_1st/75ed4dc0215F5D36-1434-401F-A84E-B0F5F1FB55D8}1.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ebike_ax_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 6243.05,
+    "labeled_amount_label": "Net value EUR",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "source_kind": null,
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 3,
+        "got": 3
+      },
+      "total_quantity": {
+        "want": 40.0,
+        "got": 40.0
+      },
+      "amount": {
+        "want": 6243.05,
+        "got": 6243.05
+      },
+      "labeled_amount": {
+        "label": "Net value EUR",
+        "want": 6243.05,
+        "header_amount": 6243.05,
+        "sum_items": 6243.05,
+        "item_count": 3
+      }
+    }
+  },
+  "_stamp": "Original",
+  "_consignment": "0050142328"
+}

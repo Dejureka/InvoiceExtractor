@@ -15,8 +15,21 @@ try:
 except Exception:
     pass
 hidden += ["pymupdf", "fitz"]
-# Optional drag-drop (best-effort; Browse works without it)
-hidden += ["tkinterdnd2"]
+# Optional drag-drop: collect tkinterdnd2 + tkdnd natives explicitly.
+# Browse still works if the import is missing at runtime.
+_dnd_datas = []
+_dnd_bins = []
+try:
+    from PyInstaller.utils.hooks import collect_all
+
+    _d, _b, _h = collect_all("tkinterdnd2")
+    _dnd_datas += list(_d)
+    _dnd_bins += list(_b)
+    hidden += list(_h)
+except Exception:
+    pass
+if "tkinterdnd2" not in hidden:
+    hidden += ["tkinterdnd2"]
 
 # Bundled poppler (downloaded in CI into vendor/poppler)
 _poppler_bins = []
@@ -34,8 +47,8 @@ for _cand in [
 a = Analysis(
     ["run_gui.py"],
     pathex=["src", "vendor"],
-    binaries=_poppler_bins,
-    datas=[("data", "data")],
+    binaries=_poppler_bins + _dnd_bins,
+    datas=[("data", "data")] + _dnd_datas,
     hiddenimports=hidden,
     hookspath=[],
     hooksconfig={},
