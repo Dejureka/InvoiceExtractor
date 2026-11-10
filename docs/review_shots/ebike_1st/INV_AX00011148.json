@@ -15,7 +15,7 @@
     "bl_no": null,
     "bl_packages": null,
     "bl_gross_weight_kg": null,
-    "summary_note": null
+    "summary_note": "soft: Commodity Code not printed on EB13.900.025-VE4 (1/13 lines); HS left empty; line_nw_exceeds_total_nw: EB13.900.029-VE4 8292.0 kg exceeds labelled Total Net Weight 33.097 kg — kept as printed"
   },
   "items": [
     {
@@ -208,7 +208,7 @@
     "confidence": "rules",
     "needs_ocr": false,
     "needs_gold": false,
-    "notes": "missing_line_hs; line_nw_exceeds_total_nw:EB13.900.029-VE4",
+    "notes": "soft: Commodity Code not printed on EB13.900.025-VE4 (1/13 lines); HS left empty; line_nw_exceeds_total_nw: EB13.900.029-VE4 8292.0 kg exceeds labelled Total Net Weight 33.097 kg — kept as printed",
     "labeled_amount": 3958.82,
     "labeled_amount_label": "Net value EUR",
     "source": null,
@@ -225,10 +225,8 @@
     "packing_units_zeroed": null
   },
   "_hard": {
-    "verdict": "conflict",
-    "issues": [
-      "missing item.hs_code at indices [2] (1/13 lines; required for ebike_ax_billing_v1)"
-    ],
+    "verdict": "pass",
+    "issues": [],
     "details": {
       "item_line_count": {
         "want": 13,
@@ -248,10 +246,7 @@
         "header_amount": 3958.82,
         "sum_items": 3958.82,
         "item_count": 13
-      },
-      "missing_hs_indices": [
-        2
-      ]
+      }
     }
   },
   "_stamp": "Original",

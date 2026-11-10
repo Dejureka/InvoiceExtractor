@@ -23,9 +23,10 @@ REQUIRE_LINE_HS_FORMATS = frozenset(
         "pt_dremel_head3_v1",
         "pt_dremel_head5_v1",
         "soe_rb_gmbh_v1",
-        "ebike_ax_billing_v1",
     }
 )
+# eBike AX Billing: missing Commodity Code is a soft warning only (user 2026-11-10).
+
 
 
 def _f(x: Any) -> Optional[float]:

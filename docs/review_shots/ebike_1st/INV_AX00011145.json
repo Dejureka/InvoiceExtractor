@@ -15,7 +15,7 @@
     "bl_no": null,
     "bl_packages": null,
     "bl_gross_weight_kg": null,
-    "summary_note": null
+    "summary_note": "soft: Commodity Code not printed on EB12.100.076-VE4 (1/1 lines); HS left empty"
   },
   "items": [
     {
@@ -40,7 +40,7 @@
     "confidence": "rules",
     "needs_ocr": false,
     "needs_gold": false,
-    "notes": "missing_line_hs",
+    "notes": "soft: Commodity Code not printed on EB12.100.076-VE4 (1/1 lines); HS left empty",
     "labeled_amount": 5484.75,
     "labeled_amount_label": "Net value EUR",
     "source": null,
@@ -57,10 +57,8 @@
     "packing_units_zeroed": null
   },
   "_hard": {
-    "verdict": "conflict",
-    "issues": [
-      "missing item.hs_code at indices [0] (1/1 lines; required for ebike_ax_billing_v1)"
-    ],
+    "verdict": "pass",
+    "issues": [],
     "details": {
       "item_line_count": {
         "want": 1,
@@ -80,10 +78,7 @@
         "header_amount": 5484.75,
         "sum_items": 5484.75,
         "item_count": 1
-      },
-      "missing_hs_indices": [
-        0
-      ]
+      }
     }
   },
   "_stamp": "Original",

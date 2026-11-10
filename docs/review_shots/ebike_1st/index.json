@@ -15,6 +15,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/75ed0f40E47A859D-C95D-4C83-A55A-8E43A0FB9571}1.pdf",
       "pages": 2
     },
@@ -31,6 +32,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/bc727d01873F6B4-D272-4154-900E-ABB623243286}1.pdf",
       "pages": 2
     },
@@ -47,6 +49,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/bc74710E09587C0-AEAF-4975-9BC2-BA9EC65362A1}1.pdf",
       "pages": 2
     },
@@ -63,6 +66,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/75ed0f40B303F5DC-C4AC-42E4-BF4E-5E2185442E3A}1.pdf",
       "pages": 3
     },
@@ -79,6 +83,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/75ed0f4039E0EB86-471E-4216-8734-1D124469549B}1.pdf",
       "pages": 8
     },
@@ -95,6 +100,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/75ed0f4055F7F11D-E463-4AFA-A5B1-E032D82D4064}1.pdf",
       "pages": 2
     },
@@ -111,6 +117,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/bc727d00C6DD7AB-7D81-4329-82D7-5939A0F3ED66}1.pdf",
       "pages": 2
     },
@@ -127,6 +134,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/75ed0f4010535EE1-56CC-4E09-86E4-494ECEB01AFE}1.pdf",
       "pages": 2
     },
@@ -143,6 +151,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/bc747100B14A42D-C614-43EE-8EB4-62E970C1D1AB}1.pdf",
       "pages": 2
     },
@@ -159,6 +168,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/75ed36507527EBA2-6FD4-42B6-A657-50F906303A6C}1.pdf",
       "pages": 2
     },
@@ -175,6 +185,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/75ed45f04126FDF1-4A0D-4E8F-92E7-88D3C09561E8}1.pdf",
       "pages": 2
     },
@@ -191,6 +202,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/75ed0f407A757F59-29C1-439F-8C7D-797122EC61C8}1.pdf",
       "pages": 2
     },
@@ -205,10 +217,11 @@
       "lines": 1,
       "qty": 70.0,
       "incoterm": "FCA Miskolc",
-      "verdict": "conflict",
+      "verdict": "pass",
       "missing_hs": [
         "EB12.100.076-VE4"
       ],
+      "summary_note": "soft: Commodity Code not printed on EB12.100.076-VE4 (1/1 lines); HS left empty",
       "source": "/workspace/ebike_1st/6a8e3f0072A1D159-5E24-465F-8D6D-13DA956965EA}1.pdf",
       "pages": 2
     },
@@ -223,10 +236,11 @@
       "lines": 1,
       "qty": 60.0,
       "incoterm": "FCA Miskolc",
-      "verdict": "conflict",
+      "verdict": "pass",
       "missing_hs": [
         "EB12.100.076-VE4"
       ],
+      "summary_note": "soft: Commodity Code not printed on EB12.100.076-VE4 (1/1 lines); HS left empty",
       "source": "/workspace/ebike_1st/bc73770B1621883-F465-4152-8674-A6A371A9754D}1.pdf",
       "pages": 2
     },
@@ -243,6 +257,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/75ed4dc0215F5D36-1434-401F-A84E-B0F5F1FB55D8}1.pdf",
       "pages": 2
     },
@@ -259,6 +274,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/bc727d0CA92DDBC-A15D-40F3-B739-A74CAF69A097}1.pdf",
       "pages": 2
     },
@@ -273,10 +289,11 @@
       "lines": 13,
       "qty": 1150.0,
       "incoterm": "FCA Miskolc",
-      "verdict": "conflict",
+      "verdict": "pass",
       "missing_hs": [
         "EB13.900.025-VE4"
       ],
+      "summary_note": "soft: Commodity Code not printed on EB13.900.025-VE4 (1/13 lines); HS left empty; line_nw_exceeds_total_nw: EB13.900.029-VE4 8292.0 kg exceeds labelled Total Net Weight 33.097 kg — kept as printed",
       "source": "/workspace/ebike_1st/bc74710B368D68A-AE8F-41D0-9C07-D9B999C45CFA}1.pdf",
       "pages": 4
     },
@@ -293,6 +310,7 @@
       "incoterm": "FCA Miskolc",
       "verdict": "pass",
       "missing_hs": [],
+      "summary_note": null,
       "source": "/workspace/ebike_1st/75ed0f40B7A9B585-071B-4267-963E-8F36F4FF9D20}1.pdf",
       "pages": 2
     }

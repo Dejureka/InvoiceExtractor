@@ -36,7 +36,7 @@ MATCH_HINTS = {
 NOTES = (
     "eBike Billing Document AX######## (Robert Bosch Energy and Body Systems Kft, "
     "Miskolc). PN like EB11.900.018-VE4 / 1270.016.507-VE4 / 0275.007.337-VE4; "
-    "HS=Commodity Code (hard required, same policy as MA/PT/SOE); "
+    "HS=Commodity Code (soft if missing — warning + Summary note, HS left empty; MA/PT/SOE stay hard; user 2026-11-10); "
     "Origin=Country of Origin per line. "
     "Amounts are EU-format (18.022,42) in EUR; ignore the HUF conversion block. "
     "Labeled amount=Net value … EUR (tax-free Total value equals Net value on this batch). "
@@ -250,20 +250,33 @@ def extract_from_text(
         vendor="Robert Bosch Energy and Body Systems Kft (eBike)",
     )
     notes: list[str] = []
-    if items and any(not it.hs_code for it in items):
-        notes.append("missing_line_hs")
+    missing_hs = [it.part_no for it in items if not it.hs_code]
+    if missing_hs:
+        parts = ", ".join(p for p in missing_hs if p)
+        notes.append(
+            f"soft: Commodity Code not printed on {parts} "
+            f"({len(missing_hs)}/{len(items)} lines); HS left empty"
+        )
     tm = _TOTAL_NW.search(text)
-    if tm and items:
-        total_nw = ebike_float(tm.group(1))
+    total_nw = ebike_float(tm.group(1)) if tm else None
+    over = []
+    if total_nw is not None and items:
         over = [
-            it.part_no
+            it
             for it in items
             if it.net_weight is not None and it.net_weight - total_nw > 0.05
         ]
         if over:
-            notes.append(
-                "line_nw_exceeds_total_nw:" + ",".join(p for p in over if p)
+            bits = ", ".join(
+                f"{it.part_no} {it.net_weight} kg" for it in over if it.part_no
             )
+            notes.append(
+                f"line_nw_exceeds_total_nw: {bits} exceeds labelled "
+                f"Total Net Weight {total_nw} kg — kept as printed"
+            )
+    note_text = "; ".join(notes) or None
+    if note_text:
+        header.summary_note = note_text
     meta = Meta(
         source_file=source_file,
         text_backend=text_backend,
@@ -272,7 +285,7 @@ def extract_from_text(
         needs_ocr=needs_ocr,
         labeled_amount=amount,
         labeled_amount_label="Net value EUR",
-        notes="; ".join(notes) or None,
+        notes=note_text,
     )
     if needs_ocr or not invoice_no or amount is None or not items:
         meta.confidence = "needs_gold"

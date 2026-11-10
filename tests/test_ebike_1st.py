@@ -100,11 +100,13 @@ def test_all_18_header_lines_currency_and_hard_check():
         assert missing == MISSING_HS.get(inv, [])
         assert len(missing) == miss
         hard = hard_check(res.to_dict())
+        assert hard["verdict"] == "pass", (inv, hard)
         if miss:
-            assert hard["verdict"] == "conflict"
-            assert any("missing item.hs_code" in i for i in hard["issues"])
+            assert "soft: Commodity Code not printed" in (meta.notes or "")
+            assert "HS left empty" in (h.summary_note or "")
+            assert "soft: Commodity Code not printed" in (h.summary_note or "")
         else:
-            assert hard["verdict"] == "pass", (inv, hard)
+            assert "Commodity Code not printed" not in (meta.notes or "")
         ship_pkg += pkg
         ship_gw += gw
     # Per-invoice totals, not a repeated shipment figure.
@@ -152,3 +154,28 @@ def test_anomalous_line_nw_is_kept_and_noted():
     kit = next(it for it in res.items if it.part_no == "EB13.900.029-VE4")
     assert kit.net_weight == 8292.0
     assert "line_nw_exceeds_total_nw" in (res.meta.notes or "")
+    assert "kept as printed" in (res.header.summary_note or "")
+    assert "EB13.900.029-VE4" in (res.header.summary_note or "")
+    # 11148 also has a missing HS — both soft warnings share the Summary note
+    assert "Commodity Code not printed" in (res.header.summary_note or "")
+    assert hard_check(res.to_dict())["verdict"] == "pass"
+
+
+def test_summary_note_is_excel_comment_on_result(tmp_path):
+    """Packages / G.W. cells carry the soft HS + line-NW notes (visible in Result)."""
+    from invoice_extractor.export import write_extract, SUMMARY_GW_COL, SUMMARY_COLS
+
+    res = extract_from_text(_text("AX00011148"), source_file="AX00011148.pdf")
+    out = tmp_path / "InvoiceExtract_Result.xlsx"
+    write_extract(res.to_dict(), out)
+    from openpyxl import load_workbook
+
+    wb = load_workbook(out)
+    ws = wb["Summary"]
+    pkg_col = SUMMARY_COLS.index("Packages") + 1
+    gw_col = SUMMARY_COLS.index(SUMMARY_GW_COL) + 1
+    note = ws.cell(2, pkg_col).comment
+    assert note and "line_nw_exceeds_total_nw" in note.text
+    assert "Commodity Code not printed" in note.text
+    assert "EB13.900.029-VE4" in note.text
+    assert ws.cell(2, gw_col).comment and "kept as printed" in ws.cell(2, gw_col).comment.text
