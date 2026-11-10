@@ -355,7 +355,7 @@ def test_summary_bl_columns_far_right_and_green_header_style(tmp_path: Path):
         "Invoice No.",
         "Packages",
         "Package Mode",
-        "G.W. (kgs)-Air DIM. (CBM)-Sea",
+        "G.W. (kgs)-Air\nDIM. (CBM)-Sea",
         "Incoterms",
         "Invoice Value",
         "LINE",
@@ -385,6 +385,10 @@ def test_summary_bl_columns_far_right_and_green_header_style(tmp_path: Path):
         for cell in ws[1]
         if cell.value is not None
     )
+    gw = next(c for c in ws[1] if c.value and "G.W." in str(c.value) and "DIM." in str(c.value))
+    assert gw.value == "G.W. (kgs)-Air\nDIM. (CBM)-Sea"
+    assert gw.alignment.wrap_text is True
+    assert (ws.row_dimensions[1].height or 0) >= 36
 
 
 def test_template_summary_order_matches_export():
@@ -394,3 +398,17 @@ def test_template_summary_order_matches_export():
     headers = [c.value for c in wb[SUMMARY_SHEET][1] if c.value is not None]
     assert headers == list(SUMMARY_COLS)
     assert headers[-3:] == ["BL No.", "BL Packages", "BL G.W. (kgs)"]
+
+
+def test_summary_gw_header_legacy_alias():
+    from invoice_extractor.export import (
+        SUMMARY_GW_COL,
+        SUMMARY_GW_COL_LEGACY,
+        is_summary_gw_header,
+    )
+
+    assert is_summary_gw_header(SUMMARY_GW_COL)
+    assert is_summary_gw_header(SUMMARY_GW_COL_LEGACY)
+    assert "\n" in SUMMARY_GW_COL
+    assert not is_summary_gw_header("Packages")
+    assert not is_summary_gw_header(None)

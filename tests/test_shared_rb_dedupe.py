@@ -117,7 +117,7 @@ def test_summary_note_written_as_excel_note(tmp_path):
     hdr = [c.value for c in ws[1]]
     assert hdr[-3:] == ["BL No.", "BL Packages", "BL G.W. (kgs)"]  # layout unchanged
     row3 = {h: ws.cell(3, i + 1) for i, h in enumerate(hdr)}
-    assert row3["Packages"].value == 1.0 and row3["G.W. (kgs)-Air DIM. (CBM)-Sea"].value == 5.0
+    assert row3["Packages"].value == 1.0 and row3["G.W. (kgs)-Air\nDIM. (CBM)-Sea"].value == 5.0
     assert "shared RB 110936597 with 2120394532" in row3["Packages"].comment.text
     assert ws.cell(2, 2).comment is None
 
