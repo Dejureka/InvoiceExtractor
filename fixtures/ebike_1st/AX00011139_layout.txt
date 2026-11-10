@@ -1,0 +1,98 @@
+Robert Bosch Energy and Body Systems
+Kft
+MISKOLC
+Robert Bosch park 3                                                                                                                                     Original
+3526
+                                                                                                                                                       Page 1 of 2
+HU13065188
+                                                                                                     Invoice
+                                                                                                     Billing Document               AX00011139
+         Bill to Party Address                                                                       Billing Date                   27.08.2026
+                                                                                                     Your VAT ID                    DE811128135
+         Robert Bosch GmbH
+                                                                                                     Payer                          4001020279
+         PO Box 10 60 50
+         70049 GERLINGEN
+         GERMANY
+
+
+
+
+Sold to Party           Robert Bosch GmbH PO Box 10 60 50 70049 GERLINGEN-SCHILLERHOEHE GERMANY
+Payer                   Robert Bosch GmbH Robert-Bosch-Platz 1 70839 GERLINGEN-SCHILLERHÖHE GERMANY
+Ship to Party           Robert Bosch GmbH Zhongheng 10th Rd., Wuqi Dist. 100 TAICHUNG 435 TAIWAN
+Shipping Point          DCEU Finished Goods MISKOLC Dr.Cselényi József 3 3526, HUNGARY
+Unloading Point         YTCHU                                      Shipping Mode       Sea
+Item     Bosch Material No.                          Billing Quantity          Unit Price                 Net Value                   Tax Rate     Tax Amount
+No.      Material Description                                                  Pricing Unit
+
+
+
+
+Delivery Number                  1269545166                              Consignment Number                   0050142328
+Your Ord. Number                 0057055750                              Your Ord. Date                       23.07.2026
+Our Ord. Number                  700025597
+10     EB11.900.018-VE4                              25 PC                     18.022,42                      4.505,61                0%                 0,00
+       Drive Unit                                                              100 PC
+
+
+         Customer Mat. No                   EB11900018VE4                           Delivery Date                       27.08.2026
+         Batch                              0006180767
+         Commodity Code                     85013100                                Country of Origin                   HU
+         Net Weight                             75,425 KG
+
+
+                                                                                 Net value                                                         4.505,61 EUR
+                                                                                 Tax amount                                      0%                    0,00 EUR
+                                                                                 Total value                                                       4.505,61 EUR
+
+
+                                                                                 Net value                                                        1.640.493 HUF
+                                                                                 Tax amount                                      0%                       0 HUF
+                                                                                 Total value                                                      1.640.493 HUF
+Incoterms           FCA Miskolc
+Payment Terms       30 days net
+                    Up to 26.09.2026 without deduction
+
+
+
+
+Export, tax free according to § 98 of the Hungarian VAT Act.
+
+Total Num of packages             1
+Total Net Weight                         75,425 KG
+Total Gross Weight                      107,000 KG
+
+
+
+
+                                                                                        Exchange Rate 1 EUR =            364,10000 HUF Date 27.08.2026
+
+
+Bank Details                    IBAN (EUR): HU97 10800007 50000010 04672506 (HUF): HU52 1080000744672003 00000000 Swift code: CITIHUHX
+Registered Office               H-3526 Miskolc, Robert Bosch Park 3.
+Robert Bosch Energy and Body Systems
+Kft
+MISKOLC
+Robert Bosch park 3                                                                                                                     Original
+3526
+                                                                                                                                       Page 2 of 2
+HU13065188
+                                                                                   Invoice
+Bill to Party Address                                                              Billing Document                AX00011139
+Robert Bosch GmbH                                                                  Billing Date                    27.08.2026
+PO Box 10 60 50                                                                    Your VAT ID                     DE811128135
+70049 GERLINGEN                                                                    Payer                           4001020279
+GERMANY
+
+
+
+
+The document is valid without the signature of the issuer
+
+
+
+
+Bank Details                  IBAN (EUR): HU97 10800007 50000010 04672506 (HUF): HU52 1080000744672003 00000000 Swift code: CITIHUHX
+Registered Office             H-3526 Miskolc, Robert Bosch Park 3.
+

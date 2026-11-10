@@ -193,6 +193,7 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
         hitachi_asia_hitt_v1,
         ma_no_period_v1,
         ma_ak_billing_v1,
+        ebike_ax_billing_v1,
         ma_with_period_v1,
         nidec_v1,
         pt_dremel_head3_v1,
@@ -350,6 +351,11 @@ def seed_builtin_formats(db_path: str | Path | None = None) -> Path:
                 ["三花", "SHC/THT", "Welling", "MDBWH", "Broad-Ocean", "大洋", "HIPUS",
                  "BHCTW-26K", "Hailiang", "海亮", "HLHK"],
                 bhc_vendor_ci_v1,
+            ),
+            (
+                "Robert Bosch Energy and Body Systems Kft (eBike)",
+                ["eBike", "Bosch eBike", "Energy and Body Systems", "Billing Document AX", "AX000"],
+                ebike_ax_billing_v1,
             ),
         ]
         for name, aliases, mod in extras:

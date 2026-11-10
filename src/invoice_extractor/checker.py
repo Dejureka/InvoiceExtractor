@@ -25,6 +25,8 @@ REQUIRE_LINE_HS_FORMATS = frozenset(
         "soe_rb_gmbh_v1",
     }
 )
+# eBike AX Billing: missing Commodity Code is a soft warning only (user 2026-11-10).
+
 
 
 def _f(x: Any) -> Optional[float]:
@@ -135,10 +137,15 @@ def hard_check(extract: dict[str, Any]) -> dict[str, Any]:
         up, q, am = _f(it.get("unit_price")), _f(it.get("qty")), _f(it.get("amount"))
         if up is None or q is None or am is None:
             continue
+        pu = _f(it.get("pricing_unit"))
+        if pu is None or pu <= 0:
+            pu = 1.0
+        expected = up * q / pu
         # Absolute 1-unit rounding OR 0.1% relative (Bosch AK Net Value can
         # differ slightly from Unit Price × Qty after commercial conditions).
+        # eBike AX unit prices are per Pricing Unit (typically 100 PC).
         tol = max(AMOUNT_TOL, 1.0, 0.001 * abs(am))
-        if abs(up * q - am) > tol:
+        if abs(expected - am) > tol:
             line_bad.append(i)
     if line_bad:
         issues.append(f"unit_price*qty != amount at indices {line_bad[:10]}")

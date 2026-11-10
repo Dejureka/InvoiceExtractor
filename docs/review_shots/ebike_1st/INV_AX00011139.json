@@ -1,0 +1,86 @@
+{
+  "header": {
+    "invoice_no": "AX00011139",
+    "invoice_date": "2026-08-27",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 107.0,
+    "incoterm": "FCA Miskolc",
+    "item_line_count": 1,
+    "total_quantity": 25.0,
+    "amount": 4505.61,
+    "currency": "EUR",
+    "vendor": "Robert Bosch Energy and Body Systems Kft (eBike)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "AX00011139",
+      "part_no": "EB11.900.018-VE4",
+      "description": "Drive Unit",
+      "qty": 25.0,
+      "unit": "PC",
+      "unit_price": 18022.42,
+      "amount": 4505.61,
+      "origin": "HU",
+      "hs_code": "85013100",
+      "currency": "EUR",
+      "net_weight": 75.425,
+      "pricing_unit": 100.0
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/ebike_1st/75ed0f4010535EE1-56CC-4E09-86E4-494ECEB01AFE}1.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ebike_ax_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 4505.61,
+    "labeled_amount_label": "Net value EUR",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "source_kind": null,
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 25.0,
+        "got": 25.0
+      },
+      "amount": {
+        "want": 4505.61,
+        "got": 4505.61
+      },
+      "labeled_amount": {
+        "label": "Net value EUR",
+        "want": 4505.61,
+        "header_amount": 4505.61,
+        "sum_items": 4505.61,
+        "item_count": 1
+      }
+    }
+  },
+  "_stamp": "Original",
+  "_consignment": "0050142328"
+}

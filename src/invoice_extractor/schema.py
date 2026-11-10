@@ -47,6 +47,9 @@ class Item:
     origin: Optional[str] = None
     hs_code: Optional[str] = None
     currency: Optional[str] = None
+    net_weight: Optional[float] = None  # line N.W. (kg); export column N.W.
+    # Commercial pricing unit (e.g. 100 PC). hard_check uses amount ≈ qty*price/pricing_unit.
+    pricing_unit: Optional[float] = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
