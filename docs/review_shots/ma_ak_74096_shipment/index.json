@@ -1,0 +1,45 @@
+{
+  "batch": "ma_ak_74096_shipment",
+  "format_id": "ma_ak_billing_v1",
+  "invoices": [
+    {
+      "invoice_no": "AK00074096",
+      "json": "INV_AK00074096.json",
+      "pkg": 40.0,
+      "gw": 8790.28,
+      "amount": 1196827.0,
+      "currency": "TWD",
+      "lines": 24,
+      "qty": 7024.0,
+      "incoterm": "FOB Malaysia",
+      "verdict": "pass",
+      "source": "/tmp/ma_ak7409/Invoice AK00074096.PDF"
+    },
+    {
+      "invoice_no": "AK00074097",
+      "json": "INV_AK00074097.json",
+      "pkg": 0.0,
+      "gw": 0.0,
+      "amount": 347990.0,
+      "currency": "TWD",
+      "lines": 8,
+      "qty": 257.0,
+      "incoterm": "FCA Bosch Plant",
+      "verdict": "pass",
+      "source": "/tmp/ma_ak7409/Invoice AK00074097.PDF"
+    },
+    {
+      "invoice_no": "AK00074098",
+      "json": "INV_AK00074098.json",
+      "pkg": 0.0,
+      "gw": 0.0,
+      "amount": 45936.0,
+      "currency": "TWD",
+      "lines": 1,
+      "qty": 528.0,
+      "incoterm": "FCA Bosch Plant",
+      "verdict": "pass",
+      "source": "/tmp/ma_ak7409/Invoice AK00074098.PDF"
+    }
+  ]
+}

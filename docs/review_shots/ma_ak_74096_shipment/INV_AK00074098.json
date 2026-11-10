@@ -1,0 +1,156 @@
+{
+  "header": {
+    "invoice_no": "AK00074098",
+    "invoice_date": "2026-11-02",
+    "total_pkg": 0.0,
+    "gross_weight_kg": 0.0,
+    "incoterm": "FCA Bosch Plant",
+    "item_line_count": 1,
+    "total_quantity": 528.0,
+    "amount": 45936.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null,
+    "summary_note": "shipment pkg/GW (deduped) on AK00074096; printed pkg/GW 10 / 1137.28"
+  },
+  "items": [
+    {
+      "invoice_no": "AK00074098",
+      "part_no": "1987.124.170-FXX",
+      "description": "Engine Oil",
+      "qty": 528.0,
+      "unit": "PC",
+      "unit_price": 87.0,
+      "amount": 45936.0,
+      "origin": "MY",
+      "hs_code": "2710194600",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/tmp/ma_ak7409/Invoice AK00074098.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "shipment pkg/GW (deduped) on AK00074096; printed pkg/GW 10 / 1137.28",
+    "labeled_amount": 45936.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "406702140321949730": 1.28,
+      "406702140322506154": 310.0,
+      "406702140322528170": 102.0,
+      "406702140323114235": 400.0,
+      "406702140323149664": 56.0,
+      "406702140323149916": 56.0,
+      "406702140323150264": 56.0,
+      "406702140323154286": 56.0,
+      "406702140323179739": 45.0,
+      "406702140323180025": 55.0
+    },
+    "packing_units_zeroed": {
+      "406702140321949730": 1.28,
+      "406702140322506154": 310.0,
+      "406702140322528170": 102.0,
+      "406702140323114235": 400.0,
+      "406702140323149664": 56.0,
+      "406702140323149916": 56.0,
+      "406702140323150264": 56.0,
+      "406702140323154286": 56.0,
+      "406702140323179739": 45.0,
+      "406702140323180025": 55.0
+    },
+    "shipment_packing": {
+      "mode": "shipment_first",
+      "first_invoice": "AK00074096",
+      "total_pkg": 40.0,
+      "gross_weight_kg": 8790.28,
+      "shared_rb": [
+        "406702140321949730",
+        "406702140322506154",
+        "406702140322528170",
+        "406702140323114235",
+        "406702140323149664",
+        "406702140323149916",
+        "406702140323150264",
+        "406702140323154286",
+        "406702140323179739",
+        "406702140323180025"
+      ],
+      "invoices": [
+        "AK00074096",
+        "AK00074097",
+        "AK00074098"
+      ]
+    },
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 528.0,
+        "got": 528.0
+      },
+      "amount": {
+        "want": 45936.0,
+        "got": 45936.0
+      },
+      "labeled_amount": {
+        "label": "Net value",
+        "want": 45936.0,
+        "header_amount": 45936.0,
+        "sum_items": 45936.0,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    }
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 1,
+        "got": 1
+      },
+      "total_quantity": {
+        "want": 528.0,
+        "got": 528.0
+      },
+      "amount": {
+        "want": 45936.0,
+        "got": 45936.0
+      },
+      "labeled_amount": {
+        "label": "Net value",
+        "want": 45936.0,
+        "header_amount": 45936.0,
+        "sum_items": 45936.0,
+        "item_count": 1
+      },
+      "missing_hs_indices": []
+    }
+  },
+  "_printed_pkg_gw": {
+    "total_pkg": 10.0,
+    "gross_weight_kg": 1137.28
+  }
+}

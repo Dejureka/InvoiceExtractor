@@ -96,7 +96,7 @@
 | `highly_v1` | HIGHLY／海立、`INV#` |
 | `ma_no_period_v1` | `Robert BOSCH GmbH`、`Document No.`、`Goods Value`、13-char 無點 PN；VBA `MA_PDFextract_NoPeriod`／`MA_Declaration_noPeriod`；產地＝`Right(PN,3)`→**Country Of Origin Index**（可跨頁／首頁僅標題；勿用 `Country Of Origin\\b` 當結尾以免吃到下一頁 Index；Unicode 國名如 Türkiye） |
 | `ma_with_period_v1` | 同上但 PN 有點（`0.445…`）；VBA `MA_PDFextractWithPeriod`／`MA_Declaration_withPeriod`；資料夾 90-C*／90-M* |
-| `ma_ak_billing_v1` | `Billing Document AK…`、`Bosch Material No.`、`Commodity Code`、`Country of Origin`；VBA 無對應（新 AK 帳單）；pkg/GW＝Marking HU／Dummy Pack；**非** Document No./Goods Value／Origin Index |
+| `ma_ak_billing_v1` | `Billing Document AK…`、`Bosch Material No.`、`Commodity Code`、`Country of Origin`；VBA 無對應（新 AK 帳單）；pkg/GW＝Marking 唯一 HU（可無 `RB` 標籤；`Gross` 或 `Gross HU Weight`；同一 HU 只算第一次）；`meta.packing_units` 供 shipment_first；**非** Document No./Goods Value／Origin Index |
 | `bhc_my_hub_v1` | `Bosch Home Comfort Supply`、`TOTALS:`、`PART NO`；packing／GW soft-missing OK；xlsx twin 一格內保留 PDF 欄距（`RAM-18GSD   C          SF RAM,RAS`）→ 只在 Excel 輸入時以最寬空白（≥4）切 PN／品名（BHC 6th case5；PDF 輸出不動） |
 | `hisense_qingdao_v1` | `QINGDAO HISENSE BOSCH`、`CI NO.: CIHT-TW-…`、合訂 INV+PL；PN＝SELLER'S MODEL |
 | `aichi_electric_v1` | `AICHI ELECTRIC`、`AETW…`、`Total FOB Nagoya`、合訂 packing sheet；PN＝DWG No. |
@@ -172,6 +172,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-11-10 | MA AK Billing（AK00074096／097／098 同一 shipment）：`parse_ak_units` 認 Marking 的 `Gross HU Weight`（舊票仍認 `Gross n KG`）、後續無 `RB` 標籤的 18 位 HU、以及頁面中斷；`packing_units` 讓 shipment_first 跨發票去重（本批 097＝098 的 10 個 HU，整批 40／8790.28 放第一張）；review `docs/review_shots/ma_ak_74096_shipment/` |
 | 2026-10-08 | BHC 6th（15 case，.msg 解開；case8 只跑 MEH6K018＋KEE602）：`bhc_vendor_ci_v1` 新 profile topband／augewei／jiangnan／wolong／saginomiya，擴充 hailiang／hipus；`dunan_v1` `parse_packing`＋incoterm；`hitachi_gls_v1` 號碼在標籤下一行；`ocr.py` 低可讀率頁旋轉重試；配對中文檔名／PACKINGLIST／字距 INVOICE；BL：`tvl_hbl_v1` SHAKEL26C 完整號碼＋表面件數重讀（不壓過 SAY）、`jif_cosmo_waybill_v1` Ocean Links KLG＋HIPUS 件數、`hippopo_arrival_v1` PALLETS、`china_progress_bl_v1` CPSE；review `docs/review_shots/bhc_6th/` |
 | 2026-10-08 | BHC 6th Auditor 第 2 輪：case8 用原始 3 頁掃描；`jif_cosmo_waybill_v1` 多 waybill（`meta.documents`）＋`pairing.select_bl_document` 依 INVOICE NO. 選 waybill（無相符 → needs_gold）；GW 格子定位重讀（三次 OCR 字框交集、整數／小數分開投票）→ KEE602 50；TVL 幻影字防護；saginomiya 檔名提示收窄；`docs/review_shots/bhc_6th/auditor_round2.md` |
 | 2026-10-08 | BHC 6th Auditor 第 3 輪：GW 格子防護（前導數字差異仍投票、未確認尾巴不能勝出；只有格子讀法需擴框確認整數或等於 INV／PL G.W.）；INVOICE NO. 完全比對；多張相符 notes；列 `meta.needs_gold`；`docs/review_shots/bhc_6th/auditor_round3.md` |

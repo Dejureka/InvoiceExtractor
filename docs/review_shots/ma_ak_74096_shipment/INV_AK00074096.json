@@ -1,0 +1,441 @@
+{
+  "header": {
+    "invoice_no": "AK00074096",
+    "invoice_date": "2026-11-02",
+    "total_pkg": 40.0,
+    "gross_weight_kg": 8790.28,
+    "incoterm": "FOB Malaysia",
+    "item_line_count": 24,
+    "total_quantity": 7024.0,
+    "amount": 1196827.0,
+    "currency": "TWD",
+    "vendor": "Robert Bosch GmbH (MA AK Billing)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null,
+    "summary_note": "shipment pkg/GW (deduped) 40 / 8790.28 on this first invoice (3 invoices, shared RB 406702140321949730, 406702140322506154, 406702140322528170, 406702140323114235, 406702140323149664, 406702140323149916, 406702140323150264, 406702140323154286, 406702140323179739, 406702140323180025); printed pkg/GW 30 / 7653"
+  },
+  "items": [
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1987.124.173-HUH",
+      "description": "Engine Oil",
+      "qty": 6528.0,
+      "unit": "PC",
+      "unit_price": 121.0,
+      "amount": 789888.0,
+      "origin": "MY",
+      "hs_code": "3403999000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.A01.400-WSK",
+      "description": "Alternator",
+      "qty": 18.0,
+      "unit": "PC",
+      "unit_price": 3964.0,
+      "amount": 71352.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "0986.580.415-KM9",
+      "description": "Level Sensor",
+      "qty": 7.0,
+      "unit": "PC",
+      "unit_price": 2251.0,
+      "amount": 15757.0,
+      "origin": "PL",
+      "hs_code": "8413303000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "F026.400.482-KL9",
+      "description": "Air-Filter Insert",
+      "qty": 40.0,
+      "unit": "PC",
+      "unit_price": 312.0,
+      "amount": 12480.0,
+      "origin": "DE",
+      "hs_code": "8421312000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.A00.882-CMT",
+      "description": "Alternator",
+      "qty": 5.0,
+      "unit": "PC",
+      "unit_price": 4204.0,
+      "amount": 21020.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.A01.400-WSK",
+      "description": "Alternator",
+      "qty": 9.0,
+      "unit": "PC",
+      "unit_price": 3964.0,
+      "amount": 35676.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "0261.500.333-825",
+      "description": "Injection Valve",
+      "qty": 9.0,
+      "unit": "PC",
+      "unit_price": 1179.0,
+      "amount": 10611.0,
+      "origin": "TR",
+      "hs_code": "8409914900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "0258.986.79A-760",
+      "description": "Oxygen Sensor",
+      "qty": 2.0,
+      "unit": "PC",
+      "unit_price": 865.0,
+      "amount": 1730.0,
+      "origin": "US",
+      "hs_code": "9027100000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "KS00.000.634-879",
+      "description": "mechanical steering pump",
+      "qty": 4.0,
+      "unit": "PC",
+      "unit_price": 5091.0,
+      "amount": 20364.0,
+      "origin": "CN",
+      "hs_code": "8413609000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.AD4.001-879",
+      "description": "Evaporator",
+      "qty": 5.0,
+      "unit": "PC",
+      "unit_price": 794.0,
+      "amount": 3970.0,
+      "origin": "CN",
+      "hs_code": "8415901400",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.AD4.020-879",
+      "description": "Evaporator",
+      "qty": 5.0,
+      "unit": "PC",
+      "unit_price": 693.0,
+      "amount": 3464.0,
+      "origin": "CN",
+      "hs_code": "8415901400",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.AD4.000-879",
+      "description": "Evaporator",
+      "qty": 5.0,
+      "unit": "PC",
+      "unit_price": 614.0,
+      "amount": 3069.0,
+      "origin": "CN",
+      "hs_code": "8415901400",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.AD4.012-879",
+      "description": "Evaporator",
+      "qty": 5.0,
+      "unit": "PC",
+      "unit_price": 659.0,
+      "amount": 3295.0,
+      "origin": "CN",
+      "hs_code": "8415901400",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.AD4.021-879",
+      "description": "Evaporator",
+      "qty": 3.0,
+      "unit": "PC",
+      "unit_price": 826.0,
+      "amount": 2479.0,
+      "origin": "CN",
+      "hs_code": "8415901400",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1235.522.384-850",
+      "description": "Distributor Cap",
+      "qty": 8.0,
+      "unit": "PC",
+      "unit_price": 1307.0,
+      "amount": 10456.0,
+      "origin": "ES",
+      "hs_code": "8511902000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.S00.835-WGP",
+      "description": "Starter",
+      "qty": 3.0,
+      "unit": "PC",
+      "unit_price": 2628.0,
+      "amount": 7884.0,
+      "origin": "CN",
+      "hs_code": "8511403200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.A01.033-YCL",
+      "description": "Alternator",
+      "qty": 5.0,
+      "unit": "PC",
+      "unit_price": 3869.0,
+      "amount": 19345.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "0580.464.121-FP5",
+      "description": "Electric Fuel Pump",
+      "qty": 31.0,
+      "unit": "PC",
+      "unit_price": 1403.0,
+      "amount": 43493.0,
+      "origin": "CZ",
+      "hs_code": "8413303000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "0241.145.529-7CF",
+      "description": "Spark Plug",
+      "qty": 240.0,
+      "unit": "PC",
+      "unit_price": 89.0,
+      "amount": 21360.0,
+      "origin": "CN",
+      "hs_code": "8511102000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "0221.503.035-8SL",
+      "description": "Ignition Coil",
+      "qty": 40.0,
+      "unit": "PC",
+      "unit_price": 583.0,
+      "amount": 23320.0,
+      "origin": "SI",
+      "hs_code": "8511304900",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "0258.027.005-001",
+      "description": "Oxygen Sensor",
+      "qty": 24.0,
+      "unit": "PC",
+      "unit_price": 1200.0,
+      "amount": 28800.0,
+      "origin": "DE",
+      "hs_code": "9027100000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "0986.479.D61-WA9",
+      "description": "Brake Disc",
+      "qty": 16.0,
+      "unit": "PC",
+      "unit_price": 596.0,
+      "amount": 9536.0,
+      "origin": "CN",
+      "hs_code": "8708309000",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.AD2.101-879",
+      "description": "AC condenser",
+      "qty": 1.0,
+      "unit": "PC",
+      "unit_price": 793.0,
+      "amount": 793.0,
+      "origin": "CN",
+      "hs_code": "8415901400",
+      "currency": "TWD"
+    },
+    {
+      "invoice_no": "AK00074096",
+      "part_no": "1986.A01.045-CMT",
+      "description": "Alternator",
+      "qty": 11.0,
+      "unit": "PC",
+      "unit_price": 3335.0,
+      "amount": 36685.0,
+      "origin": "CN",
+      "hs_code": "8511503200",
+      "currency": "TWD"
+    }
+  ],
+  "meta": {
+    "source_file": "/tmp/ma_ak7409/Invoice AK00074096.PDF",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ma_ak_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "shipment pkg/GW (deduped) 40 / 8790.28 on this first invoice (3 invoices, shared RB 406702140321949730, 406702140322506154, 406702140322528170, 406702140323114235, 406702140323149664, 406702140323149916, 406702140323150264, 406702140323154286, 406702140323179739, 406702140323180025); printed pkg/GW 30 / 7653",
+    "labeled_amount": 1196827.0,
+    "labeled_amount_label": "Net value",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": {
+      "406702140321238308": 17.8,
+      "406702140321509101": 100.0,
+      "406702140322158834": 65.8,
+      "406702140322187506": 96.0,
+      "406702140322187629": 14.0,
+      "406702140322504815": 400.0,
+      "406702140322505522": 400.0,
+      "406702140322505942": 400.0,
+      "406702140322506215": 400.0,
+      "406702140322506901": 400.0,
+      "406702140322518362": 400.0,
+      "406702140322518461": 320.0,
+      "406702140322520037": 400.0,
+      "406702140322520112": 400.0,
+      "406702140322520334": 400.0,
+      "406702140322520419": 400.0,
+      "406702140322520471": 400.0,
+      "406702140322520556": 400.0,
+      "406702140322520891": 400.0,
+      "406702140322520921": 400.0,
+      "406702140322521676": 400.0,
+      "406702140322521690": 400.0,
+      "406702140322521812": 400.0,
+      "406702140322525421": 3.6,
+      "406702140322527982": 17.5,
+      "406702140322528200": 3.4,
+      "406702140322528668": 170.0,
+      "406702140322528804": 25.8,
+      "406702140322529108": 10.1,
+      "406702140322529986": 9.0
+    },
+    "packing_units_zeroed": null,
+    "shipment_packing": {
+      "mode": "shipment_first",
+      "first_invoice": "AK00074096",
+      "total_pkg": 40.0,
+      "gross_weight_kg": 8790.28,
+      "shared_rb": [
+        "406702140321949730",
+        "406702140322506154",
+        "406702140322528170",
+        "406702140323114235",
+        "406702140323149664",
+        "406702140323149916",
+        "406702140323150264",
+        "406702140323154286",
+        "406702140323179739",
+        "406702140323180025"
+      ],
+      "invoices": [
+        "AK00074096",
+        "AK00074097",
+        "AK00074098"
+      ]
+    },
+    "checker_verdict": "pass",
+    "checker_issues": [],
+    "checker_details": {
+      "item_line_count": {
+        "want": 24,
+        "got": 24
+      },
+      "total_quantity": {
+        "want": 7024.0,
+        "got": 7024.0
+      },
+      "amount": {
+        "want": 1196827.0,
+        "got": 1196827.0
+      },
+      "labeled_amount": {
+        "label": "Net value",
+        "want": 1196827.0,
+        "header_amount": 1196827.0,
+        "sum_items": 1196827.0,
+        "item_count": 24
+      },
+      "missing_hs_indices": []
+    }
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 24,
+        "got": 24
+      },
+      "total_quantity": {
+        "want": 7024.0,
+        "got": 7024.0
+      },
+      "amount": {
+        "want": 1196827.0,
+        "got": 1196827.0
+      },
+      "labeled_amount": {
+        "label": "Net value",
+        "want": 1196827.0,
+        "header_amount": 1196827.0,
+        "sum_items": 1196827.0,
+        "item_count": 24
+      },
+      "missing_hs_indices": []
+    }
+  },
+  "_printed_pkg_gw": {
+    "total_pkg": 30.0,
+    "gross_weight_kg": 7653.0
+  }
+}
