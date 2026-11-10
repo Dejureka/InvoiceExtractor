@@ -40,8 +40,10 @@ NOTES = (
     "Origin=Country of Origin per line. "
     "Amounts are EU-format (18.022,42) in EUR; ignore the HUF conversion block. "
     "Labeled amount=Net value … EUR (tax-free Total value equals Net value on this batch). "
-    "Unit price is per Pricing Unit (typically 100 PC on the description line); "
-    "trust printed Net Value; hard_check uses item.pricing_unit. "
+    "Printed unit price is almost always per Pricing Unit 100 PC; do not store that "
+    "printed figure as Unt. Unit price = amount / qty (qty and amount as printed), "
+    "rounded to 6 decimal places like SOE derived unit prices. pricing_unit is left unset "
+    "so hard_check uses per-1 (qty × unit_price ≈ amount). "
     "Packages/GW=printed Total Num of packages / Total Gross Weight (per invoice; "
     "this 1st batch shares consignment 0050142328 but each invoice has its own "
     "1 package and a distinct GW, so shipment_first is not applied). "
@@ -180,7 +182,6 @@ def _parse_items(text: str, invoice_no: str | None, currency: str | None) -> lis
         hs = None
         origin = None
         nw = None
-        pu = None
         for j in range(i + 1, min(i + 45, len(lines))):
             ln = lines[j]
             if _ITEM.match(ln):
@@ -191,7 +192,6 @@ def _parse_items(text: str, invoice_no: str | None, currency: str | None) -> lis
                 dm = _DESC_PU.match(ln)
                 if dm:
                     desc = re.sub(r"\s{2,}", " ", dm.group("desc")).strip()
-                    pu = float(dm.group("pu"))
             hm = _HS.search(ln)
             if hm and hs is None:
                 hs = hm.group(1)
@@ -203,20 +203,24 @@ def _parse_items(text: str, invoice_no: str | None, currency: str | None) -> lis
                 nm = _NW.search(ln)
                 if nm and nw is None:
                     nw = ebike_float(nm.group(1))
+        qty = ebike_float(m.group("qty"))
+        amount = ebike_float(m.group("amt"))
+        # Printed "Unit Price" is almost always per Pricing Unit 100 PC.
+        # User rule (2026-11-10): Unt = amount / qty; keep qty and amount as printed.
+        unit_price = round(amount / qty, 6) if qty and amount is not None else None
         items.append(
             Item(
                 invoice_no=invoice_no,
                 part_no=m.group("pn"),
                 description=desc,
-                qty=ebike_float(m.group("qty")),
+                qty=qty,
                 unit=m.group("uom"),
-                unit_price=ebike_float(m.group("price")),
-                amount=ebike_float(m.group("amt")),
+                unit_price=unit_price,
+                amount=amount,
                 origin=origin,
                 hs_code=hs,
                 currency=currency,
                 net_weight=nw,
-                pricing_unit=pu,
             )
         )
     return items

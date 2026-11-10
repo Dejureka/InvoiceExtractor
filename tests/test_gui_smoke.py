@@ -218,3 +218,17 @@ def test_run_gui_routes_gui_when_no_args(monkeypatch):
     monkeypatch.setattr(__import__("sys"), "argv", ["run_gui.py"])
     assert rg.main() == 0
     assert opened["ok"] is True
+
+
+def test_parse_dnd_paths_literal_brace_in_hash():
+    """Outlook-style stems like …EA}1.pdf must not split on the closing brace."""
+    from invoice_extractor.gui import _parse_dnd_paths
+
+    hashed = r"C:\inbox\75ed0f40E47A859D-C95D-4C83-A55A-8E43A0FB9571}1.pdf"
+    assert _parse_dnd_paths(hashed) == [hashed]
+    # mixed: braced path with spaces, then an unquoted hash containing }
+    mixed = r"{C:\My Docs\inv.pdf} " + hashed
+    assert _parse_dnd_paths(mixed) == [r"C:\My Docs\inv.pdf", hashed]
+    two_hash = hashed + " " + hashed.replace("75ed", "6a8e")
+    assert len(_parse_dnd_paths(two_hash)) == 2
+    assert all(p.endswith("}1.pdf") for p in _parse_dnd_paths(two_hash))

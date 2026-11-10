@@ -1,0 +1,100 @@
+{
+  "header": {
+    "invoice_no": "AX00011142",
+    "invoice_date": "2026-08-27",
+    "total_pkg": 1.0,
+    "gross_weight_kg": 195.0,
+    "incoterm": "FCA Miskolc",
+    "item_line_count": 2,
+    "total_quantity": 50.0,
+    "amount": 6683.13,
+    "currency": "EUR",
+    "vendor": "Robert Bosch Energy and Body Systems Kft (eBike)",
+    "origin": null,
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "AX00011142",
+      "part_no": "0275.007.543-VE4",
+      "description": "Battery",
+      "qty": 30.0,
+      "unit": "PC",
+      "unit_price": 145.427333,
+      "amount": 4362.82,
+      "origin": "HU",
+      "hs_code": "85076000",
+      "currency": "EUR",
+      "net_weight": 109.74,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "AX00011142",
+      "part_no": "0275.007.532-VE4",
+      "description": "Battery",
+      "qty": 20.0,
+      "unit": "PC",
+      "unit_price": 116.0155,
+      "amount": 2320.31,
+      "origin": "PL",
+      "hs_code": "85076000",
+      "currency": "EUR",
+      "net_weight": 56.44,
+      "pricing_unit": null
+    }
+  ],
+  "meta": {
+    "source_file": "/workspace/ebike_1st/75ed45f04126FDF1-4A0D-4E8F-92E7-88D3C09561E8}1.pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "ebike_ax_billing_v1",
+    "confidence": "rules",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": null,
+    "labeled_amount": 6683.13,
+    "labeled_amount_label": "Net value EUR",
+    "source": null,
+    "inv_file": null,
+    "pkl_file": null,
+    "pkl_used": null,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": null,
+    "source_kind": null,
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null
+  },
+  "_hard": {
+    "verdict": "pass",
+    "issues": [],
+    "details": {
+      "item_line_count": {
+        "want": 2,
+        "got": 2
+      },
+      "total_quantity": {
+        "want": 50.0,
+        "got": 50.0
+      },
+      "amount": {
+        "want": 6683.13,
+        "got": 6683.13
+      },
+      "labeled_amount": {
+        "label": "Net value EUR",
+        "want": 6683.13,
+        "header_amount": 6683.13,
+        "sum_items": 6683.13,
+        "item_count": 2
+      }
+    }
+  },
+  "_stamp": "Original",
+  "_consignment": "0050142328"
+}

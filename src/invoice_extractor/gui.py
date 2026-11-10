@@ -24,27 +24,36 @@ from invoice_extractor.pairing import (
 
 
 def _parse_dnd_paths(raw: str) -> list[str]:
-    """Parse tkinterdnd2 drop payload (brace-quoted paths with spaces)."""
+    """Parse tkinterdnd2 drop payload (brace-quoted paths with spaces).
+
+    Only a ``{`` at the *start of a token* begins a brace-quoted path. A
+    literal ``}`` in an unquoted token (Outlook-style hashes such as
+    ``…EA}1.pdf``) is part of the filename, not a closer.
+    """
+    if not raw:
+        return []
     parts: list[str] = []
-    cur = ""
-    in_brace = False
-    for ch in raw:
-        if ch == "{":
-            in_brace = True
-            cur = ""
-        elif ch == "}":
-            in_brace = False
-            parts.append(cur)
-            cur = ""
-        elif ch == " " and not in_brace:
-            if cur:
-                parts.append(cur)
-                cur = ""
+    i = 0
+    n = len(raw)
+    while i < n:
+        while i < n and raw[i] in " \t\r\n":
+            i += 1
+        if i >= n:
+            break
+        if raw[i] == "{":
+            i += 1
+            start = i
+            while i < n and raw[i] != "}":
+                i += 1
+            parts.append(raw[start:i])
+            if i < n and raw[i] == "}":
+                i += 1
         else:
-            cur += ch
-    if cur:
-        parts.append(cur)
-    return [p.strip().strip("{}") for p in parts if p.strip()]
+            start = i
+            while i < n and raw[i] not in " \t\r\n":
+                i += 1
+            parts.append(raw[start:i])
+    return [p.strip() for p in parts if p.strip()]
 
 
 def _expand_pdf_inputs(paths: list[str]) -> list[Path]:
@@ -305,6 +314,7 @@ def run_gui() -> None:
             self._busy = False
             self._pdfs: list[Path] = []
             self._pairs: list[PairRow] = []
+            self._pair_gen = 0
             self._build()
 
         def _make_root(self):
@@ -434,12 +444,8 @@ def run_gui() -> None:
                 pady=16,
             )
             self.drop_label.pack(fill="x", padx=8, pady=8)
-            if has_dnd:
-                try:
-                    self.drop_label.drop_target_register(DND_FILES)
-                    self.drop_label.dnd_bind("<<Drop>>", self._on_drop)
-                except Exception:
-                    pass
+            # Listbox is created just below; register DND after the rest of
+            # the widgets exist (see _register_drop_targets at end of _build).
 
             frm_list = ttk.LabelFrame(self.root, text="Selected files")
             frm_list.pack(fill="x", **pad)
@@ -589,8 +595,7 @@ def run_gui() -> None:
             need_w = max(self.root.winfo_reqwidth(), 860)
             self.root.geometry(f"{need_w}x{max(need_h, 800)}")
 
-            dnd_note = "enabled" if has_dnd else "not installed (Browse still works)"
-            self._log(f"Drag-drop: {dnd_note}")
+            self._register_drop_targets()
             self._log(
                 "INV+PKL+提單: BHC 分檔為主；到貨／HBL 配入 Summary BL 欄。Extract 前可手配 PKL／提單。"
             )
@@ -617,6 +622,37 @@ def run_gui() -> None:
             except Exception as exc:
                 self._log(f"(text engine probe skipped: {exc})")
 
+        def _register_drop_targets(self) -> None:
+            """Register tkdnd on the root, drop label, and file list.
+
+            The drop zone is a tk.Label inside a ttk.LabelFrame; registering
+            only the inner label misses drops on padding / other widgets, and
+            a silent ``except: pass`` hid registration failures. Root + list
+            cover the window. Registration is logged, never swallowed.
+            """
+            if not has_dnd:
+                self._log("Drag-drop: not installed (Browse still works)")
+                return
+            registered: list[str] = []
+            failed: list[str] = []
+            for name, widget in (
+                ("root", self.root),
+                ("drop zone", self.drop_label),
+                ("file list", self.listbox),
+            ):
+                try:
+                    widget.drop_target_register(DND_FILES)
+                    widget.dnd_bind("<<Drop>>", self._on_drop)
+                    registered.append(name)
+                except Exception as exc:
+                    failed.append(f"{name}: {exc}")
+            if registered:
+                self._log("Drag-drop: enabled on " + ", ".join(registered))
+            else:
+                self._log("Drag-drop: registration failed on every target")
+            for msg in failed:
+                self._log(f"Drag-drop register failed ({msg})")
+
         def _log(self, msg: str) -> None:
             self.summary.insert("end", msg + "\n")
             self.summary.see("end")
@@ -631,22 +667,23 @@ def run_gui() -> None:
                 self.pdf_var.set(str(self._pdfs[0]))
             else:
                 self.pdf_var.set(f"{len(self._pdfs)} files selected")
-            self._rebuild_pairs()
+            # Filename-only first so the list appears immediately; text peek
+            # (no OCR) continues on a background thread.
+            self._rebuild_pairs(sync_filename_only=True)
 
-        def _rebuild_pairs(self) -> None:
-            # Preserve manual overrides where possible by path keys
-            manual = {
+        def _manual_pair_map(self) -> dict:
+            return {
                 (str(r.inv_path) if r.inv_path else "", str(r.pkl_path) if r.pkl_path else ""): r
                 for r in self._pairs
                 if r.manual or r.skipped
             }
-            self._pairs = auto_pair(self._pdfs)
-            # Re-apply skip/manual rematches that still reference selected files
+
+        def _apply_manual_overrides(self, rows: list[PairRow], manual: dict) -> list[PairRow]:
             selected = {str(p.resolve()) if p.exists() else str(p) for p in self._pdfs}
             for key, old in manual.items():
                 inv_s, pkl_s = key
                 if old.skipped:
-                    for r in self._pairs:
+                    for r in rows:
                         if (str(r.inv_path or "") == inv_s) or (
                             str(r.pkl_path or "") == pkl_s
                         ):
@@ -656,8 +693,7 @@ def run_gui() -> None:
                     inv_ok = str(old.inv_path.resolve()) if old.inv_path.exists() else str(old.inv_path)
                     pkl_ok = str(old.pkl_path.resolve()) if old.pkl_path.exists() else str(old.pkl_path)
                     if inv_ok in selected and pkl_ok in selected:
-                        # force this pairing
-                        for r in self._pairs:
+                        for r in rows:
                             if r.inv_path and str(r.inv_path.resolve()) == inv_ok:
                                 r.pkl_path = old.pkl_path
                                 r.manual = True
@@ -666,7 +702,46 @@ def run_gui() -> None:
                                 if not (r.inv_path and str(r.inv_path.resolve()) == inv_ok):
                                     r.pkl_path = None
                                     r.recompute_status()
+            return rows
+
+        def _rebuild_pairs(self, sync_filename_only: bool = False) -> None:
+            # Preserve manual overrides where possible by path keys
+            manual = self._manual_pair_map()
+            self._pair_gen += 1
+            gen = self._pair_gen
+            self._pairs = self._apply_manual_overrides(
+                auto_pair(self._pdfs, peek_text=False, check_empty_excel=False),
+                manual,
+            )
             self._sync_pair_tree()
+            if not self._pdfs:
+                return
+            # Button "重新自動配對" and file-add both schedule a text peek
+            # off the UI thread. OCR is not used here (Extract still OCRs).
+
+            def work(gen=gen, manual=manual, paths=list(self._pdfs)) -> None:
+                try:
+                    rows = auto_pair(
+                        paths,
+                        peek_text=True,
+                        allow_ocr=False,
+                        check_empty_excel=True,
+                    )
+                except Exception:
+                    return
+
+                def apply() -> None:
+                    if gen != self._pair_gen or [str(p) for p in self._pdfs] != [str(p) for p in paths]:
+                        return
+                    self._pairs = self._apply_manual_overrides(rows, self._manual_pair_map() or manual)
+                    self._sync_pair_tree()
+
+                try:
+                    self.root.after(0, apply)
+                except Exception:
+                    pass
+
+            threading.Thread(target=work, daemon=True).start()
 
         def _sync_pair_tree(self) -> None:
             for iid in self.pair_tree.get_children():
