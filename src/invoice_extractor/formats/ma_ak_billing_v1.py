@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import re
 
-from invoice_extractor.formats.ma_common import parse_ak_packages
+from invoice_extractor.formats.ma_common import parse_ak_packages, parse_ak_units
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -35,7 +35,8 @@ NOTES = (
     "MA Billing Document AK######## (Invoice AK….PDF / AK…_INV.PDF). "
     "PN like 0263.063.737-F0U / H105.025.303-Y8K; HS=Commodity Code; "
     "Origin=Country of Origin per line (not COO Index). "
-    "Packages/GW from Marking HU / Dummy Pack. Mat. (not line Gross Weight). "
+    "Packages/GW from unique Marking HU ids (RB optional; Gross / Gross HU Weight; "
+    "first occurrence wins). packing_units enables shipment_first dedupe. "
     "Net Value may differ slightly from Unit Price×Qty (commercial conditions); "
     "trust printed Net Value; hard_check allows 0.1% relative line tol. "
     "Samples: MAnewSample 40-D / 50-N / 90-S; MA-747 90-S-26MA-747 FWD+SAP."
@@ -204,6 +205,7 @@ def extract_from_text(
     currency = _currency(text)
     incoterm = _incoterm(text)
     pkg, gw = parse_ak_packages(text)
+    hu_units = parse_ak_units(text)
     items = _parse_items(text, invoice_no, currency)
     total_qty = sum(it.qty or 0.0 for it in items) if items else None
     header = Header(
@@ -226,6 +228,7 @@ def extract_from_text(
         needs_ocr=needs_ocr,
         labeled_amount=amount,
         labeled_amount_label="Net value",
+        packing_units=hu_units or None,
     )
     if needs_ocr or not invoice_no or amount is None or not items:
         meta.confidence = "needs_gold"
