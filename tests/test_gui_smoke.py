@@ -232,3 +232,115 @@ def test_parse_dnd_paths_literal_brace_in_hash():
     two_hash = hashed + " " + hashed.replace("75ed", "6a8e")
     assert len(_parse_dnd_paths(two_hash)) == 2
     assert all(p.endswith("}1.pdf") for p in _parse_dnd_paths(two_hash))
+
+
+def _tcl_list(*paths: str) -> str:
+    """Serialize paths the way tkdnd puts them in event.data (Tcl list)."""
+    import tkinter
+
+    tcl = tkinter.Tcl()
+    for i, path in enumerate(paths):
+        tcl.call("set", f"::p{i}", path)
+    return tcl.eval("list " + " ".join(f"$::p{i}" for i in range(len(paths))))
+
+
+def test_parse_dnd_paths_authentic_tcl_payloads(tmp_path: Path):
+    """Windows tkdnd payloads come from Tcl list quoting — use splitlist."""
+    from invoice_extractor.gui import _parse_dnd_paths, _parse_dnd_paths_fallback
+
+    spaced = r"C:\My Docs\inv.pdf"
+    hashed = (
+        r"C:\Users\YAP1TP\Desktop\My Invoices"
+        r"\75ed0f4055F7F11D-E463-4AFA-A5B1-E032D82D4064}1.pdf"
+    )
+    upper = r"C:\WORK\INVOICE.PDF"
+    folder = r"C:\Users\YAP1TP\Desktop\My Invoices"
+
+    # Brace-wrapped path with spaces
+    raw_space = _tcl_list(spaced)
+    assert raw_space.startswith("{") and " " in raw_space
+    assert _parse_dnd_paths(raw_space) == [os_norm := __import__("os").path.normpath(spaced)]
+
+    # Backslash-escaped } (and doubled backslashes) — the eBike Outlook hash
+    raw_hash = _tcl_list(hashed)
+    assert r"\}" in raw_hash
+    got = _parse_dnd_paths(raw_hash)
+    assert got == [__import__("os").path.normpath(hashed)]
+    # The previous custom parser kept the escape, so the path did not exist
+    old = _parse_dnd_paths_fallback(raw_hash)
+    assert any("\\}" in p for p in old), old
+    assert old != got
+
+    # Uppercase .PDF
+    raw_upper = _tcl_list(upper)
+    assert _parse_dnd_paths(raw_upper) == [__import__("os").path.normpath(upper)]
+
+    # Multiple files
+    raw_multi = _tcl_list(spaced, hashed)
+    assert _parse_dnd_paths(raw_multi) == [
+        __import__("os").path.normpath(spaced),
+        __import__("os").path.normpath(hashed),
+    ]
+
+    # Folder
+    raw_folder = _tcl_list(folder)
+    assert _parse_dnd_paths(raw_folder) == [__import__("os").path.normpath(folder)]
+
+    # Forward-slash Windows path with escaped }
+    fwd = "C:/Users/YAP1TP/Desktop/InvoiceExtractor/75ed0f4055F7F11D-E463-4AFA-A5B1-E032D82D4064}1.pdf"
+    raw_fwd = _tcl_list(fwd)
+    assert r"\}" in raw_fwd
+    assert _parse_dnd_paths(raw_fwd) == [__import__("os").path.normpath(fwd)]
+
+
+def test_expand_dnd_uppercase_pdf_and_folder(tmp_path: Path):
+    """Extension match is case-insensitive; a dropped folder is expanded."""
+    from invoice_extractor.gui import _parse_dnd_paths, _expand_pdf_inputs
+
+    docs = tmp_path / "My Invoices"
+    docs.mkdir()
+    pdf = docs / "75ed0f4055F7F11D-E463-4AFA-A5B1-E032D82D4064}1.pdf"
+    pdf.write_bytes(b"%PDF-1.4 test")
+    upper = docs / "INVOICE.PDF"
+    upper.write_bytes(b"%PDF-1.4 test")
+    xlsx = docs / "pack.xlsx"
+    xlsx.write_bytes(b"PK\x03\x04")
+
+    # Drop the uppercase file
+    raw = _tcl_list(str(upper))
+    files = _expand_pdf_inputs(_parse_dnd_paths(raw))
+    assert [p.resolve() for p in files] == [upper.resolve()]
+
+    # Drop the folder
+    raw_dir = _tcl_list(str(docs))
+    files = sorted(_expand_pdf_inputs(_parse_dnd_paths(raw_dir)), key=lambda p: p.name.lower())
+    names = {p.name for p in files}
+    assert "INVOICE.PDF" in names
+    assert "75ed0f4055F7F11D-E463-4AFA-A5B1-E032D82D4064}1.pdf" in names
+    assert "pack.xlsx" in names
+
+
+def test_on_drop_logs_raw_payload_when_empty(tmp_path: Path, monkeypatch):
+    """Failed drops write event.data (repr, ≤300 chars) to Summary and a log file."""
+    from invoice_extractor import gui as gui_mod
+    from invoice_extractor import export as export_mod
+
+    monkeypatch.setattr(export_mod, "tool_root", lambda: tmp_path)
+    log = tmp_path / "InvoiceExtractor_drop.log"
+    if log.exists():
+        log.unlink()
+
+    raw = _tcl_list(
+        r"C:\Users\YAP1TP\Desktop\My Invoices"
+        r"\75ed0f4055F7F11D-E463-4AFA-A5B1-E032D82D4064}1.pdf"
+    )
+    # Path is on a fake Windows drive, so collect_pdfs finds nothing
+    parts = gui_mod._parse_dnd_paths(raw)
+    assert parts and parts[0].endswith("}1.pdf")
+    path = gui_mod._drop_debug_log(raw, parts, errors=["Path not found: " + parts[0]])
+    assert path == log
+    text = log.read_text(encoding="utf-8")
+    assert "Drop ignored: no PDF/Excel inputs found" in text
+    assert "event.data=" in text
+    assert "\\}" in text or "}1.pdf" in text
+    assert len(text.split("event.data=", 1)[1].splitlines()[0]) <= 300 + 20
