@@ -23,3 +23,6 @@ poppler.zip
 
 # user-generated searchable PDFs (empty until used)
 ocr_out/
+
+# Runtime dump of a failed GUI drag-and-drop payload
+InvoiceExtractor_drop.log

@@ -5,9 +5,13 @@ Adds INV+PKL+提單 pairing table under Selected files (BHC split-first; MA comb
 
 from __future__ import annotations
 
+import os
+import re
 import sys
 import threading
+import time
 import traceback
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -23,12 +27,51 @@ from invoice_extractor.pairing import (
 )
 
 
-def _parse_dnd_paths(raw: str) -> list[str]:
-    """Parse tkinterdnd2 drop payload (brace-quoted paths with spaces).
+def _tcl_interp():
+    """Headless Tcl interpreter for list splitting (cached)."""
+    interp = getattr(_tcl_interp, "_interp", None)
+    if interp is None:
+        import tkinter
+
+        interp = tkinter.Tcl()
+        _tcl_interp._interp = interp
+    return interp
+
+
+def _tcl_splitlist(raw: str, tcl=None) -> list[str] | None:
+    """Split a Tcl list with the given interpreter, or a headless Tcl()."""
+    candidates = []
+    if tcl is not None:
+        candidates.append(tcl)
+        tk = getattr(tcl, "tk", None)
+        if tk is not None:
+            candidates.append(tk)
+    try:
+        candidates.append(_tcl_interp())
+    except Exception:
+        pass
+    seen: set[int] = set()
+    for interp in candidates:
+        if interp is None or id(interp) in seen:
+            continue
+        seen.add(id(interp))
+        splitlist = getattr(interp, "splitlist", None)
+        if splitlist is None:
+            continue
+        try:
+            return [str(p) for p in splitlist(raw)]
+        except Exception:
+            continue
+    return None
+
+
+def _parse_dnd_paths_fallback(raw: str) -> list[str]:
+    """Best-effort parser when Tcl splitlist is unavailable.
 
     Only a ``{`` at the *start of a token* begins a brace-quoted path. A
-    literal ``}`` in an unquoted token (Outlook-style hashes such as
-    ``…EA}1.pdf``) is part of the filename, not a closer.
+    literal ``}`` in an unquoted token is part of the filename, not a closer.
+    Does **not** interpret Tcl backslash escapes, so a real tkdnd payload
+    like ``...EA\\}1.pdf`` is left with a stray backslash (path not found).
     """
     if not raw:
         return []
@@ -54,6 +97,106 @@ def _parse_dnd_paths(raw: str) -> list[str]:
                 i += 1
             parts.append(raw[start:i])
     return [p.strip() for p in parts if p.strip()]
+
+
+def _normalize_dnd_path(p: str) -> str:
+    """Strip quotes and normalize slashes; accept file:// URIs."""
+    s = str(p).strip()
+    if len(s) >= 2 and s[0] == s[-1] and s[0] in {'"', "'"}:
+        s = s[1:-1].strip()
+    if s.startswith("{") and s.endswith("}") and len(s) >= 2:
+        s = s[1:-1].strip()
+    if s.lower().startswith("file://"):
+        from urllib.parse import unquote
+
+        s = unquote(s[7:])
+        # file:///C:/Users/... → C:/Users/...
+        if re.match(r"^/[A-Za-z]:", s):
+            s = s[1:]
+    return os.path.normpath(s)
+
+
+_DND_SUFFIXES = frozenset(
+    {".pdf", ".xlsx", ".xlsm", ".xls", ".jpg", ".jpeg", ".png", ".tif", ".tiff"}
+)
+_DND_ABS = re.compile(r"^[A-Za-z]:[\\/]|^\\\\|^/")
+
+
+def _dnd_path_score(parts: list[str]) -> int:
+    """Prefer Tcl-unescaped, well-formed file/folder paths over mangled ones."""
+    if not parts:
+        return -100
+    score = 0
+    for p in parts:
+        if any(ord(c) < 32 for c in p):
+            score -= 50
+        if "\\}" in p or "\\{" in p:
+            score -= 20
+        path = Path(p)
+        suf = path.suffix.lower()
+        if suf in _DND_SUFFIXES:
+            score += 5
+        elif not suf:
+            score += 2
+        if _DND_ABS.match(p):
+            score += 3
+        else:
+            score -= 10
+        try:
+            if path.exists():
+                score += 20
+        except OSError:
+            pass
+    return score
+
+
+def _parse_dnd_paths(raw: str | None, *, tcl=None) -> list[str]:
+    """Parse a tkdnd / Tcl-list drop payload into filesystem paths.
+
+    Prefer ``root.tk.splitlist`` (or a headless ``tkinter.Tcl()``) so
+    backslash-escaped ``}`` and brace-quoted spaces are unescaped correctly.
+    The custom parser is only a fallback for unquoted Windows paths or when
+    Tcl is unavailable. Each path is then ``os.path.normpath``'d.
+    """
+    if raw is None:
+        return []
+    if isinstance(raw, (list, tuple)):
+        return [_normalize_dnd_path(p) for p in raw if str(p).strip()]
+    raw = str(raw)
+    if not raw.strip():
+        return []
+    tcl_parts = _tcl_splitlist(raw, tcl=tcl)
+    fb_parts = _parse_dnd_paths_fallback(raw)
+    tcl_norm = [_normalize_dnd_path(p) for p in (tcl_parts or []) if str(p).strip()]
+    fb_norm = [_normalize_dnd_path(p) for p in fb_parts if str(p).strip()]
+    if _dnd_path_score(tcl_norm) >= _dnd_path_score(fb_norm):
+        chosen = tcl_norm or fb_norm
+    else:
+        chosen = fb_norm or tcl_norm
+    return chosen
+
+
+def _drop_debug_log(raw, parts, errors: list[str] | None = None) -> Path | None:
+    """Append a failed-drop dump next to the tool (and return the log path)."""
+    preview = repr(raw)[:300]
+    lines = [
+        f"[{datetime.now().isoformat(timespec='seconds')}] "
+        "Drop ignored: no PDF/Excel inputs found",
+        f"event.data={preview}",
+        f"parsed={parts!r}",
+    ]
+    if errors:
+        lines.append(f"collect_errors={errors!r}")
+    text = "\n".join(lines) + "\n"
+    try:
+        from invoice_extractor.export import tool_root
+
+        path = tool_root() / "InvoiceExtractor_drop.log"
+        with path.open("a", encoding="utf-8") as fh:
+            fh.write(text)
+        return path
+    except Exception:
+        return None
 
 
 def _expand_pdf_inputs(paths: list[str]) -> list[Path]:
@@ -315,6 +458,8 @@ def run_gui() -> None:
             self._pdfs: list[Path] = []
             self._pairs: list[PairRow] = []
             self._pair_gen = 0
+            self._last_drop_data = None
+            self._last_drop_t = 0.0
             self._build()
 
         def _make_root(self):
@@ -633,6 +778,10 @@ def run_gui() -> None:
             if not has_dnd:
                 self._log("Drag-drop: not installed (Browse still works)")
                 return
+            dnd_types: list = []
+            for tname in (DND_FILES, "DND_Files", "CF_HDROP"):
+                if tname and tname not in dnd_types:
+                    dnd_types.append(tname)
             registered: list[str] = []
             failed: list[str] = []
             for name, widget in (
@@ -641,11 +790,16 @@ def run_gui() -> None:
                 ("file list", self.listbox),
             ):
                 try:
-                    widget.drop_target_register(DND_FILES)
+                    widget.drop_target_register(*dnd_types)
                     widget.dnd_bind("<<Drop>>", self._on_drop)
                     registered.append(name)
-                except Exception as exc:
-                    failed.append(f"{name}: {exc}")
+                except Exception:
+                    try:
+                        widget.drop_target_register(DND_FILES or "DND_Files")
+                        widget.dnd_bind("<<Drop>>", self._on_drop)
+                        registered.append(name)
+                    except Exception as exc:
+                        failed.append(f"{name}: {exc}")
             if registered:
                 self._log("Drag-drop: enabled on " + ", ".join(registered))
             else:
@@ -952,16 +1106,40 @@ def run_gui() -> None:
             self._log(f"Drag-drop: {dnd_note}")
 
         def _on_drop(self, event) -> None:
-            parts = _parse_dnd_paths(event.data)
-            if not parts:
-                self._log("Drop ignored: empty payload")
+            raw = getattr(event, "data", None)
+            now = time.monotonic()
+            # Root + drop-zone + list all receive the same Windows drop.
+            if raw == self._last_drop_data and (now - self._last_drop_t) < 0.4:
                 return
-            pdfs = _expand_pdf_inputs(parts)
+            self._last_drop_data = raw
+            self._last_drop_t = now
+            parts = _parse_dnd_paths(raw, tcl=self.root)
+            if not parts:
+                self._log_ignored_drop(raw, parts, errors=["empty payload"])
+                return
+            from invoice_extractor.cli import collect_pdfs
+
+            pdfs, errors = collect_pdfs(parts)
             if not pdfs:
-                self._log("Drop ignored: no PDF/Excel inputs found")
+                self._log_ignored_drop(raw, parts, errors=errors)
                 return
             self._set_pdfs(pdfs, append=True)
             self._log(f"Added {len(pdfs)} file(s); total {len(self._pdfs)}")
+
+        def _log_ignored_drop(self, raw, parts, errors: list[str] | None = None) -> None:
+            preview = repr(raw)[:300]
+            if not parts:
+                self._log("Drop ignored: empty payload")
+            else:
+                self._log("Drop ignored: no PDF/Excel inputs found")
+            self._log("Drop payload: " + preview)
+            if parts:
+                self._log("Drop parsed: " + repr(parts)[:300])
+            for err in errors or []:
+                self._log("Drop error: " + err)
+            log_path = _drop_debug_log(raw, parts, errors)
+            if log_path is not None:
+                self._log(f"Drop log written: {log_path}")
 
         def _browse_pdf(self) -> None:
             paths = filedialog.askopenfilenames(
