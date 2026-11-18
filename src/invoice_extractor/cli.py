@@ -228,7 +228,7 @@ def cmd_extract(args: argparse.Namespace) -> int:
                 f"items={len(data.get('items') or [])} verdict={hard['verdict']} "
                 f"backend={data['meta'].get('text_backend')}"
             )
-            if args.db or Path(args.db_path).is_file():
+            if args.db:
                 try:
                     conn = connect(args.db_path)
                     record_run(
