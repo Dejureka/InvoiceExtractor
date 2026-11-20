@@ -93,10 +93,11 @@ def test_warnings_and_needs_gold(invoice):
     invoice["header"]["total_pkg"] = None
     invoice["items"][0].update(hs_code=None, unit_price=10.26)
     report = validate(extracts=invoice)
+    # Line diff 0.01 is within the Auditor 2026-11-20 line tolerance -> ok, no W_ROUNDING.
     assert {f.rule_id for f in report.findings} == {
-        "H_HDR_MISSING", "W_HS_MISSING", "W_ROUNDING", "W_WATERMARK",
+        "H_HDR_MISSING", "W_HS_MISSING", "W_WATERMARK",
     }
-    assert report.counts == {"ok": 0, "warn": 4, "hard": 0}
+    assert report.counts == {"ok": 0, "warn": 3, "hard": 0}
     assert "needs_gold" in findings(invoice, "H_HDR_MISSING")[0].note
     invoice["items"][0]["hs_code"] = "bad"
     invoice["meta"]["needs_gold_fields"] = ["items.hs_code"]
@@ -351,3 +352,79 @@ def test_part_no_blank_on_source_needs_note(invoice, note, rule):
     rules = {f.rule_id for f in validate(extracts=invoice).findings if f.field == "part_no"}
     assert rule in rules
     assert rules - {rule} == set()
+
+
+# --- Auditor 2026-11-20 line tolerance --------------------------------------
+# tol = |qty / pricing_unit| * (printed price unit / 2) + (printed amount unit / 2)
+
+def _ak_line(amount, printed_amount):
+    return {
+        "header": {
+            "invoice_no": "AK00074096", "invoice_date": "2026-10-30", "currency": "TWD",
+            "amount": amount, "total_pkg": 1, "gross_weight_kg": 10, "item_line_count": 1,
+        },
+        "items": [{
+            "part_no": "1986.AD4.020-879", "qty": 5, "unit_price": 693, "amount": amount,
+            "hs_code": "84159000", "item_no": 110,
+        }],
+        "meta": {
+            "format_id": "ma_ak_billing_v1",
+            "printed_layout_text": f"110    1986.AD4.020-879     5 PC     693     {printed_amount}     0%     0",
+        },
+    }
+
+
+def _line_math(extract):
+    return [f for f in validate(extracts=extract).findings if f.rule_id in ("H_LINE_MATH", "W_ROUNDING")]
+
+
+def test_line_tolerance_ak_printed_extension_is_ok():
+    # 5 x 693 = 3,465 vs printed 3,464: diff 1 <= 5*0.5 + 0.5 = 3.0 -> ok, not even warn.
+    assert _line_math(_ak_line(3464, "3,464")) == []
+
+
+def test_line_tolerance_ak_boundary_diff_3_is_ok():
+    # diff exactly 3 == tol 3.0 -> ok (hard only when diff > tol).
+    assert _line_math(_ak_line(3462, "3,462")) == []
+
+
+def test_line_tolerance_ak_diff_4_is_hard():
+    found = _line_math(_ak_line(3461, "3,461"))
+    assert [(f.status, f.rule_id) for f in found] == [("hard", "H_LINE_MATH")]
+    assert "tolerance 3.0" in found[0].note
+
+
+def test_line_tolerance_real_ak_layout_fixture():
+    extract = _ak_line(3464, "")
+    del extract["meta"]["printed_layout_text"]
+    extract["meta"]["printed_layout_text_file"] = str(ROOT / "fixtures/ma_ak_AK00074096_layout.txt")
+    assert _line_math(extract) == []
+
+
+def test_line_tolerance_falls_back_to_cents_without_printed_text():
+    # No printed text: units fall back to 0.01 -> tol 5*0.005 + 0.005 = 0.03 -> diff 1 is hard.
+    extract = _ak_line(3464, "")
+    del extract["meta"]["printed_layout_text"]
+    assert [f.status for f in _line_math(extract)] == ["hard"]
+
+
+def test_line_tolerance_respects_pricing_unit():
+    # 1000 PC at 12.50 per 100 -> 125.00; tol = (1000/100)*0.005 + 0.005 = 0.055.
+    def line(amount, printed):
+        return {
+            "header": {"invoice_no": "E1", "invoice_date": "2026-10-01", "currency": "EUR", "amount": amount,
+                       "total_pkg": 1, "gross_weight_kg": 2, "item_line_count": 1},
+            "items": [{"part_no": "P1", "qty": 1000, "unit_price": 12.5, "amount": amount, "pricing_unit": 100,
+                       "hs_code": "84159000", "item_no": 1}],
+            "meta": {"format_id": "pt_gloria_v1", "printed_layout_text": f"P1 1000 12.50 {printed}"},
+        }
+    assert _line_math(line(125.05, "125.05")) == []
+    assert [f.status for f in _line_math(line(125.06, "125.06"))] == ["hard"]
+
+
+def test_printed_total_tolerance_not_loosened_for_whole_currency():
+    # Line tolerance must not leak into sum(lines) vs printed total: still 0.01.
+    extract = _ak_line(3464, "3,464")
+    extract["meta"]["labeled_amount"] = 3464.5
+    found = [f for f in validate(extracts=extract).findings if f.rule_id == "H_PRINTED_AMOUNT"]
+    assert [f.status for f in found] == ["hard"]

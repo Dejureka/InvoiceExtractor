@@ -65,6 +65,8 @@ def extract_batch(batch, *, text_only=None):
                 fixture.read_text(encoding="utf-8"), source_file=str(fixture.with_name(f"{invoice}.PDF")),
                 text_backend="pdftotext -layout",
             ).to_dict())
+            # No PDF on disk: point the validator at the printed layout text for decimals.
+            rows[-1].setdefault("meta", {})["printed_layout_text_file"] = str(fixture)
         dedupe_shared_packing_units(rows)
         return rows, [], failures
 

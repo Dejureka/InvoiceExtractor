@@ -26,7 +26,7 @@ python3 tools/validate_result.py out/audit/Result.xlsx --extract-json out/audit/
 
 - 每個 finding 一列：`status`（ok／warn／hard）、`rule_id`、`invoice_no`、`row`、`field`、`expected`、`actual`、`page`、`position`（座標框或文字錨點）、`note`；另有 Summary 分頁。
 - 有任何 hard → exit code 1。
-- 規則（`H_*`＝hard，`W_*`＝warn）：表頭必填（invoice_no／date／currency／amount／pkg／GW）、日期可解析、ISO 4217 幣別、首張 pkg 為正整數、明細料號／qty／amount 不可空、列數＝印的列數且項次連續、qty×單價≈金額（容差 0.01 或最小印出位數的一半，看 pricing_unit）、明細加總＝印出的標籤總額、pkg／GW＝印出值（依格式規則）、GW 不可小於或等於 NW 合計、HS 格式（MA／PT／SOE 缺 HS＝hard，BHC／eBike＝warn）、同 BL 的 pkg／GW 合計＝BL、同批發票號不可重複、Result.xlsx 與 JSON 逐格一致（含前導 0、文字型數字、科學記號、Unt 6 位小數）。
+- 規則（`H_*`＝hard，`W_*`＝warn）：表頭必填（invoice_no／date／currency／amount／pkg／GW）、日期可解析、ISO 4217 幣別、首張 pkg 為正整數、明細料號／qty／amount 不可空、列數＝印的列數且項次連續、qty×單價≈金額（容差＝|qty÷pricing_unit|×單價印出最小位數/2＋金額印出最小位數/2，位數取自印出文字，拿不到用 0.01；差額＞容差才 hard，容差內 ok，Auditor 2026-11-20）、明細加總＝印出的標籤總額（容差維持 0.01，不放寬）、pkg／GW＝印出值（依格式規則）、GW 不可小於或等於 NW 合計、HS 格式（MA／PT／SOE 缺 HS＝hard，BHC／eBike＝warn）、同 BL 的 pkg／GW 合計＝BL、同批發票號不可重複、Result.xlsx 與 JSON 逐格一致（含前導 0、文字型數字、科學記號、Unt 6 位小數）。
 - 依既有文件規則編碼的例外（都是 warn，不是放寬）：shipment_first 非首張 0＋附註寫印出值（沒附註＝hard）；BHC PDF／Excel twin（`W_TWIN`、`W_TWIN_PKG_BLANK`，BL 合計 twin 只算一次；兩邊都空或不一致＝hard）；saginomiya 發票無 GW、附註寫用 BL G.W.（`W_GW_FROM_BL`）；sanhua PDF 未印 PN、附註註明（`W_PN_BLANK_PRINTED`）；eBike 單列 NW 大於合計（`W_LINE_NW`）、Copy／NOT VALID（`W_WATERMARK`）、EUR＋HUF（`W_DUAL_CURRENCY`）。
 - `needs_gold` 發票照跑；標了 needs_gold 的欄位，發現降為 warn。
 - 船名、航次、ETA／ETD、CBM、櫃號一律不檢查。
@@ -57,4 +57,5 @@ python3 tools/regression_batches.py --baseline out/regress/baseline --save-basel
 
 | 日期 | 說明 |
 |------|------|
+| 2026-11-20 | 明細列 qty×單價 容差改依印出位數（AK00074096 110／120／140 印出差 1 TWD → ok）；總額比對不變。 |
 | 2026-11-20 | 新增：全列硬校驗 `tools/validate_result.py`＋金標回歸＋抽查規則（Invoice＋Auditor 共同議定）。舊流程保留為 `AUDIT_REVIEW.md`。 |

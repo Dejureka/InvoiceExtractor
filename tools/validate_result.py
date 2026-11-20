@@ -74,6 +74,74 @@ def printed_pn_blank_noted(data) -> bool:
     return bool(re.search(r"(CUSTOMERS NO\.|Bosch PN|\bPN\b)[^;]*\bblank on this document\b", note, re.I))
 
 
+# --- Printed decimal units for the Result-level line check -------------------
+PRINTED_TOKEN = re.compile(r"\d[\d.,]*\d|\d")
+_US_NUMBER = re.compile(r"\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?")
+_EU_NUMBER = re.compile(r"\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?")
+_PRINTED_CACHE: dict = {}
+
+
+def _token_values(token):
+    """Yield (value, decimals) for each plausible reading of a printed number."""
+    if _US_NUMBER.fullmatch(token):
+        whole, _, frac = token.replace(",", "").partition(".")
+        yield Decimal(token.replace(",", "")), len(frac)
+    if _EU_NUMBER.fullmatch(token):
+        whole, _, frac = token.replace(".", "").partition(",")
+        yield Decimal(token.replace(".", "").replace(",", ".")), len(frac)
+
+
+def printed_units_from_text(text):
+    """Map printed numeric value -> smallest printed decimal unit (strictest reading wins)."""
+    units = {}
+    for token in PRINTED_TOKEN.findall(text or ""):
+        for value, decimals in _token_values(token):
+            unit = Decimal(1).scaleb(-decimals)
+            key = value.normalize()
+            if key not in units or unit < units[key]:
+                units[key] = unit
+    return units
+
+
+def _source_text(path):
+    """Printed text of a PDF text layer (or a .txt layout dump); None for Excel/images/OCR."""
+    p = Path(path)
+    if not p.is_file():
+        return None
+    suffix = p.suffix.lower()
+    if suffix == ".txt":
+        return p.read_text(encoding="utf-8", errors="replace")
+    if suffix != ".pdf":
+        return None  # Excel cells are raw values; images need OCR -> no printed decimals.
+    try:
+        from invoice_extractor.text_layer import extract_layout_text
+        text, _backend, needs_ocr = extract_layout_text(p)
+    except Exception:  # pragma: no cover - best effort only
+        return None
+    return None if needs_ocr else text
+
+
+def printed_decimal_units(data):
+    meta = data.get("meta") or {}
+    if "printed_layout_text" in meta:
+        return printed_units_from_text(meta["printed_layout_text"])
+    source = meta.get("printed_layout_text_file") or meta.get("source_file")
+    if not source:
+        return {}
+    if source not in _PRINTED_CACHE:
+        _PRINTED_CACHE[source] = printed_units_from_text(_source_text(source))
+    return _PRINTED_CACHE[source]
+
+
+def line_decimal_unit(item, field, value, printed):
+    """Smallest printed unit for an item field: explicit key, else printed text, else 0.01."""
+    explicit = number(item.get(f"{field}_decimal_unit"))
+    if explicit is not None and explicit > 0:
+        return explicit
+    unit = printed.get(value.normalize()) if value is not None else None
+    return unit if unit is not None else RULES["amount_tolerance"]
+
+
 @dataclass
 class Finding:
     status: str
@@ -431,16 +499,18 @@ class Audit:
                     finding("hard", "H_LINE_MATH", "unit_price", expected_price, price,
                             related=("amount", "qty"))
             else:
+                # Auditor 2026-11-20: tol = |qty/pricing_unit| x price_unit/2 + amount_unit/2,
+                # units from the printed decimals (fallback 0.01). Within tol = ok; > tol = hard.
                 calculated = qty * price / divisor
-                printed_unit = number(item.get("amount_decimal_unit"))
-                if printed_unit is None or printed_unit <= 0:
-                    printed_unit = Decimal(1).scaleb(amount.as_tuple().exponent)
-                tolerance = max(RULES["amount_tolerance"], printed_unit / 2)
+                printed = printed_decimal_units(data)
+                price_unit = line_decimal_unit(item, "unit_price", price, printed)
+                amount_unit = line_decimal_unit(item, "amount", amount, printed)
+                tolerance = abs(qty / divisor) * price_unit / 2 + amount_unit / 2
                 delta = abs(calculated - amount)
-                if delta:
-                    status, rule = ("hard", "H_LINE_MATH") if delta > tolerance else ("warn", "W_ROUNDING")
-                    finding(status, rule, "amount", calculated, amount,
-                            f"Tolerance {tolerance}", related=("qty", "unit_price", "pricing_unit"))
+                if delta > tolerance:
+                    finding("hard", "H_LINE_MATH", "amount", calculated, amount,
+                            f"diff {delta} > tolerance {tolerance} (price unit {price_unit}, amount unit {amount_unit})",
+                            related=("qty", "unit_price", "pricing_unit"))
         nw = first_number(item.get("net_weight"), item.get("net_weight_kg"))
         if ebike and total_nw is not None and nw is not None and nw > total_nw:
             finding("warn", "W_LINE_NW", "net_weight", f"≤ {total_nw}", nw)
