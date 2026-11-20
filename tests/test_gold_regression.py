@@ -15,12 +15,9 @@ GOLD = Path(__file__).with_name("gold")
 
 # Keyed by batch, invoice, rule and field, with exact maximum occurrence counts.
 # These remain hard in production and are visible in the batch findings.
-HARD_ALLOWLIST = {
-    **{
-        ("maak", "AK00074096", "H_LINE_MATH", "amount", line):
-            (1, f"Printed position {line * 10} shows whole-TWD unit price and a line amount differing by 1 TWD from the product.")
-        for line in (11, 12, 14)
-    },
+HARD_ALLOWLIST: dict = {
+    # AK00074096 positions 110/120/140 (printed 1-TWD price extensions) are within the
+    # Auditor 2026-11-20 printed-decimal tolerance and no longer hard.
 }
 
 
