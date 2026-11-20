@@ -4,7 +4,8 @@
 |------|------|------|
 | **FormatSOP** | [`docs/sop/ADD_INVOICE_FORMAT.md`](docs/sop/ADD_INVOICE_FORMAT.md) | 怎麼新增一種發票規則 |
 | **RunSOP** | [`docs/sop/USER_RUN.md`](docs/sop/USER_RUN.md) | 怎麼操作工具（多檔／範本／輸出） |
-| **AuditSOP** | [`docs/sop/AUDIT_REVIEW.md`](docs/sop/AUDIT_REVIEW.md) | 抽出後人工／Auditor 審核 |
+| **AuditSOP** | [`docs/sop/AUDIT_SOP.md`](docs/sop/AUDIT_SOP.md) | 現行：全列硬校驗（`tools/validate_result.py`，repo 限定、不進 portable）＋抽查 |
+| AuditSOP（legacy） | [`docs/sop/AUDIT_REVIEW.md`](docs/sop/AUDIT_REVIEW.md) | 舊版人工／Auditor 審核，備援用 |
 
 # InvoiceExtractor
 

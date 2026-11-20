@@ -70,6 +70,17 @@
 ### 8. 跑樣本驗收
 
 - 看 Excel：`Summary` 一列／`Lines` 明細；對人眼與文字層。
+- **送 Auditor 前（額外步驟，見 [`AUDIT_SOP.md`](AUDIT_SOP.md)；不取代 hard_check／既有測試）**：同一批輸出 Excel＋JSON，跑全列硬校驗與回歸，報告附給 Auditor。工具只在 repo，不進 portable。
+
+  ```bash
+  PYTHONPATH=src python3 -m invoice_extractor <樣本> --out out/audit/Result.xlsx
+  PYTHONPATH=src python3 -m invoice_extractor <樣本> --out out/audit/extracts.json
+  python3 tools/validate_result.py out/audit/Result.xlsx --extract-json out/audit/extracts.json --out out/audit/findings.xlsx
+  PYTHONPATH=src python3 -m pytest -q tests/test_validate_result.py tests/test_gold_regression.py
+  python3 tools/regression_batches.py --baseline out/regress/baseline --report out/regress/report.md
+  ```
+
+  hard 必須是 0（或逐筆說明）；回歸差異必須是 0（或逐筆說明）。審核通過併入 main 後，把新批次加進 `tests/gold/`（`tools/regression_batches.py` 的 BATCHES）。要退回舊流程：略過這一步，照 `AUDIT_REVIEW.md`。
 - 依 **AuditSOP**：產出 JSON **與 invoice 頁面圖** 給 Auditor（圖文對照）；**硬校驗 pass ≠ 最終收件**，人／Auditor 點頭才算。
 
 ### 9. 寫進文件
