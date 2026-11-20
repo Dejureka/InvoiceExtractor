@@ -19,6 +19,7 @@ Text fixtures in ``fixtures/bhc6/`` cover:
 from __future__ import annotations
 
 from pathlib import Path
+import shutil
 
 import pytest
 
@@ -529,6 +530,7 @@ def test_line_run_extends_over_value():
 
 
 @pytest.mark.skipif(not C8_BL.is_file(), reason="BHC 6th case8 scan not on this machine")
+@pytest.mark.skipif(not shutil.which("tesseract"), reason="Tesseract OCR unavailable")
 def test_case8_original_3page_scan_end_to_end():
     from invoice_extractor.pairing import auto_pair, extract_pair_row
 
@@ -716,6 +718,7 @@ B4C6_BL = Path("/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 6/BL.pdf")
     (B4C8_BL, "260918KEE102", 10.0, 3084.5),
     (B4C6_BL, "260918KEE103", 16.0, 1998.0),
 ])
+@pytest.mark.skipif(not shutil.which("tesseract"), reason="Tesseract OCR unavailable")
 def test_jif_real_scan_gw_with_cell_reread(path, bl_no, pkg, gw):
     if not path.is_file():
         pytest.skip("scan not on this machine")
@@ -727,6 +730,7 @@ def test_jif_real_scan_gw_with_cell_reread(path, bl_no, pkg, gw):
     assert not d["meta"].get("needs_gold_fields")
 
 
+@pytest.mark.skipif(not shutil.which("tesseract"), reason="Tesseract OCR unavailable")
 def test_case9_waybill_gw_needs_gold_when_cell_disagrees():
     """Round 4 honest result: page + token read 1,774.5, but the cell re-read
     (box lost the leading ``1,``) reads 774.5 11/12 → sources disagree →

@@ -1,5 +1,8 @@
 # AuditSOP — 規則抽出後的人工／Auditor 審核（含看圖）
 
+> **狀態：舊版／備援流程（legacy / fallback）。** 現行流程見 [`AUDIT_SOP.md`](AUDIT_SOP.md)（腳本全列校驗＋抽查）。  
+> **退回方式：** `tools/validate_result.py` 無法使用或要退回舊流程時，直接照本檔步驟 1～6 審核即可；`hard_check`、既有測試與本流程都沒有被移除或改動（程式也可退回 tag `backup/pre-validate-result`）。
+
 **溝通名稱：`AuditSOP`**  
 路徑：`docs/sop/AUDIT_REVIEW.md`  
 相關：**FormatSOP**（`ADD_INVOICE_FORMAT.md`）、**RunSOP**（`USER_RUN.md`）。
