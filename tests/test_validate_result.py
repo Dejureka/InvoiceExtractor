@@ -428,3 +428,18 @@ def test_printed_total_tolerance_not_loosened_for_whole_currency():
     extract["meta"]["labeled_amount"] = 3464.5
     found = [f for f in validate(extracts=extract).findings if f.rule_id == "H_PRINTED_AMOUNT"]
     assert [f.status for f in found] == ["hard"]
+
+
+def test_line_tolerance_two_decimal_boundary_uses_decimal():
+    # 3 x 1.11 = 3.33; tol = 3*0.005 + 0.005 = 0.02. Float math gives 3.35-3.33 = 0.0200000000000001
+    # which would wrongly exceed tol; Decimal keeps diff == tol -> ok. 3.36 (diff 0.03) -> hard.
+    def line(amount, printed):
+        return {
+            "header": {"invoice_no": "D1", "invoice_date": "2026-10-01", "currency": "EUR", "amount": amount,
+                       "total_pkg": 1, "gross_weight_kg": 2, "item_line_count": 1},
+            "items": [{"part_no": "P1", "qty": 3, "unit_price": 1.11, "amount": amount,
+                       "hs_code": "84159000", "item_no": 1}],
+            "meta": {"format_id": "pt_gloria_v1", "printed_layout_text": f"1 P1 3 1.11 {printed}"},
+        }
+    assert _line_math(line(3.35, "3.35")) == []
+    assert [f.status for f in _line_math(line(3.36, "3.36"))] == ["hard"]
