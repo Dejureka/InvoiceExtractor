@@ -67,6 +67,8 @@ Profiles added in the BHC 6th batch (2026-10-08):
                   origin per line (``MADE IN CHINA`` → China, else Japan). pkg =
                   ``Package Total: 131 Cartons / 5 Pallets`` → 5; the PL prints only a
                   net-weight total → G.W. blank + soft note (header.summary_note).
+                  Line qty unit accepts pc / pc. / pcs / pcs. in any case
+                  (T262288 item 22 prints ``1 pc.``).
 
 Only Result fields are extracted (no vessel / ETD / CBM / container).
 BHC: missing HS is soft.
@@ -1194,9 +1196,13 @@ def _inv_saginomiya(text: str, o: _Out) -> None:
     m = re.search(r"F\.?O\.?B\.?\s+(YOKOHAMA|TOKYO|KOBE|OSAKA|NAGOYA)", inv)
     o.incoterm = f"FOB {m.group(1)}" if m else None
     lines = inv.splitlines()
+    # pc / pc. / pcs / pcs. in any case (a one-piece line prints "1 pc.").
+    uom = r"(?i:pcs?\.?)"
     row = re.compile(
         r"^\s*(?P<idx>\d{1,3})\.\s+(?P<code>\d{6,8})\s+Type\s+(?P<type>[A-Z0-9][A-Z0-9\-]*)"
-        r"(?P<mic>\s*\(?MADE\s+IN\s+CHINA\)?)?\s+(?P<qty>[\d,]+)\s+pcs\.\s+"
+        r"(?P<mic>\s*\(?MADE\s+IN\s+CHINA\)?)?\s+(?P<qty>[\d,]+)\s+"
+        + uom
+        + r"\s+"
         r"(?P<price>[\d,]+)\.-\s+(?P<amt>[\d,]+)\.-\s*$"
     )
     heading = None
@@ -1234,7 +1240,7 @@ def _inv_saginomiya(text: str, o: _Out) -> None:
                 currency="JPY",
             )
         )
-    m = re.search(r"Total:\s+([\d,]+)\s+pcs\.\s+F\.?O\.?B\.?\s*[\\¥￥]?\s*([\d,]+)\.-", inv)
+    m = re.search(rf"Total:\s+([\d,]+)\s+{uom}\s+F\.?O\.?B\.?\s*[\\¥￥]?\s*([\d,]+)\.-", inv)
     if m:
         o.total_qty = _num(m.group(1))
         o.labeled = _num(m.group(2))
@@ -1249,7 +1255,7 @@ def _inv_saginomiya(text: str, o: _Out) -> None:
         o.notes.append(f"Package Total: {m.group(1)} cartons on {m.group(2)} pallets → pkg = pallets")
     if re.search(r"\bPACKING\s+LIST\b", text):
         pl = re.split(r"\bPACKING\s+LIST\b", text, maxsplit=1)[1]
-        mt = re.search(r"Total:\s+\d+\s+Cartons?\s+[\d,]+\s+pcs\.\s+([\d,]+\.\d+)", pl)
+        mt = re.search(rf"Total:\s+\d+\s+Cartons?\s+[\d,]+\s+{uom}\s+([\d,]+\.\d+)", pl)
         nw = f" ({mt.group(1)} kg on the Total row is the Net Weight column)" if mt else ""
         note = f"PL prints no gross-weight total{nw} — invoice G.W. left blank; use BL G.W."
         o.notes.append(note)

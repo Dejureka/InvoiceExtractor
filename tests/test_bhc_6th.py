@@ -248,6 +248,66 @@ def test_saginomiya_t261565():
     assert hard["verdict"] == "pass"
 
 
+@pytest.mark.parametrize("uom", ["pc.", "pc", "pcs.", "pcs", "PC.", "PCS", "Pc."])
+def test_saginomiya_singular_pc_unit_parses(uom):
+    """A one-piece line may print '1 pc.' instead of '1 pcs.'."""
+    text = (
+        "                                          I N V OI C E\n"
+        "No. T260001                                                                         Nov 18, 2026         Page 1\n"
+        "SAGINOMIYA SEISAKUSHO, INC.\n"
+        "     Order No.: P10063008-10\n"
+        "                 PRESSURE SWITCHES\n"
+        f"1.   4326958    Type DNS-D606MQ                                       1 {uom}        2,676.-        2,676.-\n"
+        "                 (BUYER DRAWING NO.1EC07199A)\n"
+        f"Total:                                                            1 {uom}            F.O.B \\2,676.-\n"
+    )
+    r = extract_invoice(
+        Path("/nonexistent") / "T260001.pdf",
+        text=text,
+        backend=PDF,
+        needs_ocr=False,
+    )
+    d = r.to_dict()
+    hard = hard_check(d)
+    assert "profile=saginomiya" in (d["meta"].get("notes") or "")
+    assert len(d["items"]) == 1
+    it = d["items"][0]
+    assert it["part_no"] == "1EC07199A"
+    assert it["qty"] == pytest.approx(1.0)
+    assert it["unit_price"] == pytest.approx(2676.0)
+    assert it["amount"] == pytest.approx(2676.0)
+    assert it["unit"] == "PCS"
+    assert it["description"] == "PRESSURE SWITCHES Type DNS-D606MQ"
+    assert it["origin"] == "Japan"
+    assert d["header"]["amount"] == pytest.approx(2676.0)
+    assert d["header"]["total_quantity"] == pytest.approx(1.0)
+    assert hard["verdict"] == "pass"
+
+
+def test_saginomiya_t262288():
+    d, hard = _inv("t262288_saginomiya.txt", "T262288.pdf")
+    h = d["header"]
+    assert "profile=saginomiya" in _profile(d)
+    assert h["invoice_no"] == "T262288"
+    assert h["currency"] == "JPY"
+    assert h["amount"] == pytest.approx(7606228.0)
+    assert len(d["items"]) == 28
+    assert h["total_quantity"] == pytest.approx(12075.0)
+    assert h["total_pkg"] == 6.0
+    assert h["gross_weight_kg"] is None
+    assert "use BL G.W." in (h.get("summary_note") or "")
+    assert h["incoterm"] == "FOB YOKOHAMA"
+    line22 = next(it for it in d["items"] if it["part_no"] == "1EC07199A")
+    assert line22["qty"] == pytest.approx(1.0)
+    assert line22["unit_price"] == pytest.approx(2676.0)
+    assert line22["amount"] == pytest.approx(2676.0)
+    assert "DNS-D606MQ" in (line22.get("description") or "")
+    assert line22["origin"] == "Japan"
+    assert sum(it["qty"] or 0 for it in d["items"]) == pytest.approx(12075.0)
+    assert sum(it["amount"] or 0 for it in d["items"]) == pytest.approx(7606228.0)
+    assert hard["verdict"] == "pass"
+
+
 @pytest.mark.parametrize(
     "fixture,filename,inv_no,amount,lines,qty,incoterm,pkg,gw",
     [
