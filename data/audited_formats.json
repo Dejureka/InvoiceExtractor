@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-10",
+  "updated": "2026-11-23",
   "notes": "Formats that passed AuditSOP (Auditor final pass after conflict fixes). GUI mapping_status uses this registry; BL-only rows also use meta.format_id → same path.",
   "formats": {
     "bitzer_v1": {
@@ -185,8 +185,8 @@
     },
     "bhc_vendor_ci_v1": {
       "audited": true,
-      "date": "2026-10-08",
-      "note": "BHC 4th/5th Auditor pass (profiles sanhua/welling/broad_ocean/hipus/hailiang/katata/nisshinbo; shared-PL shipment_first); BHC 6th Auditor Round 5 pass @4363b43 (new profiles topband/augewei/jiangnan/wolong/saginomiya; hipus/hailiang reconfirmed; split PL overlay; saginomiya filename hint T\\d{6}.)"
+      "date": "2026-11-23",
+      "note": "BHC 4th/5th Auditor pass (profiles sanhua/welling/broad_ocean/hipus/hailiang/katata/nisshinbo; shared-PL shipment_first); BHC 6th Auditor Round 5 pass @4363b43 (new profiles topband/augewei/jiangnan/wolong/saginomiya; hipus/hailiang reconfirmed; split PL overlay; saginomiya filename hint T\\d{6}.); saginomiya T262288 Auditor pass @680b560 (2026-11-23): qty unit accepts pc/pcs with optional period, any case, so a '1 pc.' line is kept; 28/12,075/JPY 7,606,228; G.W. blank + use BL G.W. 1,613 kg (all 28 lines checked by eye)"
     },
     "jif_cosmo_waybill_v1": {
       "audited": true,
