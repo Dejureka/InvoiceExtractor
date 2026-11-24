@@ -76,11 +76,11 @@
   PYTHONPATH=src python3 -m invoice_extractor <樣本> --out out/audit/Result.xlsx
   PYTHONPATH=src python3 -m invoice_extractor <樣本> --out out/audit/extracts.json
   python3 tools/validate_result.py out/audit/Result.xlsx --extract-json out/audit/extracts.json --out out/audit/findings.xlsx
-  PYTHONPATH=src python3 -m pytest -q tests/test_validate_result.py tests/test_gold_regression.py
+  PYTHONPATH=src python3 -m pytest -q tests/test_validate_result.py tests/test_validate_audit_rules.py tests/test_gold_regression.py
   python3 tools/regression_batches.py --baseline out/regress/baseline --report out/regress/report.md
   ```
 
-  hard 必須是 0（或逐筆說明）；回歸差異必須是 0（或逐筆說明）。審核通過併入 main 後，把新批次加進 `tests/gold/`（`tools/regression_batches.py` 的 BATCHES）。要退回舊流程：略過這一步，照 `AUDIT_REVIEW.md`。
+  hard 必須是 0（或逐筆說明）；回歸差異必須是 0（或逐筆說明）。warn 也要逐筆附說明（v2 起含 `W_NO_LABELED_TOTAL`：該格式沒抓到印出總額，Auditor 只能靠合計區截圖；新格式應盡量填 `meta.labeled_amount`）。審核通過併入 main 後，把新批次加進 `tests/gold/`（`tools/regression_batches.py` 的 BATCHES）。要退回舊流程：略過這一步，照 `AUDIT_REVIEW.md`。
 - 依 **AuditSOP**：產出 JSON **與 invoice 頁面圖** 給 Auditor（圖文對照）；**硬校驗 pass ≠ 最終收件**，人／Auditor 點頭才算。
 
 ### 9. 寫進文件

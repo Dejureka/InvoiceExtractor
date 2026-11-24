@@ -1,4 +1,10 @@
-"""Audit exported invoice results without changing extraction or hard_check."""
+"""Audit exported invoice results without changing extraction or hard_check.
+
+Packing audit: H_PACKING_UNITS, W_PACKING_UNITS, H_PACKING_GW, W_PACKING_GW,
+H_PACKING_SHARED. Totals and counts: H_PRINTED_QTY, W_PRINTED_QTY_MIXED_UOM,
+W_NO_LABELED_TOTAL, H_LINE_COUNT, W_LINE_COUNT_UNVERIFIED.
+Extract status: H_OCR_FAILED, H_NEEDS_GOLD_FLAG, W_NEEDS_GOLD_FLAG.
+"""
 from __future__ import annotations
 
 import argparse
@@ -7,6 +13,7 @@ from contextlib import ExitStack
 from dataclasses import astuple, dataclass, fields
 from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
+from itertools import combinations
 import json
 from pathlib import Path
 import re
@@ -269,6 +276,25 @@ def non_first_shipment(header, meta):
     )
 
 
+def packing_units(data):
+    units = data["meta"].get("packing_units")
+    return units if isinstance(units, dict) else {}
+
+
+def shipment_first(data):
+    shipment = data["meta"].get("shipment_packing") or {}
+    return shipment if shipment.get("mode") == "shipment_first" and shipment.get("first_invoice") else {}
+
+
+def packing_group(data):
+    source = data["meta"].get("source_file")
+    return Path(str(source).replace("\\", "/")).parent if source else None
+
+
+def half_printed_unit(value):
+    return Decimal("0.5").scaleb(min(0, value.as_tuple().exponent))
+
+
 def invoice_source(data):
     meta = data["meta"]
     return meta.get("inv_file") or meta.get("source_file") or ""
@@ -359,10 +385,10 @@ class Audit:
         return "?", "anchor: " + (anchors[0] if anchors else "?")
 
     def add(self, data, status, rule, field, expected, actual, *, line=None, row=None,
-            note="", anchor=None, related=(), source=None):
+            note="", anchor=None, related=(), source=None, respect_gold=True):
         header, meta = data["header"], data["meta"]
         marked = gold_fields(meta)
-        if marked.intersection((field, *related)):
+        if respect_gold and marked.intersection((field, *related)):
             status = "warn"
             note = f"{note}; needs_gold".strip("; ")
         if row is None:
@@ -375,7 +401,7 @@ class Audit:
         ))
         page, position = self.locate(source or meta.get("source_file"), anchors)
         self.report.findings.append(Finding(
-            status, rule, str(header.get("invoice_no") or header.get("bl_no") or ""),
+            status, rule, str(header.get("invoice_no") or header.get("bl_no") or header.get("hbl_no") or ""),
             row, field, expected, actual, page, position, note,
         ))
 
@@ -385,6 +411,16 @@ class Audit:
         note = notes_for(header, meta)
         ebike = fmt == RULES["ebike"]
         non_first = non_first_shipment(header, meta)
+        self.ocr_status(data)
+        fields = gold_fields(meta)
+        verdict = str(meta.get("checker_verdict") or "").strip().lower()
+        if fields and (not meta.get("needs_gold") or verdict in {"pass", "ok"}):
+            self.add(data, "hard", "H_NEEDS_GOLD_FLAG", "needs_gold", True, meta.get("needs_gold"),
+                     note=f"Review fields {sorted(fields)} conflict with flag or verdict {verdict or '(missing)'}",
+                     respect_gold=False)
+        elif meta.get("needs_gold") and not fields:
+            self.add(data, "warn", "W_NEEDS_GOLD_FLAG", "needs_gold_fields", "review reasons", [],
+                     note="needs_gold is set without field-level reasons")
         for field in ("invoice_no", "invoice_date", "currency", "amount", *PACKING_FIELDS):
             if field == "invoice_date" and data.get("_no_date_column"):
                 continue
@@ -417,9 +453,6 @@ class Audit:
         pkg = number(header.get("total_pkg"))
         if pkg is not None and pkg != 0 and (pkg < 0 or pkg != pkg.to_integral_value()):
             self.add(data, "hard", "H_PKG_INTEGER", "total_pkg", "positive integer", pkg)
-        count = number(header.get("item_line_count"))
-        if count is not None and count != len(items):
-            self.add(data, "hard", "H_LINE_COUNT", "item_line_count", count, len(items))
         total_nw = first_number(meta.get("total_nw"), meta.get("total_net_weight_kg"),
                                 header.get("total_nw"), header.get("total_net_weight_kg"))
         if total_nw is None:
@@ -436,17 +469,45 @@ class Audit:
                              if not blank(item.get(k))), None)
             positions.append(position)
             self.line(data, item, index, fmt, ebike, total_nw)
+        printed_count = first_number(*(meta.get(key) for key in (
+            "printed_item_count", "printed_line_count", "item_count_printed",
+        )))
         if any(value is not None for value in positions):
             projected = [number(value) for value in positions]
             valid = all(value is not None and value == value.to_integral_value() for value in projected)
             # Commercial documents commonly number positions 10, 20, ... .
             start = projected[0]
-            step = 10 if start == 10 else 1
+            step = Decimal(10) if start == 10 else Decimal(1)
             if not valid or start not in (0, 1, 10) or projected != [
                 start + step * index for index in range(len(items))
             ]:
                 self.add(data, "hard", "H_LINE_POS", "item_no", "continuous printed positions", positions)
-        self.invoice_amount(data, note)
+            elif printed_count is None and start in (1, 10):
+                printed_count = projected[-1] / step
+        line_count = Decimal(len(items))
+        summary_count = number(header.get("item_line_count"))
+        if summary_count is not None and summary_count != line_count:
+            self.add(data, "hard", "H_LINE_COUNT", "item_line_count", summary_count, line_count,
+                     note="Summary item_line_count vs Lines rows")
+        if printed_count is not None and printed_count != line_count:
+            self.add(data, "hard", "H_LINE_COUNT", "item_line_count", printed_count, line_count,
+                     note="Printed item count vs Lines rows")
+        qty_checked = self.invoice_quantity(data)
+        amount_checked, amount_captured = self.invoice_amount(data, note, twin)
+        unverified_count = printed_count is None and not (amount_checked or qty_checked)
+        if not amount_captured:
+            missing = "no printed amount total captured"
+            if not qty_checked:
+                missing += "; qty total not independently verifiable"
+            if unverified_count:
+                missing += "; line count not independently verifiable (列數未驗)"
+            self.add(data, "warn", "W_NO_LABELED_TOTAL", "amount", "printed total", None, note=missing)
+        # A printed total can expose missing lines even without an independent count.
+        # One warn per row: W_NO_LABELED_TOTAL above already names the unverified count.
+        elif unverified_count:
+            self.add(data, "warn", "W_LINE_COUNT_UNVERIFIED", "item_line_count",
+                     "independent count or printed total", line_count,
+                     note="No independent item count or printed total comparison")
         self.packing(data, note, non_first)
         if (meta.get("watermark") or meta.get("is_copy") or meta.get("copy_watermark")
                 or meta.get("not_valid")
@@ -515,13 +576,74 @@ class Audit:
         if ebike and total_nw is not None and nw is not None and nw > total_nw:
             finding("warn", "W_LINE_NW", "net_weight", f"≤ {total_nw}", nw)
 
-    def invoice_amount(self, data, note):
+    def ocr_status(self, data, *, bill=False):
+        meta = data["meta"]
+        backend = str(meta.get("text_backend") or "").lower()
+        # The text-layer fallback records failed subprocesses in the backend.
+        # An explicit error may retain the original TimeoutExpired message.
+        timeout = next((value for value in (
+            meta.get("ocr_error"), meta.get("error"), data.get("error"), meta.get("notes"),
+        ) if value and re.search(r"\b(?:timeout(?:expired)?|timed out)\b", str(value), re.I)), None)
+        if "ocr_failed" in backend or "ocr_timeout" in backend or timeout or (not bill and meta.get("needs_ocr")):
+            self.add(data, "hard", "H_OCR_FAILED", "bl_no" if bill else "text_backend",
+                     "readable source text", timeout or backend or "needs_ocr",
+                     note="Values on this row were NOT validated against text", respect_gold=False)
+
+    def invoice_quantity(self, data):
+        meta = data["meta"]
+        explicit = next((meta[key] for key in (
+            "printed_total_quantity", "labeled_quantity", "labeled_total_quantity",
+        ) if meta.get(key) is not None), None)
+        expected = number(explicit if explicit is not None else data["header"].get("total_quantity"))
+        quantities = [number(item.get("qty")) for item in data["items"]]
+        if expected is None or None in quantities:
+            return False
+        total = sum(quantities, Decimal(0))
+        tolerance = Decimal(0)
+        if any(qty != qty.to_integral_value() for qty in quantities):
+            tolerance = min(map(half_printed_unit, quantities))
+        if abs(expected - total) <= tolerance:
+            # An equal header total may have been derived from the same items.
+            return explicit is not None
+
+        units = {str(item["unit"]).strip().lower().rstrip(".").removesuffix("s")
+                 for item in data["items"] if not blank(item.get("unit"))}
+        mixed = len(units - {""}) > 1
+        self.add(data, "warn" if mixed else "hard",
+                 "W_PRINTED_QTY_MIXED_UOM" if mixed else "H_PRINTED_QTY",
+                 "total_quantity", expected, total)
+        return True
+
+    @staticmethod
+    def printed_amount(data):
+        """Return the captured printed total and its label, or (None, label)."""
         meta = data["meta"]
         labeled, label = _labeled_total(data)
         expected = first_number(meta.get("printed_amount"), labeled)
+        if expected is not None and (
+            meta.get("printed_amount") is not None or "sum(lines)" not in str(label).lower()
+        ):
+            return expected, label
+        return None, label
+
+    def invoice_amount(self, data, note, twin=None):
+        meta = data["meta"]
+        expected, label = self.printed_amount(data)
+        if expected is None:
+            labeled, _ = _labeled_total(data)
+            expected = first_number(meta.get("printed_amount"), labeled)
+            if twin is not None:
+                # An Excel twin has no TOTAL row; the paired PDF prints it.
+                twin_total, twin_label_text = self.printed_amount(twin)
+                if twin_total is not None:
+                    expected = twin_total
+                    label = f"{twin_label_text or 'Printed total'} (from twin {twin_label(twin)})"
+        captured = expected is not None and (
+            meta.get("printed_amount") is not None or "sum(lines)" not in str(label).lower()
+        )
         amounts = [number(item.get("amount")) for item in data["items"]]
         if any(value is None for value in amounts):
-            return
+            return False, captured
         total = sum(amounts, Decimal(0))
         note_lower = note.lower()
         amount_override = (
@@ -544,13 +666,16 @@ class Audit:
             else:
                 self.add(data, "hard", "H_VENDOR_TOTAL_VALUE", "amount", total,
                          data["header"].get("amount"), note="Documented line sum differs from invoice value")
-        elif expected is not None and (meta.get("printed_amount") is not None or "sum(lines)" not in str(label).lower()):
+            return documented, captured or documented
+        if captured:
             delta = abs(expected - total)
             if delta:
                 mismatch = delta > RULES["amount_tolerance"]
                 self.add(data, "hard" if mismatch else "warn",
                          "H_PRINTED_AMOUNT" if mismatch else "W_ROUNDING",
                          "amount", expected, total, anchor=expected, note=str(label or "Printed total"))
+
+        return captured, captured
 
     def packing(self, data, note, non_first):
         header, meta = data["header"], data["meta"]
@@ -578,6 +703,92 @@ class Audit:
                 self.add(data, "hard" if mismatch else "warn",
                          "H_PRINTED_PACKING" if mismatch else "W_ROUNDING",
                          field, expected, actual, anchor=expected)
+
+    def packing_totals(self, data, by_invoice):
+        header, meta = data["header"], data["meta"]
+        units = packing_units(data)
+        shipment = shipment_first(data)
+        if non_first_shipment(header, meta) or (
+            shipment and str(shipment["first_invoice"]) != str(header.get("invoice_no"))
+        ):
+            return  # H_PRINTED_PACKING checks the zero allocation.
+        if shipment:
+            members = set(map(str, shipment.get("invoices") or ()))
+            if members and members <= by_invoice.keys():
+                units = units.copy()
+                for invoice in sorted(members):
+                    for entry in by_invoice[invoice]:
+                        for key, weight in packing_units(entry).items():
+                            units.setdefault(key, weight)
+            else:
+                units = None
+
+        # MA package count and GW are defined by the same packing-list key table.
+        # Other vendors may count pallets or cartons (package_mode), so warn.
+        hard = (meta.get("format_id") or "").startswith("ma_")
+        prefix, severity = ("H", "hard") if hard else ("W", "warn")
+        count = Decimal(len(units)) if units is not None else number(shipment.get("total_pkg"))
+        actual = number(header.get("total_pkg"))
+        if count is not None and count != actual:
+            self.add(data, severity, f"{prefix}_PACKING_UNITS", "total_pkg", count, actual,
+                     note="Unique packing keys")
+
+        tolerance = RULES["weight_tolerance"]
+        if units is None:
+            expected = number(shipment.get("gross_weight_kg"))
+        else:
+            weights = [number(value) for value in units.values()]
+            if None in weights:
+                return
+            expected = sum(weights, Decimal(0))
+            tolerance += sum(map(half_printed_unit, weights), Decimal(0))
+        actual = number(header.get("gross_weight_kg"))
+        if expected is not None and expected != actual:
+            rounding = actual is not None and abs(expected - actual) <= tolerance
+            self.add(data, "warn" if rounding else severity,
+                     "W_ROUNDING" if rounding else f"{prefix}_PACKING_GW",
+                     "gross_weight_kg", expected, actual, note=f"Packing key weights (tolerance {tolerance})")
+
+    def packing_units_checks(self, invoices, filters):
+        groups = defaultdict(lambda: defaultdict(list))
+        by_invoice = defaultdict(list)
+        for data in invoices:
+            if packing_units(data):
+                invoice = str(data["header"].get("invoice_no") or "")
+                groups[packing_group(data)][invoice].append(data)
+                by_invoice[invoice].append(data)
+
+        for folder, group in groups.items():
+            owners = defaultdict(lambda: defaultdict(list))
+            for invoice, entries in group.items():
+                for data in entries:
+                    if selected(data, filters):
+                        self.packing_totals(data, by_invoice)
+                    if folder is not None and invoice:
+                        for key in packing_units(data):
+                            owners[key][invoice].append(data)
+            # Group owners by invoice so PDF/Excel twins never form a shared-key pair.
+            issues = defaultdict(set)
+            for key, key_owners in owners.items():
+                for left, right in combinations(key_owners, 2):
+                    rows = key_owners[left] + key_owners[right]
+                    first = {
+                        str(shipment["first_invoice"])
+                        for data in rows if (shipment := shipment_first(data))
+                        and {left, right} <= set(map(str, shipment.get("invoices") or ()))
+                    }
+                    for data in rows:
+                        invoice = str(data["header"]["invoice_no"])
+                        if len(first) != 1 or (
+                            invoice not in first and key not in (data["meta"].get("packing_units_zeroed") or ())
+                        ):
+                            issues[id(data)].add(key)
+            for entries in group.values():
+                for data in entries:
+                    if id(data) in issues and selected(data, filters):
+                        self.add(data, "hard", "H_PACKING_SHARED", "packing_units",
+                                 "shared keys allocated once", sorted(issues[id(data)]),
+                                 note="Shared packing keys lack shipment_first allocation or were not zeroed")
 
     def bill_of_lading(self, invoices, bills, twins):
         groups = defaultdict(list)
@@ -968,6 +1179,9 @@ def validate(result_xlsx=None, extracts=None, *, bl_extracts=None, format_filter
             elif len(groups[invoice]) > 1:
                 audit.add(entry, "hard", "H_DUPLICATE", "invoice_no", "unique", invoice)
             audit.report.findings.extend(history_findings(entry))
+        audit.packing_units_checks(invoices, filters)
+        for bill in bills:
+            audit.ocr_status(bill, bill=True)
         # Include all rows when summing a selected invoice's shipment.
         if filters:
             keys = {d["header"].get("bl_no") for d in selected_invoices} - {None, ""}
