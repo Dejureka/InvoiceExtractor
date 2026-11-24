@@ -1,6 +1,6 @@
 # AuditSOP（現行）— 全列硬校驗＋Auditor 看圖
 
-**狀態：v2 草稿（2026-11-24，分支 `feat/validator-audit-rules`，待 Auditor 審）。** v1（2026-11-20）起的流程不變，v2 把更多「機器能比的」搬進 `tools/validate_result.py`，Auditor 只留下必須看圖的部分。  
+**狀態：現行流程 v2（2026-11-24 起生效）。** Auditor 2026-11-24 審核通過（`5b03d36`）＋其補充條款（本版已納入）。v2 把更多「機器能比的」搬進 `tools/validate_result.py`，Auditor 只留下必須看圖的部分。  
 **退回方式：**
 - 退回 v1：程式與本文件回到 tag `backup/pre-audit-rules-v2`。
 - 退回舊流程：不跑 validator，照 [`AUDIT_REVIEW.md`](AUDIT_REVIEW.md) 步驟 1～6 審核（legacy／備援；程式 tag `backup/pre-validate-result`，c0266c6）。
@@ -62,13 +62,19 @@ python3 tools/validate_result.py out/audit/Result.xlsx --extract-json out/audit/
 - 「印出值」是 parser 自己讀的。錨點讀錯（把 Net 當 Gross、單價當總額、cartons 當 pallets），兩邊會一起錯、validator 看不出來。
 - 多數格式的 `total_quantity` 就是明細加總，qty 總數只有在格式抓到印出值且跟加總不同時才驗得到；漏行主要靠金額總額。
 - 只有 MA（`ma_*`）有 packing key（`meta.packing_units`）。PT Gloria、SOE、BHC 的件數／GW 沒有 key 可比，仍靠印出值、BL 合計與看圖。
+- **新格式開始輸出 packing key 時：** 該格式第一批的每一列 `W_PACKING_*`，Auditor 都要對圖確認；確定沒有誤報後，才把該格式升成 hard（加進 `H_PACKING_*` 的格式清單）。
+- 表頭 invoice_no／date／currency／Incoterms：validator 只檢查格式與 xlsx／JSON 一致，看不出 parser 是不是讀錯欄（雙幣別特別容易），所以要靠 §3(b) 看圖。
+- 單張 MA 發票內的 key 撞號（R1-a 類）會讓 pkg 跟 key 數一起錯，validator 抓不到，要靠 §3(b) 對 PL 印出的總件數。
 - 掃描檔上的數值只存在圖上。
 
 ## 3. Auditor 審核（只留必須看圖的部分）
 
 a. **validator 每一列 hard／warn 都要有結論**（依 page／position 對照）：hard 必須修掉或逐筆說明；warn 要寫明是已知例外還是要修。  
 b. **每張發票的合計區截圖**（pkg／GW／amount，有印 qty 總數也一起看）：確認 parser 抓的「印出值」就是對的那個數字（Gross 不是 Net、Final 不是單價、pallets 不是 cartons）。`W_NO_LABELED_TOTAL` 的發票，總額只能靠這一步。  
-c. **每張發票隨機抽查明細看圖**：至少 3 列或 10%（無條件進位），取較大者；不足 3 列全看。**不可只抽頭尾**。新格式第一批逐列全看。抓的是「數字彼此對得上但其實錯」：PN 換位、描述跑進 PN 欄、形近字（`-576`／`-57G`）。  
+   - **`W_NO_LABELED_TOTAL` 且 note 寫「列數未驗」：** 在圖上數明細列數，跟 LINE（Lines 列數／`item_line_count`）比。這是 R2-c（SATJG26011 只抽到 2 行中的 1 行）唯一抓得到的地方。  
+   - **單張 MA 發票：** PL 有印總件數時，pkg 要跟它比。這能抓到 R1-a 類 key 撞號（pkg 跟 key 數一起錯）。  
+   - **表頭：** 除了合計區，同一次截圖審核也要看 invoice no.、日期、幣別、Incoterms 是否跟圖一致。validator 只驗格式與 xlsx／JSON 一致，看不出 parser 讀錯欄，雙幣別文件特別容易出錯。  
+c. **每張發票隨機抽查明細看圖**：至少 3 列或 10%（無條件進位），取較大者；不足 3 列全看。**不可只抽頭尾**。新格式第一批逐列全看。**多頁發票每頁至少抽 1 列，且一定要含換頁處的明細（前一頁最後一列＋下一頁第一列）**，因為漏行最常發生在換頁；這些列算在「3 列或 10%」裡面，不是另外加。抓的是「數字彼此對得上但其實錯」：PN 換位、描述跑進 PN 欄、形近字（`-576`／`-57G`）。  
 d. **掃描文件上的值**（掃描提單 BL No.／件數／GW、OCR 讀出的值）：只能看圖判斷，例如千位被底紋吃掉（`774.5`／`1,774.5`）、`C` 讀成 `0`。INV／PL 合計只能佐證，不能單獨定案。  
 e. **validator 管不到的判斷（報告 C 類）**：  
    - 原始文件本身矛盾（廠商打錯、大寫金額與數字不一、email 與 PL 不同）：用哪個值由使用者／Auditor 決定，記在 note；已成規則的用 `W_VENDOR_TOTAL`、`W_LINE_NW`。  
@@ -126,6 +132,7 @@ python3 tools/regression_batches.py --baseline out/regress/baseline --save-basel
 
 | 日期 | 說明 |
 |------|------|
+| 2026-11-24 | v2 轉為現行（Auditor 通過 `5b03d36`＋補充）：新格式 packing key 首批 `W_PACKING_*` 逐列對圖後才升 hard；§3(b) 加「列數未驗」數列數、MA 單張對 PL 印出總件數、表頭 invoice no.／日期／幣別／Incoterms 看圖；§3(c) 多頁每頁至少 1 列且含換頁處；`W_NO_LABELED_TOTAL` note 固定含「列數未驗」。 |
 | 2026-11-24 | v2 草稿：新增 packing key 交叉比對（`H/W_PACKING_UNITS`、`H/W_PACKING_GW`、`H_PACKING_SHARED`）、印出 qty 總數（`H_PRINTED_QTY`、`W_PRINTED_QTY_MIXED_UOM`）、`W_NO_LABELED_TOTAL`、Excel twin 用 PDF twin 總額、OCR 失敗（`H_OCR_FAILED`）、needs_gold 旗標一致（`H/W_NEEDS_GOLD_FLAG`）；`H_LINE_COUNT` 改跟獨立來源比（修掉自己比自己）＋`W_LINE_COUNT_UNVERIFIED`。Auditor 只留看圖：合計區截圖、隨機抽行、掃描值、C 類判斷。加入廠商地雷與既定決定。說明見 [`AUDIT_RULES_V2_REVIEW.md`](AUDIT_RULES_V2_REVIEW.md)。 |
 | 2026-11-20 | 明細列 qty×單價 容差改依印出位數（AK00074096 110／120／140 印出差 1 TWD → ok）；總額比對不變。 |
 | 2026-11-20 | 新增：全列硬校驗 `tools/validate_result.py`＋金標回歸＋抽查規則（Invoice＋Auditor 共同議定）。舊流程保留為 `AUDIT_REVIEW.md`。 |

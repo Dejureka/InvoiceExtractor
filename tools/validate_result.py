@@ -500,7 +500,7 @@ class Audit:
             if not qty_checked:
                 missing += "; qty total not independently verifiable"
             if unverified_count:
-                missing += "; line count not independently verifiable"
+                missing += "; line count not independently verifiable (列數未驗)"
             self.add(data, "warn", "W_NO_LABELED_TOTAL", "amount", "printed total", None, note=missing)
         # A printed total can expose missing lines even without an independent count.
         # One warn per row: W_NO_LABELED_TOTAL above already names the unverified count.

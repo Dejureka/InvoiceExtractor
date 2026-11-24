@@ -197,7 +197,7 @@ def count_unverified(invoice):
     """W_LINE_COUNT_UNVERIFIED, or its text folded into W_NO_LABELED_TOTAL (one warn per row)."""
     return findings(invoice, "W_LINE_COUNT_UNVERIFIED") + [
         f for f in findings(invoice, "W_NO_LABELED_TOTAL")
-        if "line count not independently verifiable" in f.note
+        if "列數未驗" in f.note
     ]
 
 
@@ -228,3 +228,14 @@ def test_line_count_warns_only_without_independent_count_or_printed_total(invoic
     del invoice["meta"]["printed_total_quantity"]
     invoice["meta"]["printed_item_count"] = 1
     assert not count_unverified(invoice)
+
+
+def test_no_labeled_total_note_marks_unverified_line_count(invoice):
+    del invoice["items"][0]["item_no"]
+    del invoice["meta"]["labeled_amount"]
+    warning, = findings(invoice, "W_NO_LABELED_TOTAL")
+    assert "列數未驗" in warning.note
+    assert not findings(invoice, "W_LINE_COUNT_UNVERIFIED")
+    invoice["meta"]["printed_item_count"] = 1  # Independent count: no 列數未驗.
+    warning, = findings(invoice, "W_NO_LABELED_TOTAL")
+    assert "列數未驗" not in warning.note
