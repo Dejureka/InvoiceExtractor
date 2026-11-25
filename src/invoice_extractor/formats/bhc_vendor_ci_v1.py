@@ -79,6 +79,7 @@ from __future__ import annotations
 import re
 from typing import Callable, Optional
 
+from invoice_extractor.fallback import fallback
 from invoice_extractor.schema import ExtractResult, Header, Item, Meta, en_date_to_iso, us_float
 
 MATCH_HINTS = {
@@ -1015,7 +1016,7 @@ def _pack_jiangnan(text: str):
         tok = mp.group(1).upper()
         pal = int(tok) if tok.isdigit() else _EN_COUNT[tok]
         return float(pal), gw, None, f"PL: {ctns} CTNS on {mp.group(0).upper()} → pkg = pallets"
-    return float(ctns), gw, None, None
+    return fallback("total_pkg", float(ctns), "jiangnan:cartons_no_pallet_word"), gw, None, None
 
 
 def _inv_jiangnan(text: str, o: _Out) -> None:

@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor.fallback import fallback
 from invoice_extractor.schema import ExtractResult, Header, Item, Meta, us_float
 
 MATCH_HINTS = {
@@ -86,14 +87,22 @@ def extract_from_text(
     m_inv = re.search(r"INVOICE NUMBER\s*:?\s*(ST\d+)", inv_part, re.I)
     if not m_inv:
         m_inv = re.search(r"PACKING LIST NO\s*:?\s*(ST\d+)", text, re.I)
+    bare_no = False
     if not m_inv:
         m_inv = re.search(r"\b(ST\d{7})\b", text)
+        bare_no = True
     invoice_no = m_inv.group(1).upper() if m_inv else None
+    if bare_no:
+        invoice_no = fallback("invoice_no", invoice_no, "sumitronics:bare_ST_number_anywhere")
 
     m_date = re.search(r"DATE\s*:?\s*\n?\s*(\d{1,2}/\d{2}/\d{4})", inv_part, re.I)
+    bare_date = False
     if not m_date:
         m_date = re.search(r"(\d{1,2}/[A-Za-z]{3}/\d{4})", text)
+        bare_date = True
     invoice_date = m_date.group(1) if m_date else None
+    if bare_date:
+        invoice_date = fallback("invoice_date", invoice_date, "sumitronics:first_date_anywhere")
 
     amount = None
     total_qty = None

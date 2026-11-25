@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor.fallback import fallback
 from invoice_extractor.schema import ExtractResult, Header, Item, Meta, us_float
 
 MATCH_HINTS = {
@@ -129,9 +130,13 @@ def extract_from_text(
     needs_ocr: bool = False,
 ) -> ExtractResult:
     m_inv = re.search(r"INVOICE\s+NO\.?\s*:?\s*(SATJG\w+)", text, re.I)
+    bare_no = False
     if not m_inv:
         m_inv = re.search(r"\b(SATJG\w+)\b", text, re.I)
+        bare_no = True
     invoice_no = m_inv.group(1).upper() if m_inv else None
+    if bare_no:
+        invoice_no = fallback("invoice_no", invoice_no, "suzhou_aichi:bare_SATJG_anywhere")
 
     m_date = re.search(
         r"(?:DATE|日\s*期)\s*:?\s*(\d{1,2}/[A-Za-z]{3}/\d{2,4})",
@@ -247,7 +252,7 @@ def extract_from_text(
     if pkg is None:
         m_plts = re.search(r"(\d+)\s*PLTS", text, re.I)
         if m_plts:
-            pkg = float(m_plts.group(1))
+            pkg = fallback("total_pkg", float(m_plts.group(1)), "suzhou_aichi:first_PLTS_anywhere")
     # Gross = 2nd weight on the packing TOTAL row: … 3,876 kgs 4,121 kes 4, 55M3
     num = r"\d{1,3}(?:,\s?\d{3})*"
     m_gw = re.search(
@@ -260,7 +265,7 @@ def extract_from_text(
         weights = [_ocr_int(w) for w in re.findall(rf"({num})\s*k[ge]s", pk_part, re.I)]
         vals = [v for v in weights if v and 1000 < v < 50000]
         if vals:
-            gw = max(vals)
+            gw = fallback("gross_weight_kg", max(vals), "suzhou_aichi:largest_kgs")
 
     header = Header(
         invoice_no=invoice_no,

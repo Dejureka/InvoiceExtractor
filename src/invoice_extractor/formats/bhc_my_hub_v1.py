@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor.fallback import fallback
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -122,7 +123,7 @@ def _invoice_no(text: str) -> str | None:
     if m:
         return m.group(1)
     m = re.search(r"\b(902\d{7})\b", text)
-    return m.group(1) if m else None
+    return fallback("invoice_no", m.group(1), "bhc_my_hub:bare_902_anywhere") if m else None
 
 
 def _invoice_date(text: str) -> str | None:
@@ -131,7 +132,7 @@ def _invoice_date(text: str) -> str | None:
     if m:
         return de_date_to_iso(m.group(1))
     m = re.search(r"\b(\d{2}\.\d{2}\.\d{4})\b", text)
-    return de_date_to_iso(m.group(1)) if m else None
+    return fallback("invoice_date", de_date_to_iso(m.group(1)), "bhc_my_hub:first_date_anywhere") if m else None
 
 
 def _totals(text: str) -> float | None:
