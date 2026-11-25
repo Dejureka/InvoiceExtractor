@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import re
 
-from invoice_extractor.schema import ExtractResult, Header, Item, Meta, us_float
+from invoice_extractor.schema import EN_MONTH_RE, ExtractResult, Header, Item, Meta, us_float
 
 MATCH_HINTS = {
     "filename_regex": r"OK\d{8}|OUKAI|欧凯",
@@ -78,7 +78,7 @@ def extract_from_text(
     m_inv = re.search(r"Invoice\s*No:?\s*(OK\d+)", text, re.I)
     invoice_no = m_inv.group(1).upper() if m_inv else None
 
-    m_date = re.search(r"Date:?\s*(Sep\.?\s*\d{1,2}\w*,?\s*\d{4})", text, re.I)
+    m_date = re.search(rf"Date:?\s*({EN_MONTH_RE}\.?\s*\d{{1,2}}\w*,?\s*\d{{4}})", text, re.I)
     invoice_date = m_date.group(1) if m_date else None
 
     amount = None

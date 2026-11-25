@@ -9,7 +9,7 @@ import re
 
 from invoice_extractor.fallback import fallback
 from invoice_extractor.numwords import WORD_RE, en_count
-from invoice_extractor.schema import ExtractResult, Header, Item, Meta, us_float
+from invoice_extractor.schema import EN_MONTH_RE, ExtractResult, Header, Item, Meta, us_float
 
 MATCH_HINTS = {
     "filename_regex": r"DUNAN|盾安|FT\d{8}|结汇",
@@ -70,7 +70,7 @@ def extract_from_text(
     m_inv = re.search(r"INVOICE\s*NO[：:\s]*([A-Z0-9/]+)", text, re.I)
     invoice_no = m_inv.group(1).strip() if m_inv else None
 
-    m_date = re.search(r"DATE[：:\s]*(?:Sep\.?\s*\d{1,2},?\s*\d{4}|\d{4}-\d{2}-\d{2})", text, re.I)
+    m_date = re.search(rf"DATE[：:\s]*(?:{EN_MONTH_RE}\.?\s*\d{{1,2}},?\s*\d{{4}}|\d{{4}}-\d{{2}}-\d{{2}})", text, re.I)
     invoice_date = None
     if m_date:
         invoice_date = re.sub(r"^DATE[：:\s]*", "", m_date.group(0), flags=re.I).strip()

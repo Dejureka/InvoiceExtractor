@@ -178,6 +178,11 @@ _MONTHS = {
 }
 
 
+# Any English month name or 3-letter abbreviation (Sep / Sept / September …),
+# for date rules anchored on their label rather than on one month.
+EN_MONTH_RE = r"(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)"
+
+
 def en_date_to_iso(d: str) -> str | None:
     """``JAN. 26, 2026`` / ``February 25, 2026`` / ``2025年9月26日`` → ISO."""
     import re
