@@ -7,6 +7,8 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor.fallback import fallback
+from invoice_extractor.numwords import WORD_RE, en_count
 from invoice_extractor.schema import ExtractResult, Header, Item, Meta, us_float
 
 MATCH_HINTS = {
@@ -29,7 +31,7 @@ RULES_JSON = {
     "header": {
         "invoice_no": r"INVOICE\s+NO\.?\s*:?\s*(OHIZUMI[-\w]+)",
         "amount": r"TOTAL\s+[\d,]+\s+PCS\s+USD\s*([\d,]+\.?\d*)",
-        "pkg": r"TWENTY-TWO\s*\(22\)\s*CARTONS|TOTAL\s+(\d+)\s+CARTONS",
+        "pkg": r"<count words>\s*\((\d+)\)\s*CARTONS|TOTAL\s+(\d+)\s+CARTONS",
         "gw": r"TOTAL\s+\d+\s+[\d,]+\s+PCS\s+[\d.]+\s+([\d.]+)\s+KGS",
     },
 }
@@ -108,8 +110,12 @@ def extract_from_text(
 
     pkg = None
     gw = None
-    if re.search(r"TWENTY-TWO\s*\(22\)\s*CARTONS", text, re.I):
-        pkg = 22.0
+    # Invoice footer "TOTAL :TWENTY-FOUR (24)CARTONS": the digits in brackets.
+    m_words = re.search(rf"\b({WORD_RE})\s*\((\d+)\)\s*CARTONS?\b", text, re.I)
+    if m_words:
+        pkg = float(m_words.group(2))
+        if en_count(m_words.group(1)) != int(m_words.group(2)):
+            pkg = fallback("total_pkg", pkg, "ohizumi:count_words_disagree_with_digits")
     m_pk = re.search(r"TOTAL\s+(\d+)\s+([\d,]+)\s+PCS\s+([\d.]+)\s+([\d.]+)\s+KGS", text, re.I)
     if m_pk:
         pkg = float(m_pk.group(1))
