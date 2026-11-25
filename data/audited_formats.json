@@ -26,7 +26,7 @@
     "hitachi_gls_v1": {
       "audited": true,
       "date": "2026-11-25",
-      "note": "Round3 Hitachi GLS / MEH; BHC 4th/5th Auditor pass; BHC 6th Auditor pass (MEH invoice no. on the line below the header; spare-part description line; case8 MEH6K018); MEH6L040 Auditor pass @5129134 (2026-11-25): inline PN allows '-' as 2nd char and '*' variant suffix (P-AP90DNA*EX after SUB TOTAL); per-model ORIGIN list accepts '*'; descriptions read from the item column (marks column shares lines); packages use printed N PACKAGES (PALLETS + CARTONS)"
+      "note": "Round3 Hitachi GLS / MEH; BHC 4th/5th Auditor pass; BHC 6th Auditor pass (MEH invoice no. on the line below the header; spare-part description line; case8 MEH6K018); MEH6L040 Auditor pass @5129134 (2026-11-25): inline PN allows '-' as 2nd char and '*' variant suffix (P-AP90DNA*EX after SUB TOTAL); per-model ORIGIN list accepts '*'; descriptions read from the item column (marks column shares lines); packages use printed N PACKAGES (PALLETS + CARTONS); Consolidation U7e Auditor pass (2026-11-25): invoice no./date read by position under the Invoice No./Date labels (no MEH prefix); non-MEH series flagged needs_gold; currency from GRAND TOTAL symbol (J¥/US$). DC76K507 stays needs_gold (new USD layout, 0 lines)"
     },
     "highly_v1": {
       "audited": true,
@@ -35,18 +35,18 @@
     },
     "ma_with_period_v1": {
       "audited": true,
-      "date": "2026-09-29",
-      "note": "Round4 + Round4b currency TWD fix (Auditor pass); MA 3rd Auditor pass"
+      "date": "2026-11-25",
+      "note": "Round4 + Round4b currency TWD fix (Auditor pass); MA 3rd Auditor pass; Consolidation U6/U7f Auditor pass (2026-11-25): HS look-ahead bounded by the next item; COO index bounded by next \"Country of origin\" (cap 50000)"
     },
     "ma_no_period_v1": {
       "audited": true,
-      "date": "2026-09-29",
-      "note": "Round4 MA NoPeriod; ma_inv_bl_6 reconfirm; MA 3rd Auditor pass"
+      "date": "2026-11-25",
+      "note": "Round4 MA NoPeriod; ma_inv_bl_6 reconfirm; MA 3rd Auditor pass; Consolidation U6/U7f Auditor pass (2026-11-25): HS look-ahead bounded by the next item (windows.py cap 400)"
     },
     "bhc_my_hub_v1": {
       "audited": true,
       "date": "2026-11-25",
-      "note": "Round4 BHC MY-HUB; bhc_cases_1368 + OCR PKL overlay; BHC 6th Auditor pass (Excel twin PN│DESCRIPTION gap split; case4/case5); 9028194267 / 9028111779 Auditor pass @c4b57de (2026-11-25): invoice_no searches the whole value row after Invoice Number/Date (the old 80-char window never matched); 902xxxxxxx family accepted so 9028 numbers are extracted"
+      "note": "Round4 BHC MY-HUB; bhc_cases_1368 + OCR PKL overlay; BHC 6th Auditor pass (Excel twin PN│DESCRIPTION gap split; case4/case5); 9028194267 / 9028111779 Auditor pass @c4b57de (2026-11-25): invoice_no searches the whole value row after Invoice Number/Date (the old 80-char window never matched); 902xxxxxxx family accepted so 9028 numbers are extracted; Consolidation U4/U5 Auditor pass (2026-11-25): bare 902 number → needs_gold_fields; first-date fallback note only (date not in Result)"
     },
     "hisense_qingdao_v1": {
       "audited": true,
@@ -95,8 +95,8 @@
     },
     "shanghai_nature_v1": {
       "audited": true,
-      "date": "2026-09-16",
-      "note": "bhc_ocr_scans case7 INV Auditor pass"
+      "date": "2026-11-25",
+      "note": "bhc_ocr_scans case7 INV Auditor pass; Consolidation U4/U5 Auditor pass (2026-11-25): first PALLET / first KGS fallbacks → needs_gold_fields"
     },
     "tvl_hbl_v1": {
       "audited": true,
@@ -120,33 +120,33 @@
     },
     "ma_ak_billing_v1": {
       "audited": true,
-      "date": "2026-11-10",
-      "note": "ma_747 AK Billing FWD+SAP Auditor pass; 2026-11-10 re-audit pass (Gross HU Weight + shipment_first HU dedupe, AK00074096-098)"
+      "date": "2026-11-25",
+      "note": "ma_747 AK Billing FWD+SAP Auditor pass; 2026-11-10 re-audit pass (Gross HU Weight + shipment_first HU dedupe, AK00074096-098); Consolidation U6/U7f Auditor pass (2026-11-25): item look-ahead bounded by next item / Marking (cap 400)"
     },
     "suzhou_aichi_v1": {
       "audited": true,
-      "date": "2026-10-05",
-      "note": "BHC 3rd Auditor pass; BHC 4th/5th Auditor pass"
+      "date": "2026-11-25",
+      "note": "BHC 3rd Auditor pass; BHC 4th/5th Auditor pass; Consolidation U4/U5 Auditor pass (2026-11-25): bare SATJG / first PLTS / largest kgs fallbacks → needs_gold_fields"
     },
     "sumitronics_hk_v1": {
       "audited": true,
-      "date": "2026-09-24",
-      "note": "BHC 3rd Auditor pass"
+      "date": "2026-11-25",
+      "note": "BHC 3rd Auditor pass; Consolidation U4/U5 Auditor pass (2026-11-25): bare ST number / first-date fallbacks marked (note; invoice_no → needs_gold_fields)"
     },
     "dunan_v1": {
       "audited": true,
-      "date": "2026-10-08",
-      "note": "BHC 3rd Auditor pass; BHC 6th Auditor pass (split PKL overlay parse_packing, FOB SHENZHEN incoterm; case3/case11)"
+      "date": "2026-11-25",
+      "note": "BHC 3rd Auditor pass; BHC 6th Auditor pass (split PKL overlay parse_packing, FOB SHENZHEN incoterm; case3/case11); Consolidation U7a Auditor pass (2026-11-25): pkg/GW from the TOTAL row via parse_packing (no 24782 / EIGHT PALLETS case values; count words ONE…NINETY-NINE); U7d any-month invoice date; anchorless GW guess marked needs_gold (U4/U5)"
     },
     "ohizumi_dongguan_v1": {
       "audited": true,
-      "date": "2026-09-24",
-      "note": "BHC 3rd Auditor pass"
+      "date": "2026-11-25",
+      "note": "BHC 3rd Auditor pass; Consolidation U7b Auditor pass (2026-11-25): cartons from \"<count words> (N) CARTONS\" (26609A → 24), no TWENTY-TWO case value"
     },
     "oukai_v1": {
       "audited": true,
-      "date": "2026-09-24",
-      "note": "BHC 3rd Auditor pass"
+      "date": "2026-11-25",
+      "note": "BHC 3rd Auditor pass; Consolidation U7d Auditor pass (2026-11-25): invoice date accepts any month (was Sep only)"
     },
     "hitachi_asia_hitt_v1": {
       "audited": true,
@@ -185,8 +185,8 @@
     },
     "bhc_vendor_ci_v1": {
       "audited": true,
-      "date": "2026-11-23",
-      "note": "BHC 4th/5th Auditor pass (profiles sanhua/welling/broad_ocean/hipus/hailiang/katata/nisshinbo; shared-PL shipment_first); BHC 6th Auditor Round 5 pass @4363b43 (new profiles topband/augewei/jiangnan/wolong/saginomiya; hipus/hailiang reconfirmed; split PL overlay; saginomiya filename hint T\\d{6}.); saginomiya T262288 Auditor pass @680b560 (2026-11-23): qty unit accepts pc/pcs with optional period, any case, so a '1 pc.' line is kept; 28/12,075/JPY 7,606,228; G.W. blank + use BL G.W. 1,613 kg (all 28 lines checked by eye)"
+      "date": "2026-11-25",
+      "note": "BHC 4th/5th Auditor pass (profiles sanhua/welling/broad_ocean/hipus/hailiang/katata/nisshinbo; shared-PL shipment_first); BHC 6th Auditor Round 5 pass @4363b43 (new profiles topband/augewei/jiangnan/wolong/saginomiya; hipus/hailiang reconfirmed; split PL overlay; saginomiya filename hint T\\d{6}.); saginomiya T262288 Auditor pass @680b560 (2026-11-23): qty unit accepts pc/pcs with optional period, any case, so a '1 pc.' line is kept; 28/12,075/JPY 7,606,228; G.W. blank + use BL G.W. 1,613 kg (all 28 lines checked by eye); Consolidation U4/U5 Auditor pass (2026-11-25): jiangnan PL without a pallet word (carton count) → needs_gold_fields"
     },
     "jif_cosmo_waybill_v1": {
       "audited": true,
@@ -197,6 +197,11 @@
       "audited": true,
       "date": "2026-11-10",
       "note": "eBike 1st Auditor pass 18/18 @f8bb8b2; r2 re-audit 18/18 @4900fef (2026-11-10): unit price = amount/qty (6 d.p.), printed per-100 PC price is not Unt; qty/amount as printed; soft HS if Commodity Code unprinted; no shipment_first; AX00011144 Copy counted as a real invoice, including NOT VALID watermark"
+    },
+    "nippon_express_awb_v1": {
+      "audited": true,
+      "date": "2026-11-25",
+      "note": "Consolidation U3 Auditor pass (2026-11-25): both gold AWBs NEM17159645 (3 pkg / 279.0 kg / AK00065676) and NEM17164630 (1 pkg / 68.0 kg / AK00067136) correct; private gold gold/cov8.json. Follow-up: one AWB covering several invoices"
     }
   }
 }
