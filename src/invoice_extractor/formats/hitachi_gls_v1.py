@@ -21,6 +21,7 @@ from __future__ import annotations
 import re
 
 from invoice_extractor import windows
+from invoice_extractor.fallback import fallback
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -174,30 +175,41 @@ def extract_from_text(
     text_backend: str = "",
     needs_ocr: bool = False,
 ) -> ExtractResult:
-    m_inv = re.search(r"Invoice\s+No\.?\s*:?\s*(MEH\w+)", text, re.I)
-    if not m_inv:
-        # BHC 6th MEH6K018: "Invoice No.      Date" header line, value below.
-        m_inv = re.search(
-            r"Invoice\s+No\.[^\n]*\n[^\n]*?\b(MEH[0-9A-Z]{4,})\b", text, re.I
-        )
-    invoice_no = m_inv.group(1) if m_inv else None
-
-    m_date = re.search(
-        r"Invoice\s+No\.[^\n]*\n[^\n]*?Date\s*\n[^\n]*?(MEH\w+)\s+([A-Z]{3}\.?\s+\d{1,2},\s+\d{4})",
+    # Header block: "Invoice No. … Date" label row, then the value row
+    # "<consignee> <invoice no> <MON. DD, YYYY>". Read by position (value row
+    # under the labels), not by a vendor prefix: MEH6xxxx and DC76K507 alike.
+    date_re = r"[A-Z]{3,4}\.?\s+\d{1,2},\s+\d{4}"
+    no_re = r"[A-Z]{1,6}\d[0-9A-Z-]{3,}"
+    invoice_no = None
+    invoice_date = None
+    m_hdr_val = re.search(
+        rf"Invoice\s+No\.[^\n]*\bDate\b[^\n]*\n[^\n]*?\b({no_re})\s+({date_re})[ \t]*$",
         text,
-        re.I,
+        re.I | re.M,
     )
-    if not m_date:
-        m_date = re.search(r"(MEH\w+)\s+([A-Z]{3}\.?\s+\d{1,2},\s+\d{4})", text)
-    invoice_date = en_date_to_iso(m_date.group(2)) if m_date else None
+    if m_hdr_val:
+        invoice_no = m_hdr_val.group(1)
+        invoice_date = en_date_to_iso(m_hdr_val.group(2))
+    if not invoice_no:
+        # Detail-sheet page header "Invoice No.: MEH6A036" / same-line label.
+        m_inv = re.search(rf"Invoice\s+No\.?[ \t]*:?[ \t]*({no_re})\b", text, re.I)
+        invoice_no = m_inv.group(1) if m_inv else None
+    if invoice_no and not invoice_date:
+        m_date = re.search(rf"\b{re.escape(invoice_no)}\s+({date_re})", text)
+        invoice_date = en_date_to_iso(m_date.group(1)) if m_date else None
+    if invoice_no and not invoice_no.upper().startswith("MEH"):
+        # Read by position, but outside the series seen so far → a person checks it.
+        invoice_no = fallback("invoice_no", invoice_no, "hitachi_gls:invoice_no_outside_MEH_series")
 
+    # GRAND TOTAL carries the currency symbol: J¥ (MEH) or US$ (DC76K507).
     m_gt = re.search(
-        r"GRAND TOTAL:\s+([\d,]+)\s+PCS\s+J[¥￥]([\d,]+)",
+        r"GRAND TOTAL:\s+([\d,]+)\s+PCS\s+(J[¥￥]|US\$)\s*([\d,]+(?:\.\d{2})?)",
         text,
         re.I,
     )
     header_qty = us_float(m_gt.group(1)) if m_gt else None
-    amount = float(m_gt.group(2).replace(",", "")) if m_gt else None
+    amount = us_float(m_gt.group(3)) if m_gt else None
+    currency = "USD" if m_gt and m_gt.group(2).upper() == "US$" else "JPY"
 
     m_fob = re.search(r"(F\.?O\.?B\.?\s+SHIMIZU(?:\s*,\s*JAPAN)?)", text, re.I)
     incoterm = (
@@ -259,7 +271,7 @@ def extract_from_text(
                     unit_price=float(m.group("price").replace(",", "")),
                     amount=float(m.group("amt").replace(",", "")),
                     origin=origin,
-                    currency="JPY",
+                    currency=currency,
                 )
             )
 
@@ -288,7 +300,7 @@ def extract_from_text(
                     unit_price=us_float(m.group("price")),
                     amount=us_float(m.group("amt")),
                     origin=per_origin.get(pn, other_origin or origin),
-                    currency="JPY",
+                    currency=currency,
                 )
             )
 
@@ -305,7 +317,7 @@ def extract_from_text(
         item_line_count=len(items) if items else None,
         total_quantity=total_qty,
         amount=amount,
-        currency="JPY",
+        currency=currency,
         vendor="Hitachi Global Life Solutions, Inc.",
         origin=origin,
     )
