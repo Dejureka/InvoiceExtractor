@@ -50,8 +50,6 @@ USERS: dict[str, tuple[str, ...]] = {
 
 # Limits measured too tight (fragility audit 2026-11-25 #7 #8; fixed structurally later).
 KNOWN_TIGHT: dict[str, str] = {
-    "MA_HS_LINES_AFTER_ITEM": "needs 48 of 55 lines (item crossing a page, RBTW 2000271108)",
-    "MA_AK_LINES_AFTER_ITEM": "needs 38 of 45 lines (AK00067724 origin+HS on line 37)",
     "HITACHI_GLS_DESC_LINES": "description sits 2 lines under the row; 3 → 2 drops it (MEH6L040)",
 }
 
