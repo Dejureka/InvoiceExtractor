@@ -8,6 +8,7 @@ from __future__ import annotations
 import re
 
 from invoice_extractor.fallback import fallback
+from invoice_extractor.numwords import WORD_RE, en_count
 from invoice_extractor.schema import ExtractResult, Header, Item, Meta, us_float
 
 MATCH_HINTS = {
@@ -117,27 +118,14 @@ def extract_from_text(
             )
         )
 
-    pkg = None
-    gw = None
-    m_pk = re.search(r"TOTAL:?\s*(\d+)\s*PALLETS", text, re.I)
-    if m_pk:
-        pkg = float(m_pk.group(1))
-    if pkg is None and re.search(r"PACKED IN EIGHT PALLETS", text, re.I):
-        pkg = fallback("total_pkg", 8.0, "dunan:packed_in_eight_pallets")
-    # Packing list: TOTAL:8PALLETS ... 3326.00
-    m_gw = re.search(
-        r"([\d,]+\.\d{2})\s+([\d,]+\.\d{2})\s+([\d.]+)\s*$",
-        text,
-        re.M,
-    )
-    # Better: line with PCS then GW NW Volume
-    m_gw2 = re.search(
-        r"24782\s*PCS\s+([\d,]+\.\d{2})",
-        text,
-        re.I,
-    )
-    if m_gw2:
-        gw = us_float(m_gw2.group(1))
+    # Packing part (combined file): the same TOTAL-row reader as a split PKL.
+    pack = parse_packing(text) or {}
+    pkg = pack.get("pkg")
+    gw = pack.get("gw")
+    if pkg is None:
+        m_words = re.search(rf"PACKED\s+IN\s+({WORD_RE})\s+(?:PALLETS?|PACKAGES?)\b", text, re.I)
+        if m_words and en_count(m_words.group(1)) is not None:
+            pkg = float(en_count(m_words.group(1)))
     if gw is None:
         m_gw3 = re.search(r"(\d{4}\.\d{2})\s+(\d{4}\.\d{2})\s+[\d.]+", text)
         if m_gw3:
