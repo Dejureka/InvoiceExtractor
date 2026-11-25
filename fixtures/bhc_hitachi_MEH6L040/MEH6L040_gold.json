@@ -1,0 +1,11 @@
+{"note":"BHC Bot 人工判讀正確值（hitachi_gls_v1 抽取 conflict，供 Invoice bot 修正參考）",
+ "source":"/workspace/bhc-plan/inbox/20261125_261120KEE101/att/20261126_MEH6L040 (TY09,TY32, TY81, TY91, TY98).pdf",
+ "Summary":{"Invoice No.":"MEH6L040","Packages":21,"Package Mode":"Package","G.W. (kgs)-Air DIM. (CBM)-Sea":931,"Incoterms":"FOB","Invoice Value":2741527,"LINE":7,"QTY":451,"Invoice Currency":"JPY"},
+ "Lines":[
+  {"PN":"PSC-6RAD","Des":"ACCESSORY : RAC ADAPTOR","Qty":180,"Unt":3588,"Amt":645840,"UoM":"PCS","Co":"JP"},
+  {"PN":"PSH-4","Des":"ACCESSORY: SERVICE CHECKER","Qty":2,"Unt":17756,"Amt":35512,"UoM":"PCS","Co":"CN"},
+  {"PN":"PC-ARFG2-T","Des":"ACCESSORY: WIRED REMOTE CONTROLLER","Qty":240,"Unt":4590,"Amt":1101600,"UoM":"PCS","Co":"CN"},
+  {"PN":"RPC-4.0FSR","Des":"INDOOR UNIT","Qty":12,"Unt":61084,"Amt":733008,"UoM":"PCS","Co":"JP"},
+  {"PN":"RPC-5.0FSR","Des":"INDOOR UNIT","Qty":2,"Unt":61066,"Amt":122132,"UoM":"PCS","Co":"JP"},
+  {"PN":"P-AP90DNA*EX","Des":"ACCESSORY: PANEL","Qty":5,"Unt":7873,"Amt":39365,"UoM":"PCS","Co":"CN"},
+  {"PN":"TRF-NP160U1","Des":"ACCESSORY: RENEWAL KIT","Qty":10,"Unt":6407,"Amt":64070,"UoM":"PCS","Co":"JP"}]}

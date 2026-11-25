@@ -9,6 +9,11 @@ inline on the invoice page (``ITEM#`` then ``01  PC-ALHZ1  1,000 PCS  4,302
 model; per-model origin from ``PC-AWR,PC-ARFG2-T -ORIGIN: CHINA`` /
 ``OTHERS -ORIGIN: JAPAN``. Packing TOTAL row uses thousands commas
 (``TOTAL : 16  4,815  1,646.0  1,998  25.300``).
+
+BHC MEH6L040 (same inline layout): model ``P-AP90DNA*EX`` (hyphen 2nd char,
+``*`` variant suffix) in rows and in the ORIGIN list; descriptions share text
+lines with the Marks & Numbers column (read from the item column); packing
+TOTAL row has PALLETS only, CARTONS + ``N PACKAGES`` printed below it.
 """
 
 from __future__ import annotations
@@ -39,7 +44,8 @@ NOTES = (
     "Hitachi GLS shipping advice + invoice detail; seed from MEH6A036. "
     "BHC 4th MEH6J044: inline accessory layout (ITEM# rows, PN = model, per-model "
     "ORIGIN lines); comma-aware packing TOTAL (pkg = PALLETS, GW = Gross). "
-    "No line items → needs_gold (never pass on header only)."
+    "MEH6L040: '*' models, marks-column-aware descriptions, mixed package units "
+    "(printed N PACKAGES sum). No line items → needs_gold (never pass on header only)."
 )
 
 RULES_JSON = {
@@ -60,8 +66,9 @@ _LINE = re.compile(
 )
 _PN = re.compile(r"PN:(\S+)")
 # Inline accessory row (MEH6J044): "BOSCH-TW   01  PC-ALHZ1   1,000 PCS   4,302   4,302,000"
+# MEH6L040: model may be "P-AP90DNA*EX" (hyphen as 2nd char, "*EX" variant suffix).
 _LINE_INLINE = re.compile(
-    r"(?:^|\s{2,})(?P<item>\d{2})\s+(?P<pn>[A-Z][A-Z0-9][A-Z0-9/.\-]*)\s+"
+    r"(?:^|\s{2,})(?P<item>\d{2})\s+(?P<pn>[A-Z](?:[A-Z0-9]|-(?=[A-Z0-9]))[A-Z0-9/.\-*]*)\s+"
     r"(?P<qty>[\d,]+)\s+PC[ES]?\s+(?P<price>[\d,]+)\s+(?P<amt>[\d,]+)\s*$",
     re.MULTILINE,
 )
@@ -72,7 +79,7 @@ def _origin_map(text: str) -> tuple[dict[str, str], str | None]:
     codes = {"CHINA": "CN", "JAPAN": "JP", "THAILAND": "TH", "MALAYSIA": "MY"}
     per: dict[str, str] = {}
     other = None
-    for m in re.finditer(r"^\s*([A-Z0-9][A-Z0-9,\-/. ]*?)\s*-\s*ORIGIN:\s*([A-Z]+)", text, re.M):
+    for m in re.finditer(r"^\s*([A-Z0-9][A-Z0-9,\-/.* ]*?)\s*-\s*ORIGIN:\s*([A-Z]+)", text, re.M):
         cc = codes.get(m.group(2).upper(), m.group(2).upper())
         lhs = m.group(1).strip()
         if lhs.upper() == "OTHERS":
@@ -82,6 +89,63 @@ def _origin_map(text: str) -> tuple[dict[str, str], str | None]:
                 if pn.strip():
                     per[pn.strip().upper()] = cc
     return per, other
+
+
+_PKG_UNIT = r"(?:PALLETS?|CARTONS?|CASES?|CRATES?|SKIDS?|BOXES)"
+
+
+def _mixed_package_total(after_total: str, first_count: float) -> float:
+    """MEH6L040: TOTAL row carries only the PALLETS count; other units follow.
+
+    ``TOTAL : 2 ...`` / ``CARTONS`` / ``19`` / ``----`` / ``21 PACKAGES``.
+    Prefer the printed ``N PACKAGES`` sum; otherwise add each extra
+    unit-label + count pair to the first (TOTAL-row) count.
+    """
+    window = after_total.splitlines()[1:9]
+    for ln in window:
+        if re.search(r"\bTOTAL\s*:", ln):
+            break
+        m = re.match(r"^\s*([\d,]+)\s+PACKAGES?\b", ln, re.I)
+        if m:
+            got = us_float(m.group(1))
+            if got is not None and got >= first_count:
+                return float(got)
+    extra = 0.0
+    for a, b in zip(window, window[1:]):
+        if re.search(r"\bTOTAL\s*:", a):
+            break
+        if re.fullmatch(r"\s*" + _PKG_UNIT + r"\s*", a, re.I):
+            mb = re.fullmatch(r"\s*([\d,]+)\s*", b)
+            if mb:
+                extra += us_float(mb.group(1)) or 0.0
+    return first_count + extra
+
+
+def _row_description(lines: list[str], i: int, col: int) -> str | None:
+    """Description printed under the ITEM# row, read from the item column.
+
+    The left Marks & Numbers column (``MADE IN JAPAN``, ``P80016921``…) shares
+    the same text lines, so only text at/right of the row's item column counts.
+    Skip blank slices (marks-only lines); stop at the next PO / item / total.
+    """
+    for j in range(i + 1, min(i + 3, len(lines))):
+        sl = lines[j][col:].strip() if len(lines[j]) > col else ""
+        if not sl:
+            continue
+        if (
+            re.match(r"P\d{6,}", sl)
+            or _LINE_INLINE.search(lines[j])
+            or re.search(r"TOTAL\s*:", sl, re.I)
+            or sl.startswith("---")
+        ):
+            return None
+        md = re.search(r"(ACCESSORY\s*:\s*.+?)\s*$", sl, re.I)
+        if md:
+            return re.sub(r"\s+", " ", md.group(1))
+        if re.fullmatch(r"[A-Z][A-Z0-9 /.\-]{2,}", sl):
+            return re.sub(r"\s+", " ", sl)
+        return None
+    return None
 
 
 def match_score(text: str, filename: str = "") -> float:
@@ -157,6 +221,9 @@ def extract_from_text(
     else:
         pkg = float(m_pkg.group(1)) if m_pkg else None
         gw = float(m_pkg.group(4)) if m_pkg else None
+    m_tot = m_pkc or m_pkg
+    if m_tot and pkg is not None:
+        pkg = _mixed_package_total(text[m_tot.end():], pkg)
 
     origin = "JP"
     if re.search(r"ORIGIN:\s*JAPAN", text, re.I) or re.search(r"MADE IN JAPAN", text):
@@ -206,17 +273,9 @@ def extract_from_text(
             m = _LINE_INLINE.search(line)
             if not m:
                 continue
-            desc = None
-            if i + 1 < len(lines):
-                nxt = lines[i + 1].strip()
-                md = re.search(r"(ACCESSORY\s*:\s*.+?)\s*$", nxt, re.I)
-                if md:
-                    desc = re.sub(r"\s+", " ", md.group(1))
-                elif re.fullmatch(r"[A-Z][A-Z0-9 /.\-]{2,}", nxt) and not re.match(
-                    r"P\d{6,}", nxt
-                ):
-                    # MEH6K018 spare parts: plain description below the row.
-                    desc = re.sub(r"\s+", " ", nxt)
+            # MEH6K018 spare parts: plain description below the row;
+            # MEH6L040: marks column text shares those lines (column slice).
+            desc = _row_description(lines, i, m.start("item"))
             pn = m.group("pn").upper()
             items.append(
                 Item(
