@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-23",
+  "updated": "2026-11-25",
   "notes": "Formats that passed AuditSOP (Auditor final pass after conflict fixes). GUI mapping_status uses this registry; BL-only rows also use meta.format_id → same path.",
   "formats": {
     "bitzer_v1": {
@@ -45,8 +45,8 @@
     },
     "bhc_my_hub_v1": {
       "audited": true,
-      "date": "2026-10-08",
-      "note": "Round4 BHC MY-HUB; bhc_cases_1368 + OCR PKL overlay; BHC 6th Auditor pass (Excel twin PN│DESCRIPTION gap split; case4/case5)"
+      "date": "2026-11-25",
+      "note": "Round4 BHC MY-HUB; bhc_cases_1368 + OCR PKL overlay; BHC 6th Auditor pass (Excel twin PN│DESCRIPTION gap split; case4/case5); 9028194267 / 9028111779 Auditor pass @c4b57de (2026-11-25): invoice_no searches the whole value row after Invoice Number/Date (the old 80-char window never matched); 902xxxxxxx family accepted so 9028 numbers are extracted"
     },
     "hisense_qingdao_v1": {
       "audited": true,
