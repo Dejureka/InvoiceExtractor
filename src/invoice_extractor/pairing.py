@@ -12,6 +12,7 @@ from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any, Iterable, Literal, Optional
 
+from invoice_extractor.fallback import collecting, fallback, record
 from invoice_extractor.formats.ma_common import parse_rb_packages
 from invoice_extractor.schema import ExtractResult, Header, Meta, eu_float, us_float
 
@@ -834,6 +835,7 @@ def parse_packing_pkg_gw(text: str) -> tuple[float | None, float | None]:
             for v in cands:
                 if abs(v - 1174.0) < 1 or (1000 <= v <= 2000 and v != min(cands)):
                     gw_h = v
+        gw_h = fallback("gross_weight_kg", gw_h, "pkl:hitachi_total_pallets_weight_guess")
         return pkg_h, gw_h
 
     # "TOTAL … N PALLETS" / "Total N PALLETS"
@@ -849,7 +851,7 @@ def parse_packing_pkg_gw(text: str) -> tuple[float | None, float | None]:
         if gw_h is None:
             gws = re.findall(r"\b([\d]{1,3},[\d]{3}\.\d{2})\b", text)
             if gws:
-                gw_h = us_float(gws[-1])
+                gw_h = fallback("gross_weight_kg", us_float(gws[-1]), "pkl:last_thousands_weight")
         return pkg_h, gw_h
 
     gw_val: float | None = None
@@ -878,6 +880,8 @@ def parse_packing_pkg_gw(text: str) -> tuple[float | None, float | None]:
     if m:
         pkg_val = float(m.group(1))
 
+    gw_val = fallback("gross_weight_kg", gw_val, "pkl:first_gross_label_anywhere")
+    pkg_val = fallback("total_pkg", pkg_val, "pkl:first_packages_label_anywhere")
     return pkg_val, gw_val
 
 
@@ -897,7 +901,8 @@ def merge_pkl_onto_inv(
     ``meta.packing_units`` so a PKL shared by several invoices is deduped at
     shipment level.
     """
-    fmt_pack = _format_packing(inv_result.meta.format_id, pkl_text)
+    with collecting() as fmt_hits:
+        fmt_pack = _format_packing(inv_result.meta.format_id, pkl_text)
     units: dict[str, float] | None = None
     fmt_note = ""
     if fmt_pack and (fmt_pack.get("pkg") is not None or fmt_pack.get("gw") is not None):
@@ -906,8 +911,10 @@ def merge_pkl_onto_inv(
         fmt_note = f"pkl_parser={inv_result.meta.format_id}"
         if fmt_pack.get("note"):
             fmt_note += f"; pkl_note={fmt_pack['note']}"
+        pkl_hits = fmt_hits
     else:
-        pkg, gw = parse_packing_pkg_gw(pkl_text)
+        with collecting() as pkl_hits:
+            pkg, gw = parse_packing_pkg_gw(pkl_text)
     header = replace(inv_result.header)
     pkl_used = False
     if pkg is not None:
@@ -934,6 +941,7 @@ def merge_pkl_onto_inv(
     if fmt_note:
         extra += f"; {fmt_note}"
     meta.notes = f"{note}; {extra}".strip("; ") if note else extra
+    record(meta, pkl_hits)
 
     return ExtractResult(header=header, items=list(inv_result.items), meta=meta)
 

@@ -34,6 +34,7 @@ from invoice_extractor.formats import (
     ohizumi_dongguan_v1,
     oukai_v1,
 )
+from invoice_extractor.fallback import collecting, record
 from invoice_extractor.schema import ExtractResult, Header, Meta
 
 Extractor = Callable[[str, str, str, bool], ExtractResult]
@@ -90,7 +91,10 @@ def apply_format(
 ) -> ExtractResult:
     for fid, _, extractor in BUILTIN:
         if fid == format_id:
-            return extractor(path, text, backend, needs_ocr)
+            with collecting() as hits:
+                result = extractor(path, text, backend, needs_ocr)
+            record(result.meta, hits)
+            return result
     raise KeyError(f"unknown format_id: {format_id}")
 
 

@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor.fallback import fallback
 from invoice_extractor.schema import ExtractResult, Header, Item, Meta, us_float
 
 MATCH_HINTS = {
@@ -122,7 +123,7 @@ def extract_from_text(
     if m_pk:
         pkg = float(m_pk.group(1))
     if pkg is None and re.search(r"PACKED IN EIGHT PALLETS", text, re.I):
-        pkg = 8.0
+        pkg = fallback("total_pkg", 8.0, "dunan:packed_in_eight_pallets")
     # Packing list: TOTAL:8PALLETS ... 3326.00
     m_gw = re.search(
         r"([\d,]+\.\d{2})\s+([\d,]+\.\d{2})\s+([\d.]+)\s*$",
@@ -140,7 +141,7 @@ def extract_from_text(
     if gw is None:
         m_gw3 = re.search(r"(\d{4}\.\d{2})\s+(\d{4}\.\d{2})\s+[\d.]+", text)
         if m_gw3:
-            gw = us_float(m_gw3.group(1))
+            gw = fallback("gross_weight_kg", us_float(m_gw3.group(1)), "dunan:first_weight_pair_anywhere")
 
     if amount is None and items:
         amount = round(sum(it.amount or 0 for it in items), 2)

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor.fallback import fallback
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -164,12 +165,12 @@ def extract_from_text(
     if "PACKING LIST" in text.upper() or "PACKING" in text.upper():
         m_pkg = re.search(r"(\d+)\s*(?:PALLET|PLT|plt)", text, re.I)
         if m_pkg:
-            total_pkg = float(m_pkg.group(1))
+            total_pkg = fallback("total_pkg", float(m_pkg.group(1)), "shanghai_nature:first_PALLET_anywhere")
         # OCR packing often has volume line "0.80" CBM and NW/GW columns — soft
         m_gw = re.search(r"([\d.]+)\s*KGS?", text, re.I)
         if m_gw:
             try:
-                gw = us_float(m_gw.group(1))
+                gw = fallback("gross_weight_kg", us_float(m_gw.group(1)), "shanghai_nature:first_KGS_anywhere")
             except ValueError:
                 gw = None
 
