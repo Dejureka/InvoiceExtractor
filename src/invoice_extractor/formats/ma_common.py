@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor import windows
 from invoice_extractor.schema import us_float
 
 # Line-item HS appears after Weight / Dispatch element / EAN rows; GEH Brake Fluid
@@ -23,8 +24,10 @@ _NEXT_ITEM = re.compile(
 )
 
 
-def find_hs_after_item(lines: list[str], item_idx: int, *, max_ahead: int = 55) -> str | None:
+def find_hs_after_item(lines: list[str], item_idx: int, *, max_ahead: int | None = None) -> str | None:
     """Return first HS CODE after a line-item row, before the next item."""
+    if max_ahead is None:
+        max_ahead = windows.MA_HS_LINES_AFTER_ITEM
     end = min(item_idx + 1 + max_ahead, len(lines))
     for j in range(item_idx + 1, end):
         if _NEXT_ITEM.match(lines[j]):
@@ -132,7 +135,7 @@ def parse_ak_units(text: str) -> dict[str, float]:
         # the HU id and Gross, or Gross may already be on the HU line with Net
         # on the next page). Stop at the next HU, the type-summary block, or
         # the printed totals. Skip POS-no / Net Val / footer noise.
-        end = min(i + 25, len(lines))
+        end = min(i + windows.MA_AK_GROSS_LINES_AFTER_HU, len(lines))
         for j in range(i, end):
             if j > i and (_AK_HU.match(lines[j]) or _AK_SUMMARY.match(lines[j]) or _AK_STOP.search(lines[j])):
                 break

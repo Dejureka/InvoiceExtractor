@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor import windows
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -101,7 +102,7 @@ def _mixed_package_total(after_total: str, first_count: float) -> float:
     Prefer the printed ``N PACKAGES`` sum; otherwise add each extra
     unit-label + count pair to the first (TOTAL-row) count.
     """
-    window = after_total.splitlines()[1:9]
+    window = after_total.splitlines()[1 : 1 + windows.HITACHI_GLS_PKG_LINES]
     for ln in window:
         if re.search(r"\bTOTAL\s*:", ln):
             break
@@ -128,7 +129,7 @@ def _row_description(lines: list[str], i: int, col: int) -> str | None:
     the same text lines, so only text at/right of the row's item column counts.
     Skip blank slices (marks-only lines); stop at the next PO / item / total.
     """
-    for j in range(i + 1, min(i + 3, len(lines))):
+    for j in range(i + 1, min(i + windows.HITACHI_GLS_DESC_LINES, len(lines))):
         sl = lines[j][col:].strip() if len(lines[j]) > col else ""
         if not sl:
             continue
@@ -236,14 +237,14 @@ def extract_from_text(
         rest = text[m_hdr.end() :]
         # stop at second Item# or packing contents duplication of same GRAND after first
         m_stop = re.search(r"GRAND TOTAL:\s+[\d,]+\s+PCS\s+J[¥￥][\d,]+", rest, re.I)
-        block = rest[: m_stop.end()] if m_stop else rest[:8000]
+        block = rest[: m_stop.end()] if m_stop else rest[: windows.HITACHI_GLS_BLOCK_CHARS]
         lines = block.splitlines()
         for i, line in enumerate(lines):
             m = _LINE.match(line)
             if not m:
                 continue
             part = None
-            for j in range(i + 1, min(i + 3, len(lines))):
+            for j in range(i + 1, min(i + windows.HITACHI_GLS_PN_LINES, len(lines))):
                 pm = _PN.search(lines[j])
                 if pm:
                     part = pm.group(1)

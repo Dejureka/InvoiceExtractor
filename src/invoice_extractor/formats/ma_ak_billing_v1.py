@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor import windows
 from invoice_extractor.formats.ma_common import parse_ak_packages, parse_ak_units
 from invoice_extractor.schema import (
     ExtractResult,
@@ -156,7 +157,7 @@ def _parse_items(text: str, invoice_no: str | None, currency: str | None) -> lis
         hs = None
         origin = None
         # Scan following lines until next item
-        for j in range(i + 1, min(i + 45, len(lines))):
+        for j in range(i + 1, min(i + windows.MA_AK_LINES_AFTER_ITEM, len(lines))):
             ln = lines[j]
             if _ITEM.match(ln) or _NEXT_ITEM.match(ln):
                 break

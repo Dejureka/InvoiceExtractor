@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor import windows
 from invoice_extractor.schema import ExtractResult, Header, Item, Meta, us_float
 
 MATCH_HINTS = {
@@ -99,7 +100,7 @@ def extract_from_text(
             # look ahead for BHC NO within next 6 lines
             pn = None
             desc = re.sub(r"\s+", " ", m.group("desc")).strip()
-            for j in range(i + 1, min(i + 8, len(lines))):
+            for j in range(i + 1, min(i + windows.HITACHI_ASIA_BHC_NO_LINES, len(lines))):
                 mb = _BHC.search(lines[j])
                 if mb:
                     pn = mb.group("pn").upper()

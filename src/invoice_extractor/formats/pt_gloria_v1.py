@@ -10,6 +10,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from invoice_extractor import windows
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -369,7 +370,7 @@ def _parse_items(text: str, invoice_no: str | None, currency: str | None) -> lis
         origin = None
         hs = None
         # look ahead 1-3 lines for origin/HS
-        for j in range(i + 1, min(i + 4, len(lines))):
+        for j in range(i + 1, min(i + windows.PT_GLORIA_ORIGIN_HS_LINES, len(lines))):
             om = re.search(
                 r"\b([A-Z]{2})\s+(\d{8,10})\b",
                 lines[j],

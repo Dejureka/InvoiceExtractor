@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor import windows
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -227,7 +228,7 @@ def _parse_items(
         origin = None
         hs = None
         desc = None
-        for j in range(i + 1, min(i + 12, len(lines))):
+        for j in range(i + 1, min(i + windows.PT_H5_LINES_AFTER_ITEM, len(lines))):
             if _MAT.search(lines[j]):
                 break
             # COO + HSN may be on one line (pdftotext layout)

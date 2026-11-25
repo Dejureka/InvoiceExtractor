@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor import windows
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -80,7 +81,7 @@ def extract_from_text(
     m_inv = re.search(r"Invoice\s+No\.\s+(VKT\d+)", text, re.I)
     invoice_no = m_inv.group(1) if m_inv else None
 
-    m_date = re.search(r"Date\s+(\S[^\n]{0,30})", ci)
+    m_date = re.search(rf"Date\s+(\S[^\n]{{0,{windows.NIDEC_DATE_CHARS}}})", ci)
     invoice_date = None
     if m_date:
         invoice_date = en_date_to_iso(m_date.group(1).strip())

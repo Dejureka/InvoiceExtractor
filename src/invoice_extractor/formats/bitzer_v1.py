@@ -9,6 +9,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from invoice_extractor import windows
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -147,7 +148,7 @@ def _parse_multiline_items(
         if not mat_m or qty is None:
             continue
         price = eu_float(price_m.group(1))
-        after = block[price_m.end() : price_m.end() + 120]
+        after = block[price_m.end() : price_m.end() + windows.BITZER_PRICE_TAIL_CHARS]
         val_m = _EU_MONEY_RE.search(after) or re.search(r"([\d.,]+)", after)
         value = eu_float(val_m.group(1)) if val_m else round(qty * price, 2)
         desc_m = _DESC_BLOCK_RE.search(block)
@@ -221,7 +222,7 @@ def _parse_final_amount(text: str) -> float | None:
     m = re.search(r"Final amount\b", text)
     if not m:
         return None
-    window = text[m.end() : m.end() + 400]
+    window = text[m.end() : m.end() + windows.BITZER_FINAL_AMOUNT_CHARS]
     cands = _EU_MONEY_RE.findall(window)
     if not cands:
         return None
@@ -265,7 +266,7 @@ def extract_from_text(
     ci = _commercial_invoice_chunk(text)
     m_inv = re.search(
         r"(?:Number\s*/\s*Doc\.\s*date\s*/\s*Print\s*date|Commercial Invoice)"
-        r"[\s\S]{0,200}?(\d{6,12})\s*/\s*(\d{2}\.\d{2}\.\d{4})",
+        rf"[\s\S]{{0,{windows.BITZER_INVNO_GAP_CHARS}}}?(\d{{6,12}})\s*/\s*(\d{{2}}\.\d{{2}}\.\d{{4}})",
         ci,
         re.I,
     )
