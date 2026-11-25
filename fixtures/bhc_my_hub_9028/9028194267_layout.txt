@@ -1,0 +1,57 @@
+                                                                                                                                            Invoice
+
+ Consignee:                                                                          Invoice Number:           Invoice Date:                 Page:
+   Bosch Home Comfort Taiwan Co., Ltd.                                                  9028194267                25.11.2026                 1/1
+   No. 63 NANKING EAST ROAD,SEC,3
+                                                                                                     FCM0F93ZP0V9NBSRBW8MA88M10
+   TAIPEI 10636
+   TAIWAN
+                                                                                     Supplier Reference: BHCWHYTW2611005
+
+                                                                                     Terms of Payment:
+                                                                                        NT30, Net Due 30 Days from Invoice Date
+
+                                                                                        CIF Taipei
+
+
+
+
+ Bill To / Accountee:
+     Bosch Home Comfort Taiwan Co., Ltd.
+     No. 63 NANKING EAST ROAD,SEC,3
+     TAIPEI 10636
+     TAIWAN
+
+
+
+ PART NO                       DESCRIPTION               HS CODE COO            PO NO                LINE NO    QUANTITIES UNIT PRICE TOTAL AMOUNT
+                                                                                                                   (UNITS)     (USD)           (USD)
+
+ 2AH32687WHA                   CONTROL AS.                          China       P10062527             60           68.00 PCS        35.71            2,428.28
+ 2AH32687WHA                   CONTROL AS.                          China       P10062567             30         412.00 PCS         35.71        14,712.52
+
+
+
+
+                                                                                                                                  TOTALS:        17,140.80
+
+
+
+
+                                                                    FCM0F93ZP0V9NBSRBW8MA88M10
+
+
+
+
+ "Diversion Contrary to U.S. Law is prohibited"
+
+
+
+Bosch Home Comfort Supply (M) Sdn. Bhd.                               MY-HUB FINANCE                            Company Reg.No.: 201501017357(1142691-U)
+                                                                                                                OS ICP Code: BL4330999999999
+(formerly Johnson Controls Air Conditioning Supply (M) Sdn. Bhd.)                                               E&OE
+Jalan Wisma Pantai, Kg. Gajah,
+G-01, Ground Floor, Wisma Pantai,
+Butterworth
+12200                                                                  (CHLOE LEE)
+

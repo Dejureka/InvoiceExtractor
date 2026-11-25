@@ -18,7 +18,7 @@ from invoice_extractor.schema import (
 )
 
 MATCH_HINTS = {
-    "filename_regex": r"INV_9027|TA2608|BHCWHY|9027\\d{6}",
+    "filename_regex": r"INV_902\d{7}|TA2608|BHCWHY|902\d{7}",
     "keywords": [
         "Bosch Home Comfort Supply",
         "Invoice Number",
@@ -68,7 +68,7 @@ def match_score(text: str, filename: str = "") -> float:
     score = 0.0
     fn = filename.upper()
     # Filename alone is weak — require BHC-ish name tokens (not bare INV_ which SOE also uses)
-    if re.search(r"9027\d{6}", fn) or "TA2608" in fn or "BHCWHY" in fn:
+    if re.search(r"902\d{7}", fn) or "TA2608" in fn or "BHCWHY" in fn:
         score += 0.3
     elif "INV_" in fn and (
         "Bosch Home Comfort Supply" in text or "MY-HUB" in text or "PART NO" in text
@@ -101,18 +101,27 @@ def match_score(text: str, filename: str = "") -> float:
 
 
 def _invoice_no(text: str) -> str | None:
-    # Layout: label row then value row under "Invoice Number:"
+    # Layout: label row then value row under "Invoice Number:" / "Invoice Date:".
+    # pdftotext -layout puts the consignee name on that value row; the padding
+    # before the invoice number is often wider than 80 characters, so search
+    # the whole following line for a 10-digit number sitting next to the date.
     m = re.search(
-        r"Invoice Number:\s*Invoice Date:[^\n]*\n\s*\S[^\n]{0,80}?\b(\d{10})\b\s+(\d{2}\.\d{2}\.\d{4})",
+        r"Invoice Number:\s*Invoice Date:[^\n]*\n[^\n]*\b(\d{10})\b\s+(\d{2}\.\d{2}\.\d{4})",
         text,
     )
     if m:
         return m.group(1)
+    # Same-line or stacked label/value (pdfminer/pymupdf reading order)
     m = re.search(r"Invoice Number:\s*(\d{8,12})", text)
     if m:
         return m.group(1)
-    # filename-style fallback in body / supplier ref page stamp
-    m = re.search(r"\b(9027\d{6})\b", text)
+    # MY-HUB commercial invoice numbers are the 10-digit 902xxxxxxx family.
+    # Prefer a number that sits next to the invoice date so a 9027 HS code
+    # or a PO/delivery reference is not picked up first.
+    m = re.search(r"\b(902\d{7})\b\s+(\d{2}\.\d{2}\.\d{4})", text)
+    if m:
+        return m.group(1)
+    m = re.search(r"\b(902\d{7})\b", text)
     return m.group(1) if m else None
 
 

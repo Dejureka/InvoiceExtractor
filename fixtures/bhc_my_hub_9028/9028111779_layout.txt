@@ -1,0 +1,105 @@
+                                                                                                                                          Invoice
+
+ Consignee:                                                                          Invoice Number:           Invoice Date:               Page:
+   Bosch Home Comfort Taiwan Co., Ltd.                                                  9028111779                12.11.2026               1/2
+   No. 63 NANKING EAST ROAD,SEC,3
+                                                                                                      58PN47N9AH95Y5XQG1Q4P67M10
+   TAIPEI 10636
+   TAIWAN
+                                                                                     Supplier Reference: BHCWHYTW2611001
+
+ Notify:                                                                             Terms of Payment:
+   TRANS VAN LINKS EXPRESS CORP                                                         NT30, Net Due 30 Days from Invoice Date
+   3FL,NO.217 SEC 3. NANKING EAST ROAD, TAIPEI, TAIWAN
+                                                                                        CIF Taipei
+
+                                                                                        V.V GLORY OCEAN V.2645S
+
+
+ Bill To / Accountee:                                                                   ON: 12 NOV 2026
+     Bosch Home Comfort Taiwan Co., Ltd.                                                FROM: SHANGHAI,CHINA
+     No. 63 NANKING EAST ROAD,SEC,3                                                     TO: KEELUNG,TW
+     TAIPEI 10636
+     TAIWAN
+
+
+
+ PART NO                       DESCRIPTION               HS CODE COO            PO NO                LINE NO    QUANTITIES UNIT PRICE TOTAL AMOUNT
+                                                                                                                   (UNITS)     (USD)         (USD)
+
+ 1AH14134B                     IN.ELE.AS.                           China       P10059926             30        1,008.00 PCS      20.66        20,825.28
+ 1FA14284A                     PWR.PCB AS.                          China       P10062446            130        1,580.00 PCS      29.57        46,720.60
+ 2FA35318B                     IPM PCB AS.                          China       P10062446            190         156.00 PCS       42.15            6,575.40
+ 2FA35318B                     IPM PCB AS.                          China       P10062446            200           36.00 PCS      42.15            1,517.40
+ 1FA14284B                     PWR.PCB AS.                          China       P10062686             70         280.00 PCS       35.50            9,940.00
+ 2FA35460A                     PWR.FILTER AS.                       China       P10062686            120         898.00 PCS       14.19        12,742.62
+ 1FA14297A                     PWR.PCB AS.                          China       P10060614             50         156.00 PCS       54.45            8,494.20
+ 1FA14297A                     PWR.PCB AS.                          China       P80016749             70         685.00 PCS       54.45        37,298.25
+ 3AH04543WHA                   ANTI AS.                             China       P80016749            180           26.00 PCS       5.30             137.80
+ 3AH04541WHA                   ANTI AS.                             China       P80016749            230           25.00 PCS       5.18             129.50
+ 2AH32424WHA                   ELE.AS.                              China       P80016749            300         969.00 PCS        8.46            8,197.74
+ 1FA14297A                     PWR.PCB AS.                          China       P10061368             70         242.00 PCS       54.45        13,176.90
+ 1FA14297A                     PWR.PCB AS.                          China       P10061504             50         453.00 PCS       54.45        24,665.85
+ 1FA14318B                     MAIN PCB AS.                         China       P10059113             20         120.00 PCS       27.98            3,357.60
+ 2AH32424WHA                   ELE.AS.                              China       P10061071             20         586.00 PCS        8.46            4,957.56
+ 2AH32427WHA                   ELE.AS.                              China       P10061712             80            7.00 PCS      11.96              83.72
+ 2AH33426A                     ELE.AS.                              China       P10057544             50         276.00 PCS       10.76            2,969.76
+ 2FA31127WHA                   SMD PCB AS.                          China       P10061712            100        1,424.00 PCS       1.71            2,435.04
+ 2FA31137WHA                   MAIN PCB AS.                         China       P10058668             90         720.00 PCS        4.87            3,506.40
+ 2FA31137WHA                   MAIN PCB AS.                         China       P10058800            100         720.00 PCS        4.87            3,506.40
+ 2FA31137WHA                   MAIN PCB AS.                         China       P10059009            110         480.00 PCS        4.87            2,337.60
+ 2FA35318C                     IPM PCB AS.                          China       P10061936             20           64.00 PCS      48.74            3,119.36
+ 2FA35460B                     PWR.FILTER AS.                       China       P10061936             50           13.00 PCS      21.42             278.46
+ 2FA35318C                     IPM PCB AS.                          China       P10061988             70           18.00 PCS      48.74             877.32
+ 2FA35318C                     IPM PCB AS.                          China       P10062120             50           14.00 PCS      48.74             682.36
+
+ "Diversion Contrary to U.S. Law is prohibited"
+
+
+
+Bosch Home Comfort Supply (M) Sdn. Bhd.                               MY-HUB FINANCE                            Company Reg.No.: 201501017357(1142691-U)
+                                                                                                                OS ICP Code: BL4330999999999
+(formerly Johnson Controls Air Conditioning Supply (M) Sdn. Bhd.)                                               E&OE
+Jalan Wisma Pantai, Kg. Gajah,
+G-01, Ground Floor, Wisma Pantai,
+Butterworth
+12200                                                                  (CHLOE LEE)
+                                                                                                                                       Invoice
+
+ Invoice Number:                                                    Invoice Date:                                            Page:
+    9028111779                                                         12.11.2026                                            2/2
+
+
+ PART NO                       DESCRIPTION               HS CODE COO                   PO NO       LINE NO   QUANTITIES UNIT PRICE TOTAL AMOUNT
+                                                                                                               (UNITS)      (USD)         (USD)
+
+ 3AH04541WHA                   ANTI AS.                                 China          P10059994    40         31.00 PCS        5.18          160.58
+ 3AH04541WHA                   ANTI AS.                                 China          P10060784    50        130.00 PCS        5.18          673.40
+ 3AH04543WHA                   ANTI AS.                                 China          P10060784    60         68.00 PCS        5.30          360.40
+ 3AH04543WHA                   ANTI AS.                                 China          P10061258    70         26.00 PCS        5.30          137.80
+
+
+
+
+ SHIPPING MARKS: N/M                                                                                                        TOTALS:        219,865.30
+
+
+
+
+                                                                         58PN47N9AH95Y5XQG1Q4P67M10
+
+
+
+
+ "Diversion Contrary to U.S. Law is prohibited"
+
+
+
+Bosch Home Comfort Supply (M) Sdn. Bhd.                                  MY-HUB FINANCE                      Company Reg.No.: 201501017357(1142691-U)
+                                                                                                             OS ICP Code: BL4330999999999
+(formerly Johnson Controls Air Conditioning Supply (M) Sdn. Bhd.)                                            E&OE
+Jalan Wisma Pantai, Kg. Gajah,
+G-01, Ground Floor, Wisma Pantai,
+Butterworth
+12200                                                                    (CHLOE LEE)
+
