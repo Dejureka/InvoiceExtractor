@@ -11,7 +11,7 @@ rule name are remembered for the extraction running right now
 
 * always a note ``fallback[<field>]=<rule>`` (step A, Result values unchanged);
 * when :data:`FLAG_FALLBACKS` is on, the field also goes into
-  ``meta.needs_gold_fields`` so the checker verdict becomes needs_gold and a
+  ``meta.needs_gold_fields`` (and ``needs_gold`` is set) so the checker verdict becomes needs_gold and a
   person checks that one field (step B).
 
 Rule: a fallback that reads a value next to its own label is *not* a fallback
@@ -26,8 +26,11 @@ from typing import Iterator, TypeVar
 
 T = TypeVar("T")
 
-# Step A (note only). Step B turns this on.
-FLAG_FALLBACKS = False
+# Step B: a fallback value is only a suggestion → the field needs a person.
+FLAG_FALLBACKS = True
+# Extracted but not a Result column (validator/meta only): note, never a flag,
+# so a guessed date does not send a whole Result row to manual review.
+NOTE_ONLY_FIELDS = frozenset({"invoice_date"})
 
 _HITS: ContextVar[list[tuple[str, str]] | None] = ContextVar("fallback_hits", default=None)
 
@@ -60,9 +63,13 @@ def record(meta, hits: list[tuple[str, str]]) -> None:
     extra = "; ".join(f"fallback[{f}]={r}" for f, r in hits)
     note = (meta.notes or "").strip()
     meta.notes = f"{note}; {extra}" if note else extra
-    if FLAG_FALLBACKS:
+    flag = [f for f, _ in hits if f not in NOTE_ONLY_FIELDS]
+    if FLAG_FALLBACKS and flag:
         fields = list(meta.needs_gold_fields or [])
-        for f, _ in hits:
+        for f in flag:
             if f not in fields:
                 fields.append(f)
         meta.needs_gold_fields = fields
+        # any needs_gold field ⇒ row needs_gold (same rule as pairing / pt_gloria)
+        meta.needs_gold = True
+        meta.confidence = "needs_gold"
