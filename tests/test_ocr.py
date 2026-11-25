@@ -7,12 +7,15 @@ from unittest.mock import patch
 
 import pytest
 
+import samples
+from conftest import require_samples
+
 from invoice_extractor.ocr import OCR_BACKEND, find_tesseract, is_ocr_backend, tesseract_available
 from invoice_extractor.rules_engine import extract_invoice
 from invoice_extractor.text_layer import backend_warning, extract_layout_text, extract_text
 
-CASE7_INV = Path("/workspace/bhc_cases_round/bhc/case7/invoice309.pdf")
-CASE7_PKL = Path("/workspace/bhc_cases_round/bhc/case7/packing309.pdf")
+CASE7_INV = samples.path("unit/bhc_cases_round/case7/invoice309.pdf")
+CASE7_PKL = samples.path("unit/bhc_cases_round/case7/packing309.pdf")
 
 
 def test_is_ocr_backend():
@@ -86,7 +89,7 @@ def test_rules_engine_uses_ocr_text_same_path():
         assert "ocr" not in (d["meta"]["format_id"] or "")
 
 
-@pytest.mark.skipif(not CASE7_INV.is_file(), reason="case7 invoice309.pdf missing")
+@pytest.mark.private_samples("unit/bhc_cases_round/case7/invoice309.pdf")
 @pytest.mark.skipif(not tesseract_available(), reason="tesseract not installed")
 def test_case7_invoice_ocr_smoke():
     text, backend, needs = extract_layout_text(CASE7_INV)
@@ -106,7 +109,7 @@ def test_case7_invoice_ocr_smoke():
     assert "empty text layer" not in (d["meta"].get("notes") or "")
 
 
-@pytest.mark.skipif(not CASE7_PKL.is_file(), reason="case7 packing309.pdf missing")
+@pytest.mark.private_samples("unit/bhc_cases_round/case7/packing309.pdf")
 @pytest.mark.skipif(not tesseract_available(), reason="tesseract not installed")
 def test_case7_packing_ocr_smoke():
     text, backend, needs = extract_text(CASE7_PKL)

@@ -6,11 +6,14 @@ from pathlib import Path
 
 import pytest
 
+import samples
+from conftest import require_samples
+
 from invoice_extractor.bl_rules_engine import classify_bl, extract_bl, looks_like_bl_filename
 from invoice_extractor.checker_bl import hard_check_bl
 
-ROOT = Path("/workspace/bhc_cases_round/bhc")
-TEXT = Path("/workspace/bhc_bl_text")
+ROOT = samples.path("unit/bhc_cases_round")
+TEXT = samples.path("unit/bhc_bl_text")
 
 SAMPLES = [
     (
@@ -32,10 +35,10 @@ SAMPLES = [
 
 
 @pytest.mark.parametrize("case,fname,fmt,bl", SAMPLES)
+@pytest.mark.private_samples()
 def test_classify_and_extract(case, fname, fmt, bl):
     pdf = ROOT / case / fname
-    if not pdf.is_file():
-        pytest.skip(f"missing {pdf}")
+    require_samples(f"unit/bhc_cases_round/{case}/{fname}")
     result = extract_bl(pdf)
     data = result.to_dict()
     assert data["meta"]["format_id"] == fmt
@@ -45,6 +48,7 @@ def test_classify_and_extract(case, fname, fmt, bl):
     assert hard["verdict"] == "pass", hard
 
 
+@pytest.mark.private_samples("unit/bhc_bl_text")
 def test_ceva_family_shared():
     """Cases 4/5/6 share one layout family, not one-per-forwarder-id."""
     ids = set()
@@ -64,7 +68,7 @@ def test_looks_like_bl_filename():
     assert not looks_like_bl_filename("TA2608B2_INV_9027451705.PDF")
 
 
-MA_ROOT = Path("/home/box/Downloads/MA_inv_bl_6")
+MA_ROOT = samples.path("unit/MA_inv_bl_6")
 MA_BL_SAMPLES = [
     ("90-S-26MA-524", "到貨通知 HBL005094.pdf", "HBL005094", 10.0, 3765.6),
     ("90-S-26MA-548", "到貨通知 HBL005135.pdf", "HBL005135", 63.0, 8337.15),
@@ -76,10 +80,10 @@ MA_BL_SAMPLES = [
 
 
 @pytest.mark.parametrize("folder,fname,bl,pkg,gw", MA_BL_SAMPLES)
+@pytest.mark.private_samples()
 def test_milestone_ma_arrival(folder, fname, bl, pkg, gw):
     pdf = MA_ROOT / folder / fname
-    if not pdf.is_file():
-        pytest.skip(f"missing {pdf}")
+    require_samples(f"unit/MA_inv_bl_6/{folder}/{fname}")
     result = extract_bl(pdf)
     data = result.to_dict()
     assert data["meta"]["format_id"] == "milestone_arrival_v1"
@@ -91,13 +95,12 @@ def test_milestone_ma_arrival(folder, fname, bl, pkg, gw):
     assert hard["verdict"] == "pass", hard
 
 
+@pytest.mark.private_samples("unit/MA_inv_bl_6")
 def test_milestone_family_shared():
     """All six MA 到貨通知 share one layout family."""
     ids = set()
     for folder, fname, *_ in MA_BL_SAMPLES:
         pdf = MA_ROOT / folder / fname
-        if not pdf.is_file():
-            pytest.skip(f"missing {pdf}")
         from invoice_extractor.text_layer import extract_layout_text
 
         text, _, _ = extract_layout_text(pdf)

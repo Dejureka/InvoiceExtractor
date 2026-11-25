@@ -7,7 +7,8 @@
 
 Unit tests feed fixture text + simulated re-reads; the ``real_*`` tests run
 the original scans when they are present on this machine and tesseract is
-installed (skipped otherwise, e.g. in CI).
+installed. A missing scan FAILS locally (private sample store) and is
+skipped only in CI; a missing tesseract is skipped.
 """
 
 from __future__ import annotations
@@ -16,13 +17,15 @@ from pathlib import Path
 
 import pytest
 
+import samples
+from conftest import require_samples
 from invoice_extractor.formats.bl import jif_cosmo_waybill_v1 as jif
 from invoice_extractor.formats.bl import tvl_hbl_v1 as tvl
 
 FX4 = Path(__file__).resolve().parents[1] / "fixtures" / "bhc4"
 FX5 = Path(__file__).resolve().parents[1] / "fixtures" / "bhc5"
-B4 = Path("/home/box/Downloads/BHC-batch-4th/BHC_4th data")
-B5 = Path("/home/box/Downloads/BHC-batch-5th/BHC_5th data")
+B4 = samples.path("regression/bhc4")
+B5 = samples.path("regression/bhc5")
 
 
 def _t(p: Path) -> str:
@@ -133,8 +136,9 @@ def test_remove_hlines_keeps_strokes_drops_hatch():
 def _real(path: Path):
     from invoice_extractor.ocr import find_tesseract
 
-    if not path.is_file() or find_tesseract() is None:
-        pytest.skip("source scan / tesseract not available")
+    require_samples(path.relative_to(samples.root()).as_posix())
+    if find_tesseract() is None:
+        pytest.skip("tesseract not available")
     from invoice_extractor.bl_rules_engine import extract_bl
 
     return extract_bl(path).to_dict()
@@ -149,6 +153,7 @@ def _real(path: Path):
         (B5 / "case 1" / "20260929142515-0001.pdf", "tvl_hbl_v1", "SHAKEL26971867", 6.0, 1195.5),
     ],
 )
+@pytest.mark.private_samples()
 def test_real_scan_gold(path, fmt, bl_no, pkg, gw):
     d = _real(path)
     h, m = d["header"], d["meta"]

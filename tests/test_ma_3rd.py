@@ -6,6 +6,9 @@ from pathlib import Path
 
 import pytest
 
+import samples
+from conftest import require_samples
+
 from invoice_extractor.bl_rules_engine import classify_bl, looks_like_bl_filename
 from invoice_extractor.checker import hard_check
 from invoice_extractor.checker_bl import hard_check_bl
@@ -18,7 +21,7 @@ from invoice_extractor.text_layer import (
 )
 
 FIX = Path(__file__).resolve().parents[1] / "fixtures"
-MA3 = Path("/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data")
+MA3 = samples.path("regression/ma3")
 
 
 def _t(name: str) -> str:
@@ -195,10 +198,10 @@ def test_bl_ok_keeps_inv_pass():
         ("RBJPsea/90-KWE-26MA-081", 2, "kwe_sea_waybill_v1", "122040103342", 2.0, 69.0),
     ],
 )
+@pytest.mark.private_samples()
 def test_ma3_folder_pairs_inv_with_bl(folder, n_inv, bl_fmt, bl_no, bl_pkg, bl_gw):
     d = MA3 / folder
-    if not d.is_dir():
-        pytest.skip(f"missing {d}")
+    require_samples(f"regression/ma3/{folder}")
     from invoice_extractor.ocr import tesseract_available
     if bl_fmt == "kwe_sea_waybill_v1" and not tesseract_available():
         pytest.skip("tesseract not available")

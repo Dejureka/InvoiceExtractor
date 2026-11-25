@@ -2,22 +2,15 @@ from pathlib import Path
 
 import pytest
 
+import samples
+
 from invoice_extractor.checker import hard_check
 from invoice_extractor.formats import bitzer_v1
 from invoice_extractor.rules_engine import extract_invoice
 
-FIXTURE_TXT = Path("/workspace/InvoiceExtractor/fixtures/bitzer_3000214469.txt")
-FIXTURE_PDF_CANDIDATES = [
-    Path(
-        "/home/box/Downloads/BHC_invoice_samples/"
-        "3000214469_TW_708822_BOSCH_HOME_COMFORT_TAIWAN_CO_LTD__Versanddokument.pdf"
-    ),
-    Path(
-        "/home/box/Downloads/BHC_invoice_samples_mega/"
-        "3000214469_TW_708822_BOSCH_HOME_COMFORT_TAIWAN_CO_LTD__Versanddokument.pdf"
-    ),
-]
-FIXTURE_PDF = next((p for p in FIXTURE_PDF_CANDIDATES if p.is_file()), FIXTURE_PDF_CANDIDATES[0])
+FIXTURE_TXT = Path(__file__).resolve().parents[1] / "fixtures" / "bitzer_3000214469.txt"
+_PDF_REL = "unit/bitzer/3000214469_TW_708822_BOSCH_HOME_COMFORT_TAIWAN_CO_LTD__Versanddokument.pdf"
+FIXTURE_PDF = samples.path(_PDF_REL)
 
 EXPECTED_HEADER = {
     "invoice_no": "200167553",
@@ -54,7 +47,7 @@ def test_bitzer_header_from_txt():
     assert hard_check(data)["verdict"] == "pass"
 
 
-@pytest.mark.skipif(not FIXTURE_PDF.is_file(), reason="PDF missing")
+@pytest.mark.private_samples(_PDF_REL)
 def test_bitzer_from_pdf():
     r = extract_invoice(FIXTURE_PDF)
     assert r.header.invoice_no == "200167553"
@@ -63,7 +56,7 @@ def test_bitzer_from_pdf():
     assert len(r.items) == 5
 
 
-@pytest.mark.skipif(not FIXTURE_PDF.is_file(), reason="PDF missing")
+@pytest.mark.private_samples(_PDF_REL)
 def test_bitzer_without_pdftotext_pdfminer():
     """Simulate Windows portable without poppler: pdfminer backend must still get 5 lines."""
     from pdf_layout_text.convert import _via_pdfminer
@@ -77,7 +70,7 @@ def test_bitzer_without_pdftotext_pdfminer():
     assert hard_check(r.to_dict())["verdict"] == "pass"
 
 
-@pytest.mark.skipif(not FIXTURE_PDF.is_file(), reason="PDF missing")
+@pytest.mark.private_samples(_PDF_REL)
 def test_bitzer_without_pdftotext_pymupdf():
     pytest.importorskip("pymupdf")
     from pdf_layout_text.convert import _via_pymupdf

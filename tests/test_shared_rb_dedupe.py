@@ -14,6 +14,9 @@ import copy
 from pathlib import Path
 
 import pytest
+
+import samples
+from conftest import require_samples
 from openpyxl import load_workbook
 
 from invoice_extractor.export import SUMMARY_SHEET, write_extracts
@@ -22,7 +25,7 @@ from invoice_extractor.pairing import SHARED_RB_MODES, dedupe_shared_packing_uni
 
 A, B = "duplicate_only", "shipment_first"
 
-MA3 = Path("/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data")
+MA3 = samples.path("regression/ma3")
 
 
 def _d(inv, units, folder="/x/90-C-26MA-008", bl="COSU6431163410", pkg=None, gw=None, lines=1):
@@ -195,12 +198,12 @@ def test_unknown_mode_rejected():
          ["2120422517", "2120422518", "2120422519"]),
     ],
 )
+@pytest.mark.private_samples()
 def test_ma3_shared_rb_folders(mode, folder, expect, per_inv, noted):
     from invoice_extractor.pairing import auto_pair, extract_pair_row
 
     d = MA3 / folder
-    if not d.is_dir():
-        pytest.skip(f"missing {d}")
+    require_samples(f"regression/ma3/{folder}")
     datas = []
     for row in auto_pair(sorted(d.iterdir())):
         if row.inv_path:

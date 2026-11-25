@@ -2,11 +2,14 @@ from pathlib import Path
 
 import pytest
 
+import samples
+from conftest import require_samples
+
 from invoice_extractor.formats import pt_gloria_v1
 from invoice_extractor.rules_engine import extract_invoice
 
-FIXTURE_TXT = Path("/workspace/InvoiceExtractor/fixtures/pt_50656407_layout.txt")
-FIXTURE_PDF = Path("/workspace/msg_extract/PT GmbH invoice_2026_07_09/50656407.PDF")
+FIXTURE_TXT = Path(__file__).resolve().parents[1] / "fixtures" / "pt_50656407_layout.txt"
+FIXTURE_PDF = samples.path("unit/pt_msg_20260709/50656407.PDF")
 
 
 @pytest.mark.skipif(not FIXTURE_TXT.is_file(), reason="fixture missing")
@@ -21,7 +24,7 @@ def test_pt_invoice_no_from_layout_txt():
     assert len(r.items) >= 1
 
 
-@pytest.mark.skipif(not FIXTURE_PDF.is_file(), reason="PDF missing")
+@pytest.mark.private_samples("unit/pt_msg_20260709/50656407.PDF")
 def test_pt_from_pdf():
     r = extract_invoice(FIXTURE_PDF)
     assert r.header.invoice_no == "50656407"
