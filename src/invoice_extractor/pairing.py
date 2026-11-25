@@ -820,23 +820,13 @@ def parse_packing_pkg_gw(text: str) -> tuple[float | None, float | None]:
     )
     if m:
         pkg_h = float(m.group(1))
-        gw_h = None
-        # Prefer largest ###.## weight near induction/motor block, else first 1,174-style
-        gws = re.findall(r"\b([\d]{1,3},[\d]{3}\.\d{2}|[\d]{3,4}\.\d{2})\b", text)
-        # Filter plausible GW (50–50000)
-        cands = []
-        for g in gws:
-            v = us_float(g)
-            if v and 50 <= v <= 50000:
-                cands.append(v)
-        if cands:
-            # On Hitachi OCR line: qty NW GW CBM → GW is typically the larger of NW/GW pair
-            gw_h = max(cands) if len(cands) == 1 else sorted(cands)[-1]
-            # Prefer 1174-ish when both 977 and 1174 present
-            for v in cands:
-                if abs(v - 1174.0) < 1 or (1000 <= v <= 2000 and v != min(cands)):
-                    gw_h = v
-        gw_h = fallback("gross_weight_kg", gw_h, "pkl:hitachi_total_pallets_weight_guess")
+        # Item rows "… {qty} {NW} {GW} {CBM}" (header "SETS KGS. CLM."): GW is
+        # the 2nd weight column, summed over item rows (TOTAL rows skipped so a
+        # printed total is not counted twice). No such row → no guess (None).
+        row = re.compile(r"\b\d[\d,]*\s+[\d,]+\.\d{2}\s+([\d,]+\.\d{2})\s+\d+\.\d{3}\s*$")
+        gws = [us_float(r.group(1)) for ln in text.splitlines()
+               if not re.search(r"\bTOTAL\b", ln, re.I) and (r := row.search(ln))]
+        gw_h = round(sum(gws), 2) if gws else None
         return pkg_h, gw_h
 
     # "TOTAL … N PALLETS" / "Total N PALLETS"
