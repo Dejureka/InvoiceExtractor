@@ -88,11 +88,14 @@ f. **pass 條件：** validator hard＝0（或逐筆有結論）、warn 都有�
 ## 4. 回歸（改任何格式或 validator 前後）
 
 ```bash
-PYTHONPATH=src python3 -m pytest -q tests/test_validate_result.py tests/test_validate_audit_rules.py tests/test_gold_regression.py
-python3 tools/regression_batches.py --baseline out/regress/baseline --report out/regress/report.md
-# 第一次或在已審核通過的版本上重建基線：
-python3 tools/regression_batches.py --baseline out/regress/baseline --save-baseline --report out/regress/baseline-report.md
+python3 tools/samples.py --check
+PYTHONPATH=src python3 -m pytest -q tests/test_validate_result.py tests/test_validate_audit_rules.py tests/test_gold_regression.py tests/test_private_gold.py tests/test_window_margin.py
+python3 tools/regression_batches.py --report out/regress/report.md
+# 在已審核通過的版本上重建基線（寫進私有樣本區 regress-baseline/）：
+python3 tools/regression_batches.py --save-baseline --report out/regress/baseline-report.md
 ```
+
+- 原始檔、基線、單份 gold 都在私有樣本區 `$INVOICE_SAMPLES`（預設 `/workspace/invoice-samples/`，不進 PUBLIC repo）；缺檔或 sha256 不符時回歸與測試會 **fail**，不會默默 skip。
 
 - `tests/gold/` 是已審核批次（MA 3rd、PT 4th、BHC 4th～6th、eBike 1st、SOE 2nd、MA AK 74096）凍結的 Result 欄位；不含 needs_gold 及本機無法 OCR 的檔案。差異必須是 0。
 - 回歸報告逐列列出（批次、發票、欄位、基線值、現值），非 0 要逐筆說明給 Auditor。

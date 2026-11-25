@@ -77,10 +77,11 @@
   PYTHONPATH=src python3 -m invoice_extractor <樣本> --out out/audit/extracts.json
   python3 tools/validate_result.py out/audit/Result.xlsx --extract-json out/audit/extracts.json --out out/audit/findings.xlsx
   PYTHONPATH=src python3 -m pytest -q tests/test_validate_result.py tests/test_validate_audit_rules.py tests/test_gold_regression.py
-  python3 tools/regression_batches.py --baseline out/regress/baseline --report out/regress/report.md
+  python3 tools/samples.py --check          # 私有樣本都在、sha256 對得上
+  python3 tools/regression_batches.py --report out/regress/report.md   # baseline 預設 = 私有樣本區 regress-baseline/
   ```
 
-  hard 必須是 0（或逐筆說明）；回歸差異必須是 0（或逐筆說明）。warn 也要逐筆附說明（v2 起含 `W_NO_LABELED_TOTAL`：該格式沒抓到印出總額，Auditor 只能靠合計區截圖；新格式應盡量填 `meta.labeled_amount`）。審核通過併入 main 後，把新批次加進 `tests/gold/`（`tools/regression_batches.py` 的 BATCHES）。要退回舊流程：略過這一步，照 `AUDIT_REVIEW.md`。
+  hard 必須是 0（或逐筆說明）；回歸差異必須是 0（或逐筆說明）。warn 也要逐筆附說明（v2 起含 `W_NO_LABELED_TOTAL`：該格式沒抓到印出總額，Auditor 只能靠合計區截圖；新格式應盡量填 `meta.labeled_amount`）。審核通過併入 main 後，把新批次的**原始檔**放進私有樣本區 `regression/<batch>/`、跑 `python3 tools/samples.py --write` 更新 manifest，再加進 `tools/regression_batches.py` 的 BATCHES（見下方「樣本與 gold 放哪裡」）。要退回舊流程：略過這一步，照 `AUDIT_REVIEW.md`。
 - 依 **AuditSOP**：產出 JSON **與 invoice 頁面圖** 給 Auditor（圖文對照）；**硬校驗 pass ≠ 最終收件**，人／Auditor 點頭才算。
 
 ### 9. 寫進文件
@@ -180,10 +181,39 @@
 
 ---
 
+## 樣本與 gold 放哪裡（repo 是 PUBLIC）
+
+- **真實樣本不進 repo**：PDF／Excel／全文 `.txt`／含金額的 gold／email 都放 Bot 電腦的私有樣本區 `$INVOICE_SAMPLES`（預設 `/workspace/invoice-samples/`），說明見該資料夾的 `README.md`。repo 只放合成（假資料）fixture。
+- `manifest.csv` 記每個檔的 batch、sha256、大小；新增或換檔後跑 `python3 tools/samples.py --write`，檢查用 `--check`。
+- 需要私有樣本的測試加 `@pytest.mark.private_samples("<相對路徑>")`（或呼叫 `conftest.require_samples`）：**本機**檔案不在或 sha256 不符 → **fail**（不是 skip）；**CI**（GitHub Actions，沒有樣本區）→ skip，CI 另跑 `pytest -m "not private_samples"`。
+- 單份文件 gold（每欄核對過 PDF）：`gold/<名稱>.json`＋`tests/test_private_gold.py`。看起來錯的欄位寫進該筆的 `excluded`（附原因），**不凍結進 gold**，另列清單給 Auditor。
+- 審核包（`docs/review_shots/consolidation_*/`）只放說明文字；真實截圖放樣本區 `review/` 並用路徑引用。
+
+## 規則寫法的兩條硬規定（2026-11 收斂）
+
+- **無錨點的備援要標出來**：「全文第一個／最大的數字」「只靠字首」這類規則產出的值，一律包 `fallback(欄位, 值, "格式:規則名")`（`src/invoice_extractor/fallback.py`）。效果：`notes` 寫 `fallback[欄位]=規則名`，該欄位進 `needs_gold_fields`（Result 列 = needs_gold，人工確認）。Result 沒有的欄位（目前 `invoice_date`）只寫 note。
+- **固定長度的視窗放 `windows.py`**：往下看幾行／幾個字元的上限寫成具名常數，格式模組用 `windows.NAME` 讀。`tests/test_window_margin.py` 會把每個上限縮到 80% 跑全部樣本文字，輸出不能變；不過就改成「到下一個結構邊界（下一個 item／Marking／TOTAL 列）為止」，不要只把數字加大。
+
+## needs_gold 分流（BHC 人工補值 → Invoice）
+
+抽出來是 needs_gold、或 BHC 對 Result 補值時，照兩層分流：
+
+1. **BHC bot 先看文件。**
+   - **明顯的文件問題**（缺頁、手改、印章蓋住數字…）：BHC bot 自己判定、自己補值，不轉 Invoice。
+   - **原因不明，或文件看起來正常但還是抽錯** → 算**規則缺陷**，轉 Invoice。
+2. **BHC 掃描檔不進 extractor**：BHC bot 直接看圖判讀，標「人工判讀」。
+3. **已支援的版式抽錯**：第一次出現就修（走本 FormatSOP 的修 bug 流程：只改原本錯／空的欄位，逐值對 PDF，回歸差異逐筆說明）。
+4. **全新版式**：不急著寫規則，大約收到**第 3 份**樣本時才跑 FormatSOP（第 1 步「收樣本」要有 2～3 份）。
+5. **新格式上線前**：人工補值的那票 shipment 照樣要出 delta，標「人工判讀／待新格式」。要不要寫進 master file 由使用者決定。
+6. **人工補值紀錄**：`/workspace/bhc-plan/manual_fill_log.md`（Bot 電腦，不進 repo），**一個欄位一列**（日期、B/L、發票號、format_id、欄位、extractor 值、補值、依據檔名＋頁碼、原因：文件／規則／未定、已轉 Invoice、Invoice 結論）。Invoice 讀這份檔，把「已轉 Invoice = Y」的列記進 needs_gold 清單，照第 3、4 點處理後回填「Invoice 結論」。
+
+---
+
 ## 修訂紀錄
 
 | 日期 | 說明 |
 |------|------|
+| 2026-11-25 | 收斂第 1、2 階段：真實樣本改放私有樣本區＋manifest（缺檔 fail 不 skip；CI 跑不需樣本的測試）；8 個無測試格式加私有 gold；`fallback()` 標無錨點備援（→ needs_gold_fields）；視窗上限集中 `windows.py`＋80% 測試；新增「needs_gold 分流」與「樣本與 gold 放哪裡」兩節 |
 | 2026-11-23 | `bhc_vendor_ci_v1` saginomiya：明細數量單位改認 `pc`／`pc.`／`pcs`／`pcs.`（大小寫皆可），不再漏掉印 `1 pc.` 的列（T262288 第 22 項 4326958 DNS-D606MQ）；G.W. 仍留空＋用 BL G.W.；review `docs/review_shots/saginomiya_T262288/` |
 | 2026-11-10 | eBike 單價規則改為 Unt＝amount／qty（四捨五入 6 位，比照 SOE 衍生單價）；不再把發票印的每 100 PC 單價寫進 Unt；qty／amount 照印；`pricing_unit` 不寫入（hard_check 以每 1 件核對）；review `docs/review_shots/ebike_1st_r2/` |
 | 2026-11-10 | eBike 1st（18 張 Invoice，AX00011132–AX00011149，同一 consignment 0050142328）：新 `ebike_ax_billing_v1`（Energy and Body Systems Kft AX Billing；歐式數字 EUR、Pricing Unit、標籤件數／毛重；HS soft（缺碼留空＋警告，MA／PT／SOE 仍 hard）；使用者確認不用 shipment_first、AX00011148 行 NW 照印 `8.292,000 KG`＋Summary 附註、AX00011144 Copy 當正式發票）；`ma_ak_billing_v1` 對 AX／Energy and Body Systems 扣分以免誤吃；AX00011144／11145 整張、AX00011148 的 EB13.900.025-VE4 發票未印 Commodity Code；AX00011148 行 NW `8.292,000 KG` 與 Total Net Weight 33,097 不符（照印、附註）；review `docs/review_shots/ebike_1st/` |
