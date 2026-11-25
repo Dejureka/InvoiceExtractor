@@ -1,4 +1,4 @@
-"""Count words + dunan packing totals without case values (synthetic text)."""
+"""Count words + dunan / ohizumi packing totals without case values (synthetic text)."""
 from __future__ import annotations
 
 import pytest
@@ -30,3 +30,11 @@ def test_total_row_gives_gw_not_first_pallet_group():
 def test_packed_in_words_when_no_total_row():
     h = extract_from_text(HEAD + "PACKED IN THIRTEEN PALLETS ONLY\n").header
     assert h.total_pkg == 13.0
+
+
+def test_ohizumi_cartons_in_words_any_number():
+    from invoice_extractor.formats.ohizumi_dongguan_v1 import extract_from_text as ohizumi
+
+    for words, n in (("TWENTY-TWO", 22), ("TWENTY-FOUR", 24), ("NINE", 9)):
+        h = ohizumi(f"DONGGUAN OHIZUMI\nTOTAL :{words} ({n})CARTONS\n").header
+        assert h.total_pkg == float(n)
