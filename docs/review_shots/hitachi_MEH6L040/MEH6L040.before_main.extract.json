@@ -1,0 +1,155 @@
+{
+  "header": {
+    "invoice_no": "MEH6L040",
+    "invoice_date": "2026-11-20",
+    "total_pkg": 2.0,
+    "gross_weight_kg": 931.0,
+    "incoterm": "F.O.B. SHIMIZU, JAPAN",
+    "item_line_count": 6,
+    "total_quantity": 446.0,
+    "amount": 2741527.0,
+    "currency": "JPY",
+    "vendor": "Hitachi Global Life Solutions, Inc.",
+    "origin": "JP",
+    "hs_code": null,
+    "bl_no": null,
+    "bl_packages": null,
+    "bl_gross_weight_kg": null,
+    "summary_note": null
+  },
+  "items": [
+    {
+      "invoice_no": "MEH6L040",
+      "part_no": "PSC-6RAD",
+      "description": "ACCESSORY : RAC ADAPTOR",
+      "qty": 180.0,
+      "unit": "PCS",
+      "unit_price": 3588.0,
+      "amount": 645840.0,
+      "origin": "JP",
+      "hs_code": null,
+      "currency": "JPY",
+      "net_weight": null,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "MEH6L040",
+      "part_no": "PSH-4",
+      "description": "ACCESSORY: SERVICE CHECKER",
+      "qty": 2.0,
+      "unit": "PCS",
+      "unit_price": 17756.0,
+      "amount": 35512.0,
+      "origin": "JP",
+      "hs_code": null,
+      "currency": "JPY",
+      "net_weight": null,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "MEH6L040",
+      "part_no": "PC-ARFG2-T",
+      "description": "ACCESSORY: WIRED REMOTE CONTROLLER",
+      "qty": 240.0,
+      "unit": "PCS",
+      "unit_price": 4590.0,
+      "amount": 1101600.0,
+      "origin": "JP",
+      "hs_code": null,
+      "currency": "JPY",
+      "net_weight": null,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "MEH6L040",
+      "part_no": "RPC-4.0FSR",
+      "description": "MADE IN JAPAN",
+      "qty": 12.0,
+      "unit": "PCS",
+      "unit_price": 61084.0,
+      "amount": 733008.0,
+      "origin": "JP",
+      "hs_code": null,
+      "currency": "JPY",
+      "net_weight": null,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "MEH6L040",
+      "part_no": "RPC-5.0FSR",
+      "description": "RPC-5.0FSR",
+      "qty": 2.0,
+      "unit": "PCS",
+      "unit_price": 61066.0,
+      "amount": 122132.0,
+      "origin": "JP",
+      "hs_code": null,
+      "currency": "JPY",
+      "net_weight": null,
+      "pricing_unit": null
+    },
+    {
+      "invoice_no": "MEH6L040",
+      "part_no": "TRF-NP160U1",
+      "description": "ACCESSORY: RENEWAL KIT",
+      "qty": 10.0,
+      "unit": "PCS",
+      "unit_price": 6407.0,
+      "amount": 64070.0,
+      "origin": "JP",
+      "hs_code": null,
+      "currency": "JPY",
+      "net_weight": null,
+      "pricing_unit": null
+    }
+  ],
+  "meta": {
+    "source_file": "/tmp/meh/20261126_MEH6L040 (TY09,TY32, TY81, TY91, TY98).pdf",
+    "text_backend": "pdftotext -layout",
+    "format_id": "hitachi_gls_v1",
+    "confidence": "conflict",
+    "needs_ocr": false,
+    "needs_gold": false,
+    "notes": "source=combined; pkl_used=yes",
+    "labeled_amount": 2741527.0,
+    "labeled_amount_label": "GRAND TOTAL",
+    "source": "combined",
+    "inv_file": "/tmp/meh/20261126_MEH6L040 (TY09,TY32, TY81, TY91, TY98).pdf",
+    "pkl_file": "/tmp/meh/20261126_MEH6L040 (TY09,TY32, TY81, TY91, TY98).pdf",
+    "pkl_used": true,
+    "bl_file": null,
+    "bl_used": null,
+    "bl_format_id": null,
+    "pair_status": "INV+PKL",
+    "source_kind": "pdf",
+    "needs_gold_fields": null,
+    "packing_units": null,
+    "packing_units_zeroed": null,
+    "checker_verdict": "conflict",
+    "checker_issues": [
+      "sum(item.amount) 2702162.0 != header.amount 2741527.0",
+      "sum(item.amount) 2702162.0 != labeled GRAND TOTAL 2741527.0"
+    ],
+    "checker_details": {
+      "item_line_count": {
+        "want": 6,
+        "got": 6
+      },
+      "total_quantity": {
+        "want": 446.0,
+        "got": 446.0
+      },
+      "amount": {
+        "want": 2741527.0,
+        "got": 2702162.0
+      },
+      "labeled_amount": {
+        "label": "GRAND TOTAL",
+        "want": 2741527.0,
+        "header_amount": 2741527.0,
+        "sum_items": 2702162.0,
+        "item_count": 6
+      }
+    }
+  }
+}
