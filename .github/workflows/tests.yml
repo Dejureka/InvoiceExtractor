@@ -1,0 +1,32 @@
+name: Tests
+
+# Runs every test that does not need the private sample store (real invoices are
+# never in this public repo). Sample tests are deselected by marker here and
+# FAIL locally when the store's manifest says a file should exist.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    env:
+      CI: "true"
+      INVOICE_SAMPLES: /nonexistent-private-samples
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: System packages (pdftotext, Tk, virtual display)
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils python3-tk xvfb
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[gui,dev]"
+      - name: pytest (no private samples)
+        run: xvfb-run -a python -m pytest -q -rs -m "not private_samples"
