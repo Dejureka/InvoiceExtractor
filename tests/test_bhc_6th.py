@@ -23,6 +23,8 @@ import shutil
 
 import pytest
 
+import samples
+
 from invoice_extractor.checker import hard_check
 from invoice_extractor.formats import bhc_vendor_ci_v1, dunan_v1
 from invoice_extractor.formats.bl import (
@@ -489,7 +491,7 @@ def test_hipus_xlsx_twin_cambodia_origin():
 
 # ---------------------------------------------------------------- Auditor round 2 (case8 multi-waybill)
 
-C8_DIR = Path("/home/box/Downloads/BHC-batch-6th/BHC_6th data/case8/run")
+C8_DIR = samples.path("regression/bhc6/case8/run")
 C8_BL = C8_DIR / "20261002094338-0001.pdf"
 
 
@@ -589,7 +591,7 @@ def test_line_run_extends_over_value():
     assert line_run(ws, (100, 10, 145, 18), max_gap=20, max_width=150) == (100, 10, 190, 18)
 
 
-@pytest.mark.skipif(not C8_BL.is_file(), reason="BHC 6th case8 scan not on this machine")
+@pytest.mark.private_samples("regression/bhc6/case8/run")
 @pytest.mark.skipif(not shutil.which("tesseract"), reason="Tesseract OCR unavailable")
 def test_case8_original_3page_scan_end_to_end():
     from invoice_extractor.pairing import auto_pair, extract_pair_row
@@ -767,21 +769,20 @@ def test_merge_sets_row_needs_gold_when_bl_fields_flagged():
     assert out["meta"]["needs_gold"] is True
 
 
-C9_BL = Path("/home/box/Downloads/BHC-batch-6th/BHC_6th data/case9/run/WAYBILL.pdf")
-B4C8_BL = Path("/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 8/WAYBILL.pdf")
+C9_BL = samples.path("regression/bhc6/case9/run/WAYBILL.pdf")
+B4C8_BL = samples.path("regression/bhc4/case 8/WAYBILL.pdf")
 
 
-B4C6_BL = Path("/home/box/Downloads/BHC-batch-4th/BHC_4th data/case 6/BL.pdf")
+B4C6_BL = samples.path("regression/bhc4/case 6/BL.pdf")
 
 
 @pytest.mark.parametrize("path,bl_no,pkg,gw", [
     (B4C8_BL, "260918KEE102", 10.0, 3084.5),
     (B4C6_BL, "260918KEE103", 16.0, 1998.0),
 ])
+@pytest.mark.private_samples("regression/bhc4/case 8/WAYBILL.pdf", "regression/bhc4/case 6/BL.pdf")
 @pytest.mark.skipif(not shutil.which("tesseract"), reason="Tesseract OCR unavailable")
 def test_jif_real_scan_gw_with_cell_reread(path, bl_no, pkg, gw):
-    if not path.is_file():
-        pytest.skip("scan not on this machine")
     from invoice_extractor.bl_rules_engine import extract_bl
 
     d = extract_bl(path).to_dict()
@@ -790,13 +791,12 @@ def test_jif_real_scan_gw_with_cell_reread(path, bl_no, pkg, gw):
     assert not d["meta"].get("needs_gold_fields")
 
 
+@pytest.mark.private_samples("regression/bhc6/case9/run/WAYBILL.pdf")
 @pytest.mark.skipif(not shutil.which("tesseract"), reason="Tesseract OCR unavailable")
 def test_case9_waybill_gw_needs_gold_when_cell_disagrees():
     """Round 4 honest result: page + token read 1,774.5, but the cell re-read
     (box lost the leading ``1,``) reads 774.5 11/12 → sources disagree →
     needs_gold with 1,774.5 kept as the suggestion."""
-    if not C9_BL.is_file():
-        pytest.skip("scan not on this machine")
     from invoice_extractor.bl_rules_engine import extract_bl
 
     d = extract_bl(C9_BL).to_dict()

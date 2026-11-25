@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 from regression_batches import BATCHES, diff_rows, extract_batch, gold_rows, projection
 from validate_result import validate
+from conftest import require_samples
 
 GOLD = Path(__file__).with_name("gold")
 
@@ -21,13 +22,16 @@ HARD_ALLOWLIST: dict = {
 }
 
 
+pytestmark = pytest.mark.private_samples()
+
+
 @pytest.fixture(scope="module", params=BATCHES)
 def batch_run(request):
     batch = request.param
-    try:
-        rows, _, failures = extract_batch(batch, text_only=True)
-    except FileNotFoundError as exc:
-        pytest.skip(f"Batch source unavailable: {exc}")
+    if batch != "maak":  # maak reads repo fixtures; the rest need the private store
+        # Fails locally when the manifest's files are missing; skips only in CI.
+        require_samples(f"regression/{batch}")
+    rows, _, failures = extract_batch(batch, text_only=True)
     assert not failures, failures
     return batch, gold_rows(rows)
 

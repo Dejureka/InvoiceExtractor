@@ -20,21 +20,49 @@ from invoice_extractor.pairing import (
     PairRow, STATUS_INV_ONLY, auto_pair, dedupe_shared_packing_units, extract_pair_row,
 )
 from invoice_extractor.text_layer import extract_layout_text, text_layer_looks_unreliable
+import samples
 from validate_result import (
     LINE_FIELDS, SUMMARY_FIELDS, is_bl_only, markdown_table, validate,
 )
 
-DOWNLOADS = Path("/home/box/Downloads")
-BATCHES = {
-    "ma3": (DOWNLOADS / "MA-batch-final/MA_3rd data/3rd data", "*/*", "ma_3rd"),
-    "pt4": (DOWNLOADS / "PT-batch-4th/4th data", "", "pt_4th"),
-    "bhc4": (DOWNLOADS / "BHC-batch-4th/BHC_4th data", "case *", "bhc_4th"),
-    "bhc5": (DOWNLOADS / "BHC-batch-5th/BHC_5th data", "case *", "bhc_5th"),
-    "bhc6": (DOWNLOADS / "BHC-batch-6th/BHC_6th data", "case*/run", "bhc_6th"),
-    "ebike1": (Path("/workspace/ebike_1st"), "", "ebike_1st_r2"),
-    "soe2": (DOWNLOADS / "SOE-batch-2nd/extracted", "*", "soe_2nd"),
-    "maak": (ROOT / "fixtures", "ma_ak_AK0007409*_layout.txt", "ma_ak_74096_shipment"),
+# Inputs live in the private sample store (tools/samples.py), never in git.
+# (folder under regression/, glob for case folders, reviewed snapshot folder)
+_BATCH_LAYOUT = {
+    "ma3": ("*/*", "ma_3rd"),
+    "pt4": ("", "pt_4th"),
+    "bhc4": ("case *", "bhc_4th"),
+    "bhc5": ("case *", "bhc_5th"),
+    "bhc6": ("case*/run", "bhc_6th"),
+    "ebike1": ("", "ebike_1st_r2"),
+    "soe2": ("*", "soe_2nd"),
 }
+BATCHES = {
+    batch: (samples.path(f"regression/{batch}"), pattern, snap)
+    for batch, (pattern, snap) in _BATCH_LAYOUT.items()
+}
+BATCHES["maak"] = (ROOT / "fixtures", "ma_ak_AK0007409*_layout.txt", "ma_ak_74096_shipment")
+# Where the reviewed snapshots in docs/review_shots/ say the inputs were when
+# they were audited; rebased onto the sample store when comparing paths.
+LEGACY_ROOTS = {
+    "ma3": "/home/box/Downloads/MA-batch-final/MA_3rd data/3rd data",
+    "pt4": "/home/box/Downloads/PT-batch-4th/4th data",
+    "bhc4": "/home/box/Downloads/BHC-batch-4th/BHC_4th data",
+    "bhc5": "/home/box/Downloads/BHC-batch-5th/BHC_5th data",
+    "bhc6": "/home/box/Downloads/BHC-batch-6th/BHC_6th data",
+    "ebike1": "/workspace/ebike_1st",
+    "soe2": "/home/box/Downloads/SOE-batch-2nd/extracted",
+}
+
+
+def rebase(batch, value):
+    """Map a snapshot's audited absolute path onto the sample store copy."""
+    text = str(value).replace("\\", "/")
+    old = LEGACY_ROOTS.get(batch)
+    if old and (text == old or text.startswith(old + "/")):
+        return BATCHES[batch][0] / text[len(old):].lstrip("/")
+    return Path(text)
+
+
 BL_FIELDS = {"bl_no", "bl_packages", "bl_gross_weight_kg"}
 
 
@@ -51,6 +79,10 @@ def reviewed(batch):
 def extract_batch(batch, *, text_only=None):
     """Return extracts and a ledger of skipped inputs and extraction failures."""
     root, pattern, _ = BATCHES[batch]
+    if batch != "maak":
+        problems = samples.check_batch(batch)  # raises SamplesUnavailable without a manifest
+        if problems:
+            raise samples.SamplesUnavailable(f"{batch}: " + "; ".join(problems[:5]))
     if not root.is_dir():
         raise FileNotFoundError(root)
     groups = sorted(root.glob(pattern)) if pattern else [root]
@@ -72,7 +104,7 @@ def extract_batch(batch, *, text_only=None):
 
     snapshots = reviewed(batch)
     ocr_sources = {
-        Path(d["meta"]["source_file"]).resolve()
+        rebase(batch, d["meta"]["source_file"]).resolve()
         for d in snapshots
         if d.get("meta", {}).get("source_file") and is_ocr_backend(d["meta"].get("text_backend"))
         and Path(d["meta"]["source_file"]).is_absolute()
@@ -86,7 +118,7 @@ def extract_batch(batch, *, text_only=None):
         for d in snapshots if d["header"].get("invoice_no")
     }
     ma_bills = {
-        Path(d["meta"]["source_file"]).parent: Path(d["meta"]["source_file"])
+        rebase(batch, d["meta"]["source_file"]).parent: rebase(batch, d["meta"]["source_file"])
         for d in snapshots if batch == "ma3" and not d["header"].get("invoice_no")
     }
     # Audit snapshots often contain OCR BL results separately. For BHC 4th,
@@ -139,7 +171,7 @@ def extract_batch(batch, *, text_only=None):
                 old_bl = old["meta"].get("bl_file") if old is not None else None
                 omitted_bl = pair.bl_path if requires_ocr(pair.bl_path) else None
                 if omitted_bl is None and not pair.bl_path and old_bl:
-                    old_path = Path(old_bl)
+                    old_path = rebase(batch, old_bl)
                     if old_path.is_file() and requires_ocr(old_path):
                         omitted_bl = old_path
                 if omitted_bl:
@@ -261,7 +293,7 @@ def write_json(path, data):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--baseline", type=Path, default=Path("out/regress/baseline"))
+    parser.add_argument("--baseline", type=Path, default=samples.path("regress-baseline"))
     parser.add_argument("--save-baseline", action="store_true")
     parser.add_argument("--batches", help="Comma-separated: " + ",".join(BATCHES))
     parser.add_argument("--report", type=Path, default=Path("out/regress/report.md"))
@@ -274,9 +306,12 @@ def main(argv=None):
     for batch in batches:
         try:
             rows, skipped, failures = extract_batch(batch)
-        except FileNotFoundError as exc:
+        except (FileNotFoundError, samples.SamplesUnavailable) as exc:
+            # Missing inputs are a failure, never a silent pass.
             statuses.append((batch, 0, 0, 0, 0, 0, "missing sources"))
             details.append((batch, "missing", str(exc)))
+            print(f"{batch}: MISSING SOURCES — {exc}", flush=True)
+            failed = True
             continue
         details.extend((batch, "OCR skip", value) for value in skipped)
         details.extend((batch, "extraction failure", value) for value in failures)

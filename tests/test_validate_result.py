@@ -6,6 +6,9 @@ import sys
 from openpyxl import load_workbook
 import pytest
 
+import samples
+from conftest import require_samples
+
 from invoice_extractor.export import write_xlsx_many
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -196,12 +199,11 @@ def test_frozen_prefix():
     assert not findings(by_invoice["2120411708"], "H_HS_MISSING")
 
 
+@pytest.mark.private_samples()
 def test_local_prefix():
-    path = ROOT / "out/prefix_repro"
+    path, = require_samples("unit/prefix_repro")
     ma_path = path / "ma_hs/0011263371_2000263342_RBTW_20260115.json"
     pt_path = path / "pt_round3"
-    if not ma_path.is_file() or not pt_path.is_dir():
-        pytest.skip("Original pre-fix artifacts unavailable")
     check_prefix(read_extracts(ma_path)[0], read_extracts(pt_path))
     workbook = ma_path.with_suffix(".xlsx")
     if workbook.is_file():
@@ -209,10 +211,9 @@ def test_local_prefix():
         assert [f.row for f in report.findings if f.rule_id == "H_HS_MISSING"] == ["Lines!3", "Lines!6"]
 
 
+@pytest.mark.private_samples()
 def test_local_pt4_prefix():
-    path = Path("/workspace/pt4audit/snap_672f427.json")
-    if not path.is_file():
-        pytest.skip("PT 4th pre-fix snapshot unavailable")
+    path, = require_samples("unit/pt4audit/snap_672f427.json")
     assert len([f for f in findings(path, "H_HDR_MISSING")
                 if f.status == "hard" and f.field == "total_pkg"]) == 13
 

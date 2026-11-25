@@ -7,6 +7,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+import samples
+from conftest import require_samples
+
 from invoice_extractor.ocr import (
     OCR_OUTPUT_SUFFIX,
     default_ocr_out_dir,
@@ -16,7 +19,7 @@ from invoice_extractor.ocr import (
     tesseract_available,
 )
 
-CASE7_INV = Path("/workspace/bhc_cases_round/bhc/case7/invoice309.pdf")
+CASE7_INV = samples.path("unit/bhc_cases_round/case7/invoice309.pdf")
 
 
 def test_ocr_output_name():
@@ -100,7 +103,7 @@ def test_pdf_to_searchable_pdf_mocked(tmp_path):
                         merge.assert_called_once()
 
 
-@pytest.mark.skipif(not CASE7_INV.is_file(), reason="case7 invoice309.pdf missing")
+@pytest.mark.private_samples("unit/bhc_cases_round/case7/invoice309.pdf")
 @pytest.mark.skipif(not tesseract_available(), reason="tesseract not installed")
 def test_searchable_pdf_smoke_one_page(tmp_path):
     """Live smoke: one scan page → searchable PDF with extractable text."""
