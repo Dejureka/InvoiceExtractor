@@ -12,10 +12,10 @@ Each entry: value, then the formats that use it, then what it bounds.
 from __future__ import annotations
 
 # --- MA (ma_common / ma_no_period / ma_with_period / ma_ak_billing) ---------
-MA_HS_LINES_AFTER_ITEM = 55     # ma_no_period, ma_with_period: lines after an item row to find its HS CODE (also stops at next item)
+MA_HS_LINES_AFTER_ITEM = 400    # ma_no_period, ma_with_period: HS CODE after an item row. The boundary is the next item row; this is only a runaway cap (was 55; an item across a page needed 48)
 MA_AK_GROSS_LINES_AFTER_HU = 25  # ma_ak_billing: lines after an HU id to find its Gross
-MA_AK_LINES_AFTER_ITEM = 45     # ma_ak_billing: lines after an item for desc / HS / origin (stops at next item / Marking)
-MA_WP_COO_INDEX_CHARS = 5000    # ma_with_period: max length of the "Country of origin Index" table
+MA_AK_LINES_AFTER_ITEM = 400    # ma_ak_billing: desc / HS / origin after an item. The boundary is the next item / Marking; this is only a runaway cap (was 45; AK00067724 needed 38)
+MA_WP_COO_INDEX_CHARS = 50000   # ma_with_period: "Country of origin Index" table. The boundary is the next "Country of origin"; this is only a runaway cap (was 5000; 2904 needed and growing with item count)
 MA_NP_COO_BLOCK_CHARS = 5000    # ma_no_period: COO index block when no end marker is found
 
 # --- eBike / PT ---------------------------------------------------------------
