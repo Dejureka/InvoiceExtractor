@@ -140,6 +140,9 @@ def text_layer_looks_thin(text: str) -> bool:
     return chars / n_pages < THIN_LAYER_CHARS_PER_PAGE
 
 
+_DOC_TOKEN = r"\b(?:[A-Z]{2,6}\d{5,12}|\d{8,12})\b"
+
+
 def ocr_text_looks_more_reliable(layer: str, ocr: str) -> bool:
     """Prefer OCR when it recovers packing/invoice anchors the layer lacks,
     or when the layer is garbage-heavy while OCR is mostly printable."""
@@ -155,8 +158,10 @@ def ocr_text_looks_more_reliable(layer: str, ocr: str) -> bool:
     layer_has_pallet_total = bool(re.search(r"\d+\s*PALLETS?", layer or "", re.I))
     if ocr_has_pallet_total and not layer_has_pallet_total:
         # and OCR shares an invoice token with the layer header (same doc) or layer is thin
-        invs_ocr = set(re.findall(r"\b(USDI\d+|VKT\d+|9027\d{6}|OK\d{8})\b", ocr, re.I))
-        invs_layer = set(re.findall(r"\b(USDI\d+|VKT\d+|9027\d{6}|OK\d{8})\b", layer or "", re.I))
+        # Document-number-shaped tokens (8–12 digits, or 2–6 letters + 5–12
+        # digits), not a list of vendor prefixes.
+        invs_ocr = set(re.findall(_DOC_TOKEN, ocr, re.I))
+        invs_layer = set(re.findall(_DOC_TOKEN, layer or "", re.I))
         if invs_ocr and (invs_ocr & invs_layer or not invs_layer):
             return True
     return False
