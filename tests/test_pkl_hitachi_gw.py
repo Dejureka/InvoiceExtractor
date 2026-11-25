@@ -1,6 +1,8 @@
 """Generic PKL "(TOTAL: N PALLETS" branch reads GW from the weight columns, never a case value."""
 from __future__ import annotations
 
+import pytest
+
 from invoice_extractor.pairing import parse_packing_pkg_gw
 
 HEAD = "PACKING LIST\nSETS KGS. CLM.\n"
@@ -24,3 +26,15 @@ def test_item_rows_are_summed():
 def test_no_weight_row_means_no_guess():
     t = HEAD + "weights 977.50 and 1,174.00 somewhere\n(TOTAL: 2 PALLETS ONLY)\n"
     assert parse_packing_pkg_gw(t) == (2.0, None)
+
+
+OCR_TEXT = "unit/ocr_text/bhc3_case8_PACKING_LIST_BOSCH.tesseract5.txt"
+
+
+@pytest.mark.private_samples(OCR_TEXT)
+def test_real_hitachi_pkl_ocr_text():
+    """Tesseract 5.5 text of BHC 3rd case8 PACKING LIST (BOSCH).pdf: 2 pallets, G.W. 1,174.00."""
+    import samples
+
+    text = samples.path(OCR_TEXT).read_text(encoding="utf-8")
+    assert parse_packing_pkg_gw(text) == (2.0, 1174.0)
