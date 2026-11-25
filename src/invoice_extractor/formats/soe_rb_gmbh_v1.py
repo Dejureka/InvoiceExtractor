@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor import windows
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -307,7 +308,7 @@ def _packages(text: str) -> float | None:
         return float(n_blocks)
     # Cargo-list / transport OCR last resort: "1267620500 N Pallets …"
     m = re.search(
-        r"\d{7,12}\s+(?P<n>\d+)\s+Pallets?\b.{0,40}?([\d,.]+)",
+        rf"\d{{7,12}}\s+(?P<n>\d+)\s+Pallets?\b.{{0,{windows.SOE_PALLETS_GAP_CHARS}}}?([\d,.]+)",
         text,
         re.I,
     )
@@ -351,7 +352,7 @@ def _parse_items(
             continue
         seen.add(key)
         # Look ahead ~400 chars for desc / origin / HS
-        window = text[m.end() : m.end() + 450]
+        window = text[m.end() : m.end() + windows.SOE_ITEM_WINDOW_CHARS]
         desc = None
         unit = "PC"
         price_unit = 100.0

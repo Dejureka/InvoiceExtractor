@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor import windows
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -182,7 +183,7 @@ def _parse_items(text: str, invoice_no: str | None, currency: str | None) -> lis
         hs = None
         origin = None
         nw = None
-        for j in range(i + 1, min(i + 45, len(lines))):
+        for j in range(i + 1, min(i + windows.EBIKE_LINES_AFTER_ITEM, len(lines))):
             ln = lines[j]
             if _ITEM.match(ln):
                 break

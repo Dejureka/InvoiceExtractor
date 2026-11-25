@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor import windows
 from invoice_extractor.schema import (
     ExtractResult,
     Header,
@@ -196,7 +197,7 @@ def _parse_items(
         hs = None
         desc = None
         # Look ahead past page headers (Origin/desc may land on next page)
-        for j in range(i + 1, min(i + 45, len(lines))):
+        for j in range(i + 1, min(i + windows.PT_H3_LINES_AFTER_ITEM, len(lines))):
             if _MAT.search(lines[j]):
                 break
             om = _ORIGIN_HS.search(lines[j])

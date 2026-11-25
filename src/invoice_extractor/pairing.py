@@ -12,6 +12,7 @@ from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any, Iterable, Literal, Optional
 
+from invoice_extractor import windows
 from invoice_extractor.fallback import collecting, fallback, record
 from invoice_extractor.formats.ma_common import parse_rb_packages
 from invoice_extractor.schema import ExtractResult, Header, Meta, eu_float, us_float
@@ -839,11 +840,11 @@ def parse_packing_pkg_gw(text: str) -> tuple[float | None, float | None]:
         return pkg_h, gw_h
 
     # "TOTAL … N PALLETS" / "Total N PALLETS"
-    m = re.search(r"(?i)TOTAL[^\n]{0,20}?(\d+)\s*PALLETS?", text)
+    m = re.search(rf"(?i)TOTAL[^\n]{{0,{windows.PKL_TOTAL_PALLETS_GAP}}}?(\d+)\s*PALLETS?", text)
     if m:
         pkg_h = float(m.group(1))
         gw_m = re.search(
-            r"(?:Gross\s*(?:weight|wt\.?)|G\.W\.?)[^\n]{0,20}?([\d,]+\.\d{2})",
+            rf"(?:Gross\s*(?:weight|wt\.?)|G\.W\.?)[^\n]{{0,{windows.PKL_GW_LABEL_GAP}}}?([\d,]+\.\d{{2}})",
             text,
             re.I,
         )

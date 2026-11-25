@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor import windows
 from invoice_extractor.formats.ma_common import find_hs_after_item, parse_rb_packages, parse_rb_units
 from invoice_extractor.schema import (
     ExtractResult,
@@ -153,7 +154,7 @@ def _parse_coo_index(text: str) -> dict[str, str]:
     for m in _COO_INDEX_HDR.finditer(text):
         rest = text[m.end() :]
         end_m = _COO_BLOCK_END.search(rest)
-        block = rest[: end_m.start()] if end_m else rest[:5000]
+        block = rest[: end_m.start()] if end_m else rest[: windows.MA_NP_COO_BLOCK_CHARS]
         for cm in _COO_ENTRY.finditer(block):
             country = cm.group("country").strip()
             idx = cm.group("idx")

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import re
 
+from invoice_extractor import windows
 from invoice_extractor.formats.ma_common import find_hs_after_item, parse_rb_packages, parse_rb_units
 from invoice_extractor.schema import (
     ExtractResult,
@@ -142,7 +143,7 @@ def _incoterm(text: str) -> str | None:
 def _parse_coo_index(text: str) -> dict[str, str]:
     out: dict[str, str] = {}
     m = re.search(
-        r"Country of origin\s+Index([\s\S]{0,5000}?)Country of origin\b",
+        rf"Country of origin\s+Index([\s\S]{{0,{windows.MA_WP_COO_INDEX_CHARS}}}?)Country of origin\b",
         text,
         re.I,
     )
